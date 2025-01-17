@@ -1,0 +1,22 @@
+@startuml dcu
+/'ACTORS'/
+actor eleve
+actor administratif
+actor professeur
+actor cantine
+actor parent
+
+/'USECASES'/
+usecase (envois du courrier)
+usecase (recois du courrier)
+usecase (accede a ses cours)
+usecase (donne des cours)
+usecase (participe a des sondages)
+usecase (propose des sondage)
+usecase (se renseigne sur son enfant)
+usecase (se connecter)
+usecase (voir son emploi du temps)
+usecase (proposer des exercice)
+usecase (repondre a des exercice)
+
+@enduml

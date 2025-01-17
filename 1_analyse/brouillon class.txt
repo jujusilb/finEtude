@@ -1,0 +1,7 @@
+class Utilisateur
+class Admin extends Utilisateur
+class Eleve extends Utilisateur
+class Professeur extends Utilisateur
+class Cantine extends Utilisateur
+class Parent extends Utilisateur
+class Administratif extends Utilisateur

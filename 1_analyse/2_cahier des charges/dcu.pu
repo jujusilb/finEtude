@@ -1,0 +1,188 @@
+
+@startuml dcu
+/'acteurs'/
+actor élève
+actor visiteur
+actor professeurs
+actor secretariat
+actor cuisine
+actor parent
+actor admin
+actor membre
+actor personnel
+actor adulte
+actor documentaliste
+
+membre <|-- adulte 
+adulte <|-- personnel
+personnel <|-- professeur
+personnel <|-- secretariat
+personnel <|-- cuisine
+personnel <|-- documentaliste
+membre <|-- élève
+adulte <|-- parent
+adulte <|-- admin
+/'usecase'/
+
+/'compte'/
+(Inscription)
+(Connexion)
+
+/'profil'/
+(Modification des information)
+(Demande de modification)
+(Validation de modification)
+(Suppression du compte)
+(Modification mot de passe)
+(Changement photo de profil)
+
+/'emploi du temps'/
+(consulter EDT)
+(mettre en ligne EDT)
+
+/'matières'/
+(lister les matieres)
+(proposer des exercices)
+(mettre les cours a disposition)
+(faire les exercices proposer)
+(lire les cours)
+(donner les corrections)
+(annoncer des examens)
+
+/'annuaire'/
+(consulter annuaire)
+(rechercher personne)
+(rechercher service)
+
+/'Forum'/
+(creer un sujet)
+(creer une section)
+(repondre a un sujet)
+(modifier un post)
+(demande de suppression de post)
+(lecture d'une demande de suppression)
+(validation de suppression de post)
+(citer un post)
+
+/'centre de documentation'/
+(Ajouter ouvrage)
+(rechercher un ouvrage)
+(demander ajout ouvrage)
+(demander emprunt ouvrage)
+(enregistrer emprunt ouvrage)
+(enregistrer retour ouvrage)
+(donner avis ouvrage)
+
+/'messagerie'/
+(lire message)
+(rechercher messages)
+(ecrire messages)
+(supprimer messages)
+(enregistrer contact)
+(rechercher contact)
+(supprimer contact)
+
+/'plan de l'etablissement'/
+(consulter plan)
+(rechercher services)
+
+/'cantine'/
+(ajouter menus)
+(consulter menus)
+(rechercher menus)
+(commander jeton)
+(s'inscrire a un repas)
+(gérer les inscription)
+(proposer sondages)
+(repondre a un sondage)
+(donner son avis sur un repas)
+
+/'secretariat'/
+(Publier annonce)
+(consulter annonce)
+(vendre)
+(payer)
+(consulter historique de paiement)
+(envoyer des documents)
+(recevoir documents)
+(gérer dossier élèves)
+
+/'accueil'/
+
+
+
+Admin - (Inscription)
+visiteur - (Connexion)
+
+adulte - (Modification des information) 
+élève - (Demande de modification)
+secretariat - (Validation de modification)
+admin - (Suppression du compte)
+membre - (Modification mot de passe)
+adulte - (Changement photo de profil)
+
+membre - (consulter EDT)
+secretariat - (mettre en ligne EDT)
+
+professeur - (proposer des exercices)
+professeur - (mettre les cours a disposition)
+élève - (faire les exercices proposer)
+membre - (lire les cours)
+professeur - (donner les corrections)
+professeur - (annoncer des examens)
+
+
+membre - (consulter annuaire)
+membre - (rechercher personne)
+membre - (rechercher service)
+
+membre - (creer un sujet)
+membre - (creer une section)
+membre - (repondre a un sujet)
+adulte - (modifier un post)
+élève - (demande de modification/suppression de post)
+secretariat - (lecture d'une demande de modification/suppression)
+admin - (validation de modification/suppression de post)
+membre - (citer un post)
+
+documentaliste - (Ajouter ouvrage)
+membre - (rechercher un ouvrage)
+membre - (demander ajout ouvrage)
+membre - (demander emprunt ouvrage)
+documentaliste - (enregistrer emprunt ouvrage)
+documentaliste - (enregistrer retour ouvrage)
+membre - (donner avis ouvrage)
+
+
+membre - (lire message)
+membre - (rechercher messages)
+membre - (ecrire messages)
+membre - (supprimer messages)
+membre - (enregistrer contact)
+membre - (rechercher contact)
+membre - (supprimer contact)
+
+membre - (consulter plan)
+membre - (rechercher services)
+
+cuisine - (ajouter menus)
+membre - (consulter menus)
+(membre - rechercher menus)
+membre - (commander jeton)
+membre - (s'inscrire a un repas)
+cuisine - (gérer les inscription)
+cuisine - (proposer sondages)
+membre - (repondre a un sondage)
+membre - (donner son avis sur un repas)
+
+secretariat - (Publier annonce)
+membre - (consulter annonce)
+secretariat - (vendre)
+membre - (payer)
+membre - (consulter historique de paiement)
+membre - (envoyer document)
+secretaria - (recevoir document)
+secretariat - (gérer dossier élève)
+
+
+@enduml

@@ -1,0 +1,218 @@
+@startuml class
+abstract Membre{
+    #nom :string
+    #prenom :string
+    #mail :string
+    #photoProfil :string
+
+    +getNom():string
+    +setNom(string)
+    +getPrenom() :string
+    +setPrenom(string)
+    +getMail() :string
+    +setMail(string)
+    +getPhotoProfil() :string
+    +setPhotoProfil(string)
+
+    +publierMessage()
+    +envoyerDocument()
+    +payer()
+    +consulterPaiement()
+    consulterCatalogue()
+    inscriptionRepas()
+}
+
+abstract Adulte extends Membre{
+    modifierInformations()
+    +changerPhotoProfil()
+}
+
+abstract Personnel extends Adulte{
+    #dateEmbauche :date
+    #contactPoste :string /'telephone du bureau'/
+
+    +getDateEmbauche() :date
+    +setDateEmbauche(date)
+    +getContactPost() :string
+    +setContactPoste(string)
+
+}
+
+class Professeur extends Personnel{
+    #matiere :string
+    #promotion :Promotion[]
+
+    +getMatiere() :string
+    +setMatiere(string)
+    +getPromotion() :Promotion[]
+    +setPromotion(Promotion[])
+
+    envoyerCours()
+    proproserExercice()
+    envoyerCorrection()
+}
+
+
+class Cuisine extends Personnel{
+    gererInscription()
+    ajoutererMenu()
+    poposerSondage()
+    traiterSondage()
+}
+
+
+class Secretariat extends Personnel{
+    +recevoirDocument()
+    +vendre()
+    +gererDossierEleve()
+    +publierAnnonce()
+    +demanderDocument()
+    +accepterModificationProfil()
+}
+
+class Documentaliste extends Personnel{
+    +enregistrerEmpruntOuvrage()
+    +enregistrerRetourOuvrage()
+    +ajouterOuvrage()
+    recevoirdemandeAjout()
+}
+
+class Ouvrage {
+    -nomOuvrage :string
+    -statut :string
+
+    +getNomOuvrage() :string
+    +setNomOuvrage(string)
+    +getStatut() :string
+    +setStatut(string)
+}
+
+class Admin extends Membre{
+    +inscrireMembre()
+    +supprimerMembre()
+    consulterDemandeEditionPost()
+    accepterModificationPost()
+}
+
+
+class ParentEleve extends Adulte{
+    #eleve :Eleve[]
+
+    +getEleve() :Eleve[]
+    +setEleve(Eleve[])
+}
+
+class Eleve extends Membre{
+    -promotion :Promotion
+    -listMatiere :Matiere[]
+
+    +getPromotion() :string
+    +setPromotion(Promotion)
+    +getListMatiere() :Matiere[]
+    +setListMatiere(Matiere[])
+    
+    faireExercice()
+    inscriptionActivite()
+    demanderEditionPost()
+}
+
+class Matiere {
+    -libelleMatiere :string
+    -listProfesseur :Professeur[]
+
+    +getLibelleMatiere() :string
+    +setLibelleMatiere(string)
+    +getListProfesseur() :Professeur[]
+    +setListProfesseur(Professeur[])
+}
+
+class Referent extends Professeur{
+    -Promotion :Promotion
+
+    +getPromotion() :Promotion
+    +setPromotion(Promotion)
+
+}
+
+class Promotion{
+    #listEleve :Eleve[]
+    #profPrinc :Professeur
+    #niveau : string
+
+    +getListEleve() :Eleve[]
+    +setListEleve(Eleve[])
+    +getProfesseur() :Professeur
+    +setProfesseur(Professeur)
+    +getNiveau() :string
+    +setNiveau(string)
+}
+class Emprunt{
+    -ouvrage :Ouvrages
+    -membre :Membre
+    -dateEmprunt :date
+    -statutEmprunt :string
+
+    +getOuvrage() :Ouvrages
+    +setOuvrages(Ouvrages)
+    +getMembre() :Membre
+    +setMembre(Membre)
+    +getDateEmprunt :date
+    +setDateEmprunt(date)
+    +getStatutEmprunt() :string
+
+    +setStatutEmprunt(string)
+}
+
+class exercice {
+	#date :date
+	#professeur :professeur
+	#promotion :promotion
+	#matiere :matiere
+
+	+getDate():date
+	+setDate(date)
+	+getProfesseur():Professeur
+	+setProfesseur(Professeur)
+	+getPromotion():Promotion
+	+setProfesseur(Professeur)
+	+getPromotion() :Promotion
+	+setPromotion(Promotion)
+}
+class RemplirExo{
+    #date :date
+    #eleve :Eleve
+    #exercice :Exercice
+    #note :float
+
+    +getDate():date
+    +setDate(date)
+    +getEleve():Eleve
+    +setEleve(Eleve)
+    +getExercice(Exercice)
+    +setExercice(Exercice)
+    +getNote() :float
+    +setNote(float)
+}
+
+class proviseur extend secretaria{
+}
+
+class surveillant extend personnel {
+}
+
+Exercice "0..*" -- "1..1" RemplirExo
+Eleve "0..1" -- "1..1" RemplirExo
+/'Exercice "1..*" -- "1..*" Eleve :travailller'/
+Exercice "0..*" -- "1..1" Professeur :proposer
+Eleve "1..1" -- "1..*" Promotion :appartient
+Promotion "1..*" -- "1..*" Professeur :est affecté
+Eleve "1..*" - "1..*" Matiere :apprendre
+Professeur "1..*" -left- "1..*" Matiere :enseigne
+Referent "1..1" -- "1..1" Promotion :représenter
+/'Membre "0..1" -- "1..3" Ouvrages :emprunter'/
+Ouvrage "0..1" -- "1..1" Emprunt
+Membre "0..*" -- "0..*" Emprunt
+ParentEleve "1..1" -- "1..*" Eleve
+@enduml
+
+exercice   remplirexo eleve
