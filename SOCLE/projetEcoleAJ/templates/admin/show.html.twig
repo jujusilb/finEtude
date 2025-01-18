@@ -1,0 +1,47 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Siege
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Siege</h5>
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ siege.id }}</td>
+				</tr>
+				<tr>
+					<th>Capital</th>
+					<td>{{ siege.capital }}</td>
+				</tr>
+				<tr>
+					<th>Nom</th>
+					<td>{{ siege.nom }}</td>
+				</tr>
+				<tr>
+					<th>Adresse</th>
+					<td>{{ siege.adresse }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<a href="{{ path('siege_index') }}" class="btn btn-secondary">Liste de sieges</a>
+
+		<a href="{{ path('siege_edition', {'id': siege.id}) }}" class="btn btn-secondary">Modifier</a>
+
+		{{ include('siege/_delete_form.html.twig') }}
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+{% endblock %}
