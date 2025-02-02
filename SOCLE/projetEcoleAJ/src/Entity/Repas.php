@@ -31,6 +31,9 @@ class Repas
     #[ORM\Column(length: 255)]
     private ?string $heure = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $dateAchat = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,7 +56,7 @@ class Repas
         return $this->membre;
     }
 
-    public function setMembreb(?Membre $membre): static
+    public function setMembre(?Membre $membre): static
     {
         $this->membre = $membre;
 
@@ -92,6 +95,18 @@ class Repas
     public function setHeure(string $heure): static
     {
         $this->heure = $heure;
+
+        return $this;
+    }
+
+    public function getDateAchat(): ?\DateTimeInterface
+    {
+        return $this->dateAchat;
+    }
+
+    public function setDateAchat(\DateTimeInterface $dateAchat): static
+    {
+        $this->dateAchat = $dateAchat;
 
         return $this;
     }

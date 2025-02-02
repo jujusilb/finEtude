@@ -17,12 +17,37 @@
 					<td>{{ repas.id }}</td>
 				</tr>
 				<tr>
-					<th>Libelle</th>
-					<td>{{ repas.titre }}</td>
+					<th>date d'Achat</th>
+					<td>{{ repas.dateAchat | date('d/m/Y') }}</td>
 				</tr>
 				<tr>
-					<th>Categorie</th>
-					<td>{{ repas.categorie }}</td>
+					<th>date</th>
+					<td>{{ repas.date | date(' d/m/Y ')  }} {{ repas.heure }}</td>
+				</tr>
+				<tr>
+					<th>Menu</th>
+					<td><table class="table">
+							<tr>
+								<th>Entrée</th>
+								<th>Plat</th>
+								<th>Fromage</th>
+								<th>Desser</th>
+							</tr>
+							<tr>
+								<td>{{ repas.menu.entree.libelle }}</td>
+								<td>{{ repas.menu.plat.viande.libelle }} - {{ repas.menu.plat.legume.libelle }}</td>
+								<td>{{ repas.menu.fromage.libelle }}</td>
+								<td>{{ repas.menu.dessert.libelle }}</td>
+							</tr>
+						</table>
+				</tr>
+				<tr>
+					<th>Membre</th>
+					<td>{{ repas.membre.prenom }} {{ repas.membre.nom }}</td>
+				</tr>
+								<tr>
+					<th>Prix</th>
+					<td>{{ repas.prix }}€</td>
 				</tr>
 			</tr>
 			</tbody>

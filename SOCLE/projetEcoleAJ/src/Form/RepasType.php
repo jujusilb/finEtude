@@ -9,21 +9,38 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 
 class RepasType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('prix')
-            ->add('menu', EntityType::class, [
-                'class' => Menu::class,
-'choice_label' => 'id',
-            ])
+           
             ->add('membre', EntityType::class, [
                 'class' => Membre::class,
-'choice_label' => 'id',
+                'choice_label' => function(Membre $membre){
+                    return $membre->getPrenom().
+                    ' '.
+                    $membre->getNom();
+                },
             ])
+            ->add('date', DateType::class, [
+                'widget' => 'single_text'
+            ])
+            ->add('heure', ChoiceType::class, [
+                'choices' => [
+                'Midi' => 'Midi',
+                'Soir' => 'Soir',
+                ]
+            ])
+            ->add('menu', EntityType::class, [
+                'class' => Menu::class,
+                'choice_label' => 'id',
+            ])
+            ->add('prix', MoneyType::class)
         ;
     }
 
