@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Message;
+use App\Repository\MessageRepository;
+use App\Form\MessageType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\EntityManagerInterface;
+
+#[Route('/message', name: 'message_')]
+class MessageController extends AbstractController
+{
+    #[Route('/index', name: 'index')]
+    public function index(MessageRepository $messageRepo): Response
+    {
+        return $this->render('message/index.html.twig', [
+            'controller_name' => 'MessageController',
+            'messages' =>$messageRepo->findAll()
+        ]);
+    }
+
+    
+    #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
+    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $message = new Message();
+        $form = $this->createForm(MessageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($message);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('message/new.html.twig', [
+            'message' => $message,
+            'messageForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    public function show(Message $message): Response
+    {
+        return $this->render('message/show.html.twig', [
+            'message' => $message,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Message $message, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(messageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('message/edit.html.twig', [
+            'message' => $message,
+            'messageForm' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    public function delete(Request $request, Message $message, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $message->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($message);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
+    }
+}

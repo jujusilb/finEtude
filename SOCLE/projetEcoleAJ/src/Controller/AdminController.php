@@ -36,6 +36,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $admin->setRoles(["ROLE_ADMIN"]);
             $entityManager->persist($admin);
             $entityManager->flush();
 

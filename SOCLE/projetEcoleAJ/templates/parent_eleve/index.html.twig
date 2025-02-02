@@ -1,20 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ParentEleveController!{% endblock %}
+{% block title %}Hello parentEleveController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>I:/Tertiaire/Stagiaires/DA2/Partage/AristideJulien2/projetEcoleAJ/SOCLE/projetEcoleAJ/src/Controller/ParentEleveController.php</code></li>
-        <li>Your template at <code>I:/Tertiaire/Stagiaires/DA2/Partage/AristideJulien2/projetEcoleAJ/SOCLE/projetEcoleAJ/templates/parent_eleve/index.html.twig</code></li>
-    </ul>
-</div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>photo</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>E-mail</th>
+                <th>password</th>
+                <th>role</th>
+                <th>Eleve</th>
+                <th>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for parentEleve in parentEleves %}
+                <tr>
+                    <td>{{parentEleve.id}}</td>
+                    <td>
+                        <img src="{{ vich_uploader_asset(parentEleve, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                    </td>
+                    <td>{{ parentEleve.nom }}</td>
+                    <td>{{ parentEleve.prenom }}</td>
+                    <td>{{ parentEleve.email }}</td>
+                    <td>{{ parentEleve.password }}</td>
+                    <td>
+                        {% for role in parentEleve.roles %}
+                            {{ role }}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for eleve in parentEleve.eleves %}
+                           <li>{{ eleve.nom }}</li>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ path('parentEleve_affichage', {'id': parentEleve.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('parentEleve_edition', {'id': parentEleve.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('parentEleve_nouveau') }}" class="btn" >Creer Nouveau parentEleve</a>
 {% endblock %}

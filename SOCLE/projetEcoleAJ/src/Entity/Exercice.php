@@ -19,30 +19,15 @@ class Exercice
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-  
-
-
-
-    public function getId(): ?int
-    {
+    public function getId(): ?int{
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
-    {
+    public function getDate(): ?\DateTimeInterface{
         return $this->date;
     }
-
-    public function setDate(\DateTimeInterface $date): static
-    {
+    public function setDate(\DateTimeInterface $date): static{
         $this->date = $date;
-
         return $this;
     }
-
-
-
-
-
-
 }

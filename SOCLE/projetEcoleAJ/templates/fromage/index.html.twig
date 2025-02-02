@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello fromageController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fromage in fromages %}
+                <tr>
+                    <td>{{fromage.id}}</td>
+                    <td>{{ fromage.libelle }}</td>
+                    <td>
+                        <a href="{{ path('fromage_affichage', {'id': fromage.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('fromage_edition', {'id': fromage.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('fromage_nouveau') }}" class="btn" >Creer Nouveau fromage</a>
+{% endblock %}

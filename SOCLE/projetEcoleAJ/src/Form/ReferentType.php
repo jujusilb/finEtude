@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Promotion;
+use App\Entity\Professeur;
 use App\Entity\Referent;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -14,11 +14,13 @@ class ReferentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('promotion', EntityType::class, [
-                'class' => Promotion::class,
-                'choice_label' => 'id',
-            ])
-        ;
+        ->add('professeur', EntityType::class, [
+            'class' => Professeur::class,
+            'choice_label' => function(Professeur $professeur) {
+                return $professeur->getPrenom() . ' '. $professeur->getNom();
+        }]);
+        
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

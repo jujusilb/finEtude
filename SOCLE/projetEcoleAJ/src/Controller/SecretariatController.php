@@ -4,12 +4,15 @@ namespace App\Controller;
 
 use App\Entity\Secretariat;
 use App\Repository\SecretariatRepository;
+use App\Form\SecretariatType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/Secretariat', name: 'Secretariat_')]
+#[Route('/secretariat', name: 'secretariat_')]
 class SecretariatController extends AbstractController
 {
     #[Route('/index', name: 'index')]
@@ -20,5 +23,65 @@ class SecretariatController extends AbstractController
             'controller_name' => 'SecretariatController',
 		'secretariats' => $secretariatRepo->findAll(),
         ]);
+    }    #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
+    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $secretariat = new Secretariat();
+        $form = $this->createForm(SecretariatType::class, $secretariat);
+        $form->handleRequest($request);
+
+        if ($secretariat->getCreatedAt() === null) {
+            $secretariat->setCreatedAt(new \DateTimeImmutable());
+        }
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $secretariat->setRoles(["ROLE_SECRETARIAT"]);
+            $entityManager->persist($secretariat);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('secretariat_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('secretariat/new.html.twig', [
+            'secretariat' => $secretariat,
+            'secretariatForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    public function show(Secretariat $secretariat): Response
+    {
+        return $this->render('secretariat/show.html.twig', [
+            'secretariat' => $secretariat,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Secretariat $secretariat, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(SecretariatType::class, $secretariat);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('secretariat_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('secretariat/edit.html.twig', [
+            'secretariat' => $secretariat,
+            'secretariatForm' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    public function delete(Request $request, Secretariat $secretariat, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $secretariat->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($secretariat);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('secretariat_index', [], Response::HTTP_SEE_OTHER);
     }
 }

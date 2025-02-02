@@ -1,20 +1,229 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello DefaultController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>I:/Tertiaire/Stagiaires/DA2/Partage/AristideJulien2/projetEcoleAJ/SOCLE/projetEcoleAJ/src/Controller/DefaultController.php</code></li>
-        <li>Your template at <code>I:/Tertiaire/Stagiaires/DA2/Partage/AristideJulien2/projetEcoleAJ/SOCLE/projetEcoleAJ/templates/default/index.html.twig</code></li>
-    </ul>
+<div>
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row">
+			<div class="container">
+				<div class="row">
+                    <h2>Admin</h2>
+                    {% for admin in admins %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{admin.id}}
+                                </h6>
+                                <h5>
+                                    Prenom NOM :
+                                    <br>
+                                    {{admin.prenom}}  {{admin.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(admin, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>
+                    <h2>Cuisine</h2>
+                    {% for cuisine in cuisines %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{cuisine.id}}
+                                <h6>
+                                <h5>
+                                    Prenom NOM :
+                                    <br>
+                                    {{cuisine.prenom}} {{cuisine.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(cuisine, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>
+                    <h2>Direction</h2>
+                    {% for direction in directions %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{direction.id}}
+                                </h6>
+                                <h5>
+                                    Prenom NOM :
+                                    <br>
+                                    {{direction.prenom}} {{direction.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(direction, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>
+                    <h2>Documentaliste</h2>
+                    {% for documentaliste in documentalistes %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{documentaliste.id}}
+                                </h6>
+                                <h5>
+                                    Prenom NOM :
+                                    <br>
+                                    {{documentaliste.prenom}} {{documentaliste.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(documentaliste, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>  
+                    <h2>Eleve</h2>
+                    {% for eleve in eleves %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{eleve.id}}
+                                </h6>
+                                <h5>
+                                    Prenom NOM :
+                                    <br>
+                                    {{eleve.prenom}} {{eleve.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(eleve, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                     {% endfor %}
+                <hr><hr>
+                    <h2>Emprunt</h2>
+                    {% for emprunt in emprunts %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{emprunt.id}}
+                                </h6>
+                                <h5>
+                                    Membre : {{emprunt.membre.prenom}} {{emprunt.membre.nom}}
+                                    <br>
+                                    Ouvrage : {{emprunt.ouvrage.titre}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>  
+                    <h2>Matiere</h2>
+                    {% for matiere in matieres %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{matiere.id}}
+                                </h6>
+                                <h5>
+                                    Lbelle : {{matiere.libelle}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>  
+                    <h2>Message</h2>
+                    {% for message in messages %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{message.id}}
+                                </h6>
+                                <h5
+                                    Auteur : {{message.membre.prenom}} {{message.membre.nom}}
+                                    <br>
+                                    Sujet : {{message.sujet}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>  
+                    <h2>Ouvrage</h2>
+                    {% for ouvrage in ouvrages %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{ouvrage.id}}
+                                </h6>
+                                <h5>
+                                    Titre : {{ouvrage.titre}}
+                                    <br>
+                                    categorie : {{ouvrage.categorie}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>  
+                    <h2>Professeur</h2>
+                    {% for professeur in professeurs %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h5>
+                                    id : {{professeur.id}}
+                                </h6>
+                                <h5>
+                                    Prenom NOM : 
+                                    <br>
+                                    {{professeur.prenom}} {{professeur.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(professeur, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>   
+                    <h2>Promotion</h2>
+                    {% for promotion in promotions %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{promotion.id}}
+                                </h6>
+                                <h5>
+                                    Libelle : {{promotion.libelle}}
+                                    <br>
+                                    Referent : {{promotion.referent.professeur.prenom}} {{promotion.referent.professeur.nom}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>  
+                    <h2>Secretariat</h2>
+                    {% for secretariat in secretariats %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id :{{secretariat.id}}
+                                </h6>
+                                <h5>
+                                     prenom NOM :
+                                    <br>
+                                    {{secretariat.prenom}} {{secretariat.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(secretariat, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>
+                    <h2>Surveillant</h2>
+                    {% for surveillant in surveillants %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{surveillant.id}}
+                                <h6>
+                                <h5>
+                                    Prenom  NOM :
+                                    <br>
+                                    {{surveillant.prenom}} {{surveillant.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(surveillant, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>  
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}

@@ -24,10 +24,16 @@ class RemplirExo
 
 
 
+        /**
+     * @var Collection<int, Eleve>
+     */
+    #[ORM\OneToMany(targetEntity: Eleve::class, mappedBy: 'remplirExo_id')]
+    private Collection $eleves;
+
     /**
      * @var Collection<int, Exercice>
      */
-    #[ORM\ManyToMany(targetEntity: Exercice::class, mappedBy: 'remplirExo')]
+    #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'remplirExo_id')]
     private Collection $exercices;
 
     public function __construct()
@@ -64,12 +70,6 @@ class RemplirExo
 
         return $this;
     }
-
-
-
-
-
-
 
     /**
      * @return Collection<int, Exercice>

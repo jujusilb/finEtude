@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('parentEleve_suppression', {'id': parentEleve.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ parentEleve.id) }}">
+	<button class="btn btn-danger">Delete</button>
+</form>

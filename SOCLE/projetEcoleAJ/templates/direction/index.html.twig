@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello directionController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>photo</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>E-mail</th>
+                <th>password</th>
+                <th>role</th>
+                <th>Date d'Embauche</th>
+                <th>Poste</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for direction in directions %}
+                <tr>
+                    <td>{{direction.id}}</td>
+                    <td>
+                        <img src="{{ vich_uploader_asset(direction, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                    </td>
+                    <td>{{ direction.nom }}</td>
+                    <td>{{ direction.prenom }}</td>
+                    <td>{{ direction.email }}</td>
+                    <td>{{ direction.password }}</td>
+                    <td>
+                        {% for role in direction.roles %}
+                            {{ role }}
+                        {% endfor %}
+                    </td>
+                    <td>{{ direction.dateEmbauche | date('d/m/Y') }}</td>
+                    <td>{{ direction.poste}}</td>
+                    
+                    <td>
+                        <a href="{{ path('direction_affichage', {'id': direction.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('direction_edition', {'id': direction.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('direction_nouveau') }}" class="btn" >Creer Nouveau direction</a>
+{% endblock %}

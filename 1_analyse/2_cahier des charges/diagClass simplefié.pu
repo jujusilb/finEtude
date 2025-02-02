@@ -1,0 +1,46 @@
+@startuml
+
+' Définition des classes
+class Professeur {
+  +Id_professeur: int
+  +Nom: string
+  +Prénom: string
+}
+
+class Matière {
+  +Id_matière: int
+  +Nom_matière: string
+}
+
+class Classe {
+  +Id_classe: int
+  +Nom_classe: string
+}
+
+' Définition des classes d'association
+class Enseigne {
+  +Id_professeur: int
+  +Id_matière: int
+}
+
+class Assigne {
+  +Id_professeur: int
+  +Id_classe: int
+}
+
+class A {
+  +Id_classe: int
+  +Id_matière: int
+}
+
+' Relations entre les classes
+Professeur "1" --> "0..*" Enseigne : enseigne
+Matière "1" <-- "0..*" Enseigne : enseignée par
+
+Professeur "1" --> "0..*" Assigne : assigne
+Classe "1" <-- "0..*" Assigne : a
+
+Matière "0..*" --> "1" A : enseignée dans
+Classe "0..*" <-- "1" A : reçoit
+
+@enduml

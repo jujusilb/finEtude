@@ -13,6 +13,7 @@
                 <th>E-mail</th>
                 <th>Mot de Passe</th>
                 <th>Role</th>
+                <th>Action</td>
             </tr>
         </thead>
         <tbody>
@@ -20,7 +21,7 @@
                 <tr>
                     <td>{{membre.id}}</td>
                     <td>
-                        <img src="{{ vich_uploader_asset(membre, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" width="50px" alt="...">
+                        <img src="{{ vich_uploader_asset(membre, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
                     </td>
                     <td>{{membre.nom}}</td>
                     <td>{{membre.prenom}}</td>
@@ -29,7 +30,12 @@
                     <td>
                         {% for role in membre.roles %}
                             {{ role}}
-                        {% endfor %}</td>
+                        {% endfor %}
+                    </td>
+                                        <td>
+                        <a href="{{ path('membre_affichage', {'id': membre.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('membre_edition', {'id': membre.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
                 </tr>
             {% endfor %}
         </tbody>

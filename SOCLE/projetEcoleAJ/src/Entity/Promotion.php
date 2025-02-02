@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use App\Repository\PromotionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -28,9 +27,22 @@ class Promotion
     #[ORM\JoinColumn(nullable: false)]
     private ?Referent $referent = null;
 
+// In Promotion.php
+#[ORM\OneToMany(mappedBy: 'promotion', targetEntity: Programme::class)]
+private Collection $programmes;
+
+
+public function getProgrammes(): Collection
+{
+    return $this->programmes;
+}
+    
+
+
     public function __construct()
     {
         $this->eleves = new ArrayCollection();
+        $this->programmes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -91,4 +103,30 @@ class Promotion
 
         return $this;
     }
+
+
+
+    public function addProgramme(Programme $programme): static
+    {
+        if (!$this->programme->contains($programme)) {
+            $this->programme->add($programme);
+            $programme->setMatiere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProgramme(Programme $programme): static
+    {
+        if ($this->programmes->removeElement($programme)) {
+            // set the owning side to null (unless already changed)
+            if ($programme->getMatiere() === $this) {
+                $programme->setMatiere(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

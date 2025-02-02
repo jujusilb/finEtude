@@ -14,7 +14,7 @@ class Ouvrage
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    private ?string $titre = null;
 
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
@@ -22,49 +22,50 @@ class Ouvrage
     #[ORM\OneToOne(mappedBy: 'ouvrage', cascade: ['persist', 'remove'])]
     private ?Emprunt $emprunt = null;
 
-    public function getId(): ?int
-    {
+    #[ORM\Column(length: 255)]
+    private ?string $categorie = null;
+
+    public function getId(): ?int{
         return $this->id;
     }
 
-    public function getNom(): ?string
-    {
-        return $this->nom;
+    public function getTitre(): ?string{
+        return $this->titre;
     }
 
-    public function setNom(string $nom): static
-    {
-        $this->nom = $nom;
-
+    public function setTitre(string $titre): static{
+        $this->titre = $titre;
         return $this;
     }
 
-    public function getStatut(): ?string
-    {
+    public function getStatut(): ?string{
         return $this->statut;
     }
-
-    public function setStatut(string $statut): static
-    {
+    public function setStatut(string $statut): static{
         $this->statut = $statut;
-
         return $this;
     }
 
-    public function getEmprunt(): ?Emprunt
-    {
+    public function getEmprunt(): ?Emprunt{
         return $this->emprunt;
     }
-
-    public function setEmprunt(Emprunt $emprunt): static
-    {
+    public function setEmprunt(Emprunt $emprunt): static{
         // set the owning side of the relation if necessary
         if ($emprunt->getOuvrage() !== $this) {
             $emprunt->setOuvrage($this);
         }
-
         $this->emprunt = $emprunt;
+        return $this;
+    }
 
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(string $categorie): static
+    {
+        $this->categorie = $categorie;
         return $this;
     }
 }

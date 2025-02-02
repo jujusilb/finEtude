@@ -1,20 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EmpruntController!{% endblock %}
+{% block title %}Hello AdminController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>I:/Tertiaire/Stagiaires/DA2/Partage/AristideJulien2/projetEcoleAJ/SOCLE/projetEcoleAJ/src/Controller/EmpruntController.php</code></li>
-        <li>Your template at <code>I:/Tertiaire/Stagiaires/DA2/Partage/AristideJulien2/projetEcoleAJ/SOCLE/projetEcoleAJ/templates/emprunt/index.html.twig</code></li>
-    </ul>
-</div>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>date de l'emprunt</th>
+                <th>Membre</th>
+                <th>Ouvrage</th>
+                <th>Statutt</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for emprunt in emprunts %}
+                <tr>
+                    <td>{{emprunt.id}}</td>
+                    <td>{{ emprunt.dateEmprunt | date('d/m/Y') }}</td>
+                    <td>
+                        <a href="{{ path('membre_affichage', {'id': emprunt.membre.id}) }}">
+                            {{ emprunt.membre.prenom }} {{ emprunt.membre.nom }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('ouvrage_affichage', {'id': emprunt.ouvrage.id}) }}">
+                            {{ emprunt.ouvrage.titre }}
+                                        
+                    </td>
+                    <td>{{emprunt.statut}}</td>
+                    <td>
+                        <a href="{{ path('emprunt_affichage', {'id': emprunt.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('emprunt_edition', {'id': emprunt.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('emprunt_nouveau') }}" class="btn" >Creer Nouvel admin</a>
 {% endblock %}

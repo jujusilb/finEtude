@@ -1,0 +1,43 @@
+@startuml
+
+' Définir les entités
+
+class Professeur {
+  +pro_id : int
+}
+
+class Matiere {
+  +mat_id : int
+  +Nom : string
+}
+
+class Classe {
+  +cla_id : int
+  +Nom : string
+}
+
+class Enseigner {
+  +ens_professeur : int
+  +ens_matiere : int
+  +primary_key(ens_professeur, ens_matiere)
+}
+
+class Agenda {
+  +age_classe : int
+  +age_matiere : int
+  +age_professeur : int
+  +primary_key(age_classe, age_matiere, age_professeur)
+}
+
+' Définir les relations
+
+Professeur "1" -up- "0..*" Enseigner : enseigne >
+Matiere "1" -left- "0..*" Enseigner : est enseignée par >
+Classe "1" -left- "0..*" Agenda : agenda pour >
+Matiere "1" -- "0..*" Agenda : agenda pour >
+Professeur "1" -- "0..*" Agenda : agenda de >
+
+' Ajouter les index (non nécessaire pour les relations, mais pour indiquer l'index dans Agenda)
+Agenda : idx(age_classe, age_matiere)
+
+@enduml

@@ -1,4 +1,4 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Membre
 {% endblock %}
@@ -17,15 +17,17 @@
 					<td>{{ membre.id }}</td>
 				</tr>
 				<tr>
-					<th>Capital</th>
-					<td>{{ membre photo }}</td>
+					<th>Photo</th>
+					<td>
+						<img src="{{ vich_uploader_asset(membre, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+					</td>
 				</tr>
 				<tr>
 					<th>Nom</th>
 					<td>{{ membre.nom }}</td>
 				</tr>
 				<tr>
-					<th>Adresse</th>
+					<th>Prenom</th>
 					<td>{{ membre.prenom }}</td>
 				</tr>
 			</tbody>

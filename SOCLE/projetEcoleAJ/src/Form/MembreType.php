@@ -7,10 +7,10 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
+use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+
 
 class MembreType extends AbstractType
 {
@@ -19,17 +19,7 @@ class MembreType extends AbstractType
         $builder
             ->add('nom', TextType::class, [])
             ->add('prenom', TextType::class, [])
-            ->add('email', TextType::class, [])
-            ->add('password', TextType::class, [])
-
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'ROLE_USER' => 'ROLE_USER',
-                    'ROLE_ADMIN' => 'ROLE_ADMIN',
-                ],
-                'multiple' => true,  // Allow multiple roles to be selected
-                'expanded' => true,   // Use checkboxes to select multiple roles
-            ])
+            
             ->add('imageFile', VichImageType::class)
             
         ;

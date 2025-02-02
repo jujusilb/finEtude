@@ -2,14 +2,16 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Ouvrage;
 use App\Repository\OuvrageRepository;
-
+use App\Form\OuvrageType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/Ouvrage', name: 'Ouvrage_')]
+#[Route('/ouvrage', name: 'ouvrage_')]
 class OuvrageController extends AbstractController
 {
     #[Route('/index', name: 'index')]
@@ -20,5 +22,63 @@ class OuvrageController extends AbstractController
             'controller_name' => 'OuvrageController',
 		'ouvrages' => $ouvrageRepo->findAll(),
         ]);
+    }
+
+    
+    #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
+    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $ouvrage = new Ouvrage();
+        $form = $this->createForm(OuvrageType::class, $ouvrage);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($ouvrage);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('ouvrage_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('ouvrage/new.html.twig', [
+            'ouvrage' => $ouvrage,
+            'ouvrageForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    public function show(Ouvrage $ouvrage): Response
+    {
+        return $this->render('ouvrage/show.html.twig', [
+            'ouvrage' => $ouvrage,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Ouvrage $ouvrage, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(ouvrageType::class, $ouvrage);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('ouvrage_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('ouvrage/edit.html.twig', [
+            'ouvrage' => $ouvrage,
+            'ouvrageForm' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    public function delete(Request $request, Ouvrage $ouvrage, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $ouvrage->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($ouvrage);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('ouvrage_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello platController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Viande</th>
+                <th>Legumes</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for plat in plats %}
+                <tr>
+                    <td>{{plat.id}}</td>
+                    <td>{{ plat.libelle }}</td>
+                    <td>{{ plat.viande.libelle }}</td>
+                    <td>{{ plat.legume.libelle }}</td>
+                    <td>
+                        <a href="{{ path('plat_affichage', {'id': plat.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('plat_edition', {'id': plat.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('plat_nouveau') }}" class="btn" >Creer Nouveau plat</a>
+{% endblock %}

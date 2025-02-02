@@ -2,16 +2,14 @@
 
 namespace App\Entity;
 
+use App\Entity\Personnel;
 use App\Repository\DocumentalisteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: DocumentalisteRepository::class)]
-class Documentaliste
+class Documentaliste extends Personnel
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+
 
     #[ORM\Column(length: 180)]
     private ?string $email = null;
@@ -28,9 +26,16 @@ class Documentaliste
     #[ORM\Column]
     private ?string $password = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
+    #[ORM\Column]
+    private ?string $login = null;
+
+    
+    public function getLogin(): ?string{
+        return $this->login;
+    }
+    public function setLogin(string $login): static{
+        $this->login = $login;
+        return $this;
     }
 
     public function getEmail(): ?string

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Entity;
-
 use App\Repository\MatiereRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -19,57 +18,96 @@ class Matiere
     private ?string $libelle = null;
 
     /**
-     * @var Collection<int, Professeur>
+     * @var Collection<int, ProfesseurMatiere>
      */
-    #[ORM\ManyToMany(targetEntity: Professeur::class, mappedBy: 'matiere')]
-    private Collection $professeurs;
+    #[ORM\OneToMany(targetEntity: ProfesseurMatiere::class, mappedBy: 'matiere')]
+    private Collection $professeurMatiere;
+
+    /**
+     * @var Collection<int, Programme>
+     */
+    #[ORM\OneToMany(targetEntity: Programme::class, mappedBy: 'matiere')]
+    private Collection $programme;
 
     public function __construct()
     {
-        $this->professeurs = new ArrayCollection();
+        $this->professeurMatiere = new ArrayCollection();
+        $this->programme = new ArrayCollection();
     }
 
-    public function getId(): ?int
-    {
+    public function getId(): ?int{
         return $this->id;
     }
 
-    public function getLibelle(): ?string
-    {
+    public function getLibelle(): ?string{
         return $this->libelle;
     }
 
     public function setLibelle(string $libelle): static
     {
         $this->libelle = $libelle;
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProfesseurMatiere>
+     */
+    public function getProfesseurMatiere(): Collection
+    {
+        return $this->professeurMatiere;
+    }
+
+    public function addProfesseurMatiere(ProfesseurMatiere $professeurMatiere): static
+    {
+        if (!$this->professeurMatiere->contains($professeurMatiere)) {
+            $this->professeurMatiere->add($professeurMatiere);
+            $professeurMatiere->setMatiere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProfesseurMatiere(ProfesseurMatiere $professeurMatiere): static
+    {
+        if ($this->professeurMatiere->removeElement($professeurMatiere)) {
+            // set the owning side to null (unless already changed)
+            if ($professeurMatiere->getMatiere() === $this) {
+                $professeurMatiere->setMatiere(null);
+            }
+        }
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Professeur>
+     * @return Collection<int, Programme>
      */
-    public function getProfesseurs(): Collection
+    public function getProgramme(): Collection
     {
-        return $this->professeurs;
+        return $this->programme;
     }
 
-    public function addProfesseur(Professeur $professeur): static
+    public function addProgramme(Programme $programme): static
     {
-        if (!$this->professeurs->contains($professeur)) {
-            $this->professeurs->add($professeur);
-            $professeur->addMatiere($this);
+        if (!$this->programme->contains($programme)) {
+            $this->programme->add($programme);
+            $programme->setMatiere($this);
         }
 
         return $this;
     }
 
-    public function removeProfesseur(Professeur $professeur): static
+    public function removeProgramme(Programme $programme): static
     {
-        if ($this->professeurs->removeElement($professeur)) {
-            $professeur->removeMatiere($this);
+        if ($this->programme->removeElement($programme)) {
+            // set the owning side to null (unless already changed)
+            if ($programme->getMatiere() === $this) {
+                $programme->setMatiere(null);
+            }
         }
 
         return $this;
     }
-}
+
+    
+    }

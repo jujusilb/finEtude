@@ -1,0 +1,40 @@
+@startuml
+
+' Définition des classes
+class Professeur {
+  +Id_professeur: int
+  +Nom: string
+  +Prénom: string
+}
+
+class Matière {
+  +Id_matière: int
+  +Nom_matière: string
+}
+
+class Classe {
+  +Id_classe: int
+  +Nom_classe: string
+}
+
+' Définition de la classe d'association entre Professeur, Matière et Classe (Duo)
+class ProfesseurMatiere {
+  +Id_professeur: int
+  +Id_matière: int
+  +Id_classe: int
+}
+
+' Relations entre les classes
+Professeur "1..*" --> "1..*" ProfesseurMatiere : enseigne
+Matière "1..*" --> "1..*" ProfesseurMatiere : enseignée dans
+Classe "1..*" -up-> "1..*" ProfesseurMatiere : a
+
+' Cardinalités de la relation entre Professeur et Matière : ManyToMany
+/'Professeur "0..*" --> "0..*" Matière : enseigne'/
+
+' Cardinalité sur la classe Duo
+/'ProfesseurMatiere "1" -up-> "1" Professeur : enseigne'/
+/'ProfesseurMatiere "1" -up-> "1" Matière : est_associée_à'/
+/'Professeur "1" --> "1" Classe : appartient_à'/
+
+@enduml

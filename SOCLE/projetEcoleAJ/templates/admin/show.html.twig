@@ -1,41 +1,49 @@
-{% extends 'base_admin.html.twig' %}
+{% extends 'base.html.twig' %}
 
-{% block title %}Siege
+{% block title %}Matiere
 {% endblock %}
 
 {% block body %}
 
 	<div class="container">
 
-		<h5>Siege</h5>
+		<h5>Admin</h5>
 		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
 
 		<table class="table">
 			<tbody>
 				<tr>
 					<th>Id</th>
-					<td>{{ siege.id }}</td>
+					<td>{{ admin.id }}</td>
 				</tr>
 				<tr>
-					<th>Capital</th>
-					<td>{{ siege.capital }}</td>
+					<th>photo</th>
+					<td><img src="{{ vich_uploader_asset(admin, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="..."></td>
 				</tr>
-				<tr>
+								<tr>
 					<th>Nom</th>
-					<td>{{ siege.nom }}</td>
+					<td>{{ admin.nom }}</td>
 				</tr>
-				<tr>
-					<th>Adresse</th>
-					<td>{{ siege.adresse }}</td>
+								<tr>
+					<th>Prenom</th>
+					<td>{{ admin.prenom }}</td>
+				</tr>
+								<tr>
+					<th>email</th>
+					<td>{{ admin.email }}</td>
+				</tr>
+								<tr>
+					<th>Password</th>
+					<td>{{ admin.password }}</td>
 				</tr>
 			</tbody>
 		</table>
 
-		<a href="{{ path('siege_index') }}" class="btn btn-secondary">Liste de sieges</a>
+		<a href="{{ path('admin_index') }}" class="btn btn-secondary">Liste de sieges</a>
 
-		<a href="{{ path('siege_edition', {'id': siege.id}) }}" class="btn btn-secondary">Modifier</a>
+		<a href="{{ path('admin_edition', {'id': admin.id}) }}" class="btn btn-secondary">Modifier</a>
 
-		{{ include('siege/_delete_form.html.twig') }}
+		{{ include('admin/_delete_form.html.twig') }}
 	</div>
 	<br>
 	<br>
