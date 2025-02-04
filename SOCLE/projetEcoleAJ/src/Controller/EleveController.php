@@ -20,7 +20,8 @@ class EleveController extends AbstractController
 	
         return $this->render('eleve/index.html.twig', [
             'controller_name' => 'EleveController',
-		'eleves' => $eleveRepo->findAll(),
+		    'titre' => 'Eleve',
+            'eleves' => $eleveRepo->findAll(),
         ]);
     }
 
@@ -45,6 +46,7 @@ class EleveController extends AbstractController
 
         return $this->render('eleve/new.html.twig', [
             'eleve' => $eleve,
+            'titre' => 'Nouvel Élève',
             'eleveForm' => $form->createView(),
         ]);
     }
@@ -54,7 +56,8 @@ class EleveController extends AbstractController
     {
         return $this->render('eleve/show.html.twig', [
             'eleve' => $eleve,
-        ]);
+            'titre' => 'Affichage Documentaliste',
+            ]);
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
@@ -76,6 +79,7 @@ class EleveController extends AbstractController
 
         return $this->render('eleve/edit.html.twig', [
             'eleve' => $eleve,
+            'titre' => 'Edition Documentaliste',
             'eleveForm' => $form,
         ]);
     }

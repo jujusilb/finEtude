@@ -20,6 +20,7 @@ class CuisineController extends AbstractController
     {
         return $this->render('cuisine/index.html.twig', [
             'controller_name' => 'cuisineController',
+            'titre' => 'Cuisine',
             'cuisines' => $cuisineRepo->findAll(),
         ]);
     }
@@ -45,6 +46,7 @@ class CuisineController extends AbstractController
 
         return $this->render('cuisine/new.html.twig', [
             'cuisine' => $cuisine,
+            'titre' => 'Nouveau Cuisine',
             'cuisineForm' => $form->createView(),
         ]);
     }
@@ -54,6 +56,7 @@ class CuisineController extends AbstractController
     {
         return $this->render('cuisine/show.html.twig', [
             'cuisine' => $cuisine,
+            'titre' => 'Affichage Cuisine',
         ]);
     }
 
@@ -71,6 +74,7 @@ class CuisineController extends AbstractController
 
         return $this->render('cuisine/edit.html.twig', [
             'cuisine' => $cuisine,
+            'titre' => 'Edition Cuisine',
             'cuisineForm' => $form,
         ]);
     }

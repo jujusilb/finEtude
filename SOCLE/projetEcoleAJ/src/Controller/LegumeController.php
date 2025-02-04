@@ -20,7 +20,8 @@ class LegumeController extends AbstractController
 	
         return $this->render('Legume/index.html.twig', [
             'controller_name' => 'LegumeController',
-		'legumes' => $legumeRepo->findAll(),
+		    'titre' => 'Légume',
+            'legumes' => $legumeRepo->findAll(),
         ]);
     }
 
@@ -41,6 +42,7 @@ class LegumeController extends AbstractController
 
         return $this->render('legume/new.html.twig', [
             'legume' => $legume,
+            'titre' => 'Nouveau Légume',
             'legumeForm' => $form->createView(),
         ]);
     }
@@ -50,6 +52,7 @@ class LegumeController extends AbstractController
     {
         return $this->render('legume/show.html.twig', [
             'legume' => $legume,
+            'titre' => 'Affichage Légume',
         ]);
     }
 
@@ -67,6 +70,7 @@ class LegumeController extends AbstractController
 
         return $this->render('legume/edit.html.twig', [
             'legume' => $legume,
+            'titre' => 'Edition Légume',
             'legumeForm' => $form,
         ]);
     }

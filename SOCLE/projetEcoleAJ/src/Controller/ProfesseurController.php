@@ -22,7 +22,8 @@ class ProfesseurController extends AbstractController
 	
         return $this->render('Professeur/index.html.twig', [
             'controller_name' => 'ProfesseurController',
-		    'professeurs' => $professeurRepo->findAll(),
+		    'titre' => 'Professeur',
+            'professeurs' => $professeurRepo->findAll(),
             'matieres' => $matiereRepo->findAll(),
         ]);
 }
@@ -50,6 +51,7 @@ class ProfesseurController extends AbstractController
 
         return $this->render('professeur/new.html.twig', [
             'professeur' => $professeur,
+            'titre' => 'Nouveau Professeur',
             'professeurForm' => $form->createView(),
         ]);
     }
@@ -59,6 +61,7 @@ class ProfesseurController extends AbstractController
     {
         return $this->render('professeur/show.html.twig', [
             'professeur' => $professeur,
+            'titre' => 'Affichage Professeur',
         ]);
     }
 
@@ -76,6 +79,7 @@ class ProfesseurController extends AbstractController
 
         return $this->render('professeur/edit.html.twig', [
             'professeur' => $professeur,
+            'titre' => 'Edition Professeur',
             'professeurForm' => $form,
         ]);
     }

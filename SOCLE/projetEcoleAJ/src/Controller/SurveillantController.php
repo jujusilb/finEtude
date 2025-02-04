@@ -20,6 +20,7 @@ class SurveillantController extends AbstractController
     {
         return $this->render('surveillant/index.html.twig', [
             'controller_name' => 'SurveillantController',
+            'titre' => 'Surveillant',
             'surveillants' => $surveillantRepo->findAll(),
         ]);
     }
@@ -48,6 +49,7 @@ class SurveillantController extends AbstractController
 
         return $this->render('surveillant/new.html.twig', [
             'surveillant' => $surveillant,
+            'titre' => 'Nouveau Surveillant',
             'surveillantForm' => $form->createView(),
         ]);
     }
@@ -57,6 +59,7 @@ class SurveillantController extends AbstractController
     {
         return $this->render('surveillant/show.html.twig', [
             'surveillant' => $surveillant,
+            'titre' => 'Affichage Surveillant',
         ]);
     }
 
@@ -73,6 +76,7 @@ class SurveillantController extends AbstractController
 
         return $this->render('surveillant/edit.html.twig', [
             'surveillant' => $surveillant,
+            'titre' => 'Edition Surveillant',
             'surveillantForm' => $form,
         ]);
     }

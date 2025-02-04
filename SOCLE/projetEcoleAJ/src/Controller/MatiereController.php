@@ -24,7 +24,8 @@ class MatiereController extends AbstractController
 	
         return $this->render('Matiere/index.html.twig', [
             'controller_name' => 'MatiereController',
-		    'matieres' => $matiereRepo->findAll(),
+		    'titre' => 'Matière',
+            'matieres' => $matiereRepo->findAll(),
             'professeurs' =>$professeurRepo->findAll(),
         ]);
     }
@@ -45,6 +46,7 @@ class MatiereController extends AbstractController
 
         return $this->render('matiere/new.html.twig', [
             'matiere' => $matiere,
+            'titre' => 'Nouvelle Matière',
             'matiereForm' => $form->createView(),
         ]);
     }
@@ -54,6 +56,7 @@ class MatiereController extends AbstractController
     {
         return $this->render('matiere/show.html.twig', [
             'matiere' => $matiere,
+            'titre' => 'Affiche Matière',
         ]);
     }
 
@@ -71,6 +74,7 @@ class MatiereController extends AbstractController
 
         return $this->render('matiere/edit.html.twig', [
             'matiere' => $matiere,
+            'titre' => 'Edition Matière',
             'matiereForm' => $form,
         ]);
     }

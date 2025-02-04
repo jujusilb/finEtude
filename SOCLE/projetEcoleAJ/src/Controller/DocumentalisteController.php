@@ -20,6 +20,7 @@ class DocumentalisteController extends AbstractController
     {
         return $this->render('Documentaliste/index.html.twig', [
             'controller_name' => 'DocumentalisteController',
+            'titre' => 'Documentaliste',
             'documentalistes' => $documentalisteRepo->findAll(),
         ]);
     }
@@ -45,6 +46,7 @@ class DocumentalisteController extends AbstractController
 
         return $this->render('documentaliste/new.html.twig', [
             'documentaliste' => $documentaliste,
+            'titre' => 'Nouveau Documentaliste',
             'documentalisteForm' => $form->createView(),
         ]);
     }
@@ -54,7 +56,8 @@ class DocumentalisteController extends AbstractController
     {
         return $this->render('documentaliste/show.html.twig', [
             'documentaliste' => $documentaliste,
-        ]);
+            'titre' => 'Affichage Documentaliste',
+            ]);
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
@@ -71,6 +74,7 @@ class DocumentalisteController extends AbstractController
 
         return $this->render('documentaliste/edit.html.twig', [
             'documentaliste' => $documentaliste,
+            'titre' => 'Edition Documentaliste',
             'documentalisteForm' => $form,
         ]);
     }

@@ -20,7 +20,8 @@ class RepasController extends AbstractController
 	
         return $this->render('Repas/index.html.twig', [
             'controller_name' => 'RepasController',
-		'repass' => $repasRepo->findAll(),
+            'titre' =>'Repas',
+            'repass' => $repasRepo->findAll(),
         ]);
     }
 
@@ -42,6 +43,7 @@ class RepasController extends AbstractController
 
         return $this->render('repas/new.html.twig', [
             'repas' => $repas,
+            'titre' => 'Nouveau Repas',
             'repasForm' => $form->createView(),
         ]);
     }
@@ -51,6 +53,7 @@ class RepasController extends AbstractController
     {
         return $this->render('repas/show.html.twig', [
             'repas' => $repas,
+            'titre' =>'Affichage Repas',
         ]);
     }
 
@@ -68,6 +71,7 @@ class RepasController extends AbstractController
 
         return $this->render('repas/edit.html.twig', [
             'repas' => $repas,
+            'titre' =>'Edition Repas',
             'repasForm' => $form,
         ]);
     }

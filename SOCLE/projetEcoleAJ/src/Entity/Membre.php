@@ -41,7 +41,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
     "secretariat" => Secretariat::class,
     "surveillant" =>Surveillant::class
     ])]
-class Membre {
+class Membre implements UserInterface, PasswordAuthenticatedUserInterface{
 
 
     #[ORM\Id]
@@ -87,11 +87,40 @@ class Membre {
     #[ORM\OneToMany(targetEntity: Repas::class, mappedBy: 'membreb')]
     private Collection $repas;
 
+    #[ORM\Column(length: 255)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $password = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $username = null;
+
+
+
+    #[ORM\Column(type: 'json')]
+private array $roles = ['ROLE_USER'];
+
+    /**
+     * @var Collection<int, Message>
+     */
+    #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'destinataire')]
+    private Collection $messages;
+
+    /**
+     * @var Collection<int, Thread>
+     */
+    #[ORM\OneToMany(targetEntity: Thread::class, mappedBy: 'createur')]
+    private Collection $threads; // Valeur par défaut
+
+    
     public function __construct(){
         $this->emprunt = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();  // Initialise la date de création
         $this->message= new ArrayCollection();
         $this->repas = new ArrayCollection();
+        $this->messages = new ArrayCollection();
+        $this->threads = new ArrayCollection();
     }
     public function getId(): ?int{
         return $this->id;
@@ -226,7 +255,7 @@ class Membre {
     {
         if (!$this->repas->contains($repa)) {
             $this->repas->add($repa);
-            $repa->setMembreb($this);
+            $repa->setMembre($this);
         }
 
         return $this;
@@ -236,11 +265,107 @@ class Membre {
     {
         if ($this->repas->removeElement($repa)) {
             // set the owning side to null (unless already changed)
-            if ($repa->getMembreb() === $this) {
-                $repa->setMembreb(null);
+            if ($repa->getMembre() === $this) {
+                $repa->setMembre(null);
             }
         }
 
         return $this;
     }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    public function eraseCredentials(){
+        
+    }
+    public function getUserIdentifier(): string
+    {
+        return $this->username;
+    }
+
+    /**
+     * @return Collection<int, Message>
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    /**
+     * @return Collection<int, Thread>
+     */
+    public function getThreads(): Collection
+    {
+        return $this->threads;
+    }
+
+    public function addThread(Thread $thread): static
+    {
+        if (!$this->threads->contains($thread)) {
+            $this->threads->add($thread);
+            $thread->setCreateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeThread(Thread $thread): static
+    {
+        if ($this->threads->removeElement($thread)) {
+            // set the owning side to null (unless already changed)
+            if ($thread->getCreateur() === $this) {
+                $thread->setCreateur(null);
+            }
+        }
+
+        return $this;
+    }
+    
+    
 }

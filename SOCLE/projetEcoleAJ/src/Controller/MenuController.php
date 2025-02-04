@@ -40,7 +40,8 @@ class MenuController extends AbstractController
 	
         return $this->render('Menu/index.html.twig', [
             'controller_name' => 'MenuController',
-		    'menus' => $menuRepo->findAll(),
+		    'titre' => 'Menu',
+            'menus' => $menuRepo->findAll(),
             'entrees' => $entreeRepo->findAll(),
             'plats' => $platRepo->findAll(),
             'viandes' => $viandeRepo->findAll(),
@@ -67,6 +68,7 @@ class MenuController extends AbstractController
 
         return $this->render('menu/new.html.twig', [
             'menu' => $menu,
+            'titre' => 'Nouveau Menu',
             'menuForm' => $form->createView(),
         ]);
     }
@@ -76,6 +78,7 @@ class MenuController extends AbstractController
     {
         return $this->render('menu/show.html.twig', [
             'menu' => $menu,
+            'titre' => 'Affichage Menu',
         ]);
     }
 
@@ -93,6 +96,7 @@ class MenuController extends AbstractController
 
         return $this->render('menu/edit.html.twig', [
             'menu' => $menu,
+            'titre' => 'Edition Menu',
             'menuForm' => $form,
         ]);
     }

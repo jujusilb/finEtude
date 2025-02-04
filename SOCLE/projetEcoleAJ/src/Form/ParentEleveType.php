@@ -21,6 +21,7 @@ class ParentEleveType extends AbstractType
         $builder
         ->add('nom', TextType::class, [])
         ->add('prenom', TextType::class, [])
+        ->add('username', TextType::class, [])
         ->add('email', TextType::class, [])
         ->add('password', TextType::class, [])
         ->add('Eleve', EntityType::class,[

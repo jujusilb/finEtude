@@ -19,6 +19,7 @@ class DirectionController extends AbstractController
     {
         return $this->render('direction/index.html.twig', [
             'controller_name' => 'directionController',
+            'titre' => 'Direction',
             'directions' => $directionRepo->findAll(),
         ]);
     }
@@ -44,6 +45,7 @@ class DirectionController extends AbstractController
 
         return $this->render('direction/new.html.twig', [
             'direction' => $direction,
+            'titre' => 'Nouveau Direction',
             'directionForm' => $form->createView(),
         ]);
     }
@@ -53,6 +55,7 @@ class DirectionController extends AbstractController
     {
         return $this->render('direction/show.html.twig', [
             'direction' => $direction,
+            'titre' => 'Affichage Directon',
         ]);
     }
 
@@ -70,6 +73,7 @@ class DirectionController extends AbstractController
 
         return $this->render('direction/edit.html.twig', [
             'direction' => $direction,
+            'titre' => 'Edition Direction',
             'directionForm' => $form,
         ]);
     }

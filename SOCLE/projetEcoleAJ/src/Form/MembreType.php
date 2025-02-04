@@ -19,7 +19,8 @@ class MembreType extends AbstractType
         $builder
             ->add('nom', TextType::class, [])
             ->add('prenom', TextType::class, [])
-            
+            ->add('username', TextType::class, [])
+            ->add('password', TextType::class, [])
             ->add('imageFile', VichImageType::class)
             
         ;

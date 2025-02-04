@@ -2,6 +2,10 @@
 
 
 {% block body %}
+
+        {{ dump( app.user ) }}
+
+
 <div>
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row">
@@ -232,7 +236,7 @@
                                     id : {{message.id}}
                                 </h6>
                                 <h5
-                                    Auteur : {{message.membre.prenom}} {{message.membre.nom}}
+                                    Auteur : {{message.expediteur.prenom}} {{message.expediteur.nom}}
                                     <br>
                                     Sujet : {{message.sujet}}
                                 </h5>

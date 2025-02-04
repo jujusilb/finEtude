@@ -10,17 +10,25 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[Route('/membre', name: 'membre_')]
 class MembreController extends AbstractController
 {
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher){
+        $this -> passwordHasher=$passwordHasher;
+    }
+
     #[Route('/index', name: 'index')]
     public function index(MembreRepository $membreRepo): Response
     {
         return $this->render('membre/index.html.twig', [
             'controller_name' => 'MembreController',
+            'titre' => 'Membre',
             'membres' => $membreRepo->findAll(),
         ]);
     }
@@ -33,11 +41,14 @@ class MembreController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $membre->setPassword($this->passwordHasher->hashPassword($membre, $membre->getPassword()));
             $membre->setCreatedAt(new \DateTimeImmutable()); // Set the createdAt field before persisting
             $entityManager->persist($membre);
             $entityManager->flush();
 
-            return $this->redirectToRoute('membre_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('membre_index', [
+                'titre' => 'Nouveau Membre'
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('membre/new.html.twig', [
@@ -51,6 +62,7 @@ class MembreController extends AbstractController
     {
         return $this->render('membre/show.html.twig', [
             'membre' => $membre,
+            'titre' => 'Affichage Membre',
         ]);
     }
 
@@ -61,13 +73,17 @@ class MembreController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $membre->setPassword($this->passwordHasher->hashPassword($membre, $membre->getPassword()));
             $entityManager->flush();
 
-            return $this->redirectToRoute('membre_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('membre_index', 
+            ['titre' => 'Edition Membre'],
+                 Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('membre/edit.html.twig', [
             'membre' => $membre,
+            'titre' => 'Edition Membre',
             'membreForm' => $form,
         ]);
     }

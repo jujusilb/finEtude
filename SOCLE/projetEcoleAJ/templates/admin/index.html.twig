@@ -10,6 +10,7 @@
                 <th>photo</th>
                 <th>Nom</th>
                 <th>Prenom</th>
+                <th>Username</th>
                 <th>E-mail</th>
                 <th>password</th>
                 <th>role</th>
@@ -25,11 +26,12 @@
                     </td>
                     <td>{{ admin.nom }}</td>
                     <td>{{ admin.prenom }}</td>
+                    <td>{{ admin.username }}</th>
                     <td>{{ admin.email }}</td>
                     <td>{{ admin.password }}</td>
                     <td>
                         {% for role in admin.roles %}
-                            {{ role }}
+                            <li>{{ role }}</li>
                         {% endfor %}
                     </td>
 

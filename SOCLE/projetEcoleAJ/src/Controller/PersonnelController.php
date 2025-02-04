@@ -18,7 +18,8 @@ class PersonnelController extends AbstractController
 	
         return $this->render('Personnel/index.html.twig', [
             'controller_name' => 'PersonnelController',
-		'personnels' => $personnelRepo->findAll(),
+		    'titre' => 'Personnel',
+            'personnels' => $personnelRepo->findAll(),
         ]);
     }
 }

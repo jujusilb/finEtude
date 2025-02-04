@@ -19,6 +19,7 @@ class MessageController extends AbstractController
     {
         return $this->render('message/index.html.twig', [
             'controller_name' => 'MessageController',
+            'titre' => 'Message',
             'messages' =>$messageRepo->findAll()
         ]);
     }
@@ -40,6 +41,7 @@ class MessageController extends AbstractController
 
         return $this->render('message/new.html.twig', [
             'message' => $message,
+            'titre' => 'Nouveau Message',
             'messageForm' => $form->createView(),
         ]);
     }
@@ -49,6 +51,7 @@ class MessageController extends AbstractController
     {
         return $this->render('message/show.html.twig', [
             'message' => $message,
+            'titre' => 'Affichage Message',
         ]);
     }
 
@@ -66,6 +69,7 @@ class MessageController extends AbstractController
 
         return $this->render('message/edit.html.twig', [
             'message' => $message,
+            'titre' => 'Edition Message',
             'messageForm' => $form,
         ]);
     }

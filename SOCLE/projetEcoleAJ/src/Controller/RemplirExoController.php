@@ -18,7 +18,8 @@ class RemplirExoController extends AbstractController
 	
         return $this->render('RemplirExo/index.html.twig', [
             'controller_name' => 'RemplirExoController',
-		'remplirExos' => $remplirExoRepo->findAll(),
+		    'titre' => 'Remplir Exo',
+            'remplirExos' => $remplirExoRepo->findAll(),
         ]);
     }
 }

@@ -23,6 +23,7 @@ class ProfesseurMatiereController extends AbstractController
     {
         return $this->render('professeur_matiere/index.html.twig', [
             'controller_name' => 'ProfesseurMatiereController',
+            'titre' => 'Professeur - Matière',
             'professeurMatieres' => $professeurMatiereRepo->findAll(),
             'professeurs' => $professeurRepo->findAll(),
             'matieres' => $matiereRepo ->findAll(),

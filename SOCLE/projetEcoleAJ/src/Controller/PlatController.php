@@ -26,9 +26,10 @@ class PlatController extends AbstractController
 	
         return $this->render('Plat/index.html.twig', [
             'controller_name' => 'PlatController',
-		'plats' => $platRepo->findAll(),
-        'viandes' =>$viandeRepo->findAll(),
-        'legumes' =>$legumeRepo->findAll()
+            'titre' => 'Plat',
+            'plats' => $platRepo->findAll(),
+            'viandes' =>$viandeRepo->findAll(),
+            'legumes' =>$legumeRepo->findAll()
         ]);
     }
 

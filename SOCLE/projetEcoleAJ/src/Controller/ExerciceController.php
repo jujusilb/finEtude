@@ -20,7 +20,8 @@ class ExerciceController extends AbstractController
 	
         return $this->render('Exercice/index.html.twig', [
             'controller_name' => 'ExerciceController',
-		'exercices' => $exerciceRepo->findAll(),
+		    'titre' => 'Exercice',
+            'exercices' => $exerciceRepo->findAll(),
         ]);
     }
 
@@ -40,6 +41,7 @@ class ExerciceController extends AbstractController
 
         return $this->render('exercice/new.html.twig', [
             'exercice' => $exercice,
+            'titre' => 'Nouvel Exercice',
             'exerciceForm' => $form->createView(),
         ]);
     }
@@ -49,6 +51,7 @@ class ExerciceController extends AbstractController
     {
         return $this->render('exercice/show.html.twig', [
             'exercice' => $exercice,
+            'titre' => 'Affichage Exercice',
         ]);
     }
 
@@ -66,6 +69,7 @@ class ExerciceController extends AbstractController
 
         return $this->render('exercice/edit.html.twig', [
             'exercice' => $exercice,
+            'titre' => 'Edition Exercice',
             'exerciceForm' => $form,
         ]);
     }

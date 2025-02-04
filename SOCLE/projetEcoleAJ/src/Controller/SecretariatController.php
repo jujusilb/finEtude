@@ -21,7 +21,8 @@ class SecretariatController extends AbstractController
 	
         return $this->render('Secretariat/index.html.twig', [
             'controller_name' => 'SecretariatController',
-		'secretariats' => $secretariatRepo->findAll(),
+		    'titre' => 'Secretariat',
+            'secretariats' => $secretariatRepo->findAll(),
         ]);
     }    #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
     public function new (Request $request, EntityManagerInterface $entityManager): Response
@@ -44,6 +45,7 @@ class SecretariatController extends AbstractController
 
         return $this->render('secretariat/new.html.twig', [
             'secretariat' => $secretariat,
+            'titre' => 'Nouveau Secretariat',
             'secretariatForm' => $form->createView(),
         ]);
     }
@@ -53,6 +55,7 @@ class SecretariatController extends AbstractController
     {
         return $this->render('secretariat/show.html.twig', [
             'secretariat' => $secretariat,
+            'titre' => 'Affichage Secretariat',
         ]);
     }
 
@@ -70,6 +73,7 @@ class SecretariatController extends AbstractController
 
         return $this->render('secretariat/edit.html.twig', [
             'secretariat' => $secretariat,
+            'titre' => 'Edition Secretariat',
             'secretariatForm' => $form,
         ]);
     }

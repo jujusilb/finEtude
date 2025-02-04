@@ -10,6 +10,7 @@
                 <th>photo</th>
                 <th>Nom</th>
                 <th>Prenom</th>
+                <th>Username</th>
                 <th>E-mail</th>
                 <th>password</th>
                 <th>role</th>
@@ -27,12 +28,12 @@
                     </td>
                     <td>{{ professeur.nom }}</td>
                     <td>{{ professeur.prenom }}</td>
-                    <td>{{ professeur.login }}</td>
+                    <td>{{ professeur.username }}</td>
                     <td>{{ professeur.email }}</td>
                     <td>{{ professeur.password }}</td>
                     <td>
                         {% for role in professeur.roles %}
-                            {{ role }}
+                            <li>{{ role }}</li>
                         {% endfor %}
                     </td>
                     <td>{{ professeur.dateEmbauche | date('d/m/Y') }}</td>

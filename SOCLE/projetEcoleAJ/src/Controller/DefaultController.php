@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Outils\CouteauSuisse;
 use App\Repository\AdminRepository;
 use App\Repository\AdulteRepository;
 use App\Repository\CuisineRepository;
@@ -64,9 +65,17 @@ class DefaultController extends AbstractController
         ViandeRepository $viandeRepo
      ): Response {
 
+        /*
+        $r=["klmqjdlmsdg", "qdlmsfjld", ["qmsdjfùq", "mqsdklfjmlq"], "qsdfjql"];
+        $debug= new CouteauSuisse();
+        $debug->debug($r, "r");
+        */
+        //$debug= new CouteauSuisse();
+        //$debug->debug($_SESSION, "session");
 
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
+            'titre' => 'Accueil',
             'admins' => $adminRepo->findAll(),
             'adultes' => $adulteRepo->findAll(),
             'cuisines' => $cuisineRepo->findAll(),

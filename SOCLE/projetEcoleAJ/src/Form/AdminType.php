@@ -22,6 +22,7 @@ class AdminType extends AbstractType
         $builder
             ->add('nom', TextType::class, [])
             ->add('prenom', TextType::class, [])
+            ->add('Username', TextType::class, [])
             ->add('roles', TextType::class, [])
             ->add('email', EmailType::class, [])
             ->add('password', TextType::class, [])

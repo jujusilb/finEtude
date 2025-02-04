@@ -22,7 +22,8 @@ class ReferentController extends AbstractController
 	
         return $this->render('referent/index.html.twig', [
             'controller_name' => 'ReferentController',
-		'referents' => $referentRepo->findAll(),
+		    'titre' => 'Referent',
+            'referents' => $referentRepo->findAll(),
         ]);
     }
 
@@ -42,6 +43,7 @@ class ReferentController extends AbstractController
 
         return $this->render('referent/new.html.twig', [
             'referent' => $referent,
+            'titre' => 'Nouveau Referent',
             'referentForm' => $form->createView(),
         ]);
     }
@@ -51,6 +53,7 @@ class ReferentController extends AbstractController
     {
         return $this->render('referent/show.html.twig', [
             'referent' => $referent,
+            'titre' => 'Affichage Referent',
         ]);
     }
 
@@ -68,6 +71,7 @@ class ReferentController extends AbstractController
 
         return $this->render('referent/edit.html.twig', [
             'referent' => $referent,
+            'titre' => 'Edition Referent',
             'referentForm' => $form,
         ]);
     }

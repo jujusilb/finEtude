@@ -20,7 +20,8 @@ class EntreeController extends AbstractController
 	
         return $this->render('Entree/index.html.twig', [
             'controller_name' => 'EntreeController',
-		'entrees' => $entreeRepo->findAll(),
+		    'titre' => 'Entree',
+            'entrees' => $entreeRepo->findAll(),
         ]);
     }
 
@@ -41,6 +42,7 @@ class EntreeController extends AbstractController
 
         return $this->render('entree/new.html.twig', [
             'entree' => $entree,
+            'titre' => 'Nouvelle Entree',
             'entreeForm' => $form->createView(),
         ]);
     }
@@ -50,7 +52,8 @@ class EntreeController extends AbstractController
     {
         return $this->render('entree/show.html.twig', [
             'entree' => $entree,
-        ]);
+            'titre' => 'Affichage Entree',
+            ]);
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
@@ -67,6 +70,7 @@ class EntreeController extends AbstractController
 
         return $this->render('entree/edit.html.twig', [
             'entree' => $entree,
+            'titre' => 'Edition Entree',
             'entreeForm' => $form,
         ]);
     }

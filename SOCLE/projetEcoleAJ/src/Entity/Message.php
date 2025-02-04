@@ -20,10 +20,22 @@ class Message
     private ?string $contenu = null;
 
     #[ORM\ManyToOne(inversedBy: 'message')]
-    private ?Membre $membre = null;
+    private ?Membre $expediteur = null;
 
     #[ORM\Column]
     private ?bool $privatif = null;
+
+    #[ORM\ManyToOne(inversedBy: 'message')]
+    private ?Thread $thread = null;
+
+    #[ORM\ManyToOne(inversedBy: 'messages')]
+    private ?Membre $destinataire = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column]
+    private ?\DateTimeImmutable $updatedAt = null;
 
     public function getId(): ?int {
         return $this->id;
@@ -45,11 +57,12 @@ class Message
         return $this;
     }
 
-    public function getMembre(): ?Membre {
-        return $this->membre;
+    public function getExpediteur(): ?Membre {
+        return $this->expediteur;
     }
-    public function setMembre(?Membre $Membre): static {
-        $this->membre = $Membre;
+    public function setExpediteur(?Membre $expediteur): static {
+        $this->expediteur = $expediteur;
+
         return $this;
     }
 
@@ -60,6 +73,54 @@ class Message
     public function setPrivatif(bool $privatif): static
     {
         $this->privatif = $privatif;
+
+        return $this;
+    }
+
+    public function getThread(): ?Thread
+    {
+        return $this->thread;
+    }
+
+    public function setThread(?Thread $thread): static
+    {
+        $this->thread = $thread;
+
+        return $this;
+    }
+
+    public function getDestinataire(): ?Membre
+    {
+        return $this->destinataire;
+    }
+
+    public function setDestinataire(?Membre $destinataire): static
+    {
+        $this->destinataire = $destinataire;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

@@ -26,6 +26,7 @@ class EmpruntController extends AbstractController
     {
         return $this->render('emprunt/index.html.twig', [
             'controller_name' => 'EmpruntController',
+            'titre' => 'Emprunt',
             'emprunts' => $empruntRepo->findAll(),
             'membre' => $membreRepo->findAll(),
             'ouvrage' => $ouvrageRepo->findAll(),
@@ -48,6 +49,7 @@ class EmpruntController extends AbstractController
 
         return $this->render('emprunt/new.html.twig', [
             'emprunt' => $emprunt,
+            'titre' => 'Nouvel Emprunt',
             'empruntForm' => $form->createView(),
         ]);
     }
@@ -57,6 +59,7 @@ class EmpruntController extends AbstractController
     {
         return $this->render('emprunt/show.html.twig', [
             'emprunt' => $emprunt,
+            'titre' => 'Affichage Emprunt',
         ]);
     }
 
@@ -74,6 +77,7 @@ class EmpruntController extends AbstractController
 
         return $this->render('emprunt/edit.html.twig', [
             'emprunt' => $emprunt,
+            'titre' => 'Edition Emprunt',
             'empruntForm' => $form,
         ]);
     }

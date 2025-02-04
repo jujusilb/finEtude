@@ -24,6 +24,7 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/index.html.twig', [
             'controller_name' => 'AdminController',
+            'titre' => 'Admin',
             'admins' => $adminRepo->findAll(),
         ]);
     }
@@ -45,6 +46,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/new.html.twig', [
             'admin' => $admin,
+            'titre' => 'Nouvel Admin',
             'adminForm' => $form->createView(),
         ]);
     }
@@ -71,6 +73,7 @@ class AdminController extends AbstractController
 
         return $this->render('admin/edit.html.twig', [
             'admin' => $admin,
+            'titre' => 'Edition Membre',
             'adminForm' => $form,
         ]);
     }

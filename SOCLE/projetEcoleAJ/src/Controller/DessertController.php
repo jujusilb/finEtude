@@ -20,7 +20,8 @@ class DessertController extends AbstractController
 	
         return $this->render('Dessert/index.html.twig', [
             'controller_name' => 'DessertController',
-		'desserts' => $dessertRepo->findAll(),
+		    'titre' => 'Dessert',
+            'desserts' => $dessertRepo->findAll(),
         ]);
     }
 

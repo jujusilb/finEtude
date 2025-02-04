@@ -25,12 +25,10 @@ class ProgrammeController extends AbstractController
                         ProfesseurRepository $professeurRepo,
                         MatiereRepository $matiereRepo): Response
     {   
-        $r=["klmqjdlmsdg", "qdlmsfjld", ["qmsdjfùq", "mqsdklfjmlq"], "qsdfjql"];
-        $debug= new CouteauSuisse();
-        $debug->debug($r, "r");
-        
+
         return $this->render('programme/index.html.twig', [
             'controller_name' => 'ProgrammeController',
+            'titre' => 'Programme',
             'programmes' => $programmeRepo->findAll(),
             'promotions' => $promotionRepo->findAll(),
             'professeurs' => $professeurRepo->findAll(),
@@ -54,6 +52,7 @@ class ProgrammeController extends AbstractController
 
         return $this->render('programme/new.html.twig', [
             'programme' => $programme,
+            'titre' => 'Nouveau Programme',
             'programmeForm' => $form->createView(),
         ]);
     }
@@ -63,6 +62,8 @@ class ProgrammeController extends AbstractController
     {
         return $this->render('programme/show.html.twig', [
             'programme' => $programme,
+            'titre' => 'Affichage Programme',
+            
         ]);
     }
 
@@ -80,6 +81,7 @@ class ProgrammeController extends AbstractController
 
         return $this->render('programme/edit.html.twig', [
             'programme' => $programme,
+            'titre' => 'Edition Programme',
             'programmeForm' => $form->createView(),
         ]);
     }

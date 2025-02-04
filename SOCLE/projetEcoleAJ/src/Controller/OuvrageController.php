@@ -20,7 +20,8 @@ class OuvrageController extends AbstractController
 	
         return $this->render('Ouvrage/index.html.twig', [
             'controller_name' => 'OuvrageController',
-		'ouvrages' => $ouvrageRepo->findAll(),
+		    'titre' => 'Ouvrage',
+            'ouvrages' => $ouvrageRepo->findAll(),
         ]);
     }
 
@@ -41,6 +42,7 @@ class OuvrageController extends AbstractController
 
         return $this->render('ouvrage/new.html.twig', [
             'ouvrage' => $ouvrage,
+            'titre' => 'Nouvel Ouvrage',
             'ouvrageForm' => $form->createView(),
         ]);
     }
@@ -50,6 +52,7 @@ class OuvrageController extends AbstractController
     {
         return $this->render('ouvrage/show.html.twig', [
             'ouvrage' => $ouvrage,
+            'titre' => 'Affichage Ouvrage',
         ]);
     }
 
@@ -67,6 +70,7 @@ class OuvrageController extends AbstractController
 
         return $this->render('ouvrage/edit.html.twig', [
             'ouvrage' => $ouvrage,
+            'titre' => 'Edition Ouvrage',
             'ouvrageForm' => $form,
         ]);
     }

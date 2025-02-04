@@ -24,7 +24,8 @@ class ParentEleveController extends AbstractController
 	
         return $this->render('parent_eleve/index.html.twig', [
             'controller_name' => 'ParentEleveController',
-		    'parentEleves' => $parentEleveRepo->findAll(),
+		    'titre' => 'Parent d\'élève',
+            'parentEleves' => $parentEleveRepo->findAll(),
             'eleve' => $eleveRepo->findAll()
         ]);
     }
@@ -49,6 +50,7 @@ class ParentEleveController extends AbstractController
 
         return $this->render('parent_eleve/new.html.twig', [
             'parentEleve' => $parentEleve,
+            'titre' => 'Nouveau Parent d\'élève',
             'parentEleveForm' => $form->createView(),
         ]);
     }
@@ -58,6 +60,7 @@ class ParentEleveController extends AbstractController
     {
         return $this->render('parent_eleve/show.html.twig', [
             'parentEleve' => $parentEleve,
+            'titre' => 'Affichage Parent d\'élève',
         ]);
     }
 
@@ -75,6 +78,7 @@ class ParentEleveController extends AbstractController
 
         return $this->render('parent_eleve/edit.html.twig', [
             'parentEleve' => $parentEleve,
+            'titre' => 'Edition Parent d\'élève',
             'parentEleveForm' => $form,
         ]);
     }

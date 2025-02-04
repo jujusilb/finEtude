@@ -20,7 +20,8 @@ class FromageController extends AbstractController
 	
         return $this->render('Fromage/index.html.twig', [
             'controller_name' => 'FromageController',
-		'fromages' => $fromageRepo->findAll(),
+		    'titre' => 'Fromage',
+            'fromages' => $fromageRepo->findAll(),
         ]);
     }
 
@@ -41,6 +42,7 @@ class FromageController extends AbstractController
 
         return $this->render('fromage/new.html.twig', [
             'fromage' => $fromage,
+            'titre' => 'Nouveau Fromage',
             'fromageForm' => $form->createView(),
         ]);
     }
@@ -50,6 +52,7 @@ class FromageController extends AbstractController
     {
         return $this->render('fromage/show.html.twig', [
             'fromage' => $fromage,
+            'titre' => 'Affichage Fromage',
         ]);
     }
 
@@ -67,6 +70,7 @@ class FromageController extends AbstractController
 
         return $this->render('fromage/edit.html.twig', [
             'fromage' => $fromage,
+            'titre' => 'Edition Fromage',
             'fromageForm' => $form,
         ]);
     }

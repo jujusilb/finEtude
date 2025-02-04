@@ -10,6 +10,7 @@
                 <th>photo</th>
                 <th>Nom</th>
                 <th>Prenom</th>
+                <th>Username</th>
                 <th>E-mail</th>
                 <th>password</th>
                 <th>role</th>
@@ -26,11 +27,12 @@
                     </td>
                     <td>{{ secretariat.nom }}</td>
                     <td>{{ secretariat.prenom }}</td>
+                    <td>{{ secretariat.username }}</td>
                     <td>{{ secretariat.email }}</td>
                     <td>{{ secretariat.password }}</td>
                     <td>
                         {% for role in secretariat.roles %}
-                            {{ role }}
+                            <li>{{ role }}</li>
                         {% endfor %}
                     </td>
                     <td>{{ secretariat.dateEmbauche | date('d/m/Y') }}</td>

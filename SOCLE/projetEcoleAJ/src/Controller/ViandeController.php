@@ -20,7 +20,8 @@ class ViandeController extends AbstractController
 	
         return $this->render('Viande/index.html.twig', [
             'controller_name' => 'ViandeController',
-		'viandes' => $viandeRepo->findAll(),
+		    'titre' => 'Viande',
+            'viandes' => $viandeRepo->findAll(),
         ]);
     }
 
@@ -41,6 +42,7 @@ class ViandeController extends AbstractController
 
         return $this->render('viande/new.html.twig', [
             'viande' => $viande,
+            'titre' => 'Nouvelle Viande',
             'viandeForm' => $form->createView(),
         ]);
     }
@@ -50,6 +52,7 @@ class ViandeController extends AbstractController
     {
         return $this->render('viande/show.html.twig', [
             'viande' => $viande,
+            'titre' => 'Affichage Viande',
         ]);
     }
 
@@ -67,6 +70,7 @@ class ViandeController extends AbstractController
 
         return $this->render('viande/edit.html.twig', [
             'viande' => $viande,
+            'titre' => 'Edition Viande',
             'viandeForm' => $form,
         ]);
     }

@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Membre</th>
+                <th>Expediateur</th>
                 <th>Sujet</th>
                 <th>Contenu</th>
                 <th>Privatif</th>
@@ -20,9 +20,9 @@
                     <td>{{message.id}}</td>
                     <td>
                     <a href="{{ path('membre_affichage', {'id': message.membre.id}) }}">
-                        {{ message.membre.nom }}</td>
+                        {{ message.expediteur.nom }}</td>
                     </a>
-                    
+                   
                     <td>{{ message.sujet }}</td>
                     <td>{{ message.contenu }}</td>
                     <td>{{ message.privatif }}</td>

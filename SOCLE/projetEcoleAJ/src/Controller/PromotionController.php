@@ -30,6 +30,7 @@ class PromotionController extends AbstractController
     {
         return $this->render('Promotion/index.html.twig', [
             'controller_name' => 'PromotionController',
+            'titre' => 'Promotion',
             'promotions' => $promotionRepo->findAll(),
             'eleves' => $eleveRepo->findAll(),
             'programmes' =>$programmeRepo->findAll()
@@ -53,6 +54,7 @@ class PromotionController extends AbstractController
 
         return $this->render('promotion/new.html.twig', [
             'promotion' => $promotion,
+            'titre' => 'Nouveau Promotion',
             'promotionForm' => $form->createView(),
         ]);
     }
@@ -62,6 +64,7 @@ class PromotionController extends AbstractController
     {
         return $this->render('promotion/show.html.twig', [
             'promotion' => $promotion,
+            'titre' => 'Affichage Promotion',
             'referent' => $referent,
         ]);
     }
@@ -80,6 +83,7 @@ class PromotionController extends AbstractController
 
         return $this->render('promotion/edit.html.twig', [
             'promotion' => $promotion,
+            'titre' => 'Edition Promotion',
             'promotionForm' => $form,
         ]);
     }

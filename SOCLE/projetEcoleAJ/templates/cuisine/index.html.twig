@@ -10,6 +10,7 @@
                 <th>photo</th>
                 <th>Nom</th>
                 <th>Prenom</th>
+                <th>Username</th>
                 <th>E-mail</th>
                 <th>password</th>
                 <th>role</th>
@@ -27,11 +28,12 @@
                     </td>
                     <td>{{ cuisine.nom }}</td>
                     <td>{{ cuisine.prenom }}</td>
+                    <td>{{ cuisine.username }}</td>
                     <td>{{ cuisine.email }}</td>
                     <td>{{ cuisine.password }}</td>
                     <td>
                         {% for role in cuisine.roles %}
-                            {{ role }}
+                            <li>{{ role }}</li>
                         {% endfor %}
                     </td>
                     <td>{{ cuisine.dateEmbauche | date('d/m/Y') }}</td>
