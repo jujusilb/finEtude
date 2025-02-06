@@ -1,0 +1,45 @@
+@startuml class
+abstract Membre{
+    #nom :string
+    #prenom :string
+    #mail :string
+    #photoProfil :string
+}
+abstract Adulte extends Membre{}
+abstract Personnel extends Adulte{
+    #dateEmbauche :date
+    #Poste :string
+}
+class Professeur extends Personnel{
+    #matiere :string
+    #promotion :Promotion[]
+}
+class Cuisine extends Personnel{}
+class Secretariat extends Personnel{}
+class Documentaliste extends Personnel{}
+class Admin extends Membre{}
+class ParentEleve extends Adulte{
+    #eleve :Eleve[]
+}
+class Eleve extends Membre{
+    -promotion :Promotion
+    -listMatiere :Matiere[]
+}
+
+class Referent extends Professeur{
+    -Promotion :Promotion
+}
+class Promotion{
+    #listEleve :Eleve[]
+    #profPrinc :Professeur
+    #niveau : string
+}
+class Direction extends Secretariat{}
+class Surveillant extends Personnel {}
+
+
+Eleve  --  Promotion :appartient
+Promotion  --  Professeur :est affecté
+Referent  --  Promotion :représenter
+ParentEleve  --  Eleve
+@enduml

@@ -1,0 +1,75 @@
+@startuml
+entity "Utilisateur" {
+  +id : INT
+  +nom : VARCHAR
+  +email : VARCHAR
+  +mot_de_passe : VARCHAR
+  +date_inscription : DATETIME
+  +role : VARCHAR
+}
+
+entity "Message" {
+  +id : INT
+  +texte : TEXT
+  +date_creation : DATETIME
+  +utilisateur_id : INT
+  +sous_forum_id : INT
+}
+
+entity "Forum" {
+  +id : INT
+  +nom : VARCHAR
+  +description : TEXT
+}
+
+entity "Categorie" {
+  +id : INT
+  +nom : VARCHAR
+  +forum_id : INT
+}
+
+entity "SousForum" {
+  +id : INT
+  +nom : VARCHAR
+  +categorie_id : INT
+  +description : TEXT
+}
+
+entity "Notification" {
+  +id : INT
+  +utilisateur_id : INT
+  +message : TEXT
+  +date_envoi : DATETIME
+  +lu : BOOLEAN
+}
+
+entity "Rang" {
+  +id : INT
+  +nom : VARCHAR
+  +niveau_minimum : INT
+}
+
+entity "Fichier" {
+  +id : INT
+  +chemin : VARCHAR
+  +message_id : INT
+}
+
+entity "Session" {
+  +id : INT
+  +utilisateur_id : INT
+  +date_creation : DATETIME
+  +token : VARCHAR
+}
+
+' Relations
+Utilisateur ||--o{ Message : poste
+Message ||--|{ Fichier : contient
+Forum ||--o{ Categorie : a
+Categorie ||--o{ SousForum : contient
+Utilisateur ||--o{ Notification : reçoit
+Utilisateur ||--o{ Session : a
+Utilisateur ||--|{ Rang : a
+Message }o--|| SousForum : appartient
+
+@enduml
