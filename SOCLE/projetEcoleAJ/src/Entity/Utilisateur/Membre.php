@@ -118,7 +118,10 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface{
      * @var Collection<int, Message>
      */
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'destinataire')]
-    private Collection $receiverMess; // Valeur par défaut
+    private Collection $receiverMess;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $charte = null; // Valeur par défaut
 
     
     public function __construct(){
@@ -404,6 +407,18 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface{
                 $receiverMess->setDestinataire(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isCharte(): ?bool
+    {
+        return $this->charte;
+    }
+
+    public function setCharte(?bool $charte): static
+    {
+        $this->charte = $charte;
 
         return $this;
     }

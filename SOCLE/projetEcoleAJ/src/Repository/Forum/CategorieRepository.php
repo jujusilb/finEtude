@@ -2,7 +2,7 @@
 
 namespace App\Repository\Forum;
 
-use App\Entity\Categorie;
+use App\Entity\Forum\Categorie;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

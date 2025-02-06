@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Outils\CouteauSuisse;
+use App\Entity\Utilisateur\Membre;
 use App\Repository\Utilisateur\AdminRepository;
 use App\Repository\Utilisateur\AdulteRepository;
 use App\Repository\Utilisateur\CuisineRepository;
@@ -39,6 +40,7 @@ class DefaultController extends AbstractController
 {
     #[Route('/', name: 'accueil')]
     public function home(
+        
         AdminRepository $adminRepo, 
         AdulteRepository $adulteRepo,
         CuisineRepository $cuisineRepo,
@@ -65,8 +67,7 @@ class DefaultController extends AbstractController
         SurveillantRepository $surveillantRepo,
         ViandeRepository $viandeRepo
      ): Response {
-
-        /*
+ /*
         $r=["klmqjdlmsdg", "qdlmsfjld", ["qmsdjfùq", "mqsdklfjmlq"], "qsdfjql"];
         $debug= new CouteauSuisse();
         $debug->debug($r, "r");

@@ -13,17 +13,15 @@
           Cuisine
         </a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item" href="{{ path('cuisine_index') }}">Cuisine</a></li>
           <li class="dropdown-submenu">
             <a class="dropdown-item dropdown-toggle" href="#">Repas</a>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-submenu">
               <li><a class="dropdown-item" href="{{ path('repas_index') }}">Repas</a></li>
               <li><a class="dropdown-item" href="{{ path('menu_index') }}">Menu</a></li>
               <li><a class="dropdown-item" href="{{ path('entree_index') }}">Entrée</a></li>
               <li><a class="dropdown-item" href="{{ path('plat_index') }}">Plat</a></li>
               <li class="dropdown-submenu">
-                <a class="dropdown-item dropdown-toggle" href="#">Viande</a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-submenu">
                   <li><a class="dropdown-item" href="{{ path('viande_index') }}">Viande</a></li>
                   <li><a class="dropdown-item" href="{{ path('legume_index') }}">Légume</a></li>
                 </ul>
@@ -71,11 +69,11 @@
       {% if app.user %}
         <span class="navbar-text me-2">{{ app.user.username }}</span>
         <a href="{{ path('app_logout') }}">
-          <img src="images/connexion/logout.svg" alt="Logout">
+          <img src="images\connexion\logout.sv  g" alt="Logout">
         </a>
       {% else %}
         <a href="{{ path('app_login') }}">
-          <img src="images/connexion/login.svg" alt="Login">
+          <img src="images\connexion\login.svg" alt="Login">
         </a>
       {% endif %}
     </div>
