@@ -16,6 +16,9 @@ j<head>
         link.type = 'text/css';
         link.href = 'https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css';
         //link.integrity = "sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl";
+            link.integrity = "sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl";
+            scriptElement.integrity = "sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0";
+
         link.crossorigin = "anonymous";
         document.head.appendChild(link);
 
@@ -36,7 +39,7 @@ j<head>
 
         let scriptElement = document.createElement('script');
         scriptElement.src = '/_js/bootstrap.bundle.min.js';
-        scriptElement.type = '/javascript';
+        scriptElement.type = 'text/javascript';
         document.head.appendChild(scriptElement);
     }
 
@@ -44,12 +47,18 @@ if (navigator.onLine) {
     loadOnlineCSS();
 } else {
     loadOfflineCSS();
-   /* let divDeco=document.creatElement("div")
-    divDeco.style.alignItem="Center"
-    document.body.appendChuld(divDeco)
-    divDeco
-    */
 }
+
+
+window.addEventListener('online', function() {
+    loadOnlineCSS();
+});
+
+window.addEventListener('offline', function() {
+    loadOfflineCSS();
+});
+
+
 
 window.addEventListener('online', loadOnlineCSS);
 

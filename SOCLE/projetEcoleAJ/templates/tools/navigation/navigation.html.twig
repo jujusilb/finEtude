@@ -1,85 +1,83 @@
-<nav class="navbar navbar-expand-lg navbar-dark  bg-secondary">
-    <div class="collapse navbar-collapse" id="navbarScroll">
-	    <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-			
 
-                <li class="nav-item">
-                    <a href="{{ path('accueil') }}" class="navbar-brand">
-                        ACCUEIL
-                    </a>
-                </li>
 
-			<li class="nav-item">
-				<a href="{{ path('admin_index') }}" class="navbar-brand">
-                    Admin
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('cuisine_index') }}" class="navbar-brand">
-                    Cuisine
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('direction_index') }}" class="navbar-brand">
-                    Direction
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('documentaliste_index') }}" class="navbar-brand">
-                    Documentaliste
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('eleve_index') }}" class="navbar-brand">
-                    Eleve
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('emprunt_index') }}" class="navbar-brand">
-                    Emprunt
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('matiere_index') }}" class="navbar-brand">
-                    Matiere
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('membre_index') }}" class="navbar-brand">
-                    Membre
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('message_index') }}" class="navbar-brand">
-                    Message
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('professeur_index') }}" class="navbar-brand">
-                    Professeur
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('promotion_index') }}" class="navbar-brand">
-                    Promotion
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('programme_index') }}" class="navbar-brand">
-                    Programme
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('secretariat_index') }}" class="navbar-brand">
-                    Secretaria
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ path('surveillant_index') }}" class="navbar-brand">
-                    surveillant
-                </a>
-            </li>              
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <!-- Accueil -->
+    <a class="navbar-brand" href="{{ path('accueil') }}">ACCUEIL</a>
+    
+    <!-- Admin menu -->
+    <div class="navbar-nav">
+      <a class="nav-link" href="{{ path('admin_index') }}">Admin</a>
+      <div class="dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Cuisine
+        </a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="{{ path('cuisine_index') }}">Cuisine</a></li>
+          <li class="dropdown-submenu">
+            <a class="dropdown-item dropdown-toggle" href="#">Repas</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ path('repas_index') }}">Repas</a></li>
+              <li><a class="dropdown-item" href="{{ path('menu_index') }}">Menu</a></li>
+              <li><a class="dropdown-item" href="{{ path('entree_index') }}">Entrée</a></li>
+              <li><a class="dropdown-item" href="{{ path('plat_index') }}">Plat</a></li>
+              <li class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="#">Viande</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{{ path('viande_index') }}">Viande</a></li>
+                  <li><a class="dropdown-item" href="{{ path('legume_index') }}">Légume</a></li>
+                </ul>
+              </li>
+              <li><a class="dropdown-item" href="{{ path('fromage_index') }}">Fromage</a></li>
+              <li><a class="dropdown-item" href="{{ path('dessert_index') }}">Dessert</a></li>
+            </ul>
+          </li>
+          <li class="dropdown-submenu">
+            <a class="dropdown-item dropdown-toggle" href="#">Documentaliste</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ path('documentaliste_index') }}">Documentaliste</a></li>
+              <li><a class="dropdown-item" href="{{ path('ouvrage_index') }}">Ouvrage</a></li>
+              <li><a class="dropdown-item" href="{{ path('emprunt_index') }}">Emprunt</a></li>
+            </ul>
+          </li>
+          <li><a class="dropdown-item" href="#">Pedagogie</a></li>
+          <li class="dropdown-submenu">
+            <a class="dropdown-item dropdown-toggle" href="#">Eleve</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ path('eleve_index') }}">Eleve</a></li>
+              <li><a class="dropdown-item" href="{{ path('promotion_index') }}">Promotion</a></li>
+              <li><a class="dropdown-item" href="{{ path('professeur_index') }}">Professeur</a></li>
+              <li><a class="dropdown-item" href="{{ path('matiere_index') }}">Matière</a></li>
+              <li><a class="dropdown-item" href="{{ path('programme_index') }}">Programme</a></li>
+              <li><a class="dropdown-item" href="{{ path('secretariat_index') }}">Secretariat</a></li>
+              <li class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="#">Direction</a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{{ path('direction_index') }}">Direction</a></li>
+                </ul>
+              </li>
+              <li><a class="dropdown-item" href="{{ path('surveillant_index') }}">Surveillant</a></li>
+            </ul>
+          </li>
         </ul>
+      </div>
     </div>
-</nav>
 
+    <!-- Forum -->
+    <a class="nav-link" href="{{ path('forum_index') }}">Forum</a>
+
+    <!-- Connexion ou nom d'utilisateur -->
+    <div class="d-flex">
+      {% if app.user %}
+        <span class="navbar-text me-2">{{ app.user.username }}</span>
+        <a href="{{ path('app_logout') }}">
+          <img src="images/connexion/logout.svg" alt="Logout">
+        </a>
+      {% else %}
+        <a href="{{ path('app_login') }}">
+          <img src="images/connexion/login.svg" alt="Login">
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</nav>

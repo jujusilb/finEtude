@@ -223,12 +223,8 @@
                             </div>
                         </div>
                     {% endfor %}
-                
                 <hr><hr>
-                
-                    
                         <h2>Message</h2>
-                    
                     {% for message in messages %}
                         <div class="col-sm-3">
                             <div class="card">
@@ -239,6 +235,10 @@
                                     Auteur : {{message.expediteur.prenom}} {{message.expediteur.nom}}
                                     <br>
                                     Sujet : {{message.sujet}}
+                                    <br>
+                                    {% if message.destinataire | length > 0 %}
+                                        Pour : {{message.destinataire.prenom}} {{message.destinataire.nom}}
+                                    {% endif %}
                                 </h5>
                             </div>
                         </div>

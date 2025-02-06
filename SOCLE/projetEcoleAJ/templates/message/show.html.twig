@@ -17,13 +17,23 @@
 					<td>{{ message.id }}</td>
 				</tr>
 				<tr>
-					<th>Membre</th>
-					<td>
-						<a href="{{ path('membre_affichage', {'id': message.membre.id}) }}">
-							{{message.membre.prenom}} {{ message.membre.nom}}
+					<th>Expediteur</th>
+					<td>{% if message.expediteur | length > 0%}
+						<a href="{{ path('membre_affichage', {'id': message.expediteur.id}) }}">
+							{{message.expediteur.prenom}} {{ message.expediteur.nom}}
 						</a>
+						{% endif %}
 					</td>
 				</tr>
+				<tr>
+					<td>Destinataire</td>
+					<td>
+						{% if message.destinataire | length > 0%}
+						<a href="{{ path('membre_affichage', {'id': message.destinataire.id}) }}">
+							{{message.destinataire.prenom}} {{ message.destinataire.nom}}
+						</a>
+						{% endif %}
+					</td>
 				<tr>
 					<th>Sujet</th>
 					<td>{{ message.sujet}}</td>

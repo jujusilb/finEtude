@@ -27,8 +27,8 @@ security:
         ROLE_K3:                 ROLE_ELEVE ROLE_MEMBRE ROLE_USER
         ROLE_K4:                 ROLE_ELEVE ROLE_MEMBRE ROLE_USER
         ROLE_K5:                 ROLE_ELEVE ROLE_MEMBRE ROLE_USER
-        ROLE_ADMIN:             ROLE_MEMBRE ROLE_USER
-        ROLE_SUPER_ADMIN:       [ROLE_MEMBRE, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH] ROLE_USER
+        ROLE_ADMIN:              ROLE_MEMBRE ROLE_USER
+        ROLE_SUPER_ADMIN:        [ROLE_MEMBRE, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH] ROLE_USER
         ROLE_ANGLAIS:            ROLE_PROFESSEUR ROLE_PERSONNEL ROLE_ADULTE ROLE_MEMBRE ROLE_USER
         ROLE_MATHEMATIQUE:       ROLE_PROFESSEUR ROLE_PERSONNEL ROLE_ADULTE ROLE_MEMBRE ROLE_USER
         ROLE_ANATOMIE:           ROLE_PROFESSEUR ROLE_PERSONNEL ROLE_ADULTE ROLE_MEMBRE ROLE_USER
@@ -43,7 +43,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         user_provider:
             entity:
-                class: App\Entity\Membre
+                class: App\Entity\Utilisateur\Membre
                 property: email
         all_users:
             chain:

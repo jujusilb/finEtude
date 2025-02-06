@@ -11,6 +11,7 @@
                 <th>Sujet</th>
                 <th>Contenu</th>
                 <th>Privatif</th>
+                <th>Destinataire</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -19,13 +20,20 @@
                 <tr>
                     <td>{{message.id}}</td>
                     <td>
-                    <a href="{{ path('membre_affichage', {'id': message.membre.id}) }}">
-                        {{ message.expediteur.nom }}</td>
-                    </a>
-                   
+                        <a href="{{ path('membre_affichage', {'id': message.expediteur.id}) }}">
+                            {{ message.expediteur.prenom }} {{ message.expediteur.nom }}</td>
+                        </a>
+                    </td>
                     <td>{{ message.sujet }}</td>
                     <td>{{ message.contenu }}</td>
                     <td>{{ message.privatif }}</td>
+                    <td>
+                        {% if message.destinataire | length > 0 %}
+                            <a href="{{ path('membre_affichage', {'id': message.destinataire.id}) }}">
+                                {{ message.destinataire.prenom }} {{ message.destinataire.nom }}</td>
+                            </a>
+                        {% endif %}
+                    </td>                    
                     <td>
                         <a href="{{ path('message_affichage', {'id': message.id}) }}" class="btn btn-secondary">lire</a>
                         <a href="{{ path('message_edition', {'id': message.id}) }}" class="btn btn-secondary">editer</a>
