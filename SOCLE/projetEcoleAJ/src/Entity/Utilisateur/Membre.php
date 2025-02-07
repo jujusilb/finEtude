@@ -121,7 +121,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface{
     private Collection $receiverMess;
 
     #[ORM\Column(nullable: true)]
-    private ?bool $charte = null; // Valeur par défaut
+    private bool $charte; // Valeur par défaut
 
     
     public function __construct(){

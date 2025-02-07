@@ -31,47 +31,53 @@ class ForumController extends AbstractController
     */
 
     #[Route('/index', name: 'index')]
-    public function index(EntityManagerInterface $entityManager, MembreRepository $membreRepo, Request $request, forumRepository $forumRepo, MembreRepository $userRepo): Response
+    public function index(EntityManagerInterface $entityManager, MembreRepository $membreRepo, Request $request, ForumRepository $forumRepo,  MembreRepository $userRepo): Response
     {
         $login=$this->getUser();
-        if ($login && $login->isCharte() === true) {
-            $this->redirectToRoute('categorie_index');
-        }
-        $form = $this->createFormBuilder()
-            ->add('charte', ChoiceType::class, [
-                'choices' => [
-                    'Accepter la charte' => true,
-                    'Refuser la charte' => false,
-                ],
-                'expanded' => true,
-                'multiple' => false,
-                'data' => false,
-            ])
-            ->getForm()
-        ;
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            if ($form->isSubmitted() && $form->isValid()) {
-                $user = $this->getUser();
-                
-                if ($user) {
-                    $entityManager->persist($user);
-                    $entityManager->flush();
-                }
-                /*if ($charteAccepted) {
-                    return $this->redirectToRoute('categorie_index');
-                }*/
-                return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
+        if ($login instanceof Membre){
+            if ($login->isCharte() === true) {
+                $this->redirectToRoute('categorie_index');
             }
+            else {
+                echo "NOPE !, la clé charte est toujours a $login->isCharte()";
+            }
+        
+            $form = $this->createFormBuilder()
+                ->add('charte', ChoiceType::class, [
+                    'choices' => [
+                        'Accepter la charte' => true,
+                        'Refuser la charte' => false,
+                    ],
+                    'expanded' => true,
+                    'multiple' => false,
+                    'data' => $login ? $login->isCharte() ?? false : false,
+                ])
+                ->getForm()
+            ;
+
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                if ($form->isSubmitted() && $form->isValid()) {
+                    
+                    if ($login) {
+                        $login->setCharte(true); 
+                        $entityManager->persist($login);
+                        $entityManager->flush();
+                    }
+                    /*if ($charteAccepted) {
+                        return $this->redirectToRoute('categorie_index');
+                    }*/
+                    return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
+                }
+            }
+                return $this->render('forum/index.html.twig', [
+                    'controller_name' => 'forumController',
+                    'titre' => 'Forum',
+                    'forums' => $forumRepo->findAll(),
+                    'form' => $form->createView(),
+                ]);
         }
-            return $this->render('forum/index.html.twig', [
-                'controller_name' => 'forumController',
-                'titre' => 'Forum',
-                'forums' => $forumRepo->findAll(),
-                'form' => $form->createView(),
-            ]);
-        }
+    }
     
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
