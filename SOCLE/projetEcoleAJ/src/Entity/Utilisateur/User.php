@@ -2,6 +2,23 @@
 
 namespace App\Entity\Utilisateur;
 
+
+use App\Entity\Utilisateur\Admin;
+use App\Entity\Utilisateur\Adulte;
+use App\Entity\Utilisateur\Cuisine;
+use App\Entity\Utilisateur\Direction;
+use App\Entity\Utilisateur\Documentaliste;
+use App\Entity\Utilisateur\Eleve;
+use App\Entity\Utilisateur\ParentEleve;
+use App\Entity\Utilisateur\Professeur;
+use App\Entity\Pedagogie\Referent;
+use App\Entity\Documentaliste\Emprunt;
+use App\Entity\Cuisine\Repas;
+use App\Entity\Forum\Message;
+use App\Entity\Forum\Thread;
+use App\Entity\Utilisateur\Secretariat;
+use App\Entity\Utilisateur\Surveillant;
+
 use App\Repository\Utilisateur\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -9,6 +26,23 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[ORM\InheritanceType("JOINED")]
+#[ORM\DiscriminatorColumn(name: "discrimination", type: "string")]
+#[ORM\DiscriminatorMap([    
+    "user" => User::class,
+    "membre" => Membre::class,
+    "adulte" =>Adulte::class,
+    "parentEleve" =>ParentEleve::class,
+    'personnel' =>Personnel::class,    
+    "cuisine" => Cuisine::class,
+    "surveillant" =>Surveillant::class,
+    "secretariat" => Secretariat::class,
+    'direction' =>Direction::class,
+    "professeur" => Professeur::class,
+    "documentaliste" => Documentaliste::class,
+    "admin" => Admin::class, 
+    "eleve" => Eleve::class,
+])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]

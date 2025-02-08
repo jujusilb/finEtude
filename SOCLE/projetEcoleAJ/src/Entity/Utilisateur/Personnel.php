@@ -2,6 +2,7 @@
 
 namespace App\Entity\Utilisateur;
 
+use App\Entity\Utilisateur\User;
 use App\Entity\Utilisateur\Adulte;
 use App\Entity\Utilisateur\Cuisine;
 use App\Entity\Utilisateur\Direction;
@@ -19,12 +20,12 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\DiscriminatorColumn(name: "discrimination", type: "string")]
 #[ORM\DiscriminatorMap([
     "Personnel" => Personnel::class, 
-    "cuisine" => Cuisine::class,
-    'direction' => Direction::class,
-    "documentaliste" => Documentaliste::class, 
-    "Professeur"=>Professeur::class, 
-    "secretariat" => Secretariat::class,
-    'surveillant' => Surveillant::class
+        "cuisine" => Cuisine::class,
+        "documentaliste" => Documentaliste::class, 
+        "Professeur"=>Professeur::class, 
+        "secretariat" => Secretariat::class,
+            'direction' => Direction::class,
+        'surveillant' => Surveillant::class
     ])]
 
 class Personnel extends Adulte{

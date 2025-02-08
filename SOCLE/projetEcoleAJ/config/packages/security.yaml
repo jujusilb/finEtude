@@ -43,7 +43,7 @@ security:
         # used to reload user from session & other features (e.g. switch_user)
         user_provider:
             entity:
-                class: App\Entity\Utilisateur\Membre
+                class: App\Entity\Utilisateur\User
                 property: email
         all_users:
             chain:

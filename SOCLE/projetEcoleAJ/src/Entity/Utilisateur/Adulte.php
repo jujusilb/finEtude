@@ -2,6 +2,7 @@
 
 namespace App\Entity\Utilisateur;
 
+use App\Entity\Utilisateur\User;
 use App\Entity\Utilisateur\Direction;
 use App\Entity\Utilisateur\Membre;
 use App\Entity\Utilisateur\Personnel;
@@ -13,15 +14,15 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "discrimination", type: "string")]
 #[ORM\DiscriminatorMap([
-    "adulte" =>Adulte::class, 
-    "cuisine" => cuisine::class, 
-    'direction' =>Direction::class,   
-    "documentaliste" => Documentaliste::class, 
-    "personnel" => Personnel::class,
-    "parentEleve" =>ParentEleve::class,
-    "Professeur"=>Professeur::class, 
-    "secretariat" => Secretariat::class,
-    'surveillant' => Surveillant::class
+    'adulte' =>Adulte::class, 
+        'parentEleve' =>ParentEleve::class,
+        'personnel' => Personnel::class,
+            "cuisine" => cuisine::class, 
+            "documentaliste" => Documentaliste::class, 
+            "Professeur"=>Professeur::class, 
+            "secretariat" => Secretariat::class,
+                'direction' =>Direction::class, 
+            'surveillant' => Surveillant::class
     ])]
 class Adulte extends Membre
 {

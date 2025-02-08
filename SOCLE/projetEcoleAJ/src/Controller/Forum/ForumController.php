@@ -18,6 +18,8 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/forum', name: 'forum_')]
 class ForumController extends AbstractController
 {
+
+    
     /*
     #[Route('/index', name: 'index')]
     public function index(forumRepository $forumRepo): Response
@@ -33,50 +35,62 @@ class ForumController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(EntityManagerInterface $entityManager, MembreRepository $membreRepo, Request $request, ForumRepository $forumRepo,  MembreRepository $userRepo): Response
     {
-        $login=$this->getUser();
-        if ($login instanceof Membre){
-            if ($login->isCharte() === true) {
-                $this->redirectToRoute('categorie_index');
-            }
-            else {
-                echo "NOPE !, la clé charte est toujours a $login->isCharte()";
-            }
-        
-            $form = $this->createFormBuilder()
-                ->add('charte', ChoiceType::class, [
-                    'choices' => [
-                        'Accepter la charte' => true,
-                        'Refuser la charte' => false,
-                    ],
-                    'expanded' => true,
-                    'multiple' => false,
-                    'data' => $login ? $login->isCharte() ?? false : false,
-                ])
-                ->getForm()
-            ;
-
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                if ($form->isSubmitted() && $form->isValid()) {
-                    
-                    if ($login) {
-                        $login->setCharte(true); 
-                        $entityManager->persist($login);
-                        $entityManager->flush();
-                    }
-                    /*if ($charteAccepted) {
-                        return $this->redirectToRoute('categorie_index');
-                    }*/
-                    return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
+        $reponse="let's decide";
+        $user=$this->getUser();
+        if ($user instanceof Membre){
+            $charte= $user->isCharte();
+                if ($charte) {
+                    $reponse="instance of membre et isCharte true";
+                    return $this->redirectToRoute('categorie_index');
                 }
-            }
-                return $this->render('forum/index.html.twig', [
-                    'controller_name' => 'forumController',
-                    'titre' => 'Forum',
-                    'forums' => $forumRepo->findAll(),
-                    'form' => $form->createView(),
-                ]);
+                else {
+                    $reponse="NOPE !, la clé charte est toujours a false";
+                    $form = $this->createFormBuilder()
+                    ->add('charte', ChoiceType::class, [
+                        'choices' => [
+                            'Accepter la charte' => true,
+                            'Refuser la charte' => false,
+                        ],
+                        'expanded' => true,
+                        'multiple' => false,
+                        'data' => $user ? $user->isCharte() ?? false : false,
+                    ])
+                    ->getForm();
+
+                    $form->handleRequest($request);
+                    if ($form->isSubmitted() && $form->isValid()) {
+                        if ($form->isSubmitted() && $form->isValid()) {
+                            if ($user) {
+                                $user->setCharte(true); 
+                                $entityManager->persist($user);
+                                $entityManager->flush();
+                            }
+                            if ($charte===true) {
+                                return $this->redirectToRoute('categorie_index');
+                            }
+                            return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
+                      }
+                    }
+                    return $this->render('forum/index.html.twig', [
+                        'controller_name' => 'forumController',
+                        'titre' => 'Forum',
+                        'forums' => $forumRepo->findAll(),
+                        'form' => $form->createView(),
+                        "reponse" =>$reponse
+                    ]);
+                }
+            } else {
+            $reponse ="tout a foiré";
+            return $this->render('forum/index.html.twig', [
+                'controller_name' => 'forumController',
+                'titre' => 'Forum',
+                'forums' => $forumRepo->findAll(),
+                //'form' => $form->createView()
+                'reponse' =>$reponse,
+            ]);
         }
+        echo "DESOLE !";
+        
     }
     
 

@@ -2,7 +2,8 @@
 
 namespace App\Entity\Utilisateur;
 
-use App\Entity\Utilisateur\Adminer;
+use App\Entity\Utilisateur\User;
+use App\Entity\Utilisateur\Admin;
 use App\Entity\Utilisateur\Adulte;
 use App\Entity\Utilisateur\Cuisine;
 use App\Entity\Utilisateur\Direction;
@@ -31,28 +32,22 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[Vich\Uploadable]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "discrimination", type: "string")]
-#[ORM\DiscriminatorMap([    
+#[ORM\DiscriminatorMap([   
     "membre" => Membre::class, 
-    "admin" => Admin::class, 
-    "adulte" =>Adulte::class,
-    "cuisine" => Cuisine::class,
-    'direction' =>Direction::class,
-    "documentaliste" => Documentaliste::class,
-    "eleve" => Eleve::class,
-    "parentEleve" =>ParentEleve::class,
-    "professeur" => Professeur::class,
-    "referent" => Referent::class,
-    "secretariat" => Secretariat::class,
-    "surveillant" =>Surveillant::class
-    ])]
-class Membre implements UserInterface, PasswordAuthenticatedUserInterface{
-
-
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
-
+        "adulte" =>Adulte::class,
+            "parentEleve" =>ParentEleve::class,
+            "personnel" => Personnel::class,
+                "cuisine" => Cuisine::class,
+                "documentaliste" => Documentaliste::class,
+                "secretariat" => Secretariat::class,
+                    'direction' =>Direction::class,
+                "surveillant" =>Surveillant::class,
+                "professeur" => Professeur::class,
+        "admin" => Admin::class, 
+        "eleve" => Eleve::class,
+])]
+class Membre extends User
+{
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
@@ -87,19 +82,10 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface{
     #[ORM\OneToMany(targetEntity: Repas::class, mappedBy: 'membreb')]
     private Collection $repas;
 
-    #[ORM\Column(length: 255)]
-    private ?string $email = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $password = null;
 
     #[ORM\Column(length: 255)]
     private ?string $username = null;
 
-
-
-    #[ORM\Column(type: 'json')]
-    private array $roles = ['ROLE_USER'];
 
 
     /**
@@ -132,9 +118,7 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface{
         $this->senderMess = new ArrayCollection();
         $this->receiverMess = new ArrayCollection();
     }
-    public function getId(): ?int{
-        return $this->id;
-    }
+
 
     
 
@@ -257,29 +241,6 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface{
         return $this;
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
 
     public function getUsername(): ?string
     {
@@ -291,34 +252,6 @@ class Membre implements UserInterface, PasswordAuthenticatedUserInterface{
         $this->username = $username;
 
         return $this;
-    }
-
-    public function getRoles(): array
-    {
-        return $this->roles;
-    }
-
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    public function eraseCredentials(){
-        
-    }
-    public function getUserIdentifier(): string
-    {
-        return $this->username;
-    }
-
-    /**
-     * @return Collection<int, Message>
-     */
-    public function getMessages(): Collection
-    {
-        return $this->messages;
     }
 
     /**
