@@ -69,11 +69,11 @@
       {% if app.user %}
         <span class="navbar-text me-2">{{ app.user.username }}</span>
         <a href="{{ path('app_logout') }}">
-          <img src="images\connexion\logout.sv  g" alt="Logout">
+          <img src="_images/connexion/logout.png" height="100%" alt="Logout">
         </a>
       {% else %}
         <a href="{{ path('app_login') }}">
-          <img src="images\connexion\login.svg" alt="Login">
+          <img src="_images/connexion/login.png" height="100%" alt="Login">
         </a>
       {% endif %}
     </div>
