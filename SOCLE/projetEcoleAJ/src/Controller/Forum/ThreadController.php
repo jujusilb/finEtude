@@ -2,10 +2,12 @@
 
 namespace App\Controller\Forum;
 
+use App\Entity\Forum\SubForum;
 use App\Entity\Forum\Thread;
 use App\Form\Forum\ThreadType;
 use App\Repository\Forum\ThreadRepository;
-
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -33,6 +35,9 @@ class ThreadController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user=$this->getUser();
+            $thread->setCreateur($user);
+            $thread->setCreatedAt(new DateTimeImmutable());
             $entityManager->persist($thread);
             $entityManager->flush();
 

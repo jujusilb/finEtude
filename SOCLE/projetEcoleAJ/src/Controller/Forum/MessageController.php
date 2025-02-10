@@ -35,6 +35,10 @@ class MessageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user=$this->getUser();
+            $message->setExpediteur($user);
+            $message->setCreatedAt(new \DateTimeImmutable());
+            $message->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->persist($message);
             $entityManager->flush();
 
@@ -64,6 +68,9 @@ class MessageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user=$this->getUser();
+            $message->setExpediteur($user);
+            $message->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->flush();
 
             return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);

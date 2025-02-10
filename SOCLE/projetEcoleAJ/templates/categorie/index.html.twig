@@ -16,7 +16,12 @@
             {% for categorie in categories %}
                 <tr>
                     <td>{{categorie.id}}</td>
-                    <td>{{ categorie.libelle }}</td>
+                    
+                    <td>
+                        <a href="{{ path('categorie_affichage', {'id': categorie.id}) }}">
+                            {{ categorie.libelle }}
+                        </a>
+                    </td>
                     <td>{{  categorie.forum.libelle }}</td>
                     <td>
                         <a href="{{ path('categorie_affichage', {'id': categorie.id}) }}" class="btn btn-secondary">lire</a>

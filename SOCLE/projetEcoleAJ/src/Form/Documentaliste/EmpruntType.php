@@ -25,10 +25,12 @@ class EmpruntType extends AbstractType
                 'class' => Ouvrage::class,
                 'choice_label' => 'titre',
             ])
-            ->add('membre', EntityType::class, [
+            /*
+            >add('membre', EntityType::class, [
                 'class' => Membre::class,
                 'choice_label' => 'nom',
             ])
+            */
             ->add('statut', ChoiceType::class, [
                 'choices' => [
                     'En Cours' => 'En Cours',

@@ -22,7 +22,11 @@
 				</tr>
 				<tr>
 					<th>Categorie</th>
-					<td>{{ ouvrage.categorie }}</td>
+					<td>
+					{% for categorie in ouvrage.categories %}
+					{{ categorie }}
+					{%endfor%}
+					</td>
 				</tr>
 			</tr>
 			</tbody>

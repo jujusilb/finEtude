@@ -42,6 +42,8 @@ class EmpruntController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user=$this->getUser();
+            $emprunt->setMembre($user);
             $entityManager->persist($emprunt);
             $entityManager->flush();
 

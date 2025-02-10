@@ -18,7 +18,7 @@ class OuvrageType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class, [])
-            ->add('categorie', ChoiceType::class, [
+            ->add('categories', ChoiceType::class, [
                 'choices' => [
                     'Drame' => 'Drame',
                     'Fantastique' => 'Fantastique',
@@ -29,7 +29,7 @@ class OuvrageType extends AbstractType
                     'Policier' => 'Disponible',
                     'Sciences-Fiction' => 'Science-Fiction',
                 ],
-                'multiple' => false,  // Allow multiple roles to be selected
+                'multiple' => true,  // Allow multiple roles to be selected
                 'expanded' => false,   // Use checkboxes to select multiple roles
             ])
             ->add('statut', ChoiceType::class, [
@@ -40,10 +40,12 @@ class OuvrageType extends AbstractType
                 'multiple' => false,  // Allow multiple roles to be selected
                 'expanded' => false,   // Use checkboxes to select multiple roles
             ])
+            /*
             ->add('emprunt', EntityType::class, [
                 'class' => Emprunt::class,
                 'choice_label' => 'id',
             ])
+        */
         ;
     }
 

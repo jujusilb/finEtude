@@ -28,11 +28,11 @@ class Categorie
      * @var Collection<int, SubForum>
      */
     #[ORM\OneToMany(targetEntity: SubForum::class, mappedBy: 'categorie')]
-    private Collection $subForum;
+    private Collection $subForums;
 
     public function __construct()
     {
-        $this->subForum = new ArrayCollection();
+        $this->subForums = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,27 +79,27 @@ class Categorie
     /**
      * @return Collection<int, SubForum>
      */
-    public function getSubForum(): Collection
+    public function getSubForums(): Collection
     {
-        return $this->subForum;
+        return $this->subForums;
     }
 
-    public function addSubForum(SubForum $subForum): static
+    public function addSubForums(SubForum $subForums): static
     {
-        if (!$this->subForum->contains($subForum)) {
-            $this->subForum->add($subForum);
-            $subForum->setCategorie($this);
+        if (!$this->subForums->contains($subForums)) {
+            $this->subForums->add($subForums);
+            $subForums->setCategorie($this);
         }
 
         return $this;
     }
 
-    public function removeSubForum(SubForum $subForum): static
+    public function removeSubForums(SubForum $subForums): static
     {
-        if ($this->subForum->removeElement($subForum)) {
+        if ($this->subForums->removeElement($subForums)) {
             // set the owning side to null (unless already changed)
-            if ($subForum->getCategorie() === $this) {
-                $subForum->setCategorie(null);
+            if ($subForums->getCategorie() === $this) {
+                $subForums->setCategorie(null);
             }
         }
 

@@ -12,14 +12,40 @@
 
 		<table class="table">
 			<tbody>
-				<tr>
+				{#<tr>
 					<th>Id</th>
 					<td>{{ subForum.id }}</td>
-				</tr>
+				</tr>#}
 				<tr>
 					<th>Libelle</th>
 					<td>{{ subForum.libelle }}</td>
 				</tr>
+				<tr>
+					<th>Déscription</th>
+					<td>{{ subForum.description }}</td>
+				</tr>
+				<tr>
+					<table class="table">
+						<tr>
+							{#<th>Id</th>#}
+							<th>Libelle</th>
+							<th>Déscription</th>
+						</tr>
+						{% for thread in subForum.threads %}
+							<tr>
+								{#<td>{{ thread.id }}</td>#}
+								
+								<td>
+									<a href="{{ path('thread_affichage', {'id': thread.id}) }}">
+										{{ thread.libelle }}
+									</a>
+								</td>
+								<td>{{ thread.description}}<td>
+								<td> par : {{thread.createur.prenom }} {{thread.createur.nom }}</td>
+							</tr>
+						{% endfor %}
+					</table>
+					<tr>
 			</tbody>
 		</table>
 

@@ -2,9 +2,12 @@
 
 namespace App\Entity\Cuisine;
 
+use App\Entity\Cuisine\PlanningRepas;
 use App\Entity\Utilisateur\Membre;
 
 use App\Repository\Cuisine\RepasRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,10 +23,6 @@ class Repas
     #[ORM\JoinColumn(nullable: false)]
     private ?Menu $menu = null;
 
-    #[ORM\ManyToOne(inversedBy: 'repas')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Membre $membre = null;
-
     #[ORM\Column]
     private ?float $prix = null;
 
@@ -33,8 +32,19 @@ class Repas
     #[ORM\Column(length: 255)]
     private ?string $heure = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateAchat = null;
+
+
+    /**
+     * @var Collection<int, PlanningRepas>
+     */
+    #[ORM\OneToMany(targetEntity: PlanningRepas::class, mappedBy: 'repas')]
+    private Collection $planningRepas;
+
+
+    public function __construct()
+    {
+        $this->planningRepas = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -53,17 +63,7 @@ class Repas
         return $this;
     }
 
-    public function getMembre(): ?Membre
-    {
-        return $this->membre;
-    }
 
-    public function setMembre(?Membre $membre): static
-    {
-        $this->membre = $membre;
-
-        return $this;
-    }
 
     public function getPrix(): ?float
     {
@@ -101,15 +101,37 @@ class Repas
         return $this;
     }
 
-    public function getDateAchat(): ?\DateTimeInterface
+    /**
+     * @return Collection<int, PlanningRepas>
+     */
+    public function getPlanningRepas(): Collection
     {
-        return $this->dateAchat;
+        return $this->planningRepas;
     }
 
-    public function setDateAchat(\DateTimeInterface $dateAchat): static
+    public function addPlanningRepa(PlanningRepas $planningRepa): static
     {
-        $this->dateAchat = $dateAchat;
+        if (!$this->planningRepas->contains($planningRepa)) {
+            $this->planningRepas->add($planningRepa);
+            $planningRepa->setRepas($this);
+        }
 
         return $this;
     }
+
+    public function removePlanningRepa(PlanningRepas $planningRepa): static
+    {
+        if ($this->planningRepas->removeElement($planningRepa)) {
+            // set the owning side to null (unless already changed)
+            if ($planningRepa->getRepas() === $this) {
+                $planningRepa->setRepas(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
+
+

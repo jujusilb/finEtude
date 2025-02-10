@@ -22,12 +22,14 @@ class Emprunt
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
 
-    #[ORM\OneToOne(inversedBy: 'emprunt', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Ouvrage $ouvrage = null;
+
 
     #[ORM\ManyToOne(inversedBy: 'emprunt')]
     private ?Membre $membre = null;
+
+    #[ORM\ManyToOne(inversedBy: 'emprunts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Ouvrage $ouvrage = null;
 
     public function getId(): ?int
     {
@@ -58,17 +60,9 @@ class Emprunt
         return $this;
     }
 
-    public function getOuvrage(): ?Ouvrage
-    {
-        return $this->ouvrage;
-    }
 
-    public function setOuvrage(Ouvrage $ouvrage): static
-    {
-        $this->ouvrage = $ouvrage;
 
-        return $this;
-    }
+ 
 
     public function getMembre(): ?Membre
     {
@@ -78,6 +72,18 @@ class Emprunt
     public function setMembre(?Membre $membre): static
     {
         $this->membre = $membre;
+
+        return $this;
+    }
+
+    public function getOuvrage(): ?Ouvrage
+    {
+        return $this->ouvrage;
+    }
+
+    public function setOuvrage(?Ouvrage $ouvrage): static
+    {
+        $this->ouvrage = $ouvrage;
 
         return $this;
     }

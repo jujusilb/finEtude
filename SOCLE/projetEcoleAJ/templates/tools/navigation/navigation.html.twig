@@ -4,31 +4,27 @@
   <div class="container-fluid">
     <!-- Accueil -->
     <a class="navbar-brand" href="{{ path('accueil') }}">ACCUEIL</a>
-    
-    <!-- Admin menu -->
-    <div class="navbar-nav">
+      <div class="navbar-nav">
       <a class="nav-link" href="{{ path('admin_index') }}">Admin</a>
       <div class="dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           Cuisine
         </a>
         <ul class="dropdown-menu">
-          <li class="dropdown-submenu">
-            <a class="dropdown-item dropdown-toggle" href="#">Repas</a>
-            <ul class="dropdown-submenu">
-              <li><a class="dropdown-item" href="{{ path('repas_index') }}">Repas</a></li>
-              <li><a class="dropdown-item" href="{{ path('menu_index') }}">Menu</a></li>
-              <li><a class="dropdown-item" href="{{ path('entree_index') }}">Entrée</a></li>
-              <li><a class="dropdown-item" href="{{ path('plat_index') }}">Plat</a></li>
-              <li class="dropdown-submenu">
-                <ul class="dropdown-submenu">
-                  <li><a class="dropdown-item" href="{{ path('viande_index') }}">Viande</a></li>
-                  <li><a class="dropdown-item" href="{{ path('legume_index') }}">Légume</a></li>
-                </ul>
-              </li>
-              <li><a class="dropdown-item" href="{{ path('fromage_index') }}">Fromage</a></li>
-              <li><a class="dropdown-item" href="{{ path('dessert_index') }}">Dessert</a></li>
-            </ul>
+            <li class="dropdown-submenu">
+              <a class="dropdown-item dropdown-toggle" href="#">Repas</a>
+              <ul class="dropdown-submenu">
+                <li><a class="dropdown-item" href="{{ path('repas_index') }}">Repas</a></li>
+                <li><a class="dropdown-item" href="{{ path('menu_index') }}">Menu</a></li>
+                <li><a class="dropdown-item" href="{{ path('entree_index') }}">Entrée</a></li>
+                <li><a class="dropdown-item" href="{{ path('plat_index') }}">Plat</a></li>
+                  <ul class="dropdown-submenu">
+                    <li><a class="dropdown-item" href="{{ path('viande_index') }}">Viande</a></li>
+                    <li><a class="dropdown-item" href="{{ path('legume_index') }}">Légume</a></li>
+                  </ul>
+                <li><a class="dropdown-item" href="{{ path('fromage_index') }}">Fromage</a></li>
+                <li><a class="dropdown-item" href="{{ path('dessert_index') }}">Dessert</a></li>
+              </ul>
           </li>
           <li class="dropdown-submenu">
             <a class="dropdown-item dropdown-toggle" href="#">Documentaliste</a>
@@ -61,13 +57,16 @@
       </div>
     </div>
 
-    <!-- Forum -->
-    <a class="nav-link" href="{{ path('forum_index') }}">Forum</a>
-
+    {#
+      <!-- Forum -->
+      <a class="nav-link" href="{{ path('forum_index') }}">Forum</a>
+    #}
     <!-- Connexion ou nom d'utilisateur -->
     <div class="d-flex">
       {% if app.user %}
-        <span class="navbar-text me-2">{{ app.user.username }}</span>
+        <a href="{{ path('membre_affichage', {'id': app.user.id }) }}">
+          <span class="navbar-text me-2">{{ app.user.username }}</span>
+        </a>
         <a href="{{ path('app_logout') }}">
           <img src="_images/connexion/logout.png" height="100%" alt="Logout">
         </a>

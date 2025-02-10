@@ -20,6 +20,29 @@
 					<th>Libelle</th>
 					<td>{{ thread.libelle }}</td>
 				</tr>
+				<tr>
+					<th>Déscription</th>
+					<td>{{ thread.description }}</td>
+				</tr>
+				<tr>
+					<table class="table">
+						{% for message in thread.messages %}
+						<tr>
+							<td>{{message.expediteur.username}}</td>
+							<td>
+								{{message.createdAt | date('d/m/Y')}}
+								<hr>
+								{{message.contenu}}
+								<hr>
+								{% if message.updatedAt > message.createdAt %}
+									{{message.updatedAt |date('d/m/Y')}}
+								{% endif %}
+							</td>
+						<tr>
+						{% endfor %}
+					</table>
+				</tr>
+
 			</tbody>
 		</table>
 

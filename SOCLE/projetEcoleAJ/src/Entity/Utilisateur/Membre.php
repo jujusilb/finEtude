@@ -2,6 +2,7 @@
 
 namespace App\Entity\Utilisateur;
 
+use App\Entity\Cuisine\PlanningRepas;
 use App\Entity\Utilisateur\User;
 use App\Entity\Utilisateur\Admin;
 use App\Entity\Utilisateur\Adulte;
@@ -107,7 +108,13 @@ class Membre extends User
     private Collection $receiverMess;
 
     #[ORM\Column(nullable: true)]
-    private bool $charte; // Valeur par défaut
+    private bool $charte;
+
+    /**
+     * @var Collection<int, PlanningRepas>
+     */
+    #[ORM\OneToMany(targetEntity: PlanningRepas::class, mappedBy: 'membre')]
+    private Collection $planningRepas; // Valeur par défaut
 
     
     public function __construct(){
@@ -117,6 +124,7 @@ class Membre extends User
         $this->threads = new ArrayCollection();
         $this->senderMess = new ArrayCollection();
         $this->receiverMess = new ArrayCollection();
+        $this->planningRepas = new ArrayCollection();
     }
 
 
@@ -352,6 +360,36 @@ class Membre extends User
     public function setCharte(?bool $charte): static
     {
         $this->charte = $charte;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PlanningRepas>
+     */
+    public function getPlanningRepas(): Collection
+    {
+        return $this->planningRepas;
+    }
+
+    public function addPlanningRepa(PlanningRepas $planningRepa): static
+    {
+        if (!$this->planningRepas->contains($planningRepa)) {
+            $this->planningRepas->add($planningRepa);
+            $planningRepa->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanningRepa(PlanningRepas $planningRepa): static
+    {
+        if ($this->planningRepas->removeElement($planningRepa)) {
+            // set the owning side to null (unless already changed)
+            if ($planningRepa->getMembre() === $this) {
+                $planningRepa->setMembre(null);
+            }
+        }
 
         return $this;
     }

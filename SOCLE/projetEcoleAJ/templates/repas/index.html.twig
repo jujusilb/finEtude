@@ -7,11 +7,9 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Date d'achat</th>
                 <th>Date</th>
                 <th>Heure</th>
                 <th>Menu</th>
-                <th>Membre</th>
                 <th>Prix</th>
                 <th>Action</th>
             </tr>
@@ -20,11 +18,9 @@
             {% for repas in repass %}
                 <tr>
                     <td>{{repas.id}}</td>
-                    <td>{{ repas.dateAchat | date('d/m/Y')}}</td>
                     <td>{{repas.date | date('d/m/Y')}}</td>
                     <td>{{ repas.heure }}</td>
                     <td>{{ repas.menu.id }}</td>
-                    <td>{{ repas.membre.prenom }} {{ repas.membre.nom }}</td>
                     <td>{{ repas.prix }}</td>
                     <td>
                         <a href="{{ path('repas_affichage', {'id': repas.id}) }}" class="btn btn-secondary">lire</a>

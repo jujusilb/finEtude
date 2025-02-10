@@ -7,6 +7,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>date de creation</th>
+                <th>Createur</th>
                 <th>Libellé</th>
                 <th>sous-forum</th>
             </tr>
@@ -15,6 +17,8 @@
             {% for thread in threads %}
                 <tr>
                     <td>{{thread.id}}</td>
+                    <td>{{ thread.createdAt | date('d/m/Y h:m')}}</td>
+                    <td>{{thread.createur.prenom}} {{thread.createur.nom}}</td>
                     <td>{{ thread.libelle }}</td>
                     <td>{{ thread.subForum.libelle }}</td>
                     <td>

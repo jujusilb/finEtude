@@ -2,6 +2,7 @@
 
 namespace App\Entity\Forum;
 
+use App\Entity\Forum\SubForum;
 use App\Repository\Forum\ThreadRepository;
 use App\Entity\Utilisateur\Membre;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -26,10 +27,10 @@ class Thread
     private ?SubForum $subForum = null;
 
     /**
-     * @var Collection<int, Message>
+     * @var Collection<int, Messages>
      */
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'thread')]
-    private Collection $message;
+    private Collection $messages;
 
     #[ORM\ManyToOne(inversedBy: 'threads')]
     private ?Membre $createur = null;
@@ -39,7 +40,7 @@ class Thread
 
     public function __construct()
     {
-        $this->message = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -86,27 +87,27 @@ class Thread
     /**
      * @return Collection<int, Message>
      */
-    public function getMessage(): Collection
+    public function getMessages(): Collection
     {
-        return $this->message;
+        return $this->messages;
     }
 
-    public function addMessage(Message $message): static
+    public function addMessages(Message $messages): static
     {
-        if (!$this->message->contains($message)) {
-            $this->message->add($message);
-            $message->setThread($this);
+        if (!$this->messages->contains($messages)) {
+            $this->messages->add($messages);
+            $messages->setThread($this);
         }
 
         return $this;
     }
 
-    public function removeMessage(Message $message): static
+    public function removeMessage(Message $messages): static
     {
-        if ($this->message->removeElement($message)) {
+        if ($this->messages->removeElement($messages)) {
             // set the owning side to null (unless already changed)
-            if ($message->getThread() === $this) {
-                $message->setThread(null);
+            if ($messages->getThread() === $this) {
+                $messages->setThread(null);
             }
         }
 

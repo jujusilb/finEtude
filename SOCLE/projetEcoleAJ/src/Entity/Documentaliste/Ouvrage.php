@@ -3,6 +3,8 @@
 namespace App\Entity\Documentaliste;
 
 use App\Repository\Documentaliste\OuvrageRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,11 +22,19 @@ class Ouvrage
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
 
-    #[ORM\OneToOne(mappedBy: 'ouvrage', cascade: ['persist', 'remove'])]
-    private ?Emprunt $emprunt = null;
-
     #[ORM\Column(length: 255)]
-    private ?string $categorie = null;
+    private ?array $categories = null;
+
+    /**
+     * @var Collection<int, Emprunt>
+     */
+    #[ORM\OneToMany(targetEntity: Emprunt::class, mappedBy: 'ouvrage')]
+    private Collection $emprunts;
+
+    public function __construct()
+    {
+        $this->emprunts = new ArrayCollection();
+    }
 
     public function getId(): ?int{
         return $this->id;
@@ -47,26 +57,44 @@ class Ouvrage
         return $this;
     }
 
-    public function getEmprunt(): ?Emprunt{
-        return $this->emprunt;
+    public function getCategories(): ?array
+    {
+        return $this->categories;
     }
-    public function setEmprunt(Emprunt $emprunt): static{
-        // set the owning side of the relation if necessary
-        if ($emprunt->getOuvrage() !== $this) {
-            $emprunt->setOuvrage($this);
-        }
-        $this->emprunt = $emprunt;
+
+    public function setCategories(array $categories): static
+    {
+        $this->categories = $categories;
         return $this;
     }
 
-    public function getCategorie(): ?string
+    /**
+     * @return Collection<int, Emprunt>
+     */
+    public function getEmprunts(): Collection
     {
-        return $this->categorie;
+        return $this->emprunts;
     }
 
-    public function setCategorie(string $categorie): static
+    public function addEmprunt(Emprunt $emprunt): static
     {
-        $this->categorie = $categorie;
+        if (!$this->emprunts->contains($emprunt)) {
+            $this->emprunts->add($emprunt);
+            $emprunt->setOuvrage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmprunt(Emprunt $emprunt): static
+    {
+        if ($this->emprunts->removeElement($emprunt)) {
+            // set the owning side to null (unless already changed)
+            if ($emprunt->getOuvrage() === $this) {
+                $emprunt->setOuvrage(null);
+            }
+        }
+
         return $this;
     }
 }

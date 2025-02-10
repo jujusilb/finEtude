@@ -20,6 +20,26 @@
 					<th>Libelle</th>
 					<td>{{ categorie.libelle }}</td>
 				</tr>
+				<tr>
+					<th>Description</th>
+					<td>{{ categorie.description }}</td>
+				</tr>
+				<tr>
+					<table class="table">
+						<tr>
+							<th>id</th>
+							<th>libelle</th>
+							<th>description</th>
+						</tr>
+						{% for subForum in categorie.subForums%}
+							<tr>
+								<td>{{subForum.id}}</td>
+								<td>{{ subForum.libelle }}</td>
+								<td>{{ subForum.description}}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</tr>
 			</tbody>
 		</table>
 

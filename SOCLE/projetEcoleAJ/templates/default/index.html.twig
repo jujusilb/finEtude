@@ -336,9 +336,9 @@
                                     id : {{repa.id}}
                                 </h6>
                                 <h5>
-                                    date : {{repa.date | date('d/m/Y')}} - {{repa.heure}}
+                                    date et heure: {{repa.date | date('d/m/Y')}} - {{repa.heure}} {{ repa.heure }}
                                     <br>
-                                    membre : {{repa.membre.prenom}} {{repa.membre.nom}}
+                                    prix : {{ repa.prix }}
                                 </h5>
                             </div>
                         </div>
