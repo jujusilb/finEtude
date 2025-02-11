@@ -49,7 +49,7 @@ class PlatController extends AbstractController
             return $this->redirectToRoute('plat_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('plat/new.html.twig', [
+        return $this->render('cuisine/plat/new.html.twig', [
             'plat' => $plat,
             'platForm' => $form->createView(),
         ]);
@@ -58,7 +58,7 @@ class PlatController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Plat $plat): Response
     {
-        return $this->render('plat/show.html.twig', [
+        return $this->render('cuisine/plat/show.html.twig', [
             'plat' => $plat,
         ]);
     }
@@ -75,7 +75,7 @@ class PlatController extends AbstractController
             return $this->redirectToRoute('plat_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('plat/edit.html.twig', [
+        return $this->render('cuisine/plat/edit.html.twig', [
             'plat' => $plat,
             'platForm' => $form,
         ]);

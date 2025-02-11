@@ -2,7 +2,7 @@
 
 namespace App\Form\Forum;
 
-use App\Entity\Forum\Categorie;
+use App\Entity\Forum\CategorieForum;
 use App\Entity\Forum\SubForum;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -17,8 +17,8 @@ class SubForumType extends AbstractType
         $builder
             ->add('libelle')
             ->add('description')
-            ->add('categorie', EntityType::class, [
-                'class' => Categorie::class,
+            ->add('categorieForum', EntityType::class, [
+                'class' => CategorieForum::class,
 'choice_label' => 'libelle',
             ])
         ;

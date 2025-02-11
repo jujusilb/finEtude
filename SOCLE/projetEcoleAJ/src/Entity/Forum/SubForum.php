@@ -22,7 +22,7 @@ class SubForum
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'subForum')]
-    private ?Categorie $categorie = null;
+    private ?CategorieForum $categorieForum = null;
 
     /**
      * @var Collection<int, Thread>
@@ -64,14 +64,14 @@ class SubForum
         return $this;
     }
 
-    public function getCategorie(): ?Categorie
+    public function getCategorieForum(): ?CategorieForum
     {
-        return $this->categorie;
+        return $this->categorieForum;
     }
 
-    public function setCategorie(?Categorie $categorie): static
+    public function setCategorieForum(?CategorieForum $categorieForum): static
     {
-        $this->categorie = $categorie;
+        $this->categorieForum = $categorieForum;
 
         return $this;
     }

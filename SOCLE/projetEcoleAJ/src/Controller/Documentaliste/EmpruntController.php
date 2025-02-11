@@ -25,7 +25,7 @@ class EmpruntController extends AbstractController
         OuvrageRepository $ouvrageRepo
     ): Response
     {
-        return $this->render('emprunt/index.html.twig', [
+        return $this->render('documentaliste/emprunt/index.html.twig', [
             'controller_name' => 'EmpruntController',
             'titre' => 'Emprunt',
             'emprunts' => $empruntRepo->findAll(),
@@ -50,7 +50,7 @@ class EmpruntController extends AbstractController
             return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('emprunt/new.html.twig', [
+        return $this->render('documentaliste/emprunt/new.html.twig', [
             'emprunt' => $emprunt,
             'titre' => 'Nouvel Emprunt',
             'empruntForm' => $form->createView(),
@@ -60,7 +60,7 @@ class EmpruntController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Emprunt $emprunt): Response
     {
-        return $this->render('emprunt/show.html.twig', [
+        return $this->render('documentaliste/emprunt/show.html.twig', [
             'emprunt' => $emprunt,
             'titre' => 'Affichage Emprunt',
         ]);
@@ -78,7 +78,7 @@ class EmpruntController extends AbstractController
             return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('emprunt/edit.html.twig', [
+        return $this->render('documentaliste/emprunt/edit.html.twig', [
             'emprunt' => $emprunt,
             'titre' => 'Edition Emprunt',
             'empruntForm' => $form,

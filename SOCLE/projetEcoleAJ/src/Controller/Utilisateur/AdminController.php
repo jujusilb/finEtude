@@ -22,7 +22,7 @@ class AdminController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(AdminRepository $adminRepo): Response
     {
-        return $this->render('admin/index.html.twig', [
+        return $this->render('Utilisateur/admin/index.html.twig', [
             'controller_name' => 'AdminController',
             'titre' => 'Admin',
             'admins' => $adminRepo->findAll(),
@@ -44,7 +44,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('admin/new.html.twig', [
+        return $this->render('Utilisateur/admin/new.html.twig', [
             'admin' => $admin,
             'titre' => 'Nouvel Admin',
             'adminForm' => $form->createView(),
@@ -54,7 +54,7 @@ class AdminController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Admin $admin): Response
     {
-        return $this->render('admin/show.html.twig', [
+        return $this->render('Utilisateur/admin/show.html.twig', [
             'admin' => $admin,
         ]);
     }
@@ -71,7 +71,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('admin_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('admin/edit.html.twig', [
+        return $this->render('Utilisateur/admin/edit.html.twig', [
             'admin' => $admin,
             'titre' => 'Edition Membre',
             'adminForm' => $form,

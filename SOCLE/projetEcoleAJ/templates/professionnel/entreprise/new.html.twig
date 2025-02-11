@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme entrepriseForm 'bootstrap_4_layout.html.twig'  %}
+
+{% block title %}New Entreprise
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Creation d'un nouveau Entreprise</h5>
+
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		{{ include('professionnel/entreprise/_form.html.twig') }}
+
+		<a href="{{ path('entreprise_index') }}" class="btn btn-dark">Liste de entreprise</a>
+	</div>
+{% endblock %}

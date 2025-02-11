@@ -16,7 +16,7 @@ class RemplirExoController extends AbstractController
     public function index(RemplirExoRepository $remplirExoRepo): Response
     {
 	
-        return $this->render('RemplirExo/index.html.twig', [
+        return $this->render('pedagogie/Remplir_exo/index.html.twig', [
             'controller_name' => 'RemplirExoController',
 		    'titre' => 'Remplir Exo',
             'remplirExos' => $remplirExoRepo->findAll(),

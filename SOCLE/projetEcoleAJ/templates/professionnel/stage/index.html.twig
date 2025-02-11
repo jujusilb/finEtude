@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello stageController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Stagiaire</th>
+                <th>Responsable</th>
+                <th>Entreprise</th>
+                <th>Fonction</th>
+                <th>dateDebut</th>
+                <th>dateFin</th>
+                <th>Durée</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stage in stages %}
+                <tr>
+                    <td>{{stage.id}}</td>
+                    <td>{{ stage.stagiaire.prenom }} {{ stage.stagiaire.nom }}</td>
+                    <td>{{ stage.responsable.prenom }} {{ stage.responsable.nom }}</td>
+                    <td>{{ stage.entreprise.libelle }}</td>
+                    <td>{{ stage.dateDebut | date('d/m/Y')  }}</td>
+                    <td>{{ stage.dateFin | date('d/m/Y') }}</td>
+                    <td>{{ stage.fonction }}</td>
+                    <td>
+                        {% set dateDebut = stage.dateDebut %}
+                        {% set dateFin = stage.dateFin %}
+                        {% set interval = dateFin|date('U') - dateDebut|date('U') %}
+                        {% set duree = interval / (86400*7) + 1 %} {# 86400 secondes dans un jour, ajout de 1 pour inclure le premier jour #}
+                        {% set dureeArrondie = duree|round(0, 'floor') %}
+                        {{ dureeArrondie }} semaines.
+                    </td>
+                    <td>
+                        <a href="{{ path('stage_affichage', {'id': stage.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('stage_edition', {'id': stage.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('stage_nouveau') }}" class="btn" >Creer Nouveau stage</a>
+{% endblock %}

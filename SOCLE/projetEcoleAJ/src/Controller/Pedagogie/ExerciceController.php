@@ -40,7 +40,7 @@ class ExerciceController extends AbstractController
             return $this->redirectToRoute('exercice_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('exercice/new.html.twig', [
+        return $this->render('pedagogie/exercice/new.html.twig', [
             'exercice' => $exercice,
             'titre' => 'Nouvel Exercice',
             'exerciceForm' => $form->createView(),
@@ -50,7 +50,7 @@ class ExerciceController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Exercice $exercice): Response
     {
-        return $this->render('exercice/show.html.twig', [
+        return $this->render('pedagogie/exercice/show.html.twig', [
             'exercice' => $exercice,
             'titre' => 'Affichage Exercice',
         ]);
@@ -68,7 +68,7 @@ class ExerciceController extends AbstractController
             return $this->redirectToRoute('exercice_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('exercice/edit.html.twig', [
+        return $this->render('pedagogie/exercice/edit.html.twig', [
             'exercice' => $exercice,
             'titre' => 'Edition Exercice',
             'exerciceForm' => $form,

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello categorieOuvrageController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for categorieOuvrage in categorieOuvrages %}
+                <tr>
+                    <td>{{categorieOuvrage.id}}</td>
+                    <td>{{ categorieOuvrage.libelle }}</td>
+                    <td>
+                        <a href="{{ path('categorieOuvrage_affichage', {'id': categorieOuvrage.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('categorieOuvrage_edition', {'id': categorieOuvrage.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('categorieOuvrage_nouveau') }}" class="btn" >Creer Nouveau categorieOuvrage</a>
+{% endblock %}

@@ -16,7 +16,7 @@ class PersonnelController extends AbstractController
     public function index(PersonnelRepository $personnelRepo): Response
     {
 	
-        return $this->render('Personnel/index.html.twig', [
+        return $this->render('Utilisateur/personnel/index.html.twig', [
             'controller_name' => 'PersonnelController',
 		    'titre' => 'Personnel',
             'personnels' => $personnelRepo->findAll(),

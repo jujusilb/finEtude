@@ -42,7 +42,7 @@ class RepasController extends AbstractController
             return $this->redirectToRoute('repas_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('repas/new.html.twig', [
+        return $this->render('cuisine/repas/new.html.twig', [
             'repas' => $repas,
             'titre' => 'Nouveau Repas',
             'repasForm' => $form->createView(),
@@ -52,7 +52,7 @@ class RepasController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Repas $repas): Response
     {
-        return $this->render('repas/show.html.twig', [
+        return $this->render('cuisine/repas/show.html.twig', [
             'repas' => $repas,
             'titre' =>'Affichage Repas',
         ]);
@@ -70,7 +70,7 @@ class RepasController extends AbstractController
             return $this->redirectToRoute('repas_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('repas/edit.html.twig', [
+        return $this->render('cuisine/repas/edit.html.twig', [
             'repas' => $repas,
             'titre' =>'Edition Repas',
             'repasForm' => $form,

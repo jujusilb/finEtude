@@ -4,6 +4,7 @@ namespace App\Entity\Utilisateur;
 
 use App\Entity\Utilisateur\User;
 use App\Entity\Utilisateur\Direction;
+use App\Entity\Utilisateur\Insertion;
 use App\Entity\Utilisateur\Membre;
 use App\Entity\Utilisateur\Personnel;
 use App\Entity\Utilisateur\ParentEleve;
@@ -22,7 +23,8 @@ use Doctrine\ORM\Mapping as ORM;
             "Professeur"=>Professeur::class, 
             "secretariat" => Secretariat::class,
                 'direction' =>Direction::class, 
-            'surveillant' => Surveillant::class
+            'surveillant' => Surveillant::class,
+            'insertion' => Insertion::class
     ])]
 class Adulte extends Membre
 {

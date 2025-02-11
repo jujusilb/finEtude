@@ -41,7 +41,7 @@ class ViandeController extends AbstractController
             return $this->redirectToRoute('viande_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('viande/new.html.twig', [
+        return $this->render('cuisine/viande/new.html.twig', [
             'viande' => $viande,
             'titre' => 'Nouvelle Viande',
             'viandeForm' => $form->createView(),
@@ -51,7 +51,7 @@ class ViandeController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Viande $viande): Response
     {
-        return $this->render('viande/show.html.twig', [
+        return $this->render('cuisine/viande/show.html.twig', [
             'viande' => $viande,
             'titre' => 'Affichage Viande',
         ]);
@@ -69,7 +69,7 @@ class ViandeController extends AbstractController
             return $this->redirectToRoute('viande_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('viande/edit.html.twig', [
+        return $this->render('cuisine/viande/edit.html.twig', [
             'viande' => $viande,
             'titre' => 'Edition Viande',
             'viandeForm' => $form,

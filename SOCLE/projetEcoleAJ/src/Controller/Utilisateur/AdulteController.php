@@ -16,7 +16,7 @@ class AdulteController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(AdulteRepository $AdulteRepo): Response
     {
-        return $this->render('Adulte/index.html.twig', [
+        return $this->render('Utilisateur/adulte/index.html.twig', [
             'controller_name' => 'AdulteController',
             'Adultes' => $AdulteRepo->findAll(),
         ]);

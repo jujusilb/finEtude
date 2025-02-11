@@ -22,7 +22,7 @@ class DessertController extends AbstractController
     public function index(DessertRepository $dessertRepo): Response
     {
 	
-        return $this->render('Dessert/index.html.twig', [
+        return $this->render('cuisine/Dessert/index.html.twig', [
             'controller_name' => 'DessertController',
 		    'titre' => 'Dessert',
             'desserts' => $dessertRepo->findAll(),
@@ -44,7 +44,7 @@ class DessertController extends AbstractController
             return $this->redirectToRoute('dessert_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('dessert/new.html.twig', [
+        return $this->render('cuisine/dessert/new.html.twig', [
             'dessert' => $dessert,
             'dessertForm' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class DessertController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Dessert $dessert): Response
     {
-        return $this->render('dessert/show.html.twig', [
+        return $this->render('cuisine/dessert/show.html.twig', [
             'dessert' => $dessert,
         ]);
     }
@@ -70,7 +70,7 @@ class DessertController extends AbstractController
             return $this->redirectToRoute('dessert_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('dessert/edit.html.twig', [
+        return $this->render('cuisine/dessert/edit.html.twig', [
             'dessert' => $dessert,
             'dessertForm' => $form,
         ]);

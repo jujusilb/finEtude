@@ -22,14 +22,14 @@ class Forum
     private ?string $description = null;
 
     /**
-     * @var Collection<int, Categorie>
+     * @var Collection<int, CategorieForum>
      */
-    #[ORM\OneToMany(targetEntity: Categorie::class, mappedBy: 'forum')]
-    private Collection $categories;
+    #[ORM\OneToMany(targetEntity: CategorieForum::class, mappedBy: 'forum')]
+    private Collection $categorieForums;
 
     public function __construct()
     {
-        $this->categories = new ArrayCollection();
+        $this->categorieForums = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -62,26 +62,26 @@ class Forum
     }
 
     /**
-     * @return Collection<int, Categorie>
+     * @return Collection<int, CategorieForum>
      */
-    public function getCategories(): Collection
+    public function getCategorieForums(): Collection
     {
-        return $this->categories;
+        return $this->categorieForums;
     }
 
-    public function addCategory(Categorie $category): static
+    public function addCategory(CategorieForum $category): static
     {
-        if (!$this->categories->contains($category)) {
-            $this->categories->add($category);
+        if (!$this->categorieForums->contains($category)) {
+            $this->categorieForums->add($category);
             $category->setForum($this);
         }
 
         return $this;
     }
 
-    public function removeCategory(Categorie $category): static
+    public function removeCategory(CategorieForum $category): static
     {
-        if ($this->categories->removeElement($category)) {
+        if ($this->categorieForums->removeElement($category)) {
             // set the owning side to null (unless already changed)
             if ($category->getForum() === $this) {
                 $category->setForum(null);

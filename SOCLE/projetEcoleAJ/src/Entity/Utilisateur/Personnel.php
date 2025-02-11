@@ -7,6 +7,7 @@ use App\Entity\Utilisateur\Adulte;
 use App\Entity\Utilisateur\Cuisine;
 use App\Entity\Utilisateur\Direction;
 use App\Entity\Utilisateur\Documentaliste;
+use App\Entity\Utilisateur\Insertion;
 use App\Entity\Utilisateur\Professeur;
 use App\Entity\Utilisateur\Secretariat;
 use App\Entity\Utilisateur\Surveillant;
@@ -25,7 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
         "Professeur"=>Professeur::class, 
         "secretariat" => Secretariat::class,
             'direction' => Direction::class,
-        'surveillant' => Surveillant::class
+        'surveillant' => Surveillant::class,
+        'insertion' => Insertion::class
     ])]
 
 class Personnel extends Adulte{

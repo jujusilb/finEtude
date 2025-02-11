@@ -18,7 +18,7 @@ class LegumeController extends AbstractController
     public function index(LegumeRepository $legumeRepo): Response
     {
 	
-        return $this->render('Legume/index.html.twig', [
+        return $this->render('cuisine/Legume/index.html.twig', [
             'controller_name' => 'LegumeController',
 		    'titre' => 'Légume',
             'legumes' => $legumeRepo->findAll(),
@@ -40,7 +40,7 @@ class LegumeController extends AbstractController
             return $this->redirectToRoute('legume_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('legume/new.html.twig', [
+        return $this->render('cuisine/legume/new.html.twig', [
             'legume' => $legume,
             'titre' => 'Nouveau Légume',
             'legumeForm' => $form->createView(),
@@ -50,7 +50,7 @@ class LegumeController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Legume $legume): Response
     {
-        return $this->render('legume/show.html.twig', [
+        return $this->render('cuisine/legume/show.html.twig', [
             'legume' => $legume,
             'titre' => 'Affichage Légume',
         ]);
@@ -68,7 +68,7 @@ class LegumeController extends AbstractController
             return $this->redirectToRoute('legume_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('legume/edit.html.twig', [
+        return $this->render('cuisine/legume/edit.html.twig', [
             'legume' => $legume,
             'titre' => 'Edition Légume',
             'legumeForm' => $form,

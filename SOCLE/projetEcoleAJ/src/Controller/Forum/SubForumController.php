@@ -18,7 +18,7 @@ class SubForumController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(subForumRepository $subForumRepo): Response
     {
-        return $this->render('sub_forum/index.html.twig', [
+        return $this->render('forum/sub_forum/index.html.twig', [
             'controller_name' => 'subForumController',
             'titre' => 'SubForum',
             'subForums' => $subForumRepo->findAll(),
@@ -41,7 +41,7 @@ class SubForumController extends AbstractController
             return $this->redirectToRoute('subForum_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('sub_forum/new.html.twig', [
+        return $this->render('forum/sub_forum/new.html.twig', [
             'subForum' => $subForum,
             'titre' => 'Nouveau SubForum',
             'subForumForm' => $form->createView(),
@@ -51,7 +51,7 @@ class SubForumController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(SubForum $subForum): Response
     {
-        return $this->render('sub_forum/show.html.twig', [
+        return $this->render('forum/sub_forum/show.html.twig', [
             'subForum' => $subForum,
             'titre' => 'Affichage SubForum',
         ]);
@@ -69,7 +69,7 @@ class SubForumController extends AbstractController
             return $this->redirectToRoute('subForum_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('sub_forum/edit.html.twig', [
+        return $this->render('forum/sub_forum/edit.html.twig', [
             'subForum' => $subForum,
             'titre' => 'Edition SubForum',
             'subForumForm' => $form,

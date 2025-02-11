@@ -66,29 +66,27 @@
                     {% endfor %}
                 
                 <hr><hr>
-                
                     <h2>Documentaliste</h2>
-                
                     {% for documentaliste in documentalistes %}
                         <div class="col-sm-3">
                             <div class="card">
                                 <h6>
-                                    id : {{documentaliste.id}}
+                                     id : {{documentaliste.id}}
                                 </h6>
                                 <h5>
                                     Prenom NOM :
                                     <br>
                                     {{documentaliste.prenom}} {{documentaliste.nom}}
                                 </h5>
-                                <img src="{{ vich_uploader_asset(documentaliste, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                                   <img src="{{ vich_uploader_asset(documentaliste, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                                </h6>
                             </div>
-                        </div>
+                       </div>
                     {% endfor %}
                 
                 <hr><hr>
                   
                     <h2>Eleve</h2>
-                
                     {% for eleve in eleves %}
                         <div class="col-sm-3">
                             <div class="card">
@@ -258,7 +256,10 @@
                                 <h5>
                                     Titre : {{ouvrage.titre}}
                                     <br>
-                                    categorie : {{ouvrage.categorie}}
+                                    categorie : 
+                                    {% for categorieOuvrage in ouvrage.categorieOuvrages %}
+                                        {{ categorieOuvrage.libelle }}
+                                    {% endfor %}
                                 </h5>
                             </div>
                         </div>

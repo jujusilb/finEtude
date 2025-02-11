@@ -39,7 +39,7 @@ class MenuController extends AbstractController
         ): Response
     {
 	
-        return $this->render('Menu/index.html.twig', [
+        return $this->render('cuisine/Menu/index.html.twig', [
             'controller_name' => 'MenuController',
 		    'titre' => 'Menu',
             'menus' => $menuRepo->findAll(),
@@ -67,7 +67,7 @@ class MenuController extends AbstractController
             return $this->redirectToRoute('menu_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('menu/new.html.twig', [
+        return $this->render('cuisine/menu/new.html.twig', [
             'menu' => $menu,
             'titre' => 'Nouveau Menu',
             'menuForm' => $form->createView(),
@@ -77,7 +77,7 @@ class MenuController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Menu $menu): Response
     {
-        return $this->render('menu/show.html.twig', [
+        return $this->render('cuisine/menu/show.html.twig', [
             'menu' => $menu,
             'titre' => 'Affichage Menu',
         ]);
@@ -95,7 +95,7 @@ class MenuController extends AbstractController
             return $this->redirectToRoute('menu_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('menu/edit.html.twig', [
+        return $this->render('cuisine/menu/edit.html.twig', [
             'menu' => $menu,
             'titre' => 'Edition Menu',
             'menuForm' => $form,

@@ -3,6 +3,7 @@
 namespace App\Entity\Utilisateur;
 
 use App\Entity\Pedagogie\Promotion;
+use App\Entity\Professionnel\Stage;
 use App\Entity\Utilisateur\Membre;
 use App\Repository\Utilisateur\EleveRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -26,6 +27,12 @@ class Eleve extends Membre
     #[ORM\ManyToMany(targetEntity: ParentEleve::class, mappedBy: 'eleve')]
     private Collection $parentEleves;
 
+    /**
+     * @var Collection<int, Stage>
+     */
+    #[ORM\OneToMany(targetEntity: Stage::class, mappedBy: 'stagiaire')]
+    private Collection $stage;
+
 
 
     
@@ -34,6 +41,7 @@ class Eleve extends Membre
     {
         parent::__construct();
         $this->parentEleves = new ArrayCollection();
+        $this->stage = new ArrayCollection();
     }
 
 
@@ -72,4 +80,36 @@ class Eleve extends Membre
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Stage>
+     */
+    public function getStage(): Collection
+    {
+        return $this->stage;
+    }
+
+    public function addStage(Stage $stage): static
+    {
+        if (!$this->stage->contains($stage)) {
+            $this->stage->add($stage);
+            $stage->setStagiaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStage(Stage $stage): static
+    {
+        if ($this->stage->removeElement($stage)) {
+            // set the owning side to null (unless already changed)
+            if ($stage->getStagiaire() === $this) {
+                $stage->setStagiaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+ 
 }

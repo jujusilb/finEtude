@@ -5,7 +5,7 @@ namespace App\Controller\Documentaliste;
 use App\Entity\Documentaliste\Ouvrage;
 use App\Repository\Documentaliste\OuvrageRepository;
 use App\Form\Documentaliste\OuvrageType;
-
+use App\Repository\Documentaliste\CategorieOuvrageRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,13 +16,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class OuvrageController extends AbstractController
 {
     #[Route('/index', name: 'index')]
-    public function index(OuvrageRepository $ouvrageRepo): Response
+    public function index(CategorieOuvrageRepository $categorieOuvrageRepo, OuvrageRepository $ouvrageRepo): Response
     {
 	
         return $this->render('Ouvrage/index.html.twig', [
             'controller_name' => 'OuvrageController',
 		    'titre' => 'Ouvrage',
             'ouvrages' => $ouvrageRepo->findAll(),
+            'categorieOuvrage' => $categorieOuvrageRepo->findAll(),
         ]);
     }
 
@@ -41,7 +42,7 @@ class OuvrageController extends AbstractController
             return $this->redirectToRoute('ouvrage_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('ouvrage/new.html.twig', [
+        return $this->render('documentaliste/ouvrage/new.html.twig', [
             'ouvrage' => $ouvrage,
             'titre' => 'Nouvel Ouvrage',
             'ouvrageForm' => $form->createView(),
@@ -51,7 +52,7 @@ class OuvrageController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Ouvrage $ouvrage): Response
     {
-        return $this->render('ouvrage/show.html.twig', [
+        return $this->render('documentaliste/ouvrage/show.html.twig', [
             'ouvrage' => $ouvrage,
             'titre' => 'Affichage Ouvrage',
         ]);
@@ -69,7 +70,7 @@ class OuvrageController extends AbstractController
             return $this->redirectToRoute('ouvrage_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('ouvrage/edit.html.twig', [
+        return $this->render('documentaliste/ouvrage/edit.html.twig', [
             'ouvrage' => $ouvrage,
             'titre' => 'Edition Ouvrage',
             'ouvrageForm' => $form,

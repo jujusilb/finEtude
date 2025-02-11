@@ -27,7 +27,7 @@ class ProgrammeController extends AbstractController
                         MatiereRepository $matiereRepo): Response
     {   
 
-        return $this->render('programme/index.html.twig', [
+        return $this->render('pedagogie/programme/index.html.twig', [
             'controller_name' => 'ProgrammeController',
             'titre' => 'Programme',
             'programmes' => $programmeRepo->findAll(),
@@ -51,7 +51,7 @@ class ProgrammeController extends AbstractController
             return $this->redirectToRoute('programme_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('programme/new.html.twig', [
+        return $this->render('pedagogie/programme/new.html.twig', [
             'programme' => $programme,
             'titre' => 'Nouveau Programme',
             'programmeForm' => $form->createView(),
@@ -61,7 +61,7 @@ class ProgrammeController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Programme $programme): Response
     {
-        return $this->render('programme/show.html.twig', [
+        return $this->render('pedagogie/programme/show.html.twig', [
             'programme' => $programme,
             'titre' => 'Affichage Programme',
             
@@ -80,7 +80,7 @@ class ProgrammeController extends AbstractController
             return $this->redirectToRoute('programme_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('programme/edit.html.twig', [
+        return $this->render('pedagogie/programme/edit.html.twig', [
             'programme' => $programme,
             'titre' => 'Edition Programme',
             'programmeForm' => $form->createView(),
@@ -104,7 +104,7 @@ class ProgrammeController extends AbstractController
                         ProfesseurRepository $professeurRepo,
                         MatiereRepository $matiereRepo): Response
     {
-        return $this->render('programme/tableau.html.twig', [
+        return $this->render('pedagogie/programme/tableau.html.twig', [
             'controller_name' => 'ProgrammeController',
             'programmes' => $programmeRepo->findAll(),
             'promotions' => $promotionRepo->findAll(),

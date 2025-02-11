@@ -21,7 +21,7 @@ class ProfesseurMatiereController extends AbstractController
                         ProfesseurRepository $professeurRepo,
                         MatiereRepository $matiereRepo): Response
     {
-        return $this->render('professeur_matiere/index.html.twig', [
+        return $this->render('pedagogie/professeur_matiere/index.html.twig', [
             'controller_name' => 'ProfesseurMatiereController',
             'titre' => 'Professeur - Matière',
             'professeurMatieres' => $professeurMatiereRepo->findAll(),
@@ -44,7 +44,7 @@ class ProfesseurMatiereController extends AbstractController
             return $this->redirectToRoute('professeurMatiere_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('professeur_matiere/new.html.twig', [
+        return $this->render('pedagogie/professeur_matiere/new.html.twig', [
             'professeurMatiere' => $professeurMatiere,
             'professeurMatiereForm' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class ProfesseurMatiereController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(ProfesseurMatiere $professeurMatiere): Response
     {
-        return $this->render('professeur_matiere/show.html.twig', [
+        return $this->render('pedagogie/professeur_matiere/show.html.twig', [
             'professeurMatiere' => $professeurMatiere,
         ]);
     }
@@ -70,7 +70,7 @@ class ProfesseurMatiereController extends AbstractController
             return $this->redirectToRoute('professeurMatiere_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('professeur_matiere/edit.html.twig', [
+        return $this->render('pedagogie/professeur_matiere/edit.html.twig', [
             'professeurMatiere' => $professeurMatiere,
             'professeurMatiereForm' => $form->createView(),
         ]);

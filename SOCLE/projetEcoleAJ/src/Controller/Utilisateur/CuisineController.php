@@ -18,7 +18,7 @@ class CuisineController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(cuisineRepository $cuisineRepo): Response
     {
-        return $this->render('cuisine/index.html.twig', [
+        return $this->render('Utilisateur/cuisine/index.html.twig', [
             'controller_name' => 'cuisineController',
             'titre' => 'Cuisine',
             'cuisines' => $cuisineRepo->findAll(),
@@ -44,7 +44,7 @@ class CuisineController extends AbstractController
             return $this->redirectToRoute('cuisine_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('cuisine/new.html.twig', [
+        return $this->render('utilisateur/cuisine/new.html.twig', [
             'cuisine' => $cuisine,
             'titre' => 'Nouveau Cuisine',
             'cuisineForm' => $form->createView(),
@@ -54,7 +54,7 @@ class CuisineController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Cuisine $cuisine): Response
     {
-        return $this->render('cuisine/show.html.twig', [
+        return $this->render('Utilisateur/cuisine/show.html.twig', [
             'cuisine' => $cuisine,
             'titre' => 'Affichage Cuisine',
         ]);
@@ -72,7 +72,7 @@ class CuisineController extends AbstractController
             return $this->redirectToRoute('cuisine_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('cuisine/edit.html.twig', [
+        return $this->render('Utilisateur/cuisine/edit.html.twig', [
             'cuisine' => $cuisine,
             'titre' => 'Edition Cuisine',
             'cuisineForm' => $form,

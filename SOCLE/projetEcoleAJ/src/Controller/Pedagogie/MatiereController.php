@@ -45,7 +45,7 @@ class MatiereController extends AbstractController
             return $this->redirectToRoute('matiere_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('matiere/new.html.twig', [
+        return $this->render('pedagogie/matiere/new.html.twig', [
             'matiere' => $matiere,
             'titre' => 'Nouvelle Matière',
             'matiereForm' => $form->createView(),
@@ -55,7 +55,7 @@ class MatiereController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Matiere $matiere): Response
     {
-        return $this->render('matiere/show.html.twig', [
+        return $this->render('pedagogie/matiere/show.html.twig', [
             'matiere' => $matiere,
             'titre' => 'Affichage Matière',
         ]);
@@ -73,7 +73,7 @@ class MatiereController extends AbstractController
             return $this->redirectToRoute('matiere_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('matiere/edit.html.twig', [
+        return $this->render('pedagogie/matiere/edit.html.twig', [
             'matiere' => $matiere,
             'titre' => 'Edition Matière',
             'matiereForm' => $form,

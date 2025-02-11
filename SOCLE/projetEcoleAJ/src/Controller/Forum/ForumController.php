@@ -24,7 +24,7 @@ class ForumController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(forumRepository $forumRepo): Response
     {
-        return $this->render('forum/index.html.twig', [
+        return $this->render('forum/forum/index.html.twig', [
             'controller_name' => 'forumController',
             'titre' => 'Forum',
             'forums' => $forumRepo->findAll(),
@@ -71,7 +71,7 @@ class ForumController extends AbstractController
                             return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
                       }
                     }
-                    return $this->render('forum/index.html.twig', [
+                    return $this->render('forum/forum/index.html.twig', [
                         'controller_name' => 'forumController',
                         'titre' => 'Forum',
                         'forums' => $forumRepo->findAll(),
@@ -81,7 +81,7 @@ class ForumController extends AbstractController
                 }
             } else {
             $reponse ="tout a foiré";
-            return $this->render('forum/index.html.twig', [
+            return $this->render('forum/forum/index.html.twig', [
                 'controller_name' => 'forumController',
                 'titre' => 'Forum',
                 'forums' => $forumRepo->findAll(),
@@ -110,7 +110,7 @@ class ForumController extends AbstractController
             return $this->redirectToRoute('forum_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('forum/new.html.twig', [
+        return $this->render('forum/forum/new.html.twig', [
             'forum' => $forum,
             'titre' => 'Nouveau Forum',
             'forumForm' => $form->createView(),
@@ -120,7 +120,7 @@ class ForumController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Forum $forum): Response
     {
-        return $this->render('forum/show.html.twig', [
+        return $this->render('forum/forum/show.html.twig', [
             'forum' => $forum,
             'titre' => 'Affichage Forum',
         ]);
@@ -138,7 +138,7 @@ class ForumController extends AbstractController
             return $this->redirectToRoute('forum_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('forum/edit.html.twig', [
+        return $this->render('forum/forum/edit.html.twig', [
             'forum' => $forum,
             'titre' => 'Edition Forum',
             'forumForm' => $form,

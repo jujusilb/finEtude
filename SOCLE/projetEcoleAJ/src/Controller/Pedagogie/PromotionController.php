@@ -29,7 +29,7 @@ class PromotionController extends AbstractController
         EleveRepository $eleveRepo,
         ProgrammeRepository $programmeRepo): Response
     {
-        return $this->render('Promotion/index.html.twig', [
+        return $this->render('pedagogie/promotion/index.html.twig', [
             'controller_name' => 'PromotionController',
             'titre' => 'Promotion',
             'promotions' => $promotionRepo->findAll(),
@@ -53,7 +53,7 @@ class PromotionController extends AbstractController
             return $this->redirectToRoute('promotion_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('promotion/new.html.twig', [
+        return $this->render('pedagogie/promotion/new.html.twig', [
             'promotion' => $promotion,
             'titre' => 'Nouveau Promotion',
             'promotionForm' => $form->createView(),
@@ -63,7 +63,7 @@ class PromotionController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Promotion $promotion, Referent $referent): Response
     {
-        return $this->render('promotion/show.html.twig', [
+        return $this->render('pedagogie/promotion/show.html.twig', [
             'promotion' => $promotion,
             'titre' => 'Affichage Promotion',
             'referent' => $referent,
@@ -82,7 +82,7 @@ class PromotionController extends AbstractController
             return $this->redirectToRoute('promotion_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('promotion/edit.html.twig', [
+        return $this->render('pedagogie/promotion/edit.html.twig', [
             'promotion' => $promotion,
             'titre' => 'Edition Promotion',
             'promotionForm' => $form,

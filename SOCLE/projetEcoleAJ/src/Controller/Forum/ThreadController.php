@@ -20,7 +20,7 @@ class ThreadController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(threadRepository $threadRepo): Response
     {
-        return $this->render('thread/index.html.twig', [
+        return $this->render('forum/thread/index.html.twig', [
             'controller_name' => 'threadController',
             'titre' => 'Thread',
             'threads' => $threadRepo->findAll(),
@@ -44,7 +44,7 @@ class ThreadController extends AbstractController
             return $this->redirectToRoute('thread_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('thread/new.html.twig', [
+        return $this->render('forum/thread/new.html.twig', [
             'thread' => $thread,
             'titre' => 'Nouveau Thread',
             'threadForm' => $form->createView(),
@@ -54,7 +54,7 @@ class ThreadController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Thread $thread): Response
     {
-        return $this->render('thread/show.html.twig', [
+        return $this->render('forum/thread/show.html.twig', [
             'thread' => $thread,
             'titre' => 'Affichage Thread',
         ]);
@@ -72,7 +72,7 @@ class ThreadController extends AbstractController
             return $this->redirectToRoute('thread_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('thread/edit.html.twig', [
+        return $this->render('forum/thread/edit.html.twig', [
             'thread' => $thread,
             'titre' => 'Edition Thread',
             'threadForm' => $form,

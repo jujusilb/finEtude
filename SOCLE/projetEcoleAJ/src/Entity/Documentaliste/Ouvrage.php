@@ -22,18 +22,22 @@ class Ouvrage
     #[ORM\Column(length: 255)]
     private ?string $statut = null;
 
-    #[ORM\Column(length: 255)]
-    private ?array $categories = null;
-
     /**
      * @var Collection<int, Emprunt>
      */
     #[ORM\OneToMany(targetEntity: Emprunt::class, mappedBy: 'ouvrage')]
     private Collection $emprunts;
 
+    /**
+     * @var Collection<int, CategorieOuvrage>
+     */
+    #[ORM\ManyToMany(targetEntity: CategorieOuvrage::class, inversedBy: 'Ouvrages')]
+    private Collection $categorieOuvrages;
+
     public function __construct()
     {
         $this->emprunts = new ArrayCollection();
+        $this->categorieOuvrages = new ArrayCollection();
     }
 
     public function getId(): ?int{
@@ -57,17 +61,8 @@ class Ouvrage
         return $this;
     }
 
-    public function getCategories(): ?array
-    {
-        return $this->categories;
-    }
 
-    public function setCategories(array $categories): static
-    {
-        $this->categories = $categories;
-        return $this;
-    }
-
+ 
     /**
      * @return Collection<int, Emprunt>
      */
@@ -94,6 +89,30 @@ class Ouvrage
                 $emprunt->setOuvrage(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CategorieOuvrage>
+     */
+    public function getCategorieOuvrages(): Collection
+    {
+        return $this->categorieOuvrages;
+    }
+
+    public function addCategorieOuvrages(CategorieOuvrage $categorieOuvrages): static
+    {
+        if (!$this->categorieOuvrages->contains($categorieOuvrages)) {
+            $this->categorieOuvrages->add($categorieOuvrages);
+        }
+
+        return $this;
+    }
+
+    public function removeCategorieOuvrages(CategorieOuvrage $categorieOuvrages): static
+    {
+        $this->categorieOuvrages->removeElement($categorieOuvrages);
 
         return $this;
     }

@@ -20,7 +20,7 @@ class FromageController extends AbstractController
     public function index(FromageRepository $fromageRepo): Response
     {
 	
-        return $this->render('Fromage/index.html.twig', [
+        return $this->render('cuisine/Fromage/index.html.twig', [
             'controller_name' => 'FromageController',
 		    'titre' => 'Fromage',
             'fromages' => $fromageRepo->findAll(),
@@ -42,7 +42,7 @@ class FromageController extends AbstractController
             return $this->redirectToRoute('fromage_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('fromage/new.html.twig', [
+        return $this->render('cuisine/fromage/new.html.twig', [
             'fromage' => $fromage,
             'titre' => 'Nouveau Fromage',
             'fromageForm' => $form->createView(),
@@ -52,7 +52,7 @@ class FromageController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Fromage $fromage): Response
     {
-        return $this->render('fromage/show.html.twig', [
+        return $this->render('cuisine/fromage/show.html.twig', [
             'fromage' => $fromage,
             'titre' => 'Affichage Fromage',
         ]);
@@ -70,7 +70,7 @@ class FromageController extends AbstractController
             return $this->redirectToRoute('fromage_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('fromage/edit.html.twig', [
+        return $this->render('cuisine/fromage/edit.html.twig', [
             'fromage' => $fromage,
             'titre' => 'Edition Fromage',
             'fromageForm' => $form,

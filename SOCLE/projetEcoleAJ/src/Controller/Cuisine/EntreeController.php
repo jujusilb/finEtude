@@ -18,7 +18,7 @@ class EntreeController extends AbstractController
     public function index(EntreeRepository $entreeRepo): Response
     {
 	
-        return $this->render('Entree/index.html.twig', [
+        return $this->render('cuisine/Entree/index.html.twig', [
             'controller_name' => 'EntreeController',
 		    'titre' => 'Entree',
             'entrees' => $entreeRepo->findAll(),
@@ -40,7 +40,7 @@ class EntreeController extends AbstractController
             return $this->redirectToRoute('entree_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('entree/new.html.twig', [
+        return $this->render('cuisine/entree/new.html.twig', [
             'entree' => $entree,
             'titre' => 'Nouvelle Entree',
             'entreeForm' => $form->createView(),
@@ -50,7 +50,7 @@ class EntreeController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Entree $entree): Response
     {
-        return $this->render('entree/show.html.twig', [
+        return $this->render('cuisine/entree/show.html.twig', [
             'entree' => $entree,
             'titre' => 'Affichage Entree',
             ]);
@@ -68,7 +68,7 @@ class EntreeController extends AbstractController
             return $this->redirectToRoute('entree_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('entree/edit.html.twig', [
+        return $this->render('cuisine/entree/edit.html.twig', [
             'entree' => $entree,
             'titre' => 'Edition Entree',
             'entreeForm' => $form,

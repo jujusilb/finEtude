@@ -21,7 +21,7 @@ class ReferentController extends AbstractController
     public function index(ReferentRepository $referentRepo): Response
     {
 	
-        return $this->render('referent/index.html.twig', [
+        return $this->render('pedagogie/referent/index.html.twig', [
             'controller_name' => 'ReferentController',
 		    'titre' => 'Referent',
             'referents' => $referentRepo->findAll(),
@@ -42,7 +42,7 @@ class ReferentController extends AbstractController
             return $this->redirectToRoute('referent_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('referent/new.html.twig', [
+        return $this->render('pedagogie/referent/new.html.twig', [
             'referent' => $referent,
             'titre' => 'Nouveau Referent',
             'referentForm' => $form->createView(),
@@ -52,7 +52,7 @@ class ReferentController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Referent $referent): Response
     {
-        return $this->render('referent/show.html.twig', [
+        return $this->render('pedagogie/referent/show.html.twig', [
             'referent' => $referent,
             'titre' => 'Affichage Referent',
         ]);
@@ -70,7 +70,7 @@ class ReferentController extends AbstractController
             return $this->redirectToRoute('referent_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('referent/edit.html.twig', [
+        return $this->render('pedagogie/referent/edit.html.twig', [
             'referent' => $referent,
             'titre' => 'Edition Referent',
             'referentForm' => $form,

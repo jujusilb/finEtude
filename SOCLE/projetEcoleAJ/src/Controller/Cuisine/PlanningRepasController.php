@@ -43,7 +43,7 @@ class PlanningRepasController extends AbstractController
             return $this->redirectToRoute('planningRepas_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('planning_repas/new.html.twig', [
+        return $this->render('cuisine/planning_repas/new.html.twig', [
             'planningRepas' => $planningRepas,
             'titre' => 'Nouveau Planning repas',
             'planningRepasForm' => $form->createView(),
@@ -53,7 +53,7 @@ class PlanningRepasController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(PlanningRepas $planningRepas): Response
     {
-        return $this->render('planning_repas/show.html.twig', [
+        return $this->render('cuisine/planning_repas/show.html.twig', [
             'planningRepas' => $planningRepas,
             'titre' => 'Affichage Planning repas',
         ]);
@@ -73,7 +73,7 @@ class PlanningRepasController extends AbstractController
             return $this->redirectToRoute('planningRepas_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('planning_repas/edit.html.twig', [
+        return $this->render('cuisine/planning_repas/edit.html.twig', [
             'planningRepas' => $planningRepas,
             'titre' => 'Edition Planning repas',
             'planningRepasForm' => $form,

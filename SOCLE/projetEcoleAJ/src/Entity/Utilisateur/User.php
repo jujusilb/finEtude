@@ -9,6 +9,7 @@ use App\Entity\Utilisateur\Cuisine;
 use App\Entity\Utilisateur\Direction;
 use App\Entity\Utilisateur\Documentaliste;
 use App\Entity\Utilisateur\Eleve;
+use App\Entity\Utilisateur\Insertion;
 use App\Entity\Utilisateur\ParentEleve;
 use App\Entity\Utilisateur\Professeur;
 use App\Entity\Pedagogie\Referent;
@@ -42,6 +43,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
     "documentaliste" => Documentaliste::class,
     "admin" => Admin::class, 
     "eleve" => Eleve::class,
+    'insertion' => Insertion::class
 ])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
