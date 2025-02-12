@@ -2,7 +2,7 @@
 
 namespace App\Form\Pedagogie;
 
-use App\Entity\Pedagogie\Professeur;
+use App\Entity\Utilisateur\Professeur;
 use App\Entity\Pedagogie\Referent;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;

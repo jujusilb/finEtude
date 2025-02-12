@@ -19,7 +19,7 @@ class SecretariatController extends AbstractController
     public function index(SecretariatRepository $secretariatRepo): Response
     {
 	
-        return $this->render('Utilisateur/Secretariat/index.html.twig', [
+        return $this->render('utilisateur/secretariat/index.html.twig', [
             'controller_name' => 'SecretariatController',
 		    'titre' => 'Secretariat',
             'secretariats' => $secretariatRepo->findAll(),
@@ -43,7 +43,7 @@ class SecretariatController extends AbstractController
             return $this->redirectToRoute('secretariat_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/secretariat/new.html.twig', [
+        return $this->render('utilisateur/secretariat/new.html.twig', [
             'secretariat' => $secretariat,
             'titre' => 'Nouveau Secretariat',
             'secretariatForm' => $form->createView(),
@@ -53,7 +53,7 @@ class SecretariatController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Secretariat $secretariat): Response
     {
-        return $this->render('Utilisateur/secretariat/show.html.twig', [
+        return $this->render('utilisateur/secretariat/show.html.twig', [
             'secretariat' => $secretariat,
             'titre' => 'Affichage Secretariat',
         ]);
@@ -71,7 +71,7 @@ class SecretariatController extends AbstractController
             return $this->redirectToRoute('secretariat_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/secretariat/edit.html.twig', [
+        return $this->render('utilisateur/secretariat/edit.html.twig', [
             'secretariat' => $secretariat,
             'titre' => 'Edition Secretariat',
             'secretariatForm' => $form,

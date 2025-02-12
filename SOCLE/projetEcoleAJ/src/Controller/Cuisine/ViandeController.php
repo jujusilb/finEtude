@@ -19,7 +19,7 @@ class ViandeController extends AbstractController
     public function index(ViandeRepository $viandeRepo): Response
     {
 	
-        return $this->render('Viande/index.html.twig', [
+        return $this->render('cuisine/viande/index.html.twig', [
             'controller_name' => 'ViandeController',
 		    'titre' => 'Viande',
             'viandes' => $viandeRepo->findAll(),

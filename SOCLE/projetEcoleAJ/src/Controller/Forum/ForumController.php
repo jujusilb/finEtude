@@ -41,7 +41,7 @@ class ForumController extends AbstractController
             $charte= $user->isCharte();
                 if ($charte) {
                     $reponse="instance of membre et isCharte true";
-                    return $this->redirectToRoute('categorie_index');
+                    return $this->redirectToRoute('categorieForum_index');
                 }
                 else {
                     $reponse="NOPE !, la clé charte est toujours a false";

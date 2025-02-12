@@ -18,7 +18,7 @@ class PlanningRepasController extends AbstractController
     public function index(PlanningRepasRepository $planningRepasRepo): Response
     {
 	
-        return $this->render('Planning_repas/index.html.twig', [
+        return $this->render('cuisine/planning_repas/index.html.twig', [
             'controller_name' => 'PlanningRepasController',
 		    'titre' => 'Planning repas',
             'planningRepass' => $planningRepasRepo->findAll(),

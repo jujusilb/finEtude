@@ -46,6 +46,7 @@ class DessertController extends AbstractController
 
         return $this->render('cuisine/dessert/new.html.twig', [
             'dessert' => $dessert,
+            'titre' => 'Nouveau Dessert',
             'dessertForm' => $form->createView(),
         ]);
     }
@@ -55,6 +56,7 @@ class DessertController extends AbstractController
     {
         return $this->render('cuisine/dessert/show.html.twig', [
             'dessert' => $dessert,
+            'titre' => 'Affichage Dessert'
         ]);
     }
 
@@ -72,6 +74,7 @@ class DessertController extends AbstractController
 
         return $this->render('cuisine/dessert/edit.html.twig', [
             'dessert' => $dessert,
+            'titre' => 'Edition Dessert',
             'dessertForm' => $form,
         ]);
     }

@@ -19,7 +19,7 @@ class RepasController extends AbstractController
     public function index(RepasRepository $repasRepo): Response
     {
 	
-        return $this->render('Repas/index.html.twig', [
+        return $this->render('cuisine/repas/index.html.twig', [
             'controller_name' => 'RepasController',
             'titre' =>'Repas',
             'repass' => $repasRepo->findAll(),
@@ -35,7 +35,6 @@ class RepasController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $repas->setDateAchat(new \DateTime());
             $entityManager->persist($repas);
             $entityManager->flush();
 

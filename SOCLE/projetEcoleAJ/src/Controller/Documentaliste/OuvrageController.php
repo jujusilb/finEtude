@@ -19,7 +19,7 @@ class OuvrageController extends AbstractController
     public function index(CategorieOuvrageRepository $categorieOuvrageRepo, OuvrageRepository $ouvrageRepo): Response
     {
 	
-        return $this->render('Ouvrage/index.html.twig', [
+        return $this->render('documentaliste/ouvrage/index.html.twig', [
             'controller_name' => 'OuvrageController',
 		    'titre' => 'Ouvrage',
             'ouvrages' => $ouvrageRepo->findAll(),

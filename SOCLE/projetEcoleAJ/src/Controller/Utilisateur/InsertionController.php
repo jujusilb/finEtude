@@ -19,7 +19,7 @@ class InsertionController extends AbstractController
     public function index(InsertionRepository $insertionRepo): Response
     {
 	
-        return $this->render('Utilisateur/insertion/index.html.twig', [
+        return $this->render('utilisateur/insertion/index.html.twig', [
             'controller_name' => 'InsertionController',
 		    'titre' => 'Insertion',
             'insertions' => $insertionRepo->findAll(),
@@ -34,20 +34,15 @@ class InsertionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $insertion->setRoles(["ROLE_ELEVE"]);
-            $promotion = $insertion->getPromotion();
-            if ($promotion) {
-                $rolePromotion = 'ROLE_' . strtoupper($promotion->getLibelle());
-                $insertion->setRoles(array_merge($insertion->getRoles(), [$rolePromotion]));
-            }
+            $insertion->setRoles(["ROLE_INSERTION"]);
             $entityManager->persist($insertion);
             $entityManager->flush();
             return $this->redirectToRoute('insertion_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/insertion/new.html.twig', [
+        return $this->render('utilisateur/insertion/new.html.twig', [
             'insertion' => $insertion,
-            'titre' => 'Nouvel Élève',
+            'titre' => 'Nouveau Insertion',
             'insertionForm' => $form->createView(),
         ]);
     }
@@ -55,9 +50,9 @@ class InsertionController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Insertion $insertion): Response
     {
-        return $this->render('Utilisateur/insertion/show.html.twig', [
+        return $this->render('utilisateur/insertion/show.html.twig', [
             'insertion' => $insertion,
-            'titre' => 'Affichage Documentaliste',
+            'titre' => 'Affichage Insertion',
             ]);
     }
 
@@ -78,9 +73,9 @@ class InsertionController extends AbstractController
             return $this->redirectToRoute('insertion_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/insertion/edit.html.twig', [
+        return $this->render('utilisateur/insertion/edit.html.twig', [
             'insertion' => $insertion,
-            'titre' => 'Edition Documentaliste',
+            'titre' => 'Edition Insertion',
             'insertionForm' => $form,
         ]);
     }

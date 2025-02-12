@@ -31,7 +31,7 @@ class Eleve extends Membre
      * @var Collection<int, Stage>
      */
     #[ORM\OneToMany(targetEntity: Stage::class, mappedBy: 'stagiaire')]
-    private Collection $stage;
+    private Collection $stages;
 
 
 
@@ -41,7 +41,7 @@ class Eleve extends Membre
     {
         parent::__construct();
         $this->parentEleves = new ArrayCollection();
-        $this->stage = new ArrayCollection();
+        $this->stages = new ArrayCollection();
     }
 
 
@@ -62,20 +62,20 @@ class Eleve extends Membre
         return $this->parentEleves;
     }
 
-    public function addParentElefe(ParentEleve $parentElefe): static
+    public function addParentEleve(ParentEleve $parentEleves): static
     {
-        if (!$this->parentEleves->contains($parentElefe)) {
-            $this->parentEleves->add($parentElefe);
-            $parentElefe->addEleve($this);
+        if (!$this->parentEleves->contains($parentEleves)) {
+            $this->parentEleves->add($parentEleves);
+            $parentEleves->addEleve($this);
         }
 
         return $this;
     }
 
-    public function removeParentElefe(ParentEleve $parentElefe): static
+    public function removeParentEleves(ParentEleve $parentEleves): static
     {
-        if ($this->parentEleves->removeElement($parentElefe)) {
-            $parentElefe->removeEleve($this);
+        if ($this->parentEleves->removeElement($parentEleves)) {
+            $parentEleves->removeEleves($this);
         }
 
         return $this;
@@ -84,27 +84,27 @@ class Eleve extends Membre
     /**
      * @return Collection<int, Stage>
      */
-    public function getStage(): Collection
+    public function getStages(): Collection
     {
-        return $this->stage;
+        return $this->stages;
     }
 
-    public function addStage(Stage $stage): static
+    public function addStages(Stage $stages): static
     {
-        if (!$this->stage->contains($stage)) {
-            $this->stage->add($stage);
-            $stage->setStagiaire($this);
+        if (!$this->stages->contains($stages)) {
+            $this->stages->add($stages);
+            $stages->setStagiaire($this);
         }
 
         return $this;
     }
 
-    public function removeStage(Stage $stage): static
+    public function removeStages(Stage $stages): static
     {
-        if ($this->stage->removeElement($stage)) {
+        if ($this->stages->removeElement($stages)) {
             // set the owning side to null (unless already changed)
-            if ($stage->getStagiaire() === $this) {
-                $stage->setStagiaire(null);
+            if ($stages->getStagiaire() === $this) {
+                $stages->setStagiaire(null);
             }
         }
 

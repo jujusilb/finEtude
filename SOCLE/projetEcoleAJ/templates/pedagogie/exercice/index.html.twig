@@ -7,21 +7,21 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Libellé</th>
+                <th>date</th>
             </tr>
         </thead>
         <tbody>
-            {% for matiere in matieres %}
+            {% for exercice in exercices %}
                 <tr>
-                    <td>{{matiere.id}}</td>
-                    <td>{{ matiere.libelle }}</td>
+                    <td>{{exercice.id}}</td>
+                    <td>{{ exercice.date |date('d/m/Y') }}</td>
                                         <td>
-                        <a href="{{ path('matiere_affichage', {'id': matiere.id}) }}" class="btn btn-secondary">lire</a>
-                        <a href="{{ path('matiere_edition', {'id': matiere.id}) }}" class="btn btn-secondary">editer</a>
+                        <a href="{{ path('exercice_affichage', {'id': exercice.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('exercice_edition', {'id': exercice.id}) }}" class="btn btn-secondary">editer</a>
                     </td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('matiere_nouveau') }}" class="btn" >Creer Nouvel admin</a>
+    <a href="{{ path('exercice_nouveau') }}" class="btn" >Creer Nouvel admin</a>
 {% endblock %}

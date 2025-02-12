@@ -4,7 +4,7 @@ namespace App\Controller\Utilisateur;
 
 use App\Entity\Utilisateur\Admin;
 
-USE App\Form\Forum\AdminType;
+USE App\Form\Utilisateur\AdminType;
 use App\Repository\Utilisateur\AdminRepository;
 
 use Doctrine\ORM\EntityManagerInterface;

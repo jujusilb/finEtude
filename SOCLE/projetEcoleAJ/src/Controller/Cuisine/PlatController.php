@@ -25,7 +25,7 @@ class PlatController extends AbstractController
         ): Response
     {
 	
-        return $this->render('Plat/index.html.twig', [
+        return $this->render('cuisine/plat/index.html.twig', [
             'controller_name' => 'PlatController',
             'titre' => 'Plat',
             'plats' => $platRepo->findAll(),
@@ -51,6 +51,7 @@ class PlatController extends AbstractController
 
         return $this->render('cuisine/plat/new.html.twig', [
             'plat' => $plat,
+            'titre' => 'Nouveau Plat',
             'platForm' => $form->createView(),
         ]);
     }
@@ -60,6 +61,8 @@ class PlatController extends AbstractController
     {
         return $this->render('cuisine/plat/show.html.twig', [
             'plat' => $plat,
+            'titre' => 'Affichage Plat'
+
         ]);
     }
 
@@ -77,6 +80,7 @@ class PlatController extends AbstractController
 
         return $this->render('cuisine/plat/edit.html.twig', [
             'plat' => $plat,
+            'titre' => 'Edition Plat',
             'platForm' => $form,
         ]);
     }

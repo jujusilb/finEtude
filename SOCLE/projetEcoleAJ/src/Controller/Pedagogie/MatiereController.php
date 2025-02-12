@@ -23,7 +23,7 @@ class MatiereController extends AbstractController
     ): Response
     {
 	
-        return $this->render('Matiere/index.html.twig', [
+        return $this->render('pedagogie/matiere/index.html.twig', [
             'controller_name' => 'MatiereController',
 		    'titre' => 'Matière',
             'matieres' => $matiereRepo->findAll(),

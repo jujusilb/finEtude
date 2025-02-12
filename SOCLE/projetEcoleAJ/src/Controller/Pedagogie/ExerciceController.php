@@ -5,7 +5,7 @@ namespace App\Controller\Pedagogie;
 use App\Entity\Pedagogie\Exercice;
 use App\Repository\Pedagogie\ExerciceRepository;
 use App\Form\Pedagogie\ExerciceType;
-
+use App\Repository\Pedagogie\MatiereRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,13 +16,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class ExerciceController extends AbstractController
 {
     #[Route('/index', name: 'index')]
-    public function index(ExerciceRepository $exerciceRepo): Response
+    public function index(MatiereRepository $matiereRepo, ExerciceRepository $exerciceRepo): Response
     {
 	
-        return $this->render('Exercice/index.html.twig', [
+        return $this->render('pedagogie/exercice/index.html.twig', [
             'controller_name' => 'ExerciceController',
 		    'titre' => 'Exercice',
             'exercices' => $exerciceRepo->findAll(),
+            'matieres' =>$matiereRepo->findAll()
         ]);
     }
 

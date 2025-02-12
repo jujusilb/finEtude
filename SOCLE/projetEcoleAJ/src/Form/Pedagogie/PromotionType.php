@@ -38,13 +38,13 @@ class PromotionType extends AbstractType
                 ]
             ])
 */
-            ->add('programme', EntityType::class, [
+            ->add('programmes', EntityType::class, [
                 'class' => Programme::class,
                 'choice_label' => function(Programme $programme) {
                     return $programme->getProfesseur()->getPrenom() . ' ' . $programme->getProfesseur()->getNom() . ' et ' . $programme->getMatiere()->getLibelle();
                 },  
                 'multiple' => true,
-                'expanded' => true,
+                'expanded' => false,
             ], 
         )
             ;

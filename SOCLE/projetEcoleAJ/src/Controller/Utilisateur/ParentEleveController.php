@@ -23,7 +23,7 @@ class ParentEleveController extends AbstractController
     public function index(EleveRepository $eleveRepo, ParentEleveRepository $parentEleveRepo): Response
     {
 	
-        return $this->render('Utilisateur/parent_eleve/index.html.twig', [
+        return $this->render('utilisateur/parent_eleve/index.html.twig', [
             'controller_name' => 'ParentEleveController',
 		    'titre' => 'Parent d\'élève',
             'parentEleves' => $parentEleveRepo->findAll(),
@@ -49,7 +49,7 @@ class ParentEleveController extends AbstractController
             return $this->redirectToRoute('parentEleve_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/parent_eleve/new.html.twig', [
+        return $this->render('utilisateur/parent_eleve/new.html.twig', [
             'parentEleve' => $parentEleve,
             'titre' => 'Nouveau Parent d\'élève',
             'parentEleveForm' => $form->createView(),
@@ -59,7 +59,7 @@ class ParentEleveController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(ParentEleve $parentEleve): Response
     {
-        return $this->render('Utilisateur/parent_eleve/show.html.twig', [
+        return $this->render('utilisateur/parent_eleve/show.html.twig', [
             'parentEleve' => $parentEleve,
             'titre' => 'Affichage Parent d\'élève',
         ]);
@@ -77,7 +77,7 @@ class ParentEleveController extends AbstractController
             return $this->redirectToRoute('parentEleve_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/parent_eleve/edit.html.twig', [
+        return $this->render('utilisateur/parent_eleve/edit.html.twig', [
             'parentEleve' => $parentEleve,
             'titre' => 'Edition Parent d\'élève',
             'parentEleveForm' => $form,

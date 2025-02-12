@@ -20,7 +20,7 @@ class FromageController extends AbstractController
     public function index(FromageRepository $fromageRepo): Response
     {
 	
-        return $this->render('cuisine/Fromage/index.html.twig', [
+        return $this->render('cuisine/fromage/index.html.twig', [
             'controller_name' => 'FromageController',
 		    'titre' => 'Fromage',
             'fromages' => $fromageRepo->findAll(),

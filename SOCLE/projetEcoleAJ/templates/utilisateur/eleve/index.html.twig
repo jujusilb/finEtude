@@ -13,9 +13,10 @@
                 <th>Prenom</th>
                 <th>Username</th>
                 <th>E-mail</th>
-                <th>Password</th>
+                {#<th>Password</th>#}
                 <th>Promotion</th>
-                <th>role</th>
+                <th class="text-nowrap w-auto">role</th>
+                <th>Stage</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -30,18 +31,24 @@
                     <td>{{ eleve.prenom }}</td>
                     <td>{{ eleve.username }}</td>
                     <td>{{ eleve.email }}</td>
-                    <td>{{ eleve.password }}</td>
+                    {#<td>{{ eleve.password }}</td>#}
                     <td>
                         <a href="{{ path('promotion_affichage', {'id': eleve.promotion.id}) }}">
                             {{ eleve.promotion.libelle }}
                         </a>
-                        
                     </td>
                     <td>
                         {% for role in eleve.roles %}
-                            <li>{{ role }}</li>
+                           {{ role }}<br>
                         {% endfor %}
                     </td>
+                    <td>
+                        {% if eleve.stages | length > 0 %}
+                            {% for stage in eleve.stages %}
+                                <li>{{ stage.dateDebut | date('Y')}} <br>{{ stage.entreprise.libelle }}</li><br>
+                            {% endfor %}
+                        {% endif %}
+                    <td>
                     <td>
                         <a href="{{ path('eleve_affichage', {'id': eleve.id}) }}" class="btn btn-secondary">lire</a>
                         <a href="{{ path('eleve_edition', {'id': eleve.id}) }}" class="btn btn-secondary">editer</a>

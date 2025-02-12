@@ -38,9 +38,9 @@
                     <td>{{ documentaliste.dateEmbauche | date('d/m/Y') }}</td>
                     <td>{{ documentaliste.poste}}</td>
                     <td>
-                        <a href="{{ path('documentaliste_edition', {'id': documentaliste.id}) }}" class="btn btn-secondary">editer</a>
                         <a href="{{ path('documentaliste_affichage', {'id': documentaliste.id}) }}" class="btn btn-secondary">lire</a>
-                    </td>
+                        <a href="{{ path('documentaliste_edition', {'id': documentaliste.id}) }}" class="btn btn-secondary">editer</a>
+                        </td>
                     
                 </tr>
             {% endfor %}

@@ -2,9 +2,9 @@
 
 namespace App\Entity\Utilisateur;
 
+use App\Repository\Utilisateur\SecretariatRepository;
 use app\Entity\Utilisateur\Direction;
 use App\Entity\Utilisateur\Personnel;
-use App\Repository\SecretariatRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 

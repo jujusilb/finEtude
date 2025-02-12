@@ -9,14 +9,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/Personnel', name: 'Personnel_')]
+#[Route('/personnel', name: 'personnel_')]
 class PersonnelController extends AbstractController
 {
     #[Route('/index', name: 'index')]
     public function index(PersonnelRepository $personnelRepo): Response
     {
 	
-        return $this->render('Utilisateur/personnel/index.html.twig', [
+        return $this->render('utilisateur/personnel/index.html.twig', [
             'controller_name' => 'PersonnelController',
 		    'titre' => 'Personnel',
             'personnels' => $personnelRepo->findAll(),

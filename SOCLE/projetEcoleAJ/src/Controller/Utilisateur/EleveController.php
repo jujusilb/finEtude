@@ -19,7 +19,7 @@ class EleveController extends AbstractController
     public function index(EleveRepository $eleveRepo): Response
     {
 	
-        return $this->render('Utilisateur/eleve/index.html.twig', [
+        return $this->render('utilisateur/eleve/index.html.twig', [
             'controller_name' => 'EleveController',
 		    'titre' => 'Eleve',
             'eleves' => $eleveRepo->findAll(),
@@ -45,7 +45,7 @@ class EleveController extends AbstractController
             return $this->redirectToRoute('eleve_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/eleve/new.html.twig', [
+        return $this->render('utilisateur/eleve/new.html.twig', [
             'eleve' => $eleve,
             'titre' => 'Nouvel Élève',
             'eleveForm' => $form->createView(),
@@ -55,9 +55,9 @@ class EleveController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Eleve $eleve): Response
     {
-        return $this->render('Utilisateur/eleve/show.html.twig', [
+        return $this->render('utilisateur/eleve/show.html.twig', [
             'eleve' => $eleve,
-            'titre' => 'Affichage Documentaliste',
+            'titre' => 'Affichage Eleve',
             ]);
     }
 
@@ -78,9 +78,9 @@ class EleveController extends AbstractController
             return $this->redirectToRoute('eleve_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/eleve/edit.html.twig', [
+        return $this->render('utilisateur/eleve/edit.html.twig', [
             'eleve' => $eleve,
-            'titre' => 'Edition Documentaliste',
+            'titre' => 'Edition Eleve',
             'eleveForm' => $form,
         ]);
     }

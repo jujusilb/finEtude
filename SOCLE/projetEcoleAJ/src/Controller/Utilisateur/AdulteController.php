@@ -10,14 +10,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/Adulte', name: 'Adulte_')]
+#[Route('/adulte', name: 'adulte_')]
 class AdulteController extends AbstractController
 {
     #[Route('/index', name: 'index')]
     public function index(AdulteRepository $AdulteRepo): Response
     {
-        return $this->render('Utilisateur/adulte/index.html.twig', [
+        return $this->render('utilisateur/adulte/index.html.twig', [
             'controller_name' => 'AdulteController',
+            'titre' => 'Adulte',
             'Adultes' => $AdulteRepo->findAll(),
         ]);
     }

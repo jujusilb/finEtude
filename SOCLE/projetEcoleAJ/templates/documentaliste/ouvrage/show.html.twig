@@ -23,8 +23,8 @@
 				<tr>
 					<th>Categorie</th>
 					<td>
-					{% for categorie in ouvrage.categories %}
-					{{ categorie }}
+					{% for categorieOuvrage in ouvrage.categorieOuvrages %}
+					{{ categorieOuvrage.libelle }}
 					{%endfor%}
 					</td>
 				</tr>
@@ -36,7 +36,7 @@
 
 		<a href="{{ path('ouvrage_edition', {'id': ouvrage.id}) }}" class="btn btn-secondary">Modifier</a>
 
-		{{ include('ouvrage/_delete_form.html.twig') }}
+		{{ include('documentaliste/ouvrage/_delete_form.html.twig') }}
 	</div>
 	<br>
 	<br>

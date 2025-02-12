@@ -43,7 +43,7 @@ class CategorieOuvrageController extends AbstractController
 
         return $this->render('documentaliste/categorie_ouvrage/new.html.twig', [
             'categorieOuvrage' => $categorieOuvrage,
-            'titre' => 'Nouvel CategorieOuvrage',
+            'titre' => 'Nouvelle Categorie',
             'categorieOuvrageForm' => $form->createView(),
         ]);
     }
@@ -53,7 +53,7 @@ class CategorieOuvrageController extends AbstractController
     {
         return $this->render('documentaliste/categorie_ouvrage/show.html.twig', [
             'categorieOuvrage' => $categorieOuvrage,
-            'titre' => 'Affichage CategorieOuvrage',
+            'titre' => 'Affichage des Categories',
         ]);
     }
 
@@ -71,7 +71,7 @@ class CategorieOuvrageController extends AbstractController
 
         return $this->render('documentaliste/categorie_ouvrage/edit.html.twig', [
             'categorieOuvrage' => $categorieOuvrage,
-            'titre' => 'Edition CategorieOuvrage',
+            'titre' => 'Edition des Categories',
             'categorieOuvrageForm' => $form,
         ]);
     }

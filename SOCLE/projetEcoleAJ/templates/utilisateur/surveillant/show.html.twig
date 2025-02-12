@@ -18,7 +18,7 @@
 				</tr>
 				<tr>
 					<th>photo</th>
-					<td><img src="{{ vich_uploader_asset(membre, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="..."></td>
+					<td><img src="{{ vich_uploader_asset(surveillant	, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="..."></td>
 				</tr>
 								<tr>
 					<th>Nom</th>
@@ -38,7 +38,7 @@
 				</tr>
 								<tr>
 					<th>date d'embauche</th>
-					<td>{{ surveillant.dateEmbauche }}</td>
+					<td>{{ surveillant.dateEmbauche | date('d/m/Y') }}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -47,7 +47,7 @@
 
 		<a href="{{ path('surveillant_edition', {'id': surveillant.id}) }}" class="btn btn-secondary">Modifier</a>
 
-		{{ include('surveillant/_delete_form.html.twig') }}
+		{{ include('utilisateur/surveillant/_delete_form.html.twig') }}
 	</div>
 	<br>
 	<br>

@@ -27,7 +27,7 @@ class MembreController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(MembreRepository $membreRepo): Response
     {
-        return $this->render('Utilisateur/membre/index.html.twig', [
+        return $this->render('utilisateur/membre/index.html.twig', [
             'controller_name' => 'MembreController',
             'titre' => 'Membre',
             'membres' => $membreRepo->findAll(),
@@ -52,8 +52,9 @@ class MembreController extends AbstractController
             ], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/membre/new.html.twig', [
+        return $this->render('utilisateur/membre/new.html.twig', [
             'membre' => $membre,
+            'titre' => 'N9ouveau Membre',
             'membreForm' => $form->createView(),
         ]);
     }
@@ -61,7 +62,7 @@ class MembreController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Membre $membre): Response
     {
-        return $this->render('Utilisateur/membre/show.html.twig', [
+        return $this->render('utilisateur/membre/show.html.twig', [
             'membre' => $membre,
             'titre' => 'Affichage Membre',
         ]);
@@ -82,7 +83,7 @@ class MembreController extends AbstractController
                  Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/membre/edit.html.twig', [
+        return $this->render('utilisateur/membre/edit.html.twig', [
             'membre' => $membre,
             'titre' => 'Edition Membre',
             'membreForm' => $form,

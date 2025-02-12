@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
-#[Route('/professeurMatiere', name: 'professeurMatiere_')]
+#[Route('/professeurmatiere', name: 'professeurMatiere_')]
 class ProfesseurMatiereController extends AbstractController
 {
     #[Route('/index', name: 'index')]

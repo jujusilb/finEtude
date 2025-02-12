@@ -18,7 +18,7 @@ class DirectionController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(directionRepository $directionRepo): Response
     {
-        return $this->render('Utilisateur/direction/index.html.twig', [
+        return $this->render('utilisateur/direction/index.html.twig', [
             'controller_name' => 'directionController',
             'titre' => 'Direction',
             'directions' => $directionRepo->findAll(),
@@ -44,7 +44,7 @@ class DirectionController extends AbstractController
             return $this->redirectToRoute('direction_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/direction/new.html.twig', [
+        return $this->render('utilisateur/direction/new.html.twig', [
             'direction' => $direction,
             'titre' => 'Nouveau Direction',
             'directionForm' => $form->createView(),
@@ -54,7 +54,7 @@ class DirectionController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Direction $direction): Response
     {
-        return $this->render('Utilisateur/direction/show.html.twig', [
+        return $this->render('utilisateur/direction/show.html.twig', [
             'direction' => $direction,
             'titre' => 'Affichage Directon',
         ]);
@@ -72,7 +72,7 @@ class DirectionController extends AbstractController
             return $this->redirectToRoute('direction_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/direction/edit.html.twig', [
+        return $this->render('utilisateur/direction/edit.html.twig', [
             'direction' => $direction,
             'titre' => 'Edition Direction',
             'directionForm' => $form,

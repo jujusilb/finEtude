@@ -18,7 +18,7 @@ class DocumentalisteController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(DocumentalisteRepository $documentalisteRepo): Response
     {
-        return $this->render('Documentaliste/index.html.twig', [
+        return $this->render('utilisateur/documentaliste/index.html.twig', [
             'controller_name' => 'DocumentalisteController',
             'titre' => 'Documentaliste',
             'documentalistes' => $documentalisteRepo->findAll(),
@@ -44,7 +44,7 @@ class DocumentalisteController extends AbstractController
             return $this->redirectToRoute('documentaliste_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/documentaliste/new.html.twig', [
+        return $this->render('utilisateur/documentaliste/new.html.twig', [
             'documentaliste' => $documentaliste,
             'titre' => 'Nouveau Documentaliste',
             'documentalisteForm' => $form->createView(),
@@ -54,7 +54,7 @@ class DocumentalisteController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Documentaliste $documentaliste): Response
     {
-        return $this->render('Utilisateur/documentaliste/show.html.twig', [
+        return $this->render('utilisateur/documentaliste/show.html.twig', [
             'documentaliste' => $documentaliste,
             'titre' => 'Affichage Documentaliste',
             ]);
@@ -72,7 +72,7 @@ class DocumentalisteController extends AbstractController
             return $this->redirectToRoute('documentaliste_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('Utilisateur/documentaliste/edit.html.twig', [
+        return $this->render('utilisateur/documentaliste/edit.html.twig', [
             'documentaliste' => $documentaliste,
             'titre' => 'Edition Documentaliste',
             'documentalisteForm' => $form,

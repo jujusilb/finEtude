@@ -20,15 +20,7 @@ class RepasType extends AbstractType
     {
         $builder
            
-            ->add('membre', EntityType::class, [
-                'class' => Membre::class,
-                'choice_label' => function(Membre $membre){
-                    return $membre->getPrenom().
-                    ' '.
-                    $membre->getNom();
-                },
-            ])
-            ->add('date', DateType::class, [
+           ->add('date', DateType::class, [
                 'widget' => 'single_text'
             ])
             ->add('heure', ChoiceType::class, [
