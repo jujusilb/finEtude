@@ -61,7 +61,7 @@ class MembreAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // Sinon, on le redirige vers la route 'membre_index'
-        return new RedirectResponse($this->urlGenerator->generate('accueil'));
+        return new RedirectResponse($this->urlGenerator->generate('root_accueil'));
     }
 
     protected function getLoginUrl(Request $request): string

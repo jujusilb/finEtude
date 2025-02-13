@@ -1,0 +1,37 @@
+3matiere
+	francais
+	histoire 
+	geographie
+
+3professeur
+	Remi
+	Gérard
+	Alexandre
+
+3classe
+	6e
+	5e
+	4e
+
+Un Duo est formé d'un Professeur donné et d'une Matiere donnée
+
+un Professeur peut enseigné plusieur Matiere differentes
+une Matiere peut etre enseigné par plusieur Professeur differents
+
+un Duo peut enseigné a Plusieur classe  differentes
+une Classe peut avoir avoir plusieurs Duos
+
+un Professeur peut enseigné a une Classe	 donné dans plusieur Duos
+une Matiere ne peut participer qu'a un seul Duo pour une classe donnée
+
+
+Exemple
+Remi peut enseigner l'histoire
+Rémi peut enseigner la geographie
+Gerard peut enseigner l'histoire
+Gérard peut enseigner la geographie
+
+
+la 6e peut avoir Remi qui enseigne l'histoire
+la 6e peut avoir Rémi qui enseigne la géographie
+mais dans ce cas la 6e ne peut pas avoir l'histoire enseigné par Gérard car Rémi le fait deja..

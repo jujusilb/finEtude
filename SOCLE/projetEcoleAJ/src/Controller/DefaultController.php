@@ -4,6 +4,10 @@ namespace App\Controller;
 
 use App\Outils\CouteauSuisse;
 use App\Entity\Utilisateur\Membre;
+use App\Entity\Forum\Message;
+use App\Form\ContactType;
+use App\Entity\Utilisateur\Secretariat;
+use App\Entity\Professionnel\ProfessionnelRepository;
 use App\Repository\Utilisateur\AdminRepository;
 use App\Repository\Utilisateur\AdulteRepository;
 use App\Repository\Utilisateur\CuisineRepository;
@@ -29,16 +33,20 @@ use App\Repository\Cuisine\RepasRepository;
 use App\Repository\Utilisateur\SecretariatRepository;
 use App\Repository\Utilisateur\SurveillantRepository;
 use App\Repository\Cuisine\ViandeRepository;
-
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\From;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class DefaultController extends AbstractController
 {
-    #[Route('/', name: 'accueil')]
+    #[Route('/', name: 'root_accueil')]
     public function home(
         
         AdminRepository $adminRepo, 
@@ -105,4 +113,42 @@ class DefaultController extends AbstractController
             'viandes' => $viandeRepo->findAll()
         ]);
     }
+    #[Route('/apropos', name: 'root_apropos')]
+    public function apropos(){
+        return $this->render('default/apropos.html.twig',[
+            'titre' => 'Qui sommes-nous'
+        ]);
+    }
+
+    #[Route('/legal', name: 'root_legal')]
+    public function mentionsLegal(){
+        return $this->render('default/legal.html.twig',[
+            'titre' => 'Mentions Légales'
+        ]);
+    }
+
+
+    #[Route('/contact', name: 'root_contact')]
+    public function contact(EntityManagerInterface $entityManager, Request $request){
+        $message = new Message();
+        $form = $this->createForm(contactType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $message->setCreatedAt(new \DateTimeImmutable());
+            $message->setUpdatedAt(new \DateTimeImmutable());
+            $message->setPrivatif(true);
+            $entityManager->persist($message);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('root_accueil', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('default/contact.html.twig', [
+            'message' => $message,
+            'titre' => 'Contactez-nous',
+            'contactForm' => $form->createView(),
+        ]);
+    }
+        
 }

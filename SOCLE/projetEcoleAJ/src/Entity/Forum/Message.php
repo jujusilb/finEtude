@@ -43,6 +43,9 @@ class Message
     #[ORM\ManyToOne(inversedBy: 'receiverMess')]
     private ?Membre $destinataire = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $requerant = null;
+
     public function getId(): ?int {
         return $this->id;
     }
@@ -134,6 +137,18 @@ class Message
     public function setDestinataire(?Membre $destinataire): static
     {
         $this->destinataire = $destinataire;
+
+        return $this;
+    }
+
+    public function getRequerant(): ?string
+    {
+        return $this->requerant;
+    }
+
+    public function setRequerant(?string $requerant): static
+    {
+        $this->requerant = $requerant;
 
         return $this;
     }

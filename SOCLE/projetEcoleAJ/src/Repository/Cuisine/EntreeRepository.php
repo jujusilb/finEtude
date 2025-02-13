@@ -15,21 +15,20 @@ class EntreeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Entree::class);
     }
-
-//    /**
-//     * @return Entree[] Returns an array of Entree objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Entree[] Returns an array of Entree objects
+     */
+    public function findByLibelle($value): array
+    {
+        return $this->createQueryBuilder('entree')
+            ->andWhere('entree.libelle = :val')
+            ->setParameter('val', $value)
+            ->orderBy('entree.id', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Entree
 //    {

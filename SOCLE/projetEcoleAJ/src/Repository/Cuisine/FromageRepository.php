@@ -16,20 +16,20 @@ class FromageRepository extends ServiceEntityRepository
         parent::__construct($registry, Fromage::class);
     }
 
-//    /**
-//     * @return Fromage[] Returns an array of Fromage objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('f')
-//            ->andWhere('f.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('f.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Fromage[] Returns an array of Fromage objects
+     */
+    public function findByLibelle($value): array
+    {
+        return $this->createQueryBuilder('fromage')
+            ->andWhere('fromage.libelle = :val')
+            ->setParameter('val', $value)
+            ->orderBy('fromage.id', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Fromage
 //    {

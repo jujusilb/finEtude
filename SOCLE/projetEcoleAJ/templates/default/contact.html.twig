@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme contactForm 'bootstrap_4_layout.html.twig'  %}
+
+{% block title %}Contact
+{% endblock %}
+
+{% block body %}
+<h1>Contact</h1>
+
+<div>
+
+</div>
+
+		{{ include('default/_form.html.twig') }}
+
+		<a href="{{ path('root_accueil') }}" class="btn btn-dark">retour a l'accueil</a>
+{% endblock %}

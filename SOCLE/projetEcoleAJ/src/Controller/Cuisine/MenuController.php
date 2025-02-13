@@ -1,23 +1,16 @@
 <?php
 
-namespace App\Controller\Cuisine;;
+namespace App\Controller\Cuisine;
 
 use App\Entity\Cuisine\Menu;
-use App\Repository\Cuisine\Entree;
-use App\Repository\Cuisine\Plat;
-use App\Repository\Cuisine\Viande;
-use App\Repository\Cuisine\Legume;
-use App\Repository\Cuisine\Fromage;
-use App\Repository\Cuisine\Dessert;
 use App\Repository\Cuisine\MenuRepository;
 use App\Form\Cuisine\MenuType;
-use App\Repository\Cuisine\DessertRepository;
-use App\Repository\Cuisine\EntreeRepository;
-use App\Repository\Cuisine\FromageRepository;
-use App\Repository\Cuisine\LegumeRepository;
-use App\Repository\Cuisine\PlatRepository;
-use App\Repository\Cuisine\ViandeRepository;
-
+use App\Repository\Entree;
+use App\Repository\Plat;
+use App\Repository\Legume;
+use App\Repository\Viande;
+use App\Repository\Fromage;
+use App\Repository\Dessert;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,27 +21,13 @@ use Symfony\Component\Routing\Attribute\Route;
 class MenuController extends AbstractController
 {
     #[Route('/index', name: 'index')]
-    public function index(
-        MenuRepository $menuRepo,
-        EntreeRepository $entreeRepo,
-        PlatRepository $platRepo,
-        ViandeRepository $viandeRepo,
-        LegumeRepository $legumeRepo,
-        FromageRepository $fromageRepo,
-        DessertRepository $dessertRepo
-        ): Response
+    public function index(MenuRepository $menuRepo): Response
     {
 	
-        return $this->render('cuisine/Menu/index.html.twig', [
+        return $this->render('cuisine/menu/index.html.twig', [
             'controller_name' => 'MenuController',
-		    'titre' => 'Menu',
+            'titre' =>'Menu',
             'menus' => $menuRepo->findAll(),
-            'entrees' => $entreeRepo->findAll(),
-            'plats' => $platRepo->findAll(),
-            'viandes' => $viandeRepo->findAll(),
-            'legumes' => $legumeRepo->findAll(),
-            'fromages' => $fromageRepo->findAll(),
-            'dessert' => $dessertRepo->findAll(),
         ]);
     }
 
@@ -79,7 +58,7 @@ class MenuController extends AbstractController
     {
         return $this->render('cuisine/menu/show.html.twig', [
             'menu' => $menu,
-            'titre' => 'Affichage Menu',
+            'titre' =>'Affichage Menu',
         ]);
     }
 
@@ -97,7 +76,7 @@ class MenuController extends AbstractController
 
         return $this->render('cuisine/menu/edit.html.twig', [
             'menu' => $menu,
-            'titre' => 'Edition Menu',
+            'titre' =>'Edition Menu',
             'menuForm' => $form,
         ]);
     }

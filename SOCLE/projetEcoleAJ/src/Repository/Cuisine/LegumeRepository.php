@@ -16,20 +16,20 @@ class LegumeRepository extends ServiceEntityRepository
         parent::__construct($registry, Legume::class);
     }
 
-//    /**
-//     * @return Legume[] Returns an array of Legume objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('l')
-//            ->andWhere('l.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('l.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Legume[] Returns an array of Legume objects
+     */
+    public function findByLibelle($value): array
+    {
+        return $this->createQueryBuilder('legume')
+            ->andWhere('legume.libelle = :val')
+            ->setParameter('val', $value)
+            ->orderBy('legume.id', 'ASC')
+            //->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Legume
 //    {

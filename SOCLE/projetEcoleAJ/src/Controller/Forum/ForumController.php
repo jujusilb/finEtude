@@ -59,17 +59,15 @@ class ForumController extends AbstractController
 
                     $form->handleRequest($request);
                     if ($form->isSubmitted() && $form->isValid()) {
-                        if ($form->isSubmitted() && $form->isValid()) {
-                            if ($user) {
-                                $user->setCharte(true); 
-                                $entityManager->persist($user);
-                                $entityManager->flush();
-                            }
-                            if ($charte===true) {
-                                return $this->redirectToRoute('categorie_index');
-                            }
-                            return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
-                      }
+                        if ($user) {
+                            $user->setCharte(true); 
+                            $entityManager->persist($user);
+                            $entityManager->flush();
+                        }
+                        if ($charte===true) {
+                            return $this->redirectToRoute('categorie_index');
+                        }
+                        return $this->redirectToRoute('categorie_index', [], Response::HTTP_SEE_OTHER);
                     }
                     return $this->render('forum/forum/index.html.twig', [
                         'controller_name' => 'forumController',
