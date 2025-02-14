@@ -5,12 +5,7 @@ namespace App\Controller\Cuisine;
 use App\Entity\Cuisine\Menu;
 use App\Repository\Cuisine\MenuRepository;
 use App\Form\Cuisine\MenuType;
-use App\Repository\Entree;
-use App\Repository\Plat;
-use App\Repository\Legume;
-use App\Repository\Viande;
-use App\Repository\Fromage;
-use App\Repository\Dessert;
+
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

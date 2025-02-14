@@ -2,6 +2,7 @@
 
 namespace App\Repository\Forum;
 
+use App\Entity\Utilisateur\Membre;
 use App\Entity\Forum\Message;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -16,7 +17,43 @@ class MessageRepository extends ServiceEntityRepository
         parent::__construct($registry, Message::class);
     }
 
-//    /**
+
+
+
+    public function findByExpediteur():array
+    {
+        $user = $this->getUser();
+        if ($user) {
+            return $this->createQueryBuilder('message')
+                ->join('message.expediteur', 'membre')
+                ->where('membre.id = :user')
+                ->setParameter('user', $user)
+                ->orderBy('message.id', 'ASC')
+                ->getQuery()
+                ->getResult();
+            }
+        else  return $this->redirectToRoute('app_login');
+    }
+
+        
+    public function findByDestinataire():array
+    {
+        $user = $this->getUser();
+
+        if ($user) {
+            return $this->createQueryBuilder('message')
+                ->join('message.destinataire', 'membre')
+                ->where('membre.id = :user')
+                ->setParameter('user', $user)
+                ->orderBy('message.id', 'ASC')
+                ->getQuery()
+                ->getResult();
+        }
+        else  return $this->redirectToRoute('app_login');
+    }
+
+
+    //    /**
 //     * @return Message[] Returns an array of Message objects
 //     */
 //    public function findByExampleField($value): array

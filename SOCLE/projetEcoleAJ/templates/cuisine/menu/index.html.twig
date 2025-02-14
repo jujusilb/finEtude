@@ -7,8 +7,8 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Entree</th>
-                <th>Plat</th>
+                <th>Entrée</th>
+                <th>Viande - Légume</th>
                 <th>Fromage</th>
                 <th>Dessert</th>
                 <th>Action</th>
@@ -19,14 +19,13 @@
                 <tr>
                     <td>{{menu.id}}</td>
                     <td>{{ menu.entree.libelle }}</td>
-                    <td>{{menu.plat.viande.libelle }} - {{menu.plat.legume.libelle }}</td>
+                    <td>{{ menu.plat.viande.libelle }} - {{ menu.plat.legume.libelle }}</td>
                     <td>{{ menu.fromage.libelle }}</td>
                     <td>{{ menu.dessert.libelle }}</td>
                     <td>
                         <a href="{{ path('menu_affichage', {'id': menu.id}) }}" class="btn btn-secondary">lire</a>
                         <a href="{{ path('menu_edition', {'id': menu.id}) }}" class="btn btn-secondary">editer</a>
                     </td>
-
                 </tr>
             {% endfor %}
         </tbody>

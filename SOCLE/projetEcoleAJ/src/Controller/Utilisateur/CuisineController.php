@@ -38,8 +38,21 @@ class CuisineController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $cuisine->setRoles(["ROLE_CUISINE"]);
+            $prenom =$cuisine->getPrenom();
+            $nom=$cuisine->getNom();
+            if(str_contains($prenom, '-')){
+                $tab=explode('-', $prenom);
+                foreach($tab as $key=>$value){
+                    $value=lcfirst($value);
+                    $value=substr($value, 0, 1);
+                }
+                $prenom=implode($tab);
+            } else substr($prenom, 0, 1);
+            $nom=strtolower($nom);
+            $username=$prenom.$nom;
             $entityManager->persist($cuisine);
             $entityManager->flush();
+            $cuisine->setUsername($username);
 
             return $this->redirectToRoute('cuisine_index', [], Response::HTTP_SEE_OTHER);
         }
