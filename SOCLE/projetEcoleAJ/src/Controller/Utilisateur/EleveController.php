@@ -2,6 +2,7 @@
 
 namespace App\Controller\Utilisateur;
 
+use App\Outils\CouteauSuisse;
 use App\Entity\Utilisateur\Eleve;
 use App\Repository\Utilisateur\EleveRepository;
 use App\Form\Utilisateur\EleveType;
@@ -11,14 +12,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/eleve', name: 'eleve_')]
 class EleveController extends AbstractController
 {
+
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher){
+        $this -> passwordHasher=$passwordHasher;
+    }
+
     #[Route('/index', name: 'index')]
     public function index(EleveRepository $eleveRepo): Response
     {
-	
+	    
         return $this->render('utilisateur/eleve/index.html.twig', [
             'controller_name' => 'EleveController',
 		    'titre' => 'Eleve',
@@ -40,6 +49,14 @@ class EleveController extends AbstractController
                 $rolePromotion = 'ROLE_' . strtoupper($promotion->getLibelle());
                 $eleve->setRoles(array_merge($eleve->getRoles(), [$rolePromotion]));
             }
+            $eleve->setPassword($this->passwordHasher->hashPassword($eleve, $eleve->getPassword()));
+            
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($eleve);
+            $email =$getter->getEmail($eleve, $username);
+            $eleve->setUsername($username);
+            $eleve->setEmail($email);
+            
             $entityManager->persist($eleve);
             $entityManager->flush();
             return $this->redirectToRoute('eleve_index', [], Response::HTTP_SEE_OTHER);
@@ -68,6 +85,7 @@ class EleveController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $eleve->setPassword($this->passwordHasher->hashPassword($eleve, $eleve->getPassword()));
             $eleve->setRoles(["ROLE_ELEVE"]);
             $promotion = $eleve->getPromotion();
             if ($promotion) {

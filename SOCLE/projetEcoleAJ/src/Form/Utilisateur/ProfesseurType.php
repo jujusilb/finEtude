@@ -20,19 +20,23 @@ class ProfesseurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class, [])
-            ->add('prenom', TextType::class, [])
-            ->add('username', TextType::class, [])
-            ->add('email', TextType::class, [])
-            ->add('password', TextType::class, [])
-            ->add('roles', ChoiceType::class, [
-                'choices' => [
-                    'ROLE_USER' => 'ROLE_USER',
-                    'ROLE_ADMIN' => 'ROLE_ADMIN',
-                ],
-                'multiple' => true,  // Allow multiple roles to be selected
-                'expanded' => true,   // Use checkboxes to select multiple roles
-            ])
+        ->add('nom', TextType::class, [
+            'label' => 'Nom',
+            'required'   => true,
+            'disabled' => false,
+        ])
+
+        ->add('prenom', TextType::class, [
+            'label' => 'Prénom',
+            'required'   => true,
+            'disabled' => false,
+        ])
+
+        ->add('password', TextType::class, [
+            'label' => 'Mot de passe',
+        'required'   => true,
+        'disabled'=> false, 
+        ])
             ->add('date_embauche', DateType::class, [])
             ->add('poste', TelType::class, [])
             ->add('imageFile', VichImageType::class)

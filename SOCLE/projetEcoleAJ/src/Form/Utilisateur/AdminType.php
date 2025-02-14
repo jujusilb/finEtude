@@ -20,12 +20,23 @@ class AdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class, [])
-            ->add('prenom', TextType::class, [])
-            ->add('Username', TextType::class, [])
-            ->add('roles', TextType::class, [])
-            ->add('email', EmailType::class, [])
-            ->add('password', TextType::class, [])
+        ->add('nom', TextType::class, [
+            'label' => 'Nom',
+            'required'   => true,
+            'disabled' => false,
+        ])
+
+        ->add('prenom', TextType::class, [
+            'label' => 'Prénom',
+            'required'   => true,
+            'disabled' => false,
+        ])
+
+        ->add('password', TextType::class, [
+            'label' => 'Mot de passe',
+        'required'   => true,
+        'disabled'=> false, 
+        ])
             ->add('imageFile', VichImageType::class);
         
         // Data transformer

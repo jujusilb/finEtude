@@ -2,6 +2,7 @@
 
 namespace App\Controller\Utilisateur;
 
+use App\Outils\CouteauSuisse;
 use App\Entity\Utilisateur\Professeur;
 use App\Form\Utilisateur\ProfesseurType;
 use App\Repository\Pedagogie\MatiereRepository;
@@ -12,10 +13,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/professeur', name: 'professeur_')]
 class ProfesseurController extends AbstractController
 {
+
+        private $passwordHasher;
+
+        public function __construct(UserPasswordHasherInterface $passwordHasher){
+            $this -> passwordHasher=$passwordHasher;
+        }
+
     #[Route('/index', name: 'index')]
     public function index(MatiereRepository $matiereRepo, ProfesseurRepository $professeurRepo): Response
     {
@@ -43,6 +52,14 @@ class ProfesseurController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $professeur->setRoles(["ROLE_PROFESSEUR"]);
+            $professeur->setPassword($this->passwordHasher->hashPassword($professeur, $professeur->getPassword()));
+            
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($professeur);
+            $email =$getter->getEmail($professeur, $username);
+            $professeur->setUsername($username);
+            $professeur->setEmail($email);
+            
             $entityManager->persist($professeur);
             $entityManager->flush();
 
@@ -72,6 +89,7 @@ class ProfesseurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $professeur->setPassword($this->passwordHasher->hashPassword($professeur, $professeur->getPassword()));
             $entityManager->flush();
 
             return $this->redirectToRoute('professeur_index', [], Response::HTTP_SEE_OTHER);

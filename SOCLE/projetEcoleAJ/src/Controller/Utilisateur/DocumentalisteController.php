@@ -2,6 +2,7 @@
 
 namespace App\Controller\Utilisateur;
 
+use App\Outils\CouteauSuisse;
 use App\Entity\Utilisateur\Documentaliste;
 use App\Form\Utilisateur\DocumentalisteType;
 use App\Repository\Utilisateur\DocumentalisteRepository;
@@ -11,10 +12,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/documentaliste', name: 'documentaliste_')]
 class DocumentalisteController extends AbstractController
 {
+
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher){
+        $this -> passwordHasher=$passwordHasher;
+    }
+
     #[Route('/index', name: 'index')]
     public function index(DocumentalisteRepository $documentalisteRepo): Response
     {
@@ -28,6 +37,9 @@ class DocumentalisteController extends AbstractController
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
     public function new (Request $request, EntityManagerInterface $entityManager): Response
     {
+
+
+        
         $documentaliste = new Documentaliste();
         $form = $this->createForm(DocumentalisteType::class, $documentaliste);
         $form->handleRequest($request);
@@ -38,6 +50,14 @@ class DocumentalisteController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $documentaliste->setRoles(["ROLE_DOCUMENTALISTE"]);
+            $documentaliste->setPassword($this->passwordHasher->hashPassword($documentaliste, $documentaliste->getPassword()));
+            
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($documentaliste);
+            $email =$getter->getEmail($documentaliste, $username);
+            $documentaliste->setUsername($username);
+            $documentaliste->setEmail($email);
+           
             $entityManager->persist($documentaliste);
             $entityManager->flush();
 
@@ -67,6 +87,7 @@ class DocumentalisteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $documentaliste->setPassword($this->passwordHasher->hashPassword($documentaliste, $documentaliste->getPassword()));
             $entityManager->flush();
 
             return $this->redirectToRoute('documentaliste_index', [], Response::HTTP_SEE_OTHER);

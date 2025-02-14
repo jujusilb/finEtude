@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;;
 
 class StageType extends AbstractType
 {
@@ -21,13 +22,35 @@ class StageType extends AbstractType
                 'class' => Entreprise::class,
                 'choice_label'=>'libelle',
             ])
-            ->add('fonction', TextType::class, [])
-            ->add('dateDebut', null, [
-                'widget' => 'single_text'
-            ])
-            ->add('dateFin', null, [
-                'widget' => 'single_text'
-            ])
+            ->add('fonction', TextType::class, [
+                'label' => 'Stagiaire',
+                'attr' => [
+                    'class' => ' d-inline',
+                    'aria-label' => 'Stagiaire' // Ajout d'un label pour l'accessibilité si nécessaire
+                ],
+                ])
+            ->add('dateDebut', DateType::class, [
+                'placeholder' => [
+                    'year' => 'Année',
+                    'month' => 'Mois',
+                    'day' => 'Jour',
+                ],
+                'attr' => [
+                    'class' => ' d-inline',
+                    'aria-label' => 'Date de début' // Ajout d'un label pour l'accessibilité si nécessaire
+                ],
+                ])
+                ->add('dateFin', DateType::class, [
+                    'placeholder' => [
+                        'year' => 'Année',
+                        'month' => 'Mois',
+                        'day' => 'Jour',
+                    ],
+                    'attr' => [
+                        'class' => ' d-inline',
+                        'aria-label' => 'Date de Fin' // Ajout d'un label pour l'accessibilité si nécessaire
+                    ],
+                    ])
             ->add('responsable', EntityType::class, [
                 'class' => Professionnel::class,
                 'choice_label' => function(Professionnel $professionnel){

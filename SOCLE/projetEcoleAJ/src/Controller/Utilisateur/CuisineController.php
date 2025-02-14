@@ -2,6 +2,7 @@
 
 namespace App\Controller\Utilisateur;
 
+use App\Outils\CouteauSuisse;
 use App\Entity\Utilisateur\Cuisine;
 use App\Form\Utilisateur\CuisineType;
 use App\Repository\Utilisateur\CuisineRepository;
@@ -11,10 +12,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/cuisine', name: 'cuisine_')]
 class CuisineController extends AbstractController
 {
+
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher){
+        $this -> passwordHasher=$passwordHasher;
+    }
+
     #[Route('/index', name: 'index')]
     public function index(cuisineRepository $cuisineRepo): Response
     {
@@ -38,21 +47,17 @@ class CuisineController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $cuisine->setRoles(["ROLE_CUISINE"]);
-            $prenom =$cuisine->getPrenom();
-            $nom=$cuisine->getNom();
-            if(str_contains($prenom, '-')){
-                $tab=explode('-', $prenom);
-                foreach($tab as $key=>$value){
-                    $value=lcfirst($value);
-                    $value=substr($value, 0, 1);
-                }
-                $prenom=implode($tab);
-            } else substr($prenom, 0, 1);
-            $nom=strtolower($nom);
-            $username=$prenom.$nom;
+            $cuisine->setPassword($this->passwordHasher->hashPassword($cuisine, $cuisine->getPassword()));
+            
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($cuisine);
+            $email =$getter->getEmail($cuisine, $username);
+            $cuisine->setUsername($username);
+            $cuisine->setEmail($email);
+            
             $entityManager->persist($cuisine);
             $entityManager->flush();
-            $cuisine->setUsername($username);
+            
 
             return $this->redirectToRoute('cuisine_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -80,6 +85,8 @@ class CuisineController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $cuisine->setPassword($this->passwordHasher->hashPassword($cuisine, $cuisine->getPassword()));
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('cuisine_index', [], Response::HTTP_SEE_OTHER);

@@ -2,6 +2,7 @@
 
 namespace App\Controller\Utilisateur;
 
+use App\Outils\CouteauSuisse;
 use App\Entity\Utilisateur\Direction;
 use App\Repository\Utilisateur\DirectionRepository;
 use App\Form\Utilisateur\DirectionType;
@@ -11,10 +12,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/direction', name: 'direction_')]
 class DirectionController extends AbstractController
 {
+
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher){
+        $this -> passwordHasher=$passwordHasher;
+    }
+
     #[Route('/index', name: 'index')]
     public function index(directionRepository $directionRepo): Response
     {
@@ -38,6 +47,14 @@ class DirectionController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $direction->setRoles(["ROLE_DIRECTION"]);
+            $direction->setPassword($this->passwordHasher->hashPassword($direction, $direction->getPassword()));
+            
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($direction);
+            $email =$getter->getEmail($direction, $username);
+            $direction->setUsername($username);
+            $direction->setEmail($email);
+
             $entityManager->persist($direction);
             $entityManager->flush();
 
@@ -67,6 +84,7 @@ class DirectionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $direction->setPassword($this->passwordHasher->hashPassword($direction, $direction->getPassword()));
             $entityManager->flush();
 
             return $this->redirectToRoute('direction_index', [], Response::HTTP_SEE_OTHER);

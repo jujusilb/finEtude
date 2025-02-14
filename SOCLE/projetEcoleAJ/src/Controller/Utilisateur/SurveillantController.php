@@ -2,6 +2,7 @@
 
 namespace App\Controller\Utilisateur;
 
+use App\Outils\CouteauSuisse;
 use App\Entity\Utilisateur\Surveillant;
 use App\Repository\Utilisateur\SurveillantRepository;
 use App\Form\Utilisateur\SurveillantType;
@@ -11,11 +12,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/surveillant', name: 'surveillant_')]
 class SurveillantController extends AbstractController
 {
+
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher){
+        $this -> passwordHasher=$passwordHasher;
+    }
+
     #[Route('/index', name: 'index')]
     public function index(SurveillantRepository $surveillantRepo): Response
     {
@@ -43,6 +51,14 @@ class SurveillantController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $surveillant->setRoles(["ROLE_SURVEILLANT"]);
+            $surveillant->setPassword($this->passwordHasher->hashPassword($surveillant, $surveillant->getPassword()));
+             
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($surveillant);
+            $email =$getter->getEmail($surveillant, $username);
+            $surveillant->setUsername($username);
+            $surveillant->setEmail($email);
+            
             $entityManager->persist($surveillant);
             $entityManager->flush();
             return $this->redirectToRoute('surveillant_index', [], Response::HTTP_SEE_OTHER);
@@ -71,6 +87,9 @@ class SurveillantController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $surveillant->setRoles(["ROLE_SECRETARIAT"]);
+            $surveillant->setPassword($this->passwordHasher->hashPassword($surveillant, $surveillant->getPassword()));
+            
             $entityManager->flush();
             return $this->redirectToRoute('surveillant_index', [], Response::HTTP_SEE_OTHER);
         }

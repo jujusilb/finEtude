@@ -2,6 +2,7 @@
 
 namespace App\Controller\Utilisateur;
 
+use App\Outils\CouteauSuisse;
 use App\Entity\Utilisateur\Eleve;
 use App\Repository\Utilisateur\EleveRepository;
 use App\Entity\Utilisateur\ParentEleve;
@@ -14,11 +15,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/parentEleve', name: 'parentEleve_')]
 class ParentEleveController extends AbstractController
 {
+
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher){
+        $this -> passwordHasher=$passwordHasher;
+    }
+
     #[Route('/index', name: 'index')]
     public function index(EleveRepository $eleveRepo, ParentEleveRepository $parentEleveRepo): Response
     {
@@ -43,6 +51,14 @@ class ParentEleveController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $parentEleve->setRoles(["ROLE_PARENTELEVE"]);
+            $parentEleve->setPassword($this->passwordHasher->hashPassword($parentEleve, $parentEleve->getPassword()));
+            
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($parentEleve);
+            $email =$getter->getEmail($parentEleve, $username);
+            $parentEleve->setUsername($username);
+            $parentEleve->setEmail($email);
+
             $entityManager->persist($parentEleve);
             $entityManager->flush();
 
@@ -72,6 +88,7 @@ class ParentEleveController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $parentEleve->setPassword($this->passwordHasher->hashPassword($parentEleve, $parentEleve->getPassword()));
             $entityManager->flush();
 
             return $this->redirectToRoute('parentEleve_index', [], Response::HTTP_SEE_OTHER);

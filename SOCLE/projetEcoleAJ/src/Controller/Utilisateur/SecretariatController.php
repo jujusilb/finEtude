@@ -2,6 +2,7 @@
 
 namespace App\Controller\Utilisateur;
 
+use App\Outils\CouteauSuisse;
 use App\Entity\Utilisateur\Secretariat;
 use App\Repository\Utilisateur\SecretariatRepository;
 use App\Form\Utilisateur\SecretariatType;
@@ -11,10 +12,18 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/secretariat', name: 'secretariat_')]
 class SecretariatController extends AbstractController
 {
+
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher){
+        $this -> passwordHasher=$passwordHasher;
+    }
+
     #[Route('/index', name: 'index')]
     public function index(SecretariatRepository $secretariatRepo): Response
     {
@@ -37,6 +46,14 @@ class SecretariatController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $secretariat->setRoles(["ROLE_SECRETARIAT"]);
+            $secretariat->setPassword($this->passwordHasher->hashPassword($secretariat, $secretariat->getPassword()));
+            
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($secretariat);
+            $email =$getter->getEmail($secretariat, $username);
+            $secretariat->setUsername($username);
+            $secretariat->setEmail($email);
+            
             $entityManager->persist($secretariat);
             $entityManager->flush();
 
@@ -66,6 +83,7 @@ class SecretariatController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $secretariat->setPassword($this->passwordHasher->hashPassword($secretariat, $secretariat->getPassword()));
             $entityManager->flush();
 
             return $this->redirectToRoute('secretariat_index', [], Response::HTTP_SEE_OTHER);
