@@ -11,6 +11,8 @@ use App\Repository\Utilisateur\ProfesseurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProfesseurRepository::class)]
 #[ORM\InheritanceType("JOINED")]
@@ -19,6 +21,7 @@ use Doctrine\ORM\Mapping as ORM;
     "professeur" => Professeur::class, 
     "referent" => Referent::class, 
     ])]
+#[Vich\Uploadable]
 class Professeur extends Personnel{
 
     

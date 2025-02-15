@@ -12,7 +12,7 @@
     </thead>
     <tbody>
         {% for messageEnvoye in messageEnvoyes %}
-            {%if messageEnvoye.privatif is not null %}    
+            {%if messageEnvoye.privatif > 0 %}    
                 <tr>
                     <td>{{messageEnvoye.id}}</td>
                     <td>

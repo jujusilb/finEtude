@@ -89,6 +89,7 @@ class ProfesseurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $professeur->setRoles(["ROLE_PROFESSEUR"]);
             $professeur->setPassword($this->passwordHasher->hashPassword($professeur, $professeur->getPassword()));
             $entityManager->flush();
 

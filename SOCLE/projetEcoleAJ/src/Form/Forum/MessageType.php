@@ -35,7 +35,14 @@ class MessageType extends AbstractType
                 },'required' => false, 
                 'placeholder' => 'Choisissez un destinataire', 
         ])
-            ->add('sujet', TextType::class, [])
+            ->add('sujet', TextType::class, [
+                'label'=>'Sujet',
+                'attr'=>[
+                    'aria-label'=>'Sujet',
+                    'placeholder'=>'Sujet'
+                    
+                ]
+            ])
             ->add('contenu', TextareaType::class, [])
             ->add('privatif', ChoiceType::class, [
                 'choices' => [

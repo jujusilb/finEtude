@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\Forum\MessagerieType;
 use App\Entity\Utilisateur\Membre;
 use App\Outils\CouteauSuisse;
 use App\Entity\Forum\Message;
@@ -9,7 +10,8 @@ use App\Repository\Forum\MessageRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 #[Route('/messagerie', name: 'messagerie_')]
 final class MessagerieController extends AbstractController{
     #[Route('/index', name: 'index')]
@@ -32,4 +34,72 @@ final class MessagerieController extends AbstractController{
             ]);
         }
 }
+
+#[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
+    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $message = new Message();
+        $form = $this->createForm(MessagerieType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user=$this->getUser();
+            $message->setExpediteur($user);
+            $message->setCreatedAt(new \DateTimeImmutable());
+            $message->setUpdatedAt(new \DateTimeImmutable());
+            $message->setPrivatif(true);
+            $entityManager->persist($message);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('messagerie/new.html.twig', [
+            'message' => $message,
+            'titre' => 'Nouveau Message Privé',
+            'messageForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    public function show(Message $message): Response
+    {
+        return $this->render('forum/message/show.html.twig', [
+            'message' => $message,
+            'titre' => 'Affichage Message',
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Message $message, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(messageType::class, $message);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user=$this->getUser();
+            $message->setExpediteur($user);
+            $message->setUpdatedAt(new \DateTimeImmutable());
+            $entityManager->flush();
+
+            return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('forum/message/edit.html.twig', [
+            'message' => $message,
+            'titre' => 'Edition Message',
+            'messageForm' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    public function delete(Request $request, Message $message, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $message->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($message);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
+    }
 }

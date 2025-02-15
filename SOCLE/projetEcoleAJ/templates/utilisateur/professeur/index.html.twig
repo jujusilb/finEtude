@@ -12,7 +12,6 @@
                 <th>Prenom</th>
                 <th>Username</th>
                 <th>E-mail</th>
-                <th>password</th>
                 <th>role</th>
                 <th>Date d'Embauche</th>
                 <th>Poste</th>
@@ -30,7 +29,6 @@
                     <td>{{ professeur.prenom }}</td>
                     <td>{{ professeur.username }}</td>
                     <td>{{ professeur.email }}</td>
-                    <td>{{ professeur.password }}</td>
                     <td>
                         {% for role in professeur.roles %}
                             <li>{{ role }}</li>
