@@ -46,9 +46,11 @@
    <div class="form-group">
         <label for="stagiaire">Stagiaire</label>
         <div class="col-sm-4">
-            {{ form_widget(stageForm.stagiaire, {'attr': {'class': 'form-select'}}) }}
+            {{ form_widget(stageForm.stagiaire, {'attr': {'class': 'form-select', 'id' : 'fonctionID'}}) }}
         </div>
     </div>
 </div>
     <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+
+
 {{ form_end(stageForm) }}

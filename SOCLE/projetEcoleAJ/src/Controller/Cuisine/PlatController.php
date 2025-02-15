@@ -43,6 +43,10 @@ class PlatController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $viande =$plat->getViande()->getLibelle();
+            $legume=$plat->getLegume()->getLibelle();
+            $libelle= $viande.' '.$legume;
+            $plat->setLibelle($libelle);
             $entityManager->persist($plat);
             $entityManager->flush();
 
@@ -73,6 +77,13 @@ class PlatController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if (!$plat->getLibelle()){
+                $viande =$plat->getViande()->getLibelle();
+                $legume=$plat->getLegume()->getLibelle();
+                $libelle= $viande.' - '.$legume;
+                $plat->setLibelle($libelle);
+            }
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('plat_index', [], Response::HTTP_SEE_OTHER);

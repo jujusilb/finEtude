@@ -22,22 +22,35 @@ class ParentEleveType extends AbstractType
         $builder
         ->add('nom', TextType::class, [
             'label' => 'Nom',
+            'attr' =>[
+                'aria-label' => 'Nom',
+                'placeholder' => 'Nom'
+            ],
             'required'   => true,
             'disabled' => false,
+           
         ])
 
         ->add('prenom', TextType::class, [
             'label' => 'Prénom',
+            'attr' =>[
+                'placeholder' => 'Prénom',
+                'aria-label' => 'Prénom'
+            ],
             'required'   => true,
             'disabled' => false,
+            
         ])
-
         ->add('password', TextType::class, [
             'label' => 'Mot de passe',
-        'required'   => true,
-        'disabled'=> false, 
+            'attr' =>[
+                'aria-label' => 'Mot de passe',
+                'placeholder' => 'Mot de passe'
+            ],
+            'required'   => true,
+            'disabled'=> false, 
         ])
-            ->add('imageFile', VichImageType::class)  // Correct usage of VichImageType
+            ->add('imageFile', VichImageType::class)
             ->add('eleves', EntityType::class, [
                 'class' => Eleve::class,
                 'choice_label' => function (Eleve $eleve){

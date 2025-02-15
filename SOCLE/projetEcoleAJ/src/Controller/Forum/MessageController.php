@@ -93,4 +93,5 @@ class MessageController extends AbstractController
 
         return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
     }
+    
 }

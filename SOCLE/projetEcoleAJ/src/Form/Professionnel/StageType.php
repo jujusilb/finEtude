@@ -50,7 +50,7 @@ class StageType extends AbstractType
                         'class' => ' d-inline',
                         'aria-label' => 'Date de Fin' // Ajout d'un label pour l'accessibilité si nécessaire
                     ],
-                    ])
+                ])
             ->add('responsable', EntityType::class, [
                 'class' => Professionnel::class,
                 'choice_label' => function(Professionnel $professionnel){

@@ -21,17 +21,42 @@ class RepasType extends AbstractType
         $builder
            
            ->add('date', DateType::class, [
-                'widget' => 'single_text'
+                'label'=>'Choisissez la date',
+                'placeholder' => [
+                    'year' => 'Année',
+                    'month' => 'Mois',
+                    'day' => 'Jour',
+                ],
+                'attr' => [
+                    'aria-label' => 'Choisissez la date',
+                    'class' => 'd-inline',
+                    
+                ]
             ])
             ->add('heure', ChoiceType::class, [
+                'label' => 'Choisissez l\'heure',
                 'choices' => [
-                'Midi' => 'Midi',
-                'Soir' => 'Soir',
+                    'Midi' => 'Midi',
+                    'Soir' => 'Soir',
+                ],
+                'placeholder'=>'Choisissez l\'heure',
+                'attr' =>[
+                    'aria-label' => 'Choisissez l\'heure'
                 ]
             ])
             ->add('menu', EntityType::class, [
                 'class' => Menu::class,
-                'choice_label' => 'id',
+                'choice_label' => function(Menu $menu){
+                    return 
+                    $menu->getEntree()->getLibelle().
+                    ' - '.
+                    $menu->getPlat()->getLibelle().
+                    ' - '.
+                    $menu->getFromage()->getLibelle().
+                    ' - '.
+                    $menu->getDessert()->getLibelle();
+                },
+                'placeholder'=>'Choisissez le menu',
             ])
             ->add('prix', MoneyType::class)
         ;

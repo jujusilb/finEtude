@@ -1,4 +1,19 @@
 {{ form_start(planningRepasForm) }}
+    <div class="form-group">
+        <div class="row">
+            <label for="dateAchat">Date d'achat</label>
+            <div class="col-sm-4">
+                {{form_widget(planningRepasForm.dateAchat.day)}}
+            </div>
+            <div class="col-sm-4">
+                {{form_widget(planningRepasForm.dateAchat.month)}}
+            </div>
+            <div class="col-sm-4">
+                {{form_widget(planningRepasForm.dateAchat.year)}}
+            </div>
+        </div>
+    </div>
     {{ form_widget(planningRepasForm) }}
+
     <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
 {{ form_end(planningRepasForm) }}

@@ -20,26 +20,25 @@ class MessageRepository extends ServiceEntityRepository
 
 
 
-    public function findByExpediteur():array
+    public function findByExpediteur($user):array
     {
-        $user = $this->getUser();
+        echo "USER =".$user."<br>";
         if ($user) {
-            return $this->createQueryBuilder('message')
+            $data= $this->createQueryBuilder('message')
                 ->join('message.expediteur', 'membre')
                 ->where('membre.id = :user')
                 ->setParameter('user', $user)
                 ->orderBy('message.id', 'ASC')
                 ->getQuery()
                 ->getResult();
+                return $data;           
             }
         else  return $this->redirectToRoute('app_login');
     }
 
         
-    public function findByDestinataire():array
+    public function findByDestinataire($user):array
     {
-        $user = $this->getUser();
-
         if ($user) {
             return $this->createQueryBuilder('message')
                 ->join('message.destinataire', 'membre')

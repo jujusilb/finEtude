@@ -38,7 +38,7 @@ class Message
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'senderMess')]
-    private Membre $expediteur;
+    private ?Membre $expediteur;
 
     #[ORM\ManyToOne(inversedBy: 'receiverMess')]
     private ?Membre $destinataire = null;

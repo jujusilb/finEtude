@@ -7,13 +7,20 @@ use App\Entity\Cuisine\Viande;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ViandeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('libelle')
+        ->add('libelle', TextType::class, [
+            'label' => 'Libellé de la viande',
+            'attr' =>[
+                'aria-label' => 'Libellé de la viande',
+                'placeholder' => 'Libellé de la viande'
+            ]
+        ])
         ;
     }
 

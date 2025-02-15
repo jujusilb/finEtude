@@ -9,29 +9,44 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class PlanningRepasType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateAchat', null, [
-                'widget' => 'single_text'
-            ])
+        ->add('dateAchat', DateType::class, [
+            'label'=>'Choisissez la date',
+            'placeholder' => [
+                'year' => 'Année',
+                'month' => 'Mois',
+                'day' => 'Jour',
+            ],
+            'attr' => [
+                'aria-label' => 'Choisissez la date',
+                'class' => 'd-inline',
+                
+            ]
+        ])
             ->add('repas', EntityType::class, [
                 'class' => Repas::class,
                 'choice_label' => function (Repas $repas){
                 return $repas ->getDate()->format('Y-m-d').
                 ' '. $repas ->getHeure();
             },])
-            /*
             ->add('membre', EntityType::class, [
+                'label' => 'Choisissez le membre',
                 'class' => Membre::class,
                 'choice_label' => function (Membre $membre){
                     return $membre->getPrenom().' '.$membre->getNom();
                 },
+                'attr' => [
+                    'aria-label' => 'Choisissez le membre',
+                    'placeholder' => 'Choisissez le membre'
+                ]
             ])
-            */
+            
         ;
     }
 

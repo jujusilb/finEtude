@@ -20,28 +20,44 @@ class EleveType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('nom', TextType::class, [
-            'label' => 'Nom',
-            'required'   => true,
-            'disabled' => false,
-        ])
-
-        ->add('prenom', TextType::class, [
-            'label' => 'Prénom',
-            'required'   => true,
-            'disabled' => false,
-        ])
-
-        ->add('password', TextType::class, [
-            'label' => 'Mot de passe',
-        'required'   => true,
-        'disabled'=> false, 
-        ])
-        ->add('promotion', EntityType::class, [
+            ->add('nom', TextType::class, [
+                'label' => 'Nom',
+                'attr' =>[
+                    'aria-label' => 'Nom',
+                    'placeholder' => 'Nom'
+                ],
+                'required'   => true,
+                'disabled' => false,
+            ])
+            ->add('prenom', TextType::class, [
+                'label' => 'Prénom',
+                'attr' =>[
+                    'placeholder' => 'Prénom',
+                    'aria-label' => 'Prénom'
+                ],
+                'required'   => true,
+                'disabled' => false,
+            ])
+            ->add('password', TextType::class, [
+                'label' => 'Mot de passe',
+                'attr' =>[
+                    'aria-label' => 'Mot de passe',
+                    'placeholder' => 'Mot de passe'
+                ],
+                'required'   => true,
+                'disabled'=> false, 
+            ])
+            ->add('imageFile', VichImageType::class)
+            ->add('promotion', EntityType::class, [
+                'attr' => [
+                    'aria-label' => 'Promotion',
+                    'placeholder' =>'Choisissez la promotion',
+                    'class' => 'form-select'
+                ],
                 'class' => Promotion::class,
                 'choice_label' => 'libelle',
-            ])
-            ->add('imageFile', VichImageType::class)  // Correct usage of VichImageType
+                ])
+            ->add('imageFile', VichImageType::class)
         ;
     }
 
