@@ -17,18 +17,31 @@ class MessagerieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('destinataire', EntityType::class, [
-            'label'=>'Destinataire',
-            'attr'=>[
-                'aria-label'=>'Destinaire',
-                'class'=>'mx-auto'
-            ],
-            'class' => Membre::class,
-            'choice_label' => function(Membre $destinataire){
-               return $destinataire->getPrenom().' '.$destinataire->getNom();
-            },'required' => false, 
-            'placeholder' => 'Choisissez un destinataire', 
-    ])
+        /*  
+            ->add('destinataire', EntityType::class, [
+                'label'=>'Destinataire',
+                'attr'=>[
+                    'aria-label'=>'Destinaire',
+                    'class'=>'mx-auto'
+                ],
+                'class' => Membre::class,
+                'choice_label' => function(Membre $destinataire){
+                    return $destinataire->getPrenom().' '.$destinataire->getNom();
+                },
+                'required' => false, 
+                'placeholder' => 'Choisissez un destinataire', 
+            ])
+        */
+            ->add('destinataire', TextType::class, [
+                'label'=>'Destinataire',
+                'attr'=>[
+                    'aria-label'=>'Destinataire',
+                    'class'=>'mx-auto',
+                    'placeholder' => 'Choisissez un destinataire', 
+                ],
+                'required' => true, 
+            ])
+    
     ->add('sujet', TextType::class, [
         'label'=>'Sujet',
         'attr'=>[

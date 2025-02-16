@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\Forum\MessagerieType;
 use App\Entity\Utilisateur\Membre;
+use App\Repository\Utilisateur\MembreRepository;
 use App\Outils\CouteauSuisse;
 use App\Entity\Forum\Message;
 use App\Repository\Forum\MessageRepository;
@@ -102,4 +103,14 @@ final class MessagerieController extends AbstractController{
 
         return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
     }
+
+/*    
+    #[Route('/{qui}', name: 'getQui', methods: ['GET'])]
+    public function qui(string $qui, MembreRepository $membreRepo): Response
+    {
+        $data=$membreRepo->getConcatNames($qui);
+        return $this->json($data);
+    }
+*/
+
 }

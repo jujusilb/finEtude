@@ -1,4 +1,65 @@
-{{ form_start(messageForm) }}
-    {{ form_widget(messageForm) }}
-    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
-{{ form_end(messageForm) }}
+    {{ form_start(messageForm) }}
+        <div class="form-group align-center">
+            <div class="col-sm-4">
+                <label for="destinataire">Destinataire</label>
+                {{ form_widget(messageForm.destinataire) }}
+            </div>
+   <div id="testeur"></div>
+            <div class="col-sm-4">
+                <label for="sujet">Sujet du message</label>
+                {{ form_widget(messageForm.sujet) }}
+            </div>
+            <div class="col-sm-4">
+                <label for="contenu">Contenu du message</label>
+                {{ form_widget(messageForm.contenu) }}
+            </div>
+            
+            <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button>
+            <br><br>
+            {{ form_end(messageForm) }}
+        </div>
+     
+{#
+        let qui=document.getElementById("messagerie_destinataire")
+        qui.addEventListener('input', action);
+
+        async function action(e){
+            console.log("IN ACTION")
+            let value=e.target.value
+            if (value.length>3){
+                console.log(value)
+                let url =`/membre/${value}`
+                console.log(url)
+                let response =await fetch(url)
+                console.log("response", response)
+                let data =await response.json()
+                console.log("data", data ) 
+            }
+        }
+ #}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('#messagerie_destinataire').on('input', function() {
+        let value = $(this).val();
+
+        // Faire un appel AJAX
+        $.ajax({
+          url: '{{ path('membre_getQui', {'qui': ' '}) }}'.replace(' ', value),
+            type: 'GET',
+            data: {
+                query: value
+            },
+            success: function(data) {
+                // Afficher les résultats dans un div
+                $('#testeur').html(data);
+            },
+            error: function(data) {
+                $('#testeur').html('Erreur lors de la requête.');
+                console.log(data)
+            }
+        });
+    });
+});
+</script>

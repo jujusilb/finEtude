@@ -100,4 +100,13 @@ class MembreController extends AbstractController
 
         return $this->redirectToRoute('membre_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{qui}', name: 'getQui', methods: ['GET'])]
+    public function qui(string $qui, MembreRepository $membreRepo){
+        $data=$membreRepo->getConcatNames($qui);
+        if(count($data)>0){
+            echo json_encode($data);
+        }
+        else return 0;
+    }
 }
