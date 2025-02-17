@@ -7,6 +7,7 @@ use App\Repository\Utilisateur\MembreRepository;
 
 use App\Form\Utilisateur\MembreType;
 
+use Symfony\Component\HttpFoundation\JsonResponse; // Assurez-vous de l'importer
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -101,11 +102,11 @@ class MembreController extends AbstractController
         return $this->redirectToRoute('membre_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{qui}', name: 'getQui', methods: ['GET'])]
+    #[Route('/qui/{qui}', name: 'getQui', methods: ['GET'])]
     public function qui(string $qui, MembreRepository $membreRepo){
         $data=$membreRepo->getConcatNames($qui);
         if(count($data)>0){
-            echo json_encode($data);
+            return new JsonResponse($data);
         }
         else return 0;
     }

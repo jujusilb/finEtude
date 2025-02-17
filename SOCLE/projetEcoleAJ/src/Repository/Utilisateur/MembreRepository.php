@@ -16,37 +16,41 @@ class MembreRepository extends ServiceEntityRepository
         parent::__construct($registry, Membre::class);
     }
 
+    public function getConcatNames($value)
+    {
+        $list = $this->createQueryBuilder('membre')
+            ->select("CONCAT(membre.prenom, ' ', membre.nom) AS qui")
+            ->where('membre.prenom LIKE :value or membre.nom LIKE :value')
+            ->setParameter('value', '%' . $value . '%')
+            ->getQuery()
+            ->getResult();
+    
+        return array_map(fn($item) => $item['qui'], $list);
+       
+    }
+
+        public function getMembre($value):?Membre
+        {
+            return $this->createQueryBuilder('membre')
+                ->andWhere("CONCAT(membre.prenom, ' ', membre.nom) LIKE :value") // Correct LIKE and :value
+                ->setParameter('value', '%' . $value . '%') 
+                ->getQuery()
+                ->getOneOrNullResult(); 
+        }
 
 /*
-    public function getConcatNames($value){
-        $list =$this->createQueryBuilder('membre')
-        ->select('concat(membre.prenom, " ", membre.nom) AS qui')
-        ->where('concat(membre.prenom, " ", membre.nom) LIKE :value')
-        ->setParameter('value', '%'.$value.'%')
-        ->orderBy('qui', 'ASC')
-        ->getQuery()
-        ->getResult();
-        return array_map(fn($item) => $item['qui'], $list);
-    }
-*/
-
-
 public function getConcatNames($value)
 {
-    ?><script>console.log("IN getConcatNames")</script><?php
-    $dql = "SELECT CONCAT(m.prenom, ' ', m.nom) qui
-            FROM Membre m
-            WHERE CONCAT(m.prenom, ' ', m.nom) LIKE :value
+    $dql = "SELECT CONCAT(Membre.prenom, ' ', Membre.nom) AS qui
+            FROM App\Entity\Utilisateur\membre
+            WHERE qui LIKE :value
             ORDER BY qui ASC";
     $query = $this->getEntityManager()->createQuery($dql);
     $query->setParameter('value', '%' . $value . '%');
     $list = $query->getResult();
-    dd($list);
-    $file='fichieraecrirepourcomprendre.txt';
-    file_put_contents($file, $current);
-    return array_map(fn($item) => $item['qui'], $list);
+    return array_map(fn($item) => $item["CONCAT(prenom, ' ', nom)"], $list);
 }
-
+*/
 
 
 

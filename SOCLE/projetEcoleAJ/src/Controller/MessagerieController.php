@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-
+use App\Form\Forum\MessageType;
 use App\Form\Forum\MessagerieType;
 use App\Entity\Utilisateur\Membre;
 use App\Repository\Utilisateur\MembreRepository;
@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+
+
 #[Route('/messagerie', name: 'messagerie_')]
 final class MessagerieController extends AbstractController{
     #[Route('/index', name: 'index')]
@@ -36,25 +38,34 @@ final class MessagerieController extends AbstractController{
         }
 }
 
-#[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
+    public function new (MembreRepository $membreRepo, Request $request, EntityManagerInterface $entityManager): Response
     {
         $message = new Message();
         $form = $this->createForm(MessagerieType::class, $message);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $user=$this->getUser();
             $message->setExpediteur($user);
-            $message->setCreatedAt(new \DateTimeImmutable());
-            $message->setUpdatedAt(new \DateTimeImmutable());
-            $message->setPrivatif(true);
-            $entityManager->persist($message);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
+            $destinataire = trim($form->get('destinataire')->getData());
+            $membre =$membreRepo->getMembre($destinataire);
+            if ($membre instanceof Membre) { 
+                $message->setDestinataire($membre);
+                $message->setCreatedAt(new \DateTimeImmutable());
+                $message->setUpdatedAt(new \DateTimeImmutable());
+                $message->setPrivatif(true);
+    
+                $entityManager->persist($message);
+                $entityManager->flush();
+    
+                return $this->redirectToRoute('messagerie_index', [], Response::HTTP_SEE_OTHER);
+            } else {
+                $this->addFlash('error', 'Destinataire introuvable.'); // Add a flash message
+                return $this->redirectToRoute('messagerie_nouveau', [], Response::HTTP_SEE_OTHER);
+            }  
         }
-
         return $this->render('messagerie/new.html.twig', [
             'message' => $message,
             'titre' => 'Nouveau Message Privé',
@@ -72,7 +83,7 @@ final class MessagerieController extends AbstractController{
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Message $message, EntityManagerInterface $entityManager): Response
+    public function edit(MembreRepository $membreRepo, Request $request, Message $message, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(messageType::class, $message);
         $form->handleRequest($request);
@@ -80,6 +91,8 @@ final class MessagerieController extends AbstractController{
         if ($form->isSubmitted() && $form->isValid()) {
             $user=$this->getUser();
             $message->setExpediteur($user);
+           
+           
             $message->setUpdatedAt(new \DateTimeImmutable());
             $entityManager->flush();
 
@@ -103,14 +116,15 @@ final class MessagerieController extends AbstractController{
 
         return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
     }
-
-/*    
+    
     #[Route('/{qui}', name: 'getQui', methods: ['GET'])]
     public function qui(string $qui, MembreRepository $membreRepo): Response
     {
         $data=$membreRepo->getConcatNames($qui);
         return $this->json($data);
     }
-*/
+
+
+
 
 }
