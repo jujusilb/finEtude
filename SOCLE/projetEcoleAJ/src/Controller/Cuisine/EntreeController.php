@@ -85,4 +85,5 @@ class EntreeController extends AbstractController
 
         return $this->redirectToRoute('entree_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

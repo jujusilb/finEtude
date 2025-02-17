@@ -31,6 +31,19 @@ class FromageRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getLibelle($value)
+    {
+        $list = $this->createQueryBuilder('fromage')
+            ->select("fromage.id, fromage.libelle")
+            ->where('fromage.libelle LIKE :value')
+            ->setParameter('value', '%' . $value . '%')
+            ->getQuery()
+            ->getResult();
+    
+        //return array_map(fn($item) => $item['qui'], $list);
+        return $list;
+    }
+
 //    public function findOneBySomeField($value): ?Fromage
 //    {
 //        return $this->createQueryBuilder('f')

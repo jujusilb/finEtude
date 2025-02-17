@@ -1,8 +1,8 @@
     {{ form_start(messageForm) }}
         <div class="form-group align-center">
             <div class="col-sm-4">
-                <label for="destinataire">Destinataire</label>
-                {{ form_widget(messageForm.destinataire) }}
+                <label for="ajax">Destinataire</label>
+                {{ form_widget(messageForm.ajax) }}
             </div>
    <div id="testeur"></div>
             <div class="col-sm-4">
@@ -21,11 +21,13 @@
      
 <script>
         let testeur=document.getElementById("testeur")
-        let qui=document.getElementById("messagerie_destinataire")
+        let qui=document.getElementById("messagerie_ajax")
+        let quoi=document.getElementById("messagerie.destinataire")
         qui.addEventListener('input', action);
+        
 
         async function action(e){
-            testeur.innerHTML="";
+            testeur.innerText="";
             let value=e.target.value
             if (value.length>=2){
                 let url =`/membre/qui/${value}`
@@ -33,7 +35,8 @@
                 let data =await response.json()
                 console.log(data)
                 for(let i=0;i<data.length;i++){
-                    let gars=data[i]
+                    let gars=data[i].qui
+                    let garce=data[i].id
                     let liste=document.querySelectorAll(".name")
                     let existe=false
                     for (let j = 0; j < liste.length; j++) {
@@ -49,10 +52,13 @@
                         names.classList.add("name");
                         names.style.border = "1px solid black";
                         names.style.padding = "15px";
-                        names.innerHTML = gars;
+                        names.innerText = gars;
                         names.addEventListener("click", function() {
-                            qui.value = gars; 
-                            testeur.innerHTML = "";
+                            qui.value = gars;
+                            console.log("qui", qui)
+                            console.log("quoi", quoi)
+                            quoi.value=garce;   
+                            testeur.innerText = "";
                         });
                     }
                 }

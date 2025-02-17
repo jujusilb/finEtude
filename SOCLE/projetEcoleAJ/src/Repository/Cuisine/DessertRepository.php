@@ -31,6 +31,19 @@ class DessertRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getLibelle($value)
+    {
+        $list = $this->createQueryBuilder('dessert')
+            ->select("dessert.id, dessert.libelle")
+            ->where('dessert.libelle LIKE :value')
+            ->setParameter('value', '%' . $value . '%')
+            ->getQuery()
+            ->getResult();
+    
+        //return array_map(fn($item) => $item['qui'], $list);
+        return $list;
+    }
+
 //    public function findOneBySomeField($value): ?Dessert
 //    {
 //        return $this->createQueryBuilder('d')

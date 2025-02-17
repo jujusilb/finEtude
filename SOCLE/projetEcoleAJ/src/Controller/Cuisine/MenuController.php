@@ -2,9 +2,17 @@
 
 namespace App\Controller\Cuisine;
 
+use App\Entity\Cuisine\Entree;
+use App\Entity\Cuisine\Plat;
+use App\Entity\Cuisine\Fromage;
+use App\Entity\Cuisine\Dessert;
 use App\Entity\Cuisine\Menu;
 use App\Repository\Cuisine\MenuRepository;
 use App\Form\Cuisine\MenuType;
+use App\Repository\Cuisine\EntreeRepository;
+use App\Repository\Cuisine\PlatRepository;
+use App\Repository\Cuisine\FromageRepository;
+use App\Repository\Cuisine\DessertRepository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,6 +43,26 @@ class MenuController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entreeId = $form->get('entree_id')->getData(); // This will give you the ID (a string)
+            $entree = $entityManager->getRepository(Entree::class)->find($entreeId); // Fetch the actual Entree object by ID
+            if ($entree instanceof Entree){
+                $menu->setEntree($entree);
+            }
+            $platId = $form->get('plat_id')->getData(); // This will give you the ID (a string)
+            $plat = $entityManager->getRepository(Plat::class)->find($platId); // Fetch the actual Entree object by ID
+            if ($plat instanceof Plat){
+                $menu->setPlat($plat);
+            }
+            $fromageId = $form->get('fromage_id')->getData(); // This will give you the ID (a string)
+            $fromage = $entityManager->getRepository(Fromage::class)->find($fromageId); // Fetch the actual Entree object by ID
+            if ($fromage instanceof Fromage){
+                 $menu->setFromage($fromage);
+            }
+            $dessertId = $form->get('dessert_id')->getData(); // This will give you the ID (a string)
+            $dessert = $entityManager->getRepository(Dessert::class)->find($dessertId); // Fetch the actual Entree object by ID
+            if ($dessert instanceof Dessert){
+                $menu->setDessert($dessert);
+            }
             $entityManager->persist($menu);
             $entityManager->flush();
 
@@ -86,4 +114,34 @@ class MenuController extends AbstractController
 
         return $this->redirectToRoute('menu_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+    #[Route('/entreeLibelle/{libelle}', name: 'getEntreeLibelle', methods: ['GET'])]
+    public function getEntreeLibelle(string $libelle, EntreeRepository $entreeRepo): Response
+    {
+        $data=$entreeRepo->getLibelle($libelle);
+        return $this->json($data);
+    }
+    
+    #[Route('/platLibelle/{libelle}', name: 'getplatLibelle', methods: ['GET'])]
+    public function getPlatLibelle(string $libelle, PlatRepository $platRepo): Response
+    {
+        $data=$platRepo->getLibelle($libelle);
+        return $this->json($data);
+    }
+
+    #[Route('/fromageLibelle/{libelle}', name: 'getFromageLibelle', methods: ['GET'])]
+    public function getFromageLibelle(string $libelle, FromageRepository $fromageRepo): Response
+    {
+        $data=$fromageRepo->getLibelle($libelle);
+        return $this->json($data);
+    }
+
+    #[Route('/dessertLibelle/{libelle}', name: 'getDessertLibelle', methods: ['GET'])]
+    public function getDessertLibelle(string $libelle, DessertRepository $dessertRepo): Response
+    {
+        $data=$dessertRepo->getLibelle($libelle);
+        return $this->json($data);
+    }
+
 }

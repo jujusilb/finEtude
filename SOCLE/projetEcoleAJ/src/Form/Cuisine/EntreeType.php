@@ -16,15 +16,13 @@ class EntreeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('libelle', TextType::class, [
-            'label' => 'Libellé de l\'entrée',
-            'attr' =>[
-                'aria-label' => 'Libellé de l\'entrée',
-                'placeholder' => 'Libellé de l\'entrée'
-            ]
-        ])
-            
-        ;
+            ->add('libelle', TextType::class, [
+                'label' => 'Libellé de l\'entrée',
+                'attr' =>[
+                    'aria-label' => 'Libellé de l\'entrée',
+                    'placeholder' => 'Libellé de l\'entrée'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

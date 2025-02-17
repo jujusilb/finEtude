@@ -30,6 +30,20 @@ class EntreeRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getLibelle($value)
+    {
+        $list = $this->createQueryBuilder('entree')
+            ->select("entree.id, entree.libelle")
+            ->where('entree.libelle LIKE :value')
+            ->setParameter('value', '%' . $value . '%')
+            ->getQuery()
+            ->getResult();
+    
+        //return array_map(fn($item) => $item['qui'], $list);
+        return $list;
+    }
+
+
 //    public function findOneBySomeField($value): ?Entree
 //    {
 //        return $this->createQueryBuilder('e')

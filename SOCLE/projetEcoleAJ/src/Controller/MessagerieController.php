@@ -45,14 +45,13 @@ final class MessagerieController extends AbstractController{
         $form = $this->createForm(MessagerieType::class, $message);
         $form->handleRequest($request);
         
-        if ($form->isSubmitted() && $form->isValid()) {
-            
+        if ($form->isSubmitted() && $form->isValid()) {      
             $user=$this->getUser();
             $message->setExpediteur($user);
-            $destinataire = trim($form->get('destinataire')->getData());
-            $membre =$membreRepo->getMembre($destinataire);
-            if ($membre instanceof Membre) { 
-                $message->setDestinataire($membre);
+            //$destinataire =$form->get('destinataire')->getData();
+            //$membre =$membreRepo->getMembre(trim($destinataire));
+            //if ($membre instanceof Membre) { 
+                //$message->setDestinataire($membre);
                 $message->setCreatedAt(new \DateTimeImmutable());
                 $message->setUpdatedAt(new \DateTimeImmutable());
                 $message->setPrivatif(true);
@@ -61,10 +60,10 @@ final class MessagerieController extends AbstractController{
                 $entityManager->flush();
     
                 return $this->redirectToRoute('messagerie_index', [], Response::HTTP_SEE_OTHER);
-            } else {
+           /* } else {
                 $this->addFlash('error', 'Destinataire introuvable.'); // Add a flash message
                 return $this->redirectToRoute('messagerie_nouveau', [], Response::HTTP_SEE_OTHER);
-            }  
+            }*/  
         }
         return $this->render('messagerie/new.html.twig', [
             'message' => $message,
@@ -128,3 +127,5 @@ final class MessagerieController extends AbstractController{
 
 
 }
+
+

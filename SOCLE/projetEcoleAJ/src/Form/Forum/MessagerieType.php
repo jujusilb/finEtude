@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class MessagerieType extends AbstractType
@@ -32,25 +33,27 @@ class MessagerieType extends AbstractType
                 'placeholder' => 'Choisissez un destinataire', 
             ])
         */
-            ->add('destinataire', TextType::class, [
+            ->add('ajax', TextType::class, [
                 'label'=>'Destinataire',
+                'mapped'=>false,
                 'attr'=>[
                     'aria-label'=>'Destinataire',
                     'class'=>'mx-auto',
                     'placeholder' => 'Choisissez un destinataire', 
                 ],
                 'required' => true, 
-            ])
+                ])
+            ->add('destinataire', HiddenType::class, [])
     
-    ->add('sujet', TextType::class, [
-        'label'=>'Sujet',
-        'attr'=>[
-            'aria-label'=>'Sujet',
-            'placeholder'=>'Sujet',
-            'class' => 'mx-auta'
-        ],
-        'required' => true
-    ])
+            ->add('sujet', TextType::class, [
+                'label'=>'Sujet',
+                'attr'=>[
+                    'aria-label'=>'Sujet',
+                    'placeholder'=>'Sujet',
+                    'class' => 'mx-auta'
+                ],
+                'required' => true
+            ])
             ->add('contenu', TextareaType::class, [
                 'label' => 'Contenu du message',
                 'attr' => [

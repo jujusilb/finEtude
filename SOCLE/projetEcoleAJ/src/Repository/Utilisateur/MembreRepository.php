@@ -19,14 +19,14 @@ class MembreRepository extends ServiceEntityRepository
     public function getConcatNames($value)
     {
         $list = $this->createQueryBuilder('membre')
-            ->select("CONCAT(membre.prenom, ' ', membre.nom) AS qui")
+            ->select("membre.id, CONCAT(membre.prenom, ' ', membre.nom) AS qui")
             ->where('membre.prenom LIKE :value or membre.nom LIKE :value')
             ->setParameter('value', '%' . $value . '%')
             ->getQuery()
             ->getResult();
     
-        return array_map(fn($item) => $item['qui'], $list);
-       
+        //return array_map(fn($item) => $item['qui'], $list);
+        return $list;
     }
 
         public function getMembre($value):?Membre

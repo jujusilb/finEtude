@@ -31,6 +31,19 @@ class PlatRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getLibelle($value)
+    {
+        $list = $this->createQueryBuilder('plat')
+            ->select("plat.id, plat.libelle")
+            ->where('plat.libelle LIKE :value')
+            ->setParameter('value', '%' . $value . '%')
+            ->getQuery()
+            ->getResult();
+    
+        //return array_map(fn($item) => $item['qui'], $list);
+        return $list;
+    }
+
 //    public function findOneBySomeField($value): ?Plat
 //    {
 //        return $this->createQueryBuilder('p')
