@@ -32,10 +32,17 @@ class Matiere
     #[ORM\OneToMany(targetEntity: Programme::class, mappedBy: 'matiere')]
     private Collection $programme;
 
+    /**
+     * @var Collection<int, Cours>
+     */
+    #[ORM\OneToMany(targetEntity: Cours::class, mappedBy: 'matiere')]
+    private Collection $cours;
+
     public function __construct()
     {
         $this->professeurMatiere = new ArrayCollection();
         $this->programme = new ArrayCollection();
+        $this->cours = new ArrayCollection();
     }
 
     public function getId(): ?int{
@@ -106,6 +113,36 @@ class Matiere
             // set the owning side to null (unless already changed)
             if ($programme->getMatiere() === $this) {
                 $programme->setMatiere(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Cours $cour): static
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours->add($cour);
+            $cour->setMatiere($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): static
+    {
+        if ($this->cours->removeElement($cour)) {
+            // set the owning side to null (unless already changed)
+            if ($cour->getMatiere() === $this) {
+                $cour->setMatiere(null);
             }
         }
 

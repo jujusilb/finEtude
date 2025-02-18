@@ -35,18 +35,7 @@ class PlanningRepasType extends AbstractType
                 return $repas ->getDate()->format('Y-m-d').
                 ' '. $repas ->getHeure();
             },])
-            ->add('membre', EntityType::class, [
-                'label' => 'Choisissez le membre',
-                'class' => Membre::class,
-                'choice_label' => function (Membre $membre){
-                    return $membre->getPrenom().' '.$membre->getNom();
-                },
-                'attr' => [
-                    'aria-label' => 'Choisissez le membre',
-                    'placeholder' => 'Choisissez le membre'
-                ]
-            ])
-            
+
         ;
     }
 

@@ -7,18 +7,27 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>libelle</th>
+                <th>menu</th>
+                <th>date</th>
+                <th>heure</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            {% for legume in legumes %}
+            {% for repas in repass %}
                 <tr>
-                    <td>{{legume.id}}</td>
-                    <td>{{ legume.libelle }}</td>
+                    <td>{{repas.id}}</td>
                     <td>
-                        <a href="{{ path('legume_affichage', {'id': legume.id}) }}" class="btn btn-secondary">lire</a>
-                        <a href="{{ path('legume_edition', {'id': legume.id}) }}" class="btn btn-secondary">editer</a>
+                       <strong>Entrée :</strong>{{ repas.menu.entree.libelle}}<br>
+                        <strong>Plat :</strong>{{ repas.menu.plat.libelle}}<br>
+                        <strong>Fromage :</strong>{{ repas.menu.fromage.libelle}}<br>
+                        <strong>Dessert :</strong>{{ repas.menu.dessert.libelle}}
+                        </td>
+                    <td>{{ repas.date | date('d/m/Y') }}</td>
+                    <td>{{ repas.heure }}</td>
+                    <td>
+                        <a href="{{ path('repas_affichage', {'id': repas.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('repas_edition', {'id': repas.id}) }}" class="btn btn-secondary">editer</a>
                     </td>
                 </tr>
             {% endfor %}

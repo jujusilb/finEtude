@@ -17,6 +17,19 @@ class OuvrageRepository extends ServiceEntityRepository
         parent::__construct($registry, Ouvrage::class);
     }
 
+    public function getTitre($value)
+    {
+        $list = $this->createQueryBuilder('ouvrage')
+            ->select('ouvrage.id, ouvrage.titre')
+            ->where('ouvrage.titre LIKE :value')
+            ->setParameter('value', '%' . $value . '%')
+            ->getQuery()
+            ->getResult();
+    
+        //return array_map(fn($item) => $item['qui'], $list);
+        return $list;
+    }
+
     //    /**
     //     * @return Ouvrage[] Returns an array of Ouvrage objects
     //     */

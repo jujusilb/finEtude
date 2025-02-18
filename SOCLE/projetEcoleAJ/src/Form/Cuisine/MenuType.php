@@ -2,13 +2,8 @@
 
 namespace App\Form\Cuisine;
 
-use App\Entity\Cuisine\Dessert;
-use App\Entity\Cuisine\Entree;
-use App\Entity\Cuisine\Fromage;
+
 use App\Entity\Cuisine\Menu;
-use App\Entity\Cuisine\Plat;
-use App\Entity\Cuisine\Viande;
-use App\Entity\Cuisine\Legume;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

@@ -34,6 +34,13 @@ class Promotion
 #[ORM\OneToMany(mappedBy: 'promotion', targetEntity: Programme::class)]
 private Collection $programmes;
 
+/**
+ * @var Collection<int, Cours>
+ */
+#[ORM\ManyToMany(targetEntity: Cours::class, mappedBy: 'promotion')]
+private Collection $cours;
+
+
 
 public function getProgrammes(): Collection
 {
@@ -46,6 +53,7 @@ public function getProgrammes(): Collection
     {
         $this->eleves = new ArrayCollection();
         $this->programmes = new ArrayCollection();
+        $this->cours = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -131,5 +139,31 @@ public function getProgrammes(): Collection
         return $this;
     }
 
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+    {
+        return $this->cours;
+    }
+
+    public function addCour(Cours $cour): static
+    {
+        if (!$this->cours->contains($cour)) {
+            $this->cours->add($cour);
+            $cour->addPromotion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): static
+    {
+        if ($this->cours->removeElement($cour)) {
+            $cour->removePromotion($this);
+        }
+
+        return $this;
+    }
 
 }

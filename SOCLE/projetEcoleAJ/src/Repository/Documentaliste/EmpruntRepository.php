@@ -3,7 +3,7 @@
 namespace App\Repository\Documentaliste;
 
 use App\Entity\Documentaliste\Emprunt;
-
+use App\Repository\Utilisateur\MembreRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,6 +16,20 @@ class EmpruntRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Emprunt::class);
     }
+
+    public function findByMembre($user):array
+    {
+        $data= $this->createQueryBuilder('emprunt')
+                ->join('emprunt.membre', 'membre')
+                ->where('membre.id = :user')
+                ->setParameter('user', $user)
+                ->orderBy('emprunt.id', 'ASC')
+                ->getQuery()
+                ->getResult();
+                return $data;         
+           
+    }
+
 
     //    /**
     //     * @return Emprunt[] Returns an array of Emprunt objects

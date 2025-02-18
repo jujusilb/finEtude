@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Repository\Cuisine;
-
+use App\Entity\Utilisateur\Membre;
 use App\Entity\Cuisine\PlanningRepas;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,6 +14,16 @@ class PlanningRepasRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, PlanningRepas::class);
+    }
+
+    public function findByMembre($user):array
+    {
+        return $this->createQueryBuilder('planning')
+                ->join('planning.membre', 'membre')
+                ->where('membre.id = :user')
+                ->setParameter('user', $user)
+                ->getQuery()
+                ->getResult();   
     }
 
 //    /**

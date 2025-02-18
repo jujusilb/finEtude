@@ -18,7 +18,7 @@ class RepasController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(RepasRepository $repasRepo): Response
     {
-	
+        
         return $this->render('cuisine/repas/index.html.twig', [
             'controller_name' => 'RepasController',
             'titre' =>'Repas',

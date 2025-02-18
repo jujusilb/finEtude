@@ -2,6 +2,7 @@
 
 namespace App\Entity\Utilisateur;
 
+use App\Entity\Pedagogie\Cours;
 use App\Entity\Pedagogie\Referent;
 use App\Entity\Pedagogie\ProfesseurMatiere;
 use App\Entity\Pedagogie\Programme;
@@ -42,6 +43,12 @@ class Professeur extends Personnel{
     #[ORM\OneToMany(targetEntity: Programme::class, mappedBy: 'professeur')]
     private Collection $programme;
 
+    /**
+     * @var Collection<int, Cours>
+     */
+    #[ORM\OneToMany(targetEntity: Cours::class, mappedBy: 'professeur')]
+    private Collection $Cours;
+
     
 
     public function __construct()
@@ -49,6 +56,7 @@ class Professeur extends Personnel{
         //$this->createdAt = new \DateTimeImmutable();  // Initialise la date de création
         $this->professeurMatiere = new ArrayCollection();
         $this->programme = new ArrayCollection();
+        $this->Cours = new ArrayCollection();
 
     }
 
@@ -134,6 +142,36 @@ class Professeur extends Personnel{
             // set the owning side to null (unless already changed)
             if ($programme->getProfesseur() === $this) {
                 $programme->setProfesseur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cours>
+     */
+    public function getCours(): Collection
+    {
+        return $this->Cours;
+    }
+
+    public function addCour(Cours $cour): static
+    {
+        if (!$this->Cours->contains($cour)) {
+            $this->Cours->add($cour);
+            $cour->setProfesseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCour(Cours $cour): static
+    {
+        if ($this->Cours->removeElement($cour)) {
+            // set the owning side to null (unless already changed)
+            if ($cour->getProfesseur() === $this) {
+                $cour->setProfesseur(null);
             }
         }
 

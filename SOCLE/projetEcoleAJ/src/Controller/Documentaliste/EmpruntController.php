@@ -4,6 +4,9 @@ namespace App\Controller\Documentaliste;
 
 use App\Entity\Documentaliste\Emprunt;
 
+use App\Entity\Documentaliste\Ouvrage;
+
+use App\Entity\Utilisateur\Membre;
 use App\Repository\Documentaliste\EmpruntRepository;
 use App\Form\Documentaliste\EmpruntType;
 use App\Repository\Utilisateur\MembreRepository;
@@ -35,7 +38,7 @@ class EmpruntController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request, EntityManagerInterface $entityManager, OuvrageRepository $ouvrageRepo): Response
     {
         $emprunt = new Emprunt();
         $form = $this->createForm(EmpruntType::class, $emprunt);
@@ -44,6 +47,11 @@ class EmpruntController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user=$this->getUser();
             $emprunt->setMembre($user);
+            $ouvrageId = $form->get('ouvrage_id')->getData(); // This will give you the ID (a string)
+            $ouvrage = $entityManager->getRepository(Ouvrage::class)->find($ouvrageId); // Fetch the actual Entree object by ID
+            if ($ouvrage instanceof Ouvrage){
+                $emprunt->setOuvrage($ouvrage);
+            }
             $entityManager->persist($emprunt);
             $entityManager->flush();
 
@@ -57,7 +65,7 @@ class EmpruntController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Emprunt $emprunt): Response
     {
         return $this->render('documentaliste/emprunt/show.html.twig', [
@@ -94,5 +102,35 @@ class EmpruntController extends AbstractController
         }
 
         return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/ouvrageTitre/{titre}', name: 'getOuvrageTitre', methods: ['GET'])]
+    public function getOuvrageTitre(string $titre, OuvrageRepository $ouvrageRepo): Response
+    {
+        $data=$ouvrageRepo->getTitre($titre);
+        return $this->json($data);
+    }
+
+    #[Route('/membreLibelle/{libelle}', name: 'getMembreLibelle', methods: ['GET'])]
+    public function getMembreLibelle(string $libelle, MembreRepository $membreRepo): Response
+    {
+        $data=$membreRepo->getConcatNames($libelle);
+        return $this->json($data);
+    }
+
+
+    #[Route('/mesEmprunts', name: 'mesEnprunts')]
+    public function mine(EmpruntRepository $empruntRepo): Response
+    {
+        $user=$this->getUser();
+        if ($user instanceof Membre){
+            return $this->render('documentaliste/emprunt/mesEmprunts.html.twig', [
+                'controller_name' => 'empruntController',
+                'titre' => 'Mes emprunts',
+                'emprunts' =>$empruntRepo->findByMembre($user->getId()),
+            ]);
+        }else {
+            return $this->redirectToRoute('emprunt_index');
+        }
     }
 }

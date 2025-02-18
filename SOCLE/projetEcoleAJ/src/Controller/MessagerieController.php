@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/messagerie', name: 'messagerie_')]
 final class MessagerieController extends AbstractController{
+    
     #[Route('/index', name: 'index')]
     public function index(MessageRepository $messageRepo): Response
     {

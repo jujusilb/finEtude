@@ -1,19 +1,17 @@
 {{ form_start(planningRepasForm) }}
-    <div class="form-group">
-        <div class="row">
+    <div class="row mx-auto">
+        <div class="col-sm-4">
             <label for="dateAchat">Date d'achat</label>
-            <div class="col-sm-4">
-                {{form_widget(planningRepasForm.dateAchat.day)}}
-            </div>
-            <div class="col-sm-4">
-                {{form_widget(planningRepasForm.dateAchat.month)}}
-            </div>
-            <div class="col-sm-4">
-                {{form_widget(planningRepasForm.dateAchat.year)}}
+            <div class="row">
+                {{ form_widget(planningRepasForm.dateAchat.day, {'attr': {'style': 'width: auto'}}) }} {# Correct style attribute #}
+                {{form_widget(planningRepasForm.dateAchat.month, {'attr': {'style': 'width: auto'}}) }} {# Correct style attribute #}
+                {{form_widget(planningRepasForm.dateAchat.year, {'attr': {'style': 'width: auto'}}) }} {# Correct style attribute #}}
             </div>
         </div>
+        <div class="col-sm-4">
+            <label for="emprunt_repas">Choisissez le repas</label>
+            {{ form_widget(planningRepasForm.repas, {'attr': {'style': 'width: auto'}}) }} {# Correct style attribute #}
+        </div>
     </div>
-    {{ form_widget(planningRepasForm) }}
-
     <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
 {{ form_end(planningRepasForm) }}

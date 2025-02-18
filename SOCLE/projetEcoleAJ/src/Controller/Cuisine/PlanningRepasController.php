@@ -2,6 +2,7 @@
 
 namespace App\Controller\Cuisine;
 
+use App\Entity\Utilisateur\Membre;
 use App\Entity\Cuisine\PlanningRepas;
 use App\Repository\Cuisine\PlanningRepasRepository;
 use App\Form\Cuisine\PlanningRepasType;
@@ -50,7 +51,7 @@ class PlanningRepasController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(PlanningRepas $planningRepas): Response
     {
         return $this->render('cuisine/planning_repas/show.html.twig', [
@@ -89,5 +90,20 @@ class PlanningRepasController extends AbstractController
         }
 
         return $this->redirectToRoute('planningRepas_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/monPlanning', name: 'monPlanning')]
+    public function mine(PlanningRepasRepository $planningRepasRepo): Response
+    {
+        $user=$this->getUser();
+        if ($user instanceof Membre){
+            return $this->render('Cuisine/planning_repas/monPlanning.html.twig', [
+                'controller_name' => 'empruntController',
+                'titre' => 'Mon planning',
+                'planningRepass' =>$planningRepasRepo->findByMembre($user->getId()),
+            ]);
+        }else {
+            return $this->redirectToRoute('emprunt_index');
+        }
     }
 }
