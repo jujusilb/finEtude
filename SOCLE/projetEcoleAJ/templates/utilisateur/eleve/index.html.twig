@@ -13,7 +13,6 @@
                 <th>Prenom</th>
                 <th>Username</th>
                 <th>E-mail</th>
-                {#<th>Password</th>#}
                 <th>Promotion</th>
                 <th class="text-nowrap w-auto">role</th>
                 <th>Stage</th>
@@ -31,7 +30,6 @@
                     <td>{{ eleve.prenom }}</td>
                     <td>{{ eleve.username }}</td>
                     <td>{{ eleve.email }}</td>
-                    {#<td>{{ eleve.password }}</td>#}
                     <td>
                         <a href="{{ path('promotion_affichage', {'id': eleve.promotion.id}) }}">
                             {{ eleve.promotion.libelle }}

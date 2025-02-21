@@ -2,6 +2,7 @@
 
 namespace App\Entity\Cantine;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\Cantine\LegumeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,7 +16,14 @@ class Legume
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 100,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'la taille maximale est de  {{ limit }} characters',
+    )]
     private ?string $libelle = null;
 
     /**

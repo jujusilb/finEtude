@@ -8,6 +8,10 @@
             <tr>
                 <th>Id</th>
                 <th>date</th>
+                <th>libelle</th>
+                <th>contenu</th>
+                <th>Professeur</th>
+                <th>Matiere</th>
             </tr>
         </thead>
         <tbody>
@@ -15,7 +19,13 @@
                 <tr>
                     <td>{{exercice.id}}</td>
                     <td>{{ exercice.date |date('d/m/Y') }}</td>
-                                        <td>
+                    <td>{{ exercice.libelle }}</td>
+                    <td>{{ exercice.contenu }}</td>
+                    <td>{{ exercice.promotion.libelle }}</td>
+                    <td> {{ exercice.professeur.prenom }} {{ exercice.professeur.nom }}
+                    <td>{{ exercice.matiere.libelle }}</td>
+                    
+                    <td>
                         <a href="{{ path('exercice_affichage', {'id': exercice.id}) }}" class="btn btn-secondary">lire</a>
                         <a href="{{ path('exercice_edition', {'id': exercice.id}) }}" class="btn btn-secondary">editer</a>
                     </td>

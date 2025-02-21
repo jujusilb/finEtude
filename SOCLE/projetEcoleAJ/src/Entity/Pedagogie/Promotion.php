@@ -40,6 +40,12 @@ private Collection $programmes;
 #[ORM\ManyToMany(targetEntity: Cours::class, mappedBy: 'promotion')]
 private Collection $cours;
 
+/**
+ * @var Collection<int, Exercice>
+ */
+#[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'promotion')]
+private Collection $exercices;
+
 
 
 public function getProgrammes(): Collection
@@ -54,6 +60,7 @@ public function getProgrammes(): Collection
         $this->eleves = new ArrayCollection();
         $this->programmes = new ArrayCollection();
         $this->cours = new ArrayCollection();
+        $this->exercices = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,6 +168,36 @@ public function getProgrammes(): Collection
     {
         if ($this->cours->removeElement($cour)) {
             $cour->removePromotion($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Exercice>
+     */
+    public function getExercices(): Collection
+    {
+        return $this->exercices;
+    }
+
+    public function addExercice(Exercice $exercice): static
+    {
+        if (!$this->exercices->contains($exercice)) {
+            $this->exercices->add($exercice);
+            $exercice->setPromotion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExercice(Exercice $exercice): static
+    {
+        if ($this->exercices->removeElement($exercice)) {
+            // set the owning side to null (unless already changed)
+            if ($exercice->getPromotion() === $this) {
+                $exercice->setPromotion(null);
+            }
         }
 
         return $this;

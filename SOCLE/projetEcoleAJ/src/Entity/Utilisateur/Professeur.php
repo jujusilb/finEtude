@@ -3,6 +3,7 @@
 namespace App\Entity\Utilisateur;
 
 use App\Entity\Pedagogie\Cours;
+use App\Entity\Pedagogie\Exercice;
 use App\Entity\Pedagogie\Referent;
 use App\Entity\Pedagogie\ProfesseurMatiere;
 use App\Entity\Pedagogie\Programme;
@@ -49,6 +50,12 @@ class Professeur extends Personnel{
     #[ORM\OneToMany(targetEntity: Cours::class, mappedBy: 'professeur')]
     private Collection $Cours;
 
+    /**
+     * @var Collection<int, Exercice>
+     */
+    #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'professeur')]
+    private Collection $exercices;
+
     
 
     public function __construct()
@@ -57,6 +64,7 @@ class Professeur extends Personnel{
         $this->professeurMatiere = new ArrayCollection();
         $this->programme = new ArrayCollection();
         $this->Cours = new ArrayCollection();
+        $this->exercices = new ArrayCollection();
 
     }
 
@@ -172,6 +180,36 @@ class Professeur extends Personnel{
             // set the owning side to null (unless already changed)
             if ($cour->getProfesseur() === $this) {
                 $cour->setProfesseur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Exercice>
+     */
+    public function getExercices(): Collection
+    {
+        return $this->exercices;
+    }
+
+    public function addExercice(Exercice $exercice): static
+    {
+        if (!$this->exercices->contains($exercice)) {
+            $this->exercices->add($exercice);
+            $exercice->setProfesseur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExercice(Exercice $exercice): static
+    {
+        if ($this->exercices->removeElement($exercice)) {
+            // set the owning side to null (unless already changed)
+            if ($exercice->getProfesseur() === $this) {
+                $exercice->setProfesseur(null);
             }
         }
 
