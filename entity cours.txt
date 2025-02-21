@@ -1,0 +1,7 @@
+ID
+date
+libelle
+Professeur
+Promotion
+Fichier
+Matiere
