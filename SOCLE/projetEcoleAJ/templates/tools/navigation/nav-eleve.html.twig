@@ -111,15 +111,29 @@
         <li>
             <a>Cours</a>
             <ul class="sub-menus">
-                <li><a>Matiere1</a></li>
-                <li><a>Matiere2</a></li>
+				{% if app.user.promotion.programmes | length > 0 %}
+					{% for prog in app.user.promotion.programmes %}
+						<li><a href='{{path('matiere_affichage', {'id' :prog.matiere.id}) }}'>
+							{{ prog.matiere.libelle}}
+						</a></li>
+					{% endfor %}
+                {% else %}
+                    Aucune Matière
+                {% endif %}
             </ul>
         </li>
         <li>
             <a>Exercices & Eval</a>
             <ul class="sub-menus">
-                <li><a>Matiere1</a></li>
-                <li><a>Matiere2</a></li>
+				{% if app.user.promotion.programmes | length > 0 %}
+					{% for prog in app.user.promotion.programmes %}
+						<li><a href='{{path('matiere_affichage', {'id' :prog.matiere.id}) }}'>
+							{{ prog.matiere.libelle}}
+						</a></li>
+					{% endfor %}
+                {% else %}
+                    Aucune Matière
+                {% endif %}
             </ul>
         </li>    
         <li>

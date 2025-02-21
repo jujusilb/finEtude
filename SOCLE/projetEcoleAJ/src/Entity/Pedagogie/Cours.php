@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: CoursRepository::class)]
 class Cours
@@ -31,6 +32,8 @@ class Cours
 
     #[ORM\Column(length: 255)]
     private ?string $fichier = null;
+
+    private ?File $file = null;
 
     #[ORM\ManyToOne(inversedBy: 'cours')]
     #[ORM\JoinColumn(nullable: false)]
@@ -99,6 +102,21 @@ class Cours
         $this->fichier = $fichier;
 
         return $this;
+    }
+
+    public function getFile(): ?File
+    {
+        return $this->file;
+    }
+
+    public function setFile(?File $file = null): void
+    {
+        $this->file = $file;
+
+        if (null !== $file) {
+            // Mettre à jour le chemin du fichier chaque fois qu'un fichier est téléchargé
+            $this->fichier = $file->getFilename();
+        }
     }
 
     public function getMatiere(): ?Matiere

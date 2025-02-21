@@ -20,11 +20,16 @@
 					<th>Libelle</th>
 					<td>{{ cours.libelle }}</td>
 				</tr>
+				<tr>
+					<th>Cours</th>
+					<td>
+						<iframe src="https://docs.google.com/gview?url=uploads/67b5d0fcabda4.pdf&embedded=true" width="600" height="500"></iframe>
+					</td>
+				</tr>
 			</tbody>
 		</table>
 
 		<a href="{{ path('cours_index') }}" class="btn btn-secondary">Liste de sieges</a>
-
 		<a href="{{ path('cours_edition', {'id': cours.id}) }}" class="btn btn-secondary">Modifier</a>
 
 		{{ include('pedagogie/cours/_delete_form.html.twig') }}

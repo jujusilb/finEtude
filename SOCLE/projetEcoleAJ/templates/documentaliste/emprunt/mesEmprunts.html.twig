@@ -29,7 +29,7 @@
                     <td>
                         <a href="{{ path('ouvrage_affichage', {'id': emprunt.ouvrage.id}) }}">
                             {{ emprunt.ouvrage.titre }}
-                                        
+                        </a>         
                     </td>
                     <td>{{emprunt.statut}}</td>
                     <td>
@@ -40,5 +40,5 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('emprunt_nouveau') }}" class="btn" >Creer Nouvel admin</a>
+    <a href="{{ path('emprunt_nouveau') }}" class="btn" >Creer Nouvel emprunt</a>
 {% endblock %}

@@ -1,0 +1,141 @@
+<?php
+
+namespace App\Controller\CDI;
+
+use App\Entity\CDI\Emprunt;
+
+use App\Entity\CDI\Ouvrage;
+
+use App\Entity\Utilisateur\Membre;
+use App\Repository\CDI\EmpruntRepository;
+use App\Form\CDI\EmpruntType;
+use App\Repository\Utilisateur\MembreRepository;
+use App\Repository\CDI\OuvrageRepository;
+
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Attribute\Route;
+
+#[Route('/emprunt', name: 'emprunt_')]
+class EmpruntController extends AbstractController
+{
+    #[Route('/index', name: 'index')]
+    public function index(
+        EmpruntRepository $empruntRepo, 
+        MembreRepository $membreRepo, 
+        OuvrageRepository $ouvrageRepo
+    ): Response
+    {
+        return $this->render('documentaliste/emprunt/index.html.twig', [
+            'controller_name' => 'EmpruntController',
+            'titre' => 'Emprunt',
+            'emprunts' => $empruntRepo->findAll(),
+            'membre' => $membreRepo->findAll(),
+            'ouvrage' => $ouvrageRepo->findAll(),
+        ]);
+    }
+
+    #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
+    public function new (MembreRepository $membreRepo, Request $request, EntityManagerInterface $entityManager, OuvrageRepository $ouvrageRepo): Response
+    {
+        $emprunt = new Emprunt();
+        $form = $this->createForm(EmpruntType::class, $emprunt);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user=$this->getUser();
+            $membre=$membreRepo->returnMembre($user->getId());
+            if ($membre instanceof Membre){
+                $emprunt->setMembre($membre);
+            }
+            $emprunt->setDateDemande(new \DateTimeImmutable());
+            $emprunt->setStatut("En Cours");
+            $ouvrageId = $form->get('ouvrage_id')->getData(); // This will give you the ID (a string)
+            $ouvrage = $entityManager->getRepository(Ouvrage::class)->find($ouvrageId); // Fetch the actual Entree object by ID
+            if ($ouvrage instanceof Ouvrage){
+                $emprunt->setOuvrage($ouvrage);
+            }
+            $entityManager->persist($emprunt);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('documentaliste/emprunt/new.html.twig', [
+            'emprunt' => $emprunt,
+            'titre' => 'Nouvel Emprunt',
+            'empruntForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
+    public function show(Emprunt $emprunt): Response
+    {
+        return $this->render('documentaliste/emprunt/show.html.twig', [
+            'emprunt' => $emprunt,
+            'titre' => 'Affichage Emprunt',
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Emprunt $emprunt, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this->createForm(empruntType::class, $emprunt);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+
+            return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('documentaliste/emprunt/edit.html.twig', [
+            'emprunt' => $emprunt,
+            'titre' => 'Edition Emprunt',
+            'empruntForm' => $form,
+        ]);
+    }
+
+    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    public function delete(Request $request, Emprunt $emprunt, EntityManagerInterface $entityManager): Response
+    {
+        if ($this->isCsrfTokenValid('delete' . $emprunt->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($emprunt);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/ouvrageTitre/{titre}', name: 'getOuvrageTitre', methods: ['GET'])]
+    public function getOuvrageTitre(string $titre, OuvrageRepository $ouvrageRepo): Response
+    {
+        $data=$ouvrageRepo->getTitre($titre);
+        return $this->json($data);
+    }
+
+    #[Route('/membreLibelle/{libelle}', name: 'getMembreLibelle', methods: ['GET'])]
+    public function getMembreLibelle(string $libelle, MembreRepository $membreRepo): Response
+    {
+        $data=$membreRepo->getConcatNames($libelle);
+        return $this->json($data);
+    }
+
+
+    #[Route('/mesEmprunts', name: 'mesEmprunts')]
+    public function mine(EmpruntRepository $empruntRepo): Response
+    {
+        $user=$this->getUser();
+        if ($user instanceof Membre){
+            return $this->render('documentaliste/emprunt/mesEmprunts.html.twig', [
+                'controller_name' => 'empruntController',
+                'titre' => 'Mes emprunts',
+                'emprunts' =>$empruntRepo->findByMembre($user->getId()),
+            ]);
+        }else {
+            return $this->redirectToRoute('emprunt_index');
+        }
+    }
+}

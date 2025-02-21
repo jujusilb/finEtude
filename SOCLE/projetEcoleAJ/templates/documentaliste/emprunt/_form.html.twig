@@ -1,14 +1,6 @@
 {{ form_start(empruntForm) }}
     <div class="form-group row">
         <div class="col-sm-4">
-            <label for="èmprunt_dateEmprunt">Date de l'emprunt</label>
-            <div class="row">
-                {{ form_widget(empruntForm.dateEmprunt.day, {'attr': {'class': 'form-select', 'style' : 'width : auto;'}}) }}
-                {{ form_widget(empruntForm.dateEmprunt.month, {'attr': {'class': 'form-select', 'style' : 'width : auto;'}}) }}
-                {{ form_widget(empruntForm.dateEmprunt.year, {'attr': {'class': 'form-select', 'style' : 'width : auto;'}}) }}
-            </div>
-        </div>
-        <div class="col-sm-4">
             <label for="emprunt_ouvrage">Ouvrage</label>
             {{ form_widget(empruntForm.ajaxOuvrage, {'attr': {'style' : 'width : auto;'}}) }}
             <div id="DivOuvrage"></div>

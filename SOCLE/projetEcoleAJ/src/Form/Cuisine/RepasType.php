@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Form\Cuisine;
+namespace App\Form\Cantine;
 
 use App\Entity\Utilisateur\Membre;
-use App\Entity\Cuisine\Menu;
-use App\Entity\Cuisine\Repas;
+use App\Entity\Cantine\Menu;
+use App\Entity\Cantine\Repas;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

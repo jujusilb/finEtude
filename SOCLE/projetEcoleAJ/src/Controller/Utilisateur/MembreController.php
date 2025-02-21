@@ -7,7 +7,7 @@ use App\Repository\Utilisateur\MembreRepository;
 
 use App\Form\Utilisateur\MembreType;
 
-use Symfony\Component\HttpFoundation\JsonResponse; // Assurez-vous de l'importer
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;

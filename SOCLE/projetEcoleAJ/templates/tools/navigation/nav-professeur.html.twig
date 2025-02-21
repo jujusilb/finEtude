@@ -100,7 +100,7 @@
 <nav id='menu'>
     <input type='checkbox' id='responsive-menu' onclick='updatemenu()'><label></label>
     <ul>
-        <li><a href="{{ path('accueil') }}">Accueil</a></li>
+        <li><a href="{{ path('root_accueil') }}">Accueil</a></li>
         <li>
             <a href="{{ path('insertion_index') }}">Insertion</a>
             <ul class="sub-menus">
@@ -111,22 +111,41 @@
         <li>
             <a>Cours</a>
             <ul class="sub-menus">
-                <li><a>Promotion1<//a></li>
-                <li><a>Promotion2</a></li>
+                {% if app.user.programme | length > 0 %}
+                         {% for prog in app.user.programme %}
+						 	<li>
+								<a href="{{ path('promotion_affichage', {'id': prog.promotion.id}) }}">
+                            	{{ prog.promotion.libelle }}
+								</a>
+							</li>
+                        {% endfor %}
+                    {% else %}
+                    Aucune Promotion
+                    {% endif %}
             </ul>
         </li>
         <li>
             <a>Exercices & Eval</a>
             <ul class="sub-menus">
-                <li><a>Promotion1</a></li>
-                <li><a>Promotion2</a></li>
+			 {% if app.user.programme | length > 0 %}
+                         {% for prog in app.user.programme %}
+						 	<li>
+								<a href="{{ path('promotion_affichage', {'id': prog.promotion.id}) }}">
+                            		{{ prog.promotion.libelle }}
+								</a>
+							</li>
+                        {% endfor %}
+                    {% else %}
+                    Aucune Promotion
+                    {% endif %}
+
             </ul>
         </li>    
         <li>
             <a class='dropdown-arrow' href='{{path('documentaliste_index')}}'>CDI</a>
             <ul class='sub-menus'>
                 <li><a href='{{path('ouvrage_index')}}'>Catalogue du CDI</a></li>
-                <li><a href='{{path('emprunt_index')}}'>Mes Emprunts</a></li>
+                <li><a href='{{path('emprunt_mesEmprunts')}}'>Mes Emprunts</a></li>
             </ul>
         </li>
         <li>
@@ -148,7 +167,7 @@
 </nav>
 
 
-<script>>
+<script>
 function updatemenu() {
   if (document.getElementById('responsive-menu').checked == true) {
     document.getElementById('menu').style.borderBottomRightRadius = '0';

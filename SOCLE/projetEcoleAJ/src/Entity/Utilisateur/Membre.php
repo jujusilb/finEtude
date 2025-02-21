@@ -2,7 +2,7 @@
 
 namespace App\Entity\Utilisateur;
 
-use App\Entity\Cuisine\PlanningRepas;
+use App\Entity\Cantine\PlanningRepas;
 use App\Entity\Utilisateur\User;
 use App\Entity\Utilisateur\Admin;
 use App\Entity\Utilisateur\Adulte;
@@ -14,8 +14,8 @@ use App\Entity\Utilisateur\Insertion;
 use App\Entity\Utilisateur\ParentEleve;
 use App\Entity\Utilisateur\Professeur;
 use App\Entity\Pedagogie\Referent;
-use App\Entity\Documentaliste\Emprunt;
-use App\Entity\Cuisine\Repas;
+use App\Entity\CDI\Emprunt;
+use App\Entity\Cantine\Repas;
 use App\Entity\Forum\Message;
 use App\Entity\Forum\Thread;
 use App\Entity\Utilisateur\Secretariat;

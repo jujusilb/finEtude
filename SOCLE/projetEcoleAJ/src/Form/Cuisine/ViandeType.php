@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form\Cuisine;
+namespace App\Form\Cantine;
 
-use App\Entity\Cuisine\Viande;
+use App\Entity\Cantine\Viande;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;

@@ -34,6 +34,15 @@ class MembreRepository extends ServiceEntityRepository
             return $this->createQueryBuilder('membre')
                 ->andWhere("CONCAT(membre.prenom, ' ', membre.nom) LIKE :value") // Correct LIKE and :value
                 ->setParameter('value', '%' . $value . '%') 
+                ->getQuery()    
+                ->getOneOrNullResult(); 
+        }
+
+        public function returnMembre($value):?Membre
+        {
+            return $this->createQueryBuilder('membre')
+                ->andWhere("membre.id = :value") // Correct LIKE and :value
+                ->setParameter('value', $value) 
                 ->getQuery()
                 ->getOneOrNullResult(); 
         }

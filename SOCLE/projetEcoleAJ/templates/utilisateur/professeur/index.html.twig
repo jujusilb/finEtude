@@ -15,6 +15,7 @@
                 <th>role</th>
                 <th>Date d'Embauche</th>
                 <th>Poste</th>
+                <th>promotion</th>
                 <th class="text-wrap">Matieres</th>
             </tr>
         </thead>
@@ -51,6 +52,15 @@
                         Aucune matiere 
                     {% endif %}
                     
+                    </td>
+                    <td>
+                     {% if professeur.programme | length > 0 %}
+                         {% for prog in professeur.programme %}
+                            <li>{{ prog.promotion.libelle }}</li>
+                        {% endfor %}
+                    {% else %}
+                    Aucune Promotion
+                    {% endif %}
                     </td>
                     <td>
                         <a href="{{ path('professeur_affichage', {'id': professeur.id}) }}" class="btn btn-secondary">lire</a>

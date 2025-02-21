@@ -60,12 +60,12 @@ class PromotionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Promotion $promotion, Referent $referent): Response
     {
         return $this->render('pedagogie/promotion/show.html.twig', [
             'promotion' => $promotion,
-            'titre' => 'Affichage Promotion',
+            'titre' => 'Affichage '.$promotion->getLibelle(),
             'referent' => $referent,
         ]);
     }

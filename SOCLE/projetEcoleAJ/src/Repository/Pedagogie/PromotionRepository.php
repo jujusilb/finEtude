@@ -17,6 +17,21 @@ class PromotionRepository extends ServiceEntityRepository
         parent::__construct($registry, Promotion::class);
     }
 
+    public function getPromoByProf($value):array{
+        return $this->createQueryBuilder('promotion')
+            ->join('promotion.programme', 'programme')
+            ->andWhere('programme.professeur.id = :val')
+            ->setParameter('val', $value)
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+        //SELECT p.libelle AS promotion_libelle
+        //FROM programme pr
+        //JOIN promotion p ON pr.promotion_id = p.id
+        //WHERE pr.professeur_id = :professeur_id;
+    }//
+
     //    /**
     //     * @return Promotion[] Returns an array of Promotion objects
     //     */

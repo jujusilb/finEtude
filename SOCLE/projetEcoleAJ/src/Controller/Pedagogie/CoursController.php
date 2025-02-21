@@ -2,6 +2,8 @@
 
 namespace App\Controller\Pedagogie;;
 
+use App\Entity\Utilisateur\Membre;
+use App\Repository\Utilisateur\MembreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Pedagogie\Cours;
 use App\Repository\Pedagogie\CoursRepository;
@@ -10,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/cours', name: 'cours_')]
 class CoursController extends AbstractController
@@ -27,20 +30,39 @@ class CoursController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (MembreRepository $membreRepo, Request $request, EntityManagerInterface $entityManager): Response
     {
         $cours = new Cours();
         $form = $this->createForm(CoursType::class, $cours);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted()) {
+            $prof=$this->getUser();
+            $cours->setProfesseur($prof);
+            $file = $form->get('file')->getData();
+                        
+            if ($file) {
+                $filename = uniqid() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('uploads_directory'),
+                        $filename
+                    );
+
+                    $cours->setFichier($filename);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Erreur lors du téléchargement du fichier.');
+                }
+            }
+           
             $entityManager->persist($cours);
             $entityManager->flush();
 
             return $this->redirectToRoute('cours_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('cuisine/cours/new.html.twig', [
+        return $this->render('pedagogie/cours/new.html.twig', [
             'cours' => $cours,
             'titre' => 'Nouvelle Cours',
             'coursForm' => $form->createView(),
@@ -50,7 +72,7 @@ class CoursController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(Cours $cours): Response
     {
-        return $this->render('cuisine/cours/show.html.twig', [
+        return $this->render('pedagogie/cours/show.html.twig', [
             'cours' => $cours,
             'titre' => 'Affichage Cours',
             ]);
@@ -63,12 +85,32 @@ class CoursController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $prof=$this->getUser();
+            $cours->setProfesseur($prof);
+            $file = $form->get('file')->getData();
+                        
+            if ($file) {
+                $filename = uniqid() . '.' . $file->guessExtension();
+
+                try {
+                    $file->move(
+                        $this->getParameter('uploads_directory'),
+                        $filename
+                    );
+
+                    $cours->setFichier($filename);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Erreur lors du téléchargement du fichier.');
+                }
+            }
+           
+           
             $entityManager->flush();
 
             return $this->redirectToRoute('cours_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('cuisine/cours/edit.html.twig', [
+        return $this->render('pedagogie/cours/edit.html.twig', [
             'cours' => $cours,
             'titre' => 'Edition Cours',
             'coursForm' => $form,

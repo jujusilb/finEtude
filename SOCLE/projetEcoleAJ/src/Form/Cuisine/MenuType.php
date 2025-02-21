@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Form\Cuisine;
+namespace App\Form\Cantine;
 
 
-use App\Entity\Cuisine\Menu;
+use App\Entity\Cantine\Menu;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;

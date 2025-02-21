@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form\Cuisine;
+namespace App\Form\Cantine;
 
-use App\Entity\Cuisine\Legume;
+use App\Entity\Cantine\Legume;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

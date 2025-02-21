@@ -12,7 +12,8 @@
                 <th>Professeur</th>
                 <th>Promotion</th>
                 <th>Matiere</th>
-                <th>Professeur</th>
+                <th>Fichier</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -22,8 +23,8 @@
                     <td>{{ cours.date | date('d/m/Y') }}</td>
                     <td>{{cours.libelle}}</td>
                     <td>
-                        {% if cours.professeurCours | length > 0 %}
-                            {% for cours in cours.professeurCours %}
+                        {% if cours.professeur | length > 0 %}
+                            {% for cours in cours.professeur %}
                                 <li>
                                     <a href="{{ path('professeur_affichage', {'id' : cours.professeur.id}) }}">
                                         {{cours.professeur.prenom}} {{ cours.professeur.nom}}
@@ -34,11 +35,18 @@
                             Aucun professeur %}
                         {% endif %}
                     <td>
-                        {% for propotion in cours.promotions %}
-                        {{ cours.promotion.libelle}}
+                        {% for promo in cours.promotion %}
+                        {{ promo.libelle}}
                         {% endfor %}
                     </td>
                     <td>{{cours.matiere.libelle }}</td>
+                    <td>
+                        <embed data="{{asset('uploads/'~cours.fichier)}}" type="application/pdf" width="40px" height="60px">
+                             <p>    
+                                Your browser does not support PDF viewing. <a href="{{asset('uploads/'~cours.fichier)}}">Download the PDF</a>.
+                             </p>
+                        </embed >
+                    </td>
                     <td>
                         <a href="{{ path('cours_affichage', {'id': cours.id}) }}" class="btn btn-secondary">lire</a>
                         <a href="{{ path('cours_edition', {'id': cours.id}) }}" class="btn btn-secondary">editer</a>
@@ -47,5 +55,5 @@
             {% endfor %}
         </tbody>
     </table>
-    <a href="{{ path('cours_nouveau') }}" class="btn" >Creer Nouvel admin</a>
+    <a href="{{ path('cours_nouveau') }}" class="btn" >Creer Nouveau Cours</a>
 {% endblock %}
