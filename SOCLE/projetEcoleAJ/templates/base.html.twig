@@ -15,7 +15,7 @@
                 {% include 'tools/navigation/nav-documentaliste.html.twig' %}
             {% elseif role == "ROLE_CUISINE" %}
                 {% include 'tools/navigation/nav-cuisine.html.twig' %}
-            {% elseif role == "ROLE_SECRETARIAT" %}
+            {% elseif role == "ROLE_SECRETARIAT"  or role == "ROLE_DIRECTION" %}
                 {% include 'tools/navigation/nav-secretariat.html.twig' %}
             {% endif %}
         {% endfor %}

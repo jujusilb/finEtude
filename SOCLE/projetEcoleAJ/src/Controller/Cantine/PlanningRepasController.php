@@ -97,7 +97,7 @@ class PlanningRepasController extends AbstractController
     {
         $user=$this->getUser();
         if ($user instanceof Membre){
-            return $this->render('Cuisine/planning_repas/monPlanning.html.twig', [
+            return $this->render('cantine/planning_repas/monPlanning.html.twig', [
                 'controller_name' => 'empruntController',
                 'titre' => 'Mon planning',
                 'planningRepass' =>$planningRepasRepo->findByMembre($user->getId()),

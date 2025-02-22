@@ -8,6 +8,7 @@ use App\Entity\CDI\Ouvrage;
 
 use App\Entity\Utilisateur\Membre;
 use App\Repository\CDI\EmpruntRepository;
+use App\Repository\CDI\StatutEmpruntRepository;
 use App\Form\CDI\EmpruntType;
 use App\Repository\Utilisateur\MembreRepository;
 use App\Repository\CDI\OuvrageRepository;
@@ -28,7 +29,7 @@ class EmpruntController extends AbstractController
         OuvrageRepository $ouvrageRepo
     ): Response
     {
-        return $this->render('documentaliste/emprunt/index.html.twig', [
+        return $this->render('CDI/emprunt/index.html.twig', [
             'controller_name' => 'EmpruntController',
             'titre' => 'Emprunt',
             'emprunts' => $empruntRepo->findAll(),
@@ -38,32 +39,40 @@ class EmpruntController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (MembreRepository $membreRepo, Request $request, EntityManagerInterface $entityManager, OuvrageRepository $ouvrageRepo): Response
+    public function new (StatutEmpruntRepository $statutEmpruntRepo, MembreRepository $membreRepo, Request $request, EntityManagerInterface $entityManager, OuvrageRepository $ouvrageRepo): Response
     {
         $emprunt = new Emprunt();
         $form = $this->createForm(EmpruntType::class, $emprunt);
+        $user=$this->getUser();
+        $userId=$user->getId();
+        
         $form->handleRequest($request);
+        //$form->get('membre_id')->setData($userId);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user=$this->getUser();
-            $membre=$membreRepo->returnMembre($user->getId());
+    
+            $emprunt->setDateDemande(new \DateTimeImmutable());
+            $statutEmprunt=$statutEmpruntRepo->getStatutEmprunt("Emprunt demandé");
+            $emprunt->setStatut($statutEmprunt);
+            $ouvrageId = $form->get('ouvrage_id')->getData(); // This will give you the ID (a string)
+            $membre=$entityManager->getRepository(Membre::class)->find($userId);
             if ($membre instanceof Membre){
                 $emprunt->setMembre($membre);
             }
-            $emprunt->setDateDemande(new \DateTimeImmutable());
-            $emprunt->setStatut("En Cours");
-            $ouvrageId = $form->get('ouvrage_id')->getData(); // This will give you the ID (a string)
             $ouvrage = $entityManager->getRepository(Ouvrage::class)->find($ouvrageId); // Fetch the actual Entree object by ID
             if ($ouvrage instanceof Ouvrage){
                 $emprunt->setOuvrage($ouvrage);
             }
+            $ouvrage->setStatut("Emprunt demandé");
             $entityManager->persist($emprunt);
+            $entityManager->persist($ouvrage);
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('documentaliste/emprunt/new.html.twig', [
+        return $this->render('CDI/emprunt/new.html.twig', [
             'emprunt' => $emprunt,
             'titre' => 'Nouvel Emprunt',
             'empruntForm' => $form->createView(),
@@ -73,7 +82,7 @@ class EmpruntController extends AbstractController
     #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Emprunt $emprunt): Response
     {
-        return $this->render('documentaliste/emprunt/show.html.twig', [
+        return $this->render('CDI/emprunt/show.html.twig', [
             'emprunt' => $emprunt,
             'titre' => 'Affichage Emprunt',
         ]);
@@ -91,7 +100,7 @@ class EmpruntController extends AbstractController
             return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('documentaliste/emprunt/edit.html.twig', [
+        return $this->render('CDI/emprunt/edit.html.twig', [
             'emprunt' => $emprunt,
             'titre' => 'Edition Emprunt',
             'empruntForm' => $form,
@@ -129,7 +138,7 @@ class EmpruntController extends AbstractController
     {
         $user=$this->getUser();
         if ($user instanceof Membre){
-            return $this->render('documentaliste/emprunt/mesEmprunts.html.twig', [
+            return $this->render('CDI/emprunt/mesEmprunts.html.twig', [
                 'controller_name' => 'empruntController',
                 'titre' => 'Mes emprunts',
                 'emprunts' =>$empruntRepo->findByMembre($user->getId()),

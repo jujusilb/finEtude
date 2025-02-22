@@ -36,18 +36,18 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\DiscriminatorColumn(name: "discrimination", type: "string")]
 #[ORM\DiscriminatorMap([   
     "membre" => Membre::class, 
+        "admin" => Admin::class, 
+        "eleve" => Eleve::class,
         "adulte" =>Adulte::class,
             "parentEleve" =>ParentEleve::class,
             "personnel" => Personnel::class,
                 "cuisine" => Cuisine::class,
                 "documentaliste" => Documentaliste::class,
-                "secretariat" => Secretariat::class,
-                    'direction' =>Direction::class,
                 "surveillant" =>Surveillant::class,
                 "professeur" => Professeur::class,
                 'insertion' =>Insertion::class,
-        "admin" => Admin::class, 
-        "eleve" => Eleve::class,
+                "secretariat" => Secretariat::class,
+                    "direction" =>Direction::class,
 ])]
 class Membre extends User
 {
@@ -58,14 +58,9 @@ class Membre extends User
     private ?string $prenom = null;
 
 
-    /**
-     * @var Collection<int, Emprunt>
-     */
-    #[ORM\OneToMany(targetEntity: Emprunt::class, mappedBy: 'membre')]
-    private Collection $emprunt;
+ 
 
     #[Vich\UploadableField(mapping: 'membre', fileNameProperty: 'imageName')]
-    
     private ?File $imageFile = null;
 
     #[ORM\Column(nullable: true)]
@@ -76,8 +71,6 @@ class Membre extends User
     
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
-
-
 
     /**
      * @var Collection<int, Repas>
@@ -116,17 +109,23 @@ class Membre extends User
      * @var Collection<int, PlanningRepas>
      */
     #[ORM\OneToMany(targetEntity: PlanningRepas::class, mappedBy: 'membre')]
-    private Collection $planningRepas; // Valeur par défaut
+    private Collection $planningRepas;
+
+    /**
+     * @var Collection<int, Emprunt>
+     */
+    #[ORM\OneToMany(targetEntity: Emprunt::class, mappedBy: 'membre')]
+    private Collection $emprunts; // Valeur par défaut
 
     
     public function __construct(){
-        $this->emprunt = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();  // Initialise la date de création
         $this->repas = new ArrayCollection();
         $this->threads = new ArrayCollection();
         $this->senderMess = new ArrayCollection();
         $this->receiverMess = new ArrayCollection();
         $this->planningRepas = new ArrayCollection();
+        $this->emprunts = new ArrayCollection();
     }
 
 
@@ -153,30 +152,6 @@ class Membre extends User
         return $this;
     }
 
-    /**
-     * @return Collection<int, Emprunt>
-     */
-    public function getEmprunt(): Collection{
-        return $this->emprunt;
-    }
-    public function addEmprunt(Emprunt $emprunt): static{
-        if (!$this->emprunt->contains($emprunt)) {
-            $this->emprunt->add($emprunt);
-            $emprunt->setMembre($this);
-        }
-        return $this;
-    }
-    public function removeEmprunt(Emprunt $emprunt): static{
-        if ($this->emprunt->removeElement($emprunt)) {
-            // set the owning side to null (unless already changed)
-            if ($emprunt->getMembre() === $this) {
-                $emprunt->setMembre(null);
-            }
-        }
-        return $this;
-    }
-
-        
     /**
     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
     * of 'UploadedFile' is injected into this setter to trigger the update. If this
@@ -216,9 +191,6 @@ class Membre extends User
     public function getImageName(): ?string{
         return $this->imageName;
     }
-
-
-
 
 
     /**
@@ -390,6 +362,36 @@ class Membre extends User
             // set the owning side to null (unless already changed)
             if ($planningRepa->getMembre() === $this) {
                 $planningRepa->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Emprunt>
+     */
+    public function getEmprunts(): Collection
+    {
+        return $this->emprunts;
+    }
+
+    public function addEmprunt(Emprunt $emprunt): static
+    {
+        if (!$this->emprunts->contains($emprunt)) {
+            $this->emprunts->add($emprunt);
+            $emprunt->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmprunt(Emprunt $emprunt): static
+    {
+        if ($this->emprunts->removeElement($emprunt)) {
+            // set the owning side to null (unless already changed)
+            if ($emprunt->getMembre() === $this) {
+                $emprunt->setMembre(null);
             }
         }
 

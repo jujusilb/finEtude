@@ -6,6 +6,7 @@ use App\Entity\Pedagogie\Exercice;
 use App\Repository\Pedagogie\ExerciceRepository;
 use App\Form\Pedagogie\ExerciceType;
 use App\Repository\Pedagogie\MatiereRepository;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,6 +36,8 @@ class ExerciceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $exercice->setDate(new DateTimeImmutable());
+            $exercice->setProfesseur($this->getUser());
             $entityManager->persist($exercice);
             $entityManager->flush();
 

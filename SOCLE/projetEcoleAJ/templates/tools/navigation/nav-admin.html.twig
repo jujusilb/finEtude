@@ -102,7 +102,7 @@
     <ul>
         <li><a href="{{ path('root_accueil') }}">Accueil</a></li>
         <li>
-            <a class='dropdown-arrow' href='{{path('cuisine_index')}}'>Cuisine</a>
+            <a class='dropdown-arrow' href='{{path('cuisine_index')}}'>Cantine</a>
             <ul class='sub-menus'>
                 <li><a href='{{path('planningRepas_index')}}'>Planning Repas</a></li>
                 <li><a href='{{path('repas_index')}}'>Repas</a></li>
@@ -110,12 +110,13 @@
             </ul>
         </li>
         <li>
-            <a class='dropdown-arrow' href='{{path('documentaliste_index')}}'>Documentaliste</a>
+            <a class='dropdown-arrow' href='{{path('documentaliste_index')}}'>CDI</a>
             <ul class='sub-menus'>
 	            <li><a href='{{path('categorieOuvrage_index')}}'>categorieOuvrage</a></li>
                 <li><a href='{{path('ouvrage_index')}}'>Ouvrage</a></li>
                 <li><a href='{{path('emprunt_index')}}'>Emprunt</a></li>
-            </ul>
+				<li><a href='{{path('emprunt_mesEmprunts')}}'>Mes emprunts</a></li>
+			</ul>
         </li>
         <li>
             <a class='dropdown-arrow' href='{{path('insertion_index')}}'>Insertion</a>

@@ -19,10 +19,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\Entity(repositoryClass: ProfesseurRepository::class)]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "discrimination", type: "string")]
-#[ORM\DiscriminatorMap([
-    "professeur" => Professeur::class, 
-    "referent" => Referent::class, 
-    ])]
 #[Vich\Uploadable]
 class Professeur extends Personnel{
 

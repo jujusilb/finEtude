@@ -31,19 +31,19 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\DiscriminatorColumn(name: "discrimination", type: "string")]
 #[ORM\DiscriminatorMap([    
     "user" => User::class,
-    "membre" => Membre::class,
-    "adulte" =>Adulte::class,
-    "parentEleve" =>ParentEleve::class,
-    'personnel' =>Personnel::class,    
-    "cuisine" => Cuisine::class,
-    "surveillant" =>Surveillant::class,
-    "secretariat" => Secretariat::class,
-    'direction' =>Direction::class,
-    "professeur" => Professeur::class,
-    "documentaliste" => Documentaliste::class,
-    "admin" => Admin::class, 
-    "eleve" => Eleve::class,
-    'insertion' => Insertion::class
+        "membre" => Membre::class,
+            "admin" => Admin::class, 
+            "eleve" => Eleve::class, 
+            "adulte" =>Adulte::class,
+                "parentEleve" =>ParentEleve::class,
+                "personnel" =>Personnel::class,    
+                    "cuisine" => Cuisine::class,
+                    "surveillant" =>Surveillant::class,
+                    "professeur" => Professeur::class,
+                    "documentaliste" => Documentaliste::class,
+                    'insertion' => Insertion::class,
+                    "secretariat" => Secretariat::class,
+                        "direction" =>Direction::class
 ])]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {

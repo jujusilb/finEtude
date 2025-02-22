@@ -17,19 +17,23 @@ class Emprunt
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]  // Nullable (dateEmprunt peut être null)
     private ?\DateTimeInterface $dateEmprunt = null;
 
-    #[ORM\Column(length: 255, nullable: false)]  // Non nullable
-    private string $statut;
-
-    #[ORM\ManyToOne(targetEntity: Membre::class, inversedBy: 'emprunt')]
-    #[ORM\Column( nullable: false)]
-    private Membre $membre;
-
     #[ORM\ManyToOne(inversedBy: 'emprunts')]
     #[ORM\JoinColumn(nullable: false)]  // Non nullable
     private Ouvrage $ouvrage;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: false)]  // Non nullable
     private \DateTimeInterface $dateDemande;
+
+    #[ORM\ManyToOne(inversedBy: 'emprunts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?StatutEmprunt $statut = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateRetour = null;
+
+    #[ORM\ManyToOne(inversedBy: 'emprunts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Membre $membre = null;
 
     public function getId(): ?int
     {
@@ -48,29 +52,7 @@ class Emprunt
         return $this;
     }
 
-    public function getStatut(): string
-    {
-        return $this->statut;
-    }
 
-    public function setStatut(string $statut): static
-    {
-        $this->statut = $statut;
-
-        return $this;
-    }
-
-    public function getMembre(): Membre
-    {
-        return $this->membre;
-    }
-
-    public function setMembre(Membre $membre): static
-    {
-        $this->membre = $membre;
-
-        return $this;
-    }
 
     public function getOuvrage(): Ouvrage
     {
@@ -92,6 +74,42 @@ class Emprunt
     public function setDateDemande(\DateTimeInterface $dateDemande): static
     {
         $this->dateDemande = $dateDemande;
+
+        return $this;
+    }
+
+    public function getStatut(): ?StatutEmprunt
+    {
+        return $this->statut;
+    }
+
+    public function setStatut(?StatutEmprunt $statut): static
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getDateRetour(): ?\DateTimeInterface
+    {
+        return $this->dateRetour;
+    }
+
+    public function setDateRetour(?\DateTimeInterface $dateRetour): static
+    {
+        $this->dateRetour = $dateRetour;
+
+        return $this;
+    }
+
+    public function getMembre(): ?Membre
+    {
+        return $this->membre;
+    }
+
+    public function setMembre(?Membre $membre): static
+    {
+        $this->membre = $membre;
 
         return $this;
     }

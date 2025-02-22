@@ -19,7 +19,7 @@ class CategorieOuvrageController extends AbstractController
     public function index(CategorieOuvrageRepository $categorieOuvrageRepo): Response
     {
 	
-        return $this->render('documentaliste/Categorie_ouvrage/index.html.twig', [
+        return $this->render('CDI/Categorie_ouvrage/index.html.twig', [
             'controller_name' => 'CategorieOuvrageController',
 		    'titre' => 'CategorieOuvrage',
             'categorieOuvrages' => $categorieOuvrageRepo->findAll(),
@@ -41,7 +41,7 @@ class CategorieOuvrageController extends AbstractController
             return $this->redirectToRoute('categorieOuvrage_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('documentaliste/categorie_ouvrage/new.html.twig', [
+        return $this->render('CDI/categorie_ouvrage/new.html.twig', [
             'categorieOuvrage' => $categorieOuvrage,
             'titre' => 'Nouvelle Categorie',
             'categorieOuvrageForm' => $form->createView(),
@@ -51,7 +51,7 @@ class CategorieOuvrageController extends AbstractController
     #[Route('/{id}', name: 'affichage', methods: ['GET'])]
     public function show(CategorieOuvrage $categorieOuvrage): Response
     {
-        return $this->render('documentaliste/categorie_ouvrage/show.html.twig', [
+        return $this->render('CDI/categorie_ouvrage/show.html.twig', [
             'categorieOuvrage' => $categorieOuvrage,
             'titre' => 'Affichage des Categories',
         ]);
@@ -69,7 +69,7 @@ class CategorieOuvrageController extends AbstractController
             return $this->redirectToRoute('categorieOuvrage_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('documentaliste/categorie_ouvrage/edit.html.twig', [
+        return $this->render('CDI/categorie_ouvrage/edit.html.twig', [
             'categorieOuvrage' => $categorieOuvrage,
             'titre' => 'Edition des Categories',
             'categorieOuvrageForm' => $form,

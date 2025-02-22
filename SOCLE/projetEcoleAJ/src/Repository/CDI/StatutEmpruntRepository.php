@@ -16,6 +16,17 @@ class StatutEmpruntRepository extends ServiceEntityRepository
         parent::__construct($registry, StatutEmprunt::class);
     }
 
+
+    public function getStatutEmprunt($value): StatutEmprunt
+    {
+        return $this->createQueryBuilder('statut')
+            ->andWhere('statut.libelle = :val')
+            ->setParameter('val', $value)
+            ->orderBy('statut.id', 'ASC')
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 //    /**
 //     * @return StatutEmprunt[] Returns an array of StatutEmprunt objects
 //     */

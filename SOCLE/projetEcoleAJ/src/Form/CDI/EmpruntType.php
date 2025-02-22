@@ -2,6 +2,7 @@
 
 namespace App\Form\CDI;
 
+use App\Entity\CDI\StatutEmprunt;
 use App\Entity\CDI\Emprunt;
 use App\Entity\Utilisateur\Membre;
 use App\Entity\CDI\Ouvrage;
@@ -46,14 +47,13 @@ class EmpruntType extends AbstractType
                 'mapped'=>false,
             ])
 
-            ->add('statut', ChoiceType::class, [
-                'choices' => [
-                    'Demande' => 'Demande',
-                    'En Cours' => 'En Cours',
-                    'Rendu' => 'Rendu',
+            ->add('statut', EntityType::class, [
+                'class' => StatutEmprunt::class,
+                'choice_label'=>'libelle',
                 ],
-                'multiple' => false,  // Allow multiple roles to be selected
-                'expanded' => false,   // Use checkboxes to select multiple roles
+            )
+            ->add('membre_id', HiddenType::class, [
+                'mapped'=>false,
             ])
         
         ;

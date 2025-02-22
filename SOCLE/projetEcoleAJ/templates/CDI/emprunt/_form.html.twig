@@ -5,10 +5,6 @@
             {{ form_widget(empruntForm.ajaxOuvrage, {'attr': {'style' : 'width : auto;'}}) }}
             <div id="DivOuvrage"></div>
         </div>
-        <div class="col-sm-4">
-            <label for="emprunt_statut">Statut</label>
-            {{ form_widget(empruntForm.statut, {'attr': {'style' : 'width : auto;'}}) }}
-        </div>
     </div>
     <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
 {{ form_end(empruntForm) }}
