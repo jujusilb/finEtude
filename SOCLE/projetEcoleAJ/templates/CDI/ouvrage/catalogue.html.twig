@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ouvrageController!{% endblock %}
+
+{% block body %}
+    {% for statutLibelle, ouvrages in groupedByStatut %}
+        <h3>{{ statutLibelle }}</h3>
+        <table class="table table-striped table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Titre</th>
+                    <th>Categorie</th>
+                    <th>
+                        {% if statutLibelle != "Disponible" %}
+                            Statut
+                        {% else %}
+                            Action
+                        {% endif %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ouvrage in ouvrages %}
+                
+                    <tr>
+                        <td>{{ouvrage.id}}</td>
+                        <td>{{ ouvrage.titre }}</td>
+                        
+                        <td>{% for categorieOuvrage in ouvrage.categorieOuvrages %}
+                        {{categorieOuvrage.libelle }}
+                        {% endfor %}</td>
+                        <td>
+                        {% if ouvrage.statutOuvrage.id != 3 %}
+                            {{ouvrage.statutOuvrage.libelle }}
+                        {% else %}
+                            <a href="{{ path('emprunt_demande', {'id': ouvrage.id}) }}" class="btn btn-secondary">Demander emprunt</a>
+                        {% endif %}
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+    <a href="{{ path('ouvrage_nouveau') }}" class="btn" >Creer Nouveau ouvrage</a>
+{% endblock %}

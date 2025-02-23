@@ -20,7 +20,7 @@ use Doctrine\ORM\Mapping as ORM;
         'personnel' => Personnel::class,
             "cuisine" => cuisine::class, 
             "documentaliste" => Documentaliste::class, 
-            "Professeur"=>Professeur::class, 
+            "professeur"=>Professeur::class, 
             "secretariat" => Secretariat::class,
                 'direction' =>Direction::class, 
             'surveillant' => Surveillant::class,

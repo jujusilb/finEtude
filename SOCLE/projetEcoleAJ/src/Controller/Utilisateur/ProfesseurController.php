@@ -53,10 +53,9 @@ class ProfesseurController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $professeur->setRoles(["ROLE_PROFESSEUR"]);
             $professeur->setPassword($this->passwordHasher->hashPassword($professeur, $professeur->getPassword()));
-            
             $getter =new CouteauSuisse();
-            $username= $getter->getUsername($professeur);
-            $email =$getter->getEmail($professeur, $username);
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
             $professeur->setUsername($username);
             $professeur->setEmail($email);
             
@@ -87,14 +86,24 @@ class ProfesseurController extends AbstractController
     {
         $form = $this->createForm(ProfesseurType::class, $professeur);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
+            // Assure-toi de mettre à jour les informations du professeur, même si aucune modification visible n'a été effectuée
             $professeur->setRoles(["ROLE_PROFESSEUR"]);
             $professeur->setPassword($this->passwordHasher->hashPassword($professeur, $professeur->getPassword()));
-            $entityManager->flush();
-
+            
+            $professeur->setPassword($this->passwordHasher->hashPassword($professeur, $professeur->getPassword()));
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
+            $professeur->setUsername($username);
+            $professeur->setEmail($email);
+            
+            
+            $entityManager->flush(); // Sauvegarder les modifications
+    
             return $this->redirectToRoute('professeur_index', [], Response::HTTP_SEE_OTHER);
         }
+    
 
         return $this->render('utilisateur/professeur/edit.html.twig', [
             'professeur' => $professeur,

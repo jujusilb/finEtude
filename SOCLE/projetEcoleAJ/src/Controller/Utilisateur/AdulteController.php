@@ -19,7 +19,7 @@ class AdulteController extends AbstractController
         return $this->render('utilisateur/adulte/index.html.twig', [
             'controller_name' => 'AdulteController',
             'titre' => 'Adulte',
-            'Adultes' => $AdulteRepo->findAll(),
+            'adultes' => $AdulteRepo->findAll(),
         ]);
     }
 }

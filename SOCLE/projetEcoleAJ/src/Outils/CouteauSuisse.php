@@ -21,27 +21,23 @@ class CouteauSuisse{
         <?php
     }
     
-    public function getUsername($entity){
-        $prenom =$entity->getPrenom();
-        $nom=$entity->getNom();
+    public function getUsername($prenom, $nom){
         if(str_contains($prenom, '-')){
             $tab=explode('-', $prenom);
             foreach($tab as $key=>$value){
-                $value=lcfirst($value);
-                $value=substr($value, 0, 1);
+                $tab[$key]=substr($value, 0, 1);
             }
             $prenom=implode($tab);
         } else {
-            $prenom=lcfirst($prenom);
             $prenom = substr($prenom, 0, 1);
         }
-        $nom=strtolower($nom);
         $username=$prenom.$nom;
+        $username=strtolower($username);
         return $username;
         
     }
 
-    public function getEmail($entity, $username){
+    public function getEmail($username){
         $fin ="@guinot.asso.fr";
         $email=$username.$fin;
         return $email;

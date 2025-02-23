@@ -1,0 +1,39 @@
+<html>
+<head>
+</head>
+<body>
+	<button id="idStartCreation">demarrer creation</button>
+<div id="idPlayground">
+<div id="idMenu">
+<button id="idCreateCheckbox">CheckBox</button>
+<button id="idCreateRadio">Radio</button>
+<button id="idCreateText">Text</button>
+</div>
+</div>
+
+<script>
+let nbQuestion=0;
+let menu="document.getElementById("idMenu")
+menu.style.display="none"
+
+let playground=document.getElementById("idPlayground")
+let startCreation=getElementById("idStartCreation")
+startCreation.addEventListener("click", startCreate)
+
+function startCreate(){
+let tagForm=document.createElement("form")
+playground.appendChild(tagForm)
+menu.style.display="flex"
+}
+
+function newQuestion(){}
+function checkBox(){}
+function radio(){}
+function text(){}
+
+<label for="inputNew">
+<button id="createQuestion">Creer Question</button>
+<div id="newQuestion">
+
+</body>
+</html>

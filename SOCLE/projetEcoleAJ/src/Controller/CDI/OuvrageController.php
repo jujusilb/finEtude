@@ -19,6 +19,8 @@ class OuvrageController extends AbstractController
     public function index(CategorieOuvrageRepository $categorieOuvrageRepo, OuvrageRepository $ouvrageRepo): Response
     {
 	
+        
+
         return $this->render('CDI/ouvrage/index.html.twig', [
             'controller_name' => 'OuvrageController',
 		    'titre' => 'Ouvrage',
@@ -27,6 +29,28 @@ class OuvrageController extends AbstractController
         ]);
     }
 
+    #[Route('/catalogue', name: 'catalogue')]
+    public function catalogue(CategorieOuvrageRepository $categorieOuvrageRepo, OuvrageRepository $ouvrageRepo): Response
+    {
+        $ouvrages = $ouvrageRepo->findAll();
+
+        // Regrouper les ouvrages par statut
+        $groupedByStatut = [];
+        foreach ($ouvrages as $ouvrage) {
+            $statutLibelle = $ouvrage->getStatutOuvrage()->getLibelle();
+            if (!isset($groupedByStatut[$statutLibelle])) {
+                $groupedByStatut[$statutLibelle] = [];
+            }
+            $groupedByStatut[$statutLibelle][] = $ouvrage;
+        }
+        return $this->render('CDI/ouvrage/catalogue.html.twig', [
+            'controller_name' => 'OuvrageController',
+		    'titre' => 'Catalogue',
+            'groupedByStatut' => $groupedByStatut,
+            'ouvrages' => $ouvrageRepo->findAll(),
+            'categorieOuvrage' => $categorieOuvrageRepo->findAll(),
+        ]);
+    }
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
     public function new (Request $request, EntityManagerInterface $entityManager): Response

@@ -19,9 +19,6 @@ class Ouvrage
     #[ORM\Column(length: 255)]
     private ?string $titre = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $statut = null;
-
     /**
      * @var Collection<int, Emprunt>
      */
@@ -33,6 +30,10 @@ class Ouvrage
      */
     #[ORM\ManyToMany(targetEntity: CategorieOuvrage::class, inversedBy: 'Ouvrages')]
     private Collection $categorieOuvrages;
+
+    #[ORM\ManyToOne(inversedBy: 'ouvrages')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?StatutOuvrage $statutOuvrage = null;
 
     public function __construct()
     {
@@ -53,16 +54,6 @@ class Ouvrage
         return $this;
     }
 
-    public function getStatut(): ?string{
-        return $this->statut;
-    }
-    public function setStatut(string $statut): static{
-        $this->statut = $statut;
-        return $this;
-    }
-
-
- 
     /**
      * @return Collection<int, Emprunt>
      */
@@ -113,6 +104,18 @@ class Ouvrage
     public function removeCategorieOuvrages(CategorieOuvrage $categorieOuvrages): static
     {
         $this->categorieOuvrages->removeElement($categorieOuvrages);
+
+        return $this;
+    }
+
+    public function getStatutOuvrage(): ?StatutOuvrage
+    {
+        return $this->statutOuvrage;
+    }
+
+    public function setStatutOuvrage(?StatutOuvrage $statutOuvrage): static
+    {
+        $this->statutOuvrage = $statutOuvrage;
 
         return $this;
     }

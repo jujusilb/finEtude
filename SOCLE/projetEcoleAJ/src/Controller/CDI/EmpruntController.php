@@ -5,7 +5,7 @@ namespace App\Controller\CDI;
 use App\Entity\CDI\Emprunt;
 
 use App\Entity\CDI\Ouvrage;
-
+use App\Entity\CDI\StatutOuvrage;
 use App\Entity\Utilisateur\Membre;
 use App\Repository\CDI\EmpruntRepository;
 use App\Repository\CDI\StatutEmpruntRepository;
@@ -22,6 +22,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/emprunt', name: 'emprunt_')]
 class EmpruntController extends AbstractController
 {
+    
     #[Route('/index', name: 'index')]
     public function index(
         EmpruntRepository $empruntRepo, 
@@ -38,45 +39,34 @@ class EmpruntController extends AbstractController
         ]);
     }
 
-    #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (StatutEmpruntRepository $statutEmpruntRepo, MembreRepository $membreRepo, Request $request, EntityManagerInterface $entityManager, OuvrageRepository $ouvrageRepo): Response
+    #[Route('/{id}/demande', name: 'demande', methods: ['GET', 'POST'])]
+    public function new (Ouvrage $ouvrage, StatutEmpruntRepository $statutEmpruntRepo, MembreRepository $membreRepo, Request $request, EntityManagerInterface $entityManager, OuvrageRepository $ouvrageRepo): Response
     {
         $emprunt = new Emprunt();
-        $form = $this->createForm(EmpruntType::class, $emprunt);
         $user=$this->getUser();
         $userId=$user->getId();
-        
-        $form->handleRequest($request);
         //$form->get('membre_id')->setData($userId);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-    
-            $emprunt->setDateDemande(new \DateTimeImmutable());
+        $emprunt->setDateDemande(new \DateTimeImmutable());
             $statutEmprunt=$statutEmpruntRepo->getStatutEmprunt("Emprunt demandé");
-            $emprunt->setStatut($statutEmprunt);
-            $ouvrageId = $form->get('ouvrage_id')->getData(); // This will give you the ID (a string)
+        $emprunt->setStatut($statutEmprunt);
+            
             $membre=$entityManager->getRepository(Membre::class)->find($userId);
             if ($membre instanceof Membre){
                 $emprunt->setMembre($membre);
             }
-            $ouvrage = $entityManager->getRepository(Ouvrage::class)->find($ouvrageId); // Fetch the actual Entree object by ID
             if ($ouvrage instanceof Ouvrage){
                 $emprunt->setOuvrage($ouvrage);
             }
-            $ouvrage->setStatut("Emprunt demandé");
+            $statutOuvrage=$entityManager->getRepository(StatutOuvrage::class)->find(4);
+            if ($statutOuvrage instanceof StatutOuvrage){
+                $ouvrage->setStatutOuvrage($statutOuvrage);
+            }
             $entityManager->persist($emprunt);
             $entityManager->persist($ouvrage);
-            
             $entityManager->flush();
 
-            return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('CDI/emprunt/new.html.twig', [
-            'emprunt' => $emprunt,
-            'titre' => 'Nouvel Emprunt',
-            'empruntForm' => $form->createView(),
-        ]);
+            return $this->redirectToRoute('ouvrage_catalogue');
     }
 
     #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
@@ -147,4 +137,51 @@ class EmpruntController extends AbstractController
             return $this->redirectToRoute('emprunt_index');
         }
     }
+
+/*
+
+#[Route('/{id}/demande', name: 'demande', methods: ['GET', 'POST'])]
+    public function new (Ouvrage $Ouvrage, StatutEmpruntRepository $statutEmpruntRepo, MembreRepository $membreRepo, Request $request, EntityManagerInterface $entityManager, OuvrageRepository $ouvrageRepo): Response
+    {
+        $emprunt = new Emprunt();
+        $form = $this->createForm(EmpruntType::class, $emprunt);
+        $user=$this->getUser();
+        $userId=$user->getId();
+        
+        $form->handleRequest($request);
+        //$form->get('membre_id')->setData($userId);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+    
+            $emprunt->setDateDemande(new \DateTimeImmutable());
+            $statutEmprunt=$statutEmpruntRepo->getStatutEmprunt("Emprunt demandé");
+            $emprunt->setStatut($statutEmprunt);
+            $ouvrageId = $form->get('ouvrage_id')->getData(); // This will give you the ID (a string)
+            $membre=$entityManager->getRepository(Membre::class)->find($userId);
+            if ($membre instanceof Membre){
+                $emprunt->setMembre($membre);
+            }
+            $ouvrage = $entityManager->getRepository(Ouvrage::class)->find($ouvrageId); // Fetch the actual Entree object by ID
+            if ($ouvrage instanceof Ouvrage){
+                $emprunt->setOuvrage($ouvrage);
+            }
+            $ouvrage->setStatut("Emprunt demandé");
+            $entityManager->persist($emprunt);
+            $entityManager->persist($ouvrage);
+            
+            $entityManager->flush();
+
+            return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('CDI/emprunt/new.html.twig', [
+            'emprunt' => $emprunt,
+            'titre' => 'Nouvel Emprunt',
+            'empruntForm' => $form->createView(),
+        ]);
+    }
+    */
+
+
+
 }

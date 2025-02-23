@@ -1,0 +1,1 @@
+composer require aldaflux/game-quizz-bundle
