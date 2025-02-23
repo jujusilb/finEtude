@@ -50,13 +50,16 @@ class ParentEleveType extends AbstractType
             'required'   => true,
             'disabled'=> false, 
         ])
-            ->add('imageFile', VichImageType::class)
+            
             ->add('eleves', EntityType::class, [
                 'class' => Eleve::class,
                 'choice_label' => function (Eleve $eleve){
                     return $eleve->getPrenom().' '.$eleve->getNom();
                 },
                 'multiple' => true,
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required'=>false
             ])
         ;
     }

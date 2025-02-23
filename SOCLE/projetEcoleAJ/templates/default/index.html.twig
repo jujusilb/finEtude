@@ -318,7 +318,9 @@
                                 <h5>
                                     Libelle : {{promotion.libelle}}
                                     <br>
-                                    Referent : {{promotion.referent.professeur.prenom}} {{promotion.referent.professeur.nom}}
+                                    {% if promotion.referent | length >0 %}
+                                    Referent : {{promotion.referent.prenom}} {{promotion.referent.nom}}
+                                    {% endif %}
                                 </h5>
                             </div>
                         </div>

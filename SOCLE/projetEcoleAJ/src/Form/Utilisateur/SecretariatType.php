@@ -69,7 +69,9 @@ class SecretariatType extends AbstractType
                     'placeholder' => '0123456789'
                 ]
             ]) 
-            ->add('imageFile', VichImageType::class)
+            ->add('imageFile', VichImageType::class, [
+                'required'=>false
+            ])
         ;
     }
 

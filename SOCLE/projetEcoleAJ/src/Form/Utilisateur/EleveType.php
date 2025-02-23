@@ -57,7 +57,9 @@ class EleveType extends AbstractType
                 'class' => Promotion::class,
                 'choice_label' => 'libelle',
                 ])
-            ->add('imageFile', VichImageType::class)
+                ->add('imageFile', VichImageType::class, [
+                    'required'=>false
+                ])
         ;
     }
 

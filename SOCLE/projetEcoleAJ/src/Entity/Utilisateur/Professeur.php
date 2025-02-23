@@ -4,6 +4,7 @@ namespace App\Entity\Utilisateur;
 
 use App\Entity\Pedagogie\Cours;
 use App\Entity\Pedagogie\Exercice;
+use App\Entity\Pedagogie\Promotion;
 use App\Entity\Pedagogie\Referent;
 use App\Entity\Pedagogie\ProfesseurMatiere;
 use App\Entity\Pedagogie\Programme;
@@ -25,8 +26,6 @@ class Professeur extends Personnel{
     
 
 
-    #[ORM\OneToOne(mappedBy: 'professeur', cascade: ['persist', 'remove'])]
-    private ?Referent $referent = null;
 
     /**
      * @var Collection<int, ProfesseurMatiere>
@@ -52,6 +51,9 @@ class Professeur extends Personnel{
     #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'professeur')]
     private Collection $exercices;
 
+    #[ORM\OneToOne(mappedBy: 'referent', cascade: ['persist', 'remove'])]
+    private ?Promotion $promotion = null;
+
     
 
     public function __construct()
@@ -71,26 +73,6 @@ class Professeur extends Personnel{
 
 
 
-    public function getReferent(): ?Referent
-    {
-        return $this->referent;
-    }
-
-    public function setReferent(?Referent $referent): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($referent === null && $this->referent !== null) {
-            $this->referent->setProfesseur(null);
-        }
-
-        if ($referent !== null && $referent->getProfesseur() !== $this) {
-            $referent->setProfesseur($this);
-        }
-
-        $this->referent = $referent;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, ProfesseurMatiere>
@@ -208,6 +190,28 @@ class Professeur extends Personnel{
                 $exercice->setProfesseur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPromotion(): ?Promotion
+    {
+        return $this->promotion;
+    }
+
+    public function setPromotion(?Promotion $promotion): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($promotion === null && $this->promotion !== null) {
+            $this->promotion->setReferent(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($promotion !== null && $promotion->getReferent() !== $this) {
+            $promotion->setReferent($this);
+        }
+
+        $this->promotion = $promotion;
 
         return $this;
     }

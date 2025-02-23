@@ -28,7 +28,6 @@ use App\Repository\Utilisateur\PersonnelRepository;
 use App\Repository\Cantine\PlatRepository;
 use App\Repository\Utilisateur\ProfesseurRepository;
 use App\Repository\Pedagogie\PromotionRepository;
-use App\Repository\Pedagogie\ReferentRepository;
 use App\Repository\Cantine\RepasRepository;
 use App\Repository\Utilisateur\SecretariatRepository;
 use App\Repository\Utilisateur\SurveillantRepository;
@@ -69,7 +68,6 @@ class DefaultController extends AbstractController
         PlatRepository $platRepo,
         ProfesseurRepository $professeurRepo,
         PromotionRepository $promotionRepo,
-        ReferentRepository $referentRepo,
         RepasRepository $repasRepo,
         SecretariatRepository $secretariatRepo,
         SurveillantRepository $surveillantRepo,
@@ -106,7 +104,6 @@ class DefaultController extends AbstractController
             'plats' => $platRepo->findAll(),
             'professeurs' => $professeurRepo->findAll(),
             'promotions' => $promotionRepo->findAll(),
-            'referents' => $referentRepo->findAll(),
             'repas' =>$repasRepo->findAll(),
             'secretariats' => $secretariatRepo->findAll(),
             'surveillants' =>$surveillantRepo->findAll(),

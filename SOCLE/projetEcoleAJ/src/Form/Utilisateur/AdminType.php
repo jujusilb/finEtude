@@ -47,7 +47,10 @@ class AdminType extends AbstractType
                 'required'   => true,
                 'disabled'=> false, 
             ])
-            ->add('imageFile', VichImageType::class);
+            ->add('imageFile', VichImageType::class, [
+                'required'=>false
+            ])
+            ;
         
         // Data transformer
         $builder

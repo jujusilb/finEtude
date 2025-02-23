@@ -87,9 +87,15 @@ class ProfesseurController extends AbstractController
         $form = $this->createForm(ProfesseurType::class, $professeur);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Assure-toi de mettre à jour les informations du professeur, même si aucune modification visible n'a été effectuée
             $professeur->setRoles(["ROLE_PROFESSEUR"]);
-            $professeur->setPassword($this->passwordHasher->hashPassword($professeur, $professeur->getPassword()));
+            $professeur
+                ->setPassword(
+                    $this->passwordHasher
+                        ->hashPassword(
+                            $professeur, 
+                            $form->get('password')->getData()
+                        )
+                );
             
             $professeur->setPassword($this->passwordHasher->hashPassword($professeur, $professeur->getPassword()));
             $getter =new CouteauSuisse();

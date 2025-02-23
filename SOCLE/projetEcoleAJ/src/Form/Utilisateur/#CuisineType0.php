@@ -33,8 +33,10 @@ class CuisineType extends AbstractType
             'expanded' => true,   // Use checkboxes to select multiple roles
         ])
         ->add('date_embauche', DateType::class, [])  // Correct syntax here
-        ->add('poste', TelType::class, [])  // Correct syntax here
-        ->add('imageFile', VichImageType::class)  // Correct usage of VichImageType
+        ->add('poste', TelType::class, [])  // Correct syntax here            
+        ->add('imageFile', VichImageType::class, [
+            'required'=>false
+        ])
         ;
     }
 

@@ -8,7 +8,6 @@ use App\Entity\Pedagogie\Referent;
 use App\Entity\Utilisateur\Professeur;
 use App\Entity\Pedagogie\ProfesseurMatiere;
 use App\Repository\Pedagogie\ProgrammeRepository;
-use App\Repository\Pedagogie\ReferentRepository;
 use App\Repository\Pedagogie\PromotionRepository;
 use App\Repository\Utilisateur\EleveRepository;
 use App\Entity\Pedagogie\Matiere;

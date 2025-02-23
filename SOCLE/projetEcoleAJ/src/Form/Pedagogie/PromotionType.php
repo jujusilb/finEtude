@@ -3,7 +3,6 @@
 namespace App\Form\Pedagogie;
 
 use App\Entity\Pedagogie\Promotion;
-use App\Entity\Pedagogie\Referent;
 use App\Entity\Pedagogie\Professeur;
 use App\Entity\Pedagogie\Matiere;
 use App\Entity\Pedagogie\Programme;
@@ -22,11 +21,7 @@ class PromotionType extends AbstractType
         $builder
             ->add('libelle', TextType::class, [])
 
-            ->add('referent', EntityType::class, [
-                'class' => Referent::class,
-                'choice_label' => function(Referent $referent) {
-                    return $referent->getProfesseur()->getPrenom() . ' ' . $referent->getProfesseur()->getNom(); // Afficher le prénom et le nom
-                }])
+
 /*            
             ->add('promotion', EntityType::class, [
                 'class' => Programme::class, [

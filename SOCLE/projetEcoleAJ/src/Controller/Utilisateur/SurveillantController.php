@@ -54,8 +54,8 @@ class SurveillantController extends AbstractController
             $surveillant->setPassword($this->passwordHasher->hashPassword($surveillant, $surveillant->getPassword()));
              
             $getter =new CouteauSuisse();
-            $username= $getter->getUsername($surveillant);
-            $email =$getter->getEmail($surveillant, $username);
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
             $surveillant->setUsername($username);
             $surveillant->setEmail($email);
             
@@ -90,6 +90,11 @@ class SurveillantController extends AbstractController
             $surveillant->setRoles(["ROLE_SECRETARIAT"]);
             $surveillant->setPassword($this->passwordHasher->hashPassword($surveillant, $surveillant->getPassword()));
             
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
+            $surveillant->setUsername($username);
+            $surveillant->setEmail($email);
             $entityManager->flush();
             return $this->redirectToRoute('surveillant_index', [], Response::HTTP_SEE_OTHER);
         }

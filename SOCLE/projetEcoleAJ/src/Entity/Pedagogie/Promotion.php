@@ -3,6 +3,7 @@
 namespace App\Entity\Pedagogie;
 
 use App\Entity\Utilisateur\Eleve;
+use App\Entity\Utilisateur\Professeur;
 use App\Repository\Pedagogie\PromotionRepository;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -26,9 +27,7 @@ class Promotion
     #[ORM\OneToMany(targetEntity: Eleve::class, mappedBy: 'promotion')]
     private Collection $eleves;
 
-    #[ORM\OneToOne(inversedBy: 'promotion', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Referent $referent = null;
+
 
 // In Promotion.php
 #[ORM\OneToMany(mappedBy: 'promotion', targetEntity: Programme::class)]
@@ -45,6 +44,9 @@ private Collection $cours;
  */
 #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'promotion')]
 private Collection $exercices;
+
+#[ORM\OneToOne(inversedBy: 'promotion', cascade: ['persist', 'remove'])]
+private ?Professeur $referent = null;
 
 
 
@@ -110,24 +112,11 @@ public function getProgrammes(): Collection
         return $this;
     }
 
-    public function getReferent(): ?Referent
-    {
-        return $this->referent;
-    }
-
-    public function setReferent(Referent $referent): static
-    {
-        $this->referent = $referent;
-
-        return $this;
-    }
-
-
-
+ 
     public function addProgramme(Programme $programme): static
     {
-        if (!$this->programme->contains($programme)) {
-            $this->programme->add($programme);
+        if (!$this->programmes->contains($programme)) {
+            $this->programmes->add($programme);
             $programme->setMatiere($this);
         }
 
@@ -199,6 +188,18 @@ public function getProgrammes(): Collection
                 $exercice->setPromotion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getReferent(): ?Professeur
+    {
+        return $this->referent;
+    }
+
+    public function setReferent(?Professeur $referent): static
+    {
+        $this->referent = $referent;
 
         return $this;
     }

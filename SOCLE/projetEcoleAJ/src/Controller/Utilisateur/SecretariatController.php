@@ -49,8 +49,9 @@ class SecretariatController extends AbstractController
             $secretariat->setPassword($this->passwordHasher->hashPassword($secretariat, $secretariat->getPassword()));
             
             $getter =new CouteauSuisse();
-            $username= $getter->getUsername($secretariat);
-            $email =$getter->getEmail($secretariat, $username);
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
             $secretariat->setUsername($username);
             $secretariat->setEmail($email);
             
@@ -83,7 +84,14 @@ class SecretariatController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $secretariat->setRoles(["ROLE_SECRETARIAT"]);
             $secretariat->setPassword($this->passwordHasher->hashPassword($secretariat, $secretariat->getPassword()));
+            $getter =new CouteauSuisse();
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
+            $secretariat->setUsername($username);
+            $secretariat->setEmail($email);
+
             $entityManager->flush();
 
             return $this->redirectToRoute('secretariat_index', [], Response::HTTP_SEE_OTHER);
