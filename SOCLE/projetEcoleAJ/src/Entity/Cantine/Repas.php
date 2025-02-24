@@ -2,6 +2,7 @@
 
 namespace App\Entity\Cantine;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Cantine\PlanningRepas;
 use App\Entity\Utilisateur\Membre;
 
@@ -29,7 +30,14 @@ class Repas
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 100,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $heure = null;
 
 

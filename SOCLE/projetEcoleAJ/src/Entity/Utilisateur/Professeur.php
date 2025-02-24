@@ -5,7 +5,6 @@ namespace App\Entity\Utilisateur;
 use App\Entity\Pedagogie\Cours;
 use App\Entity\Pedagogie\Exercice;
 use App\Entity\Pedagogie\Promotion;
-use App\Entity\Pedagogie\Referent;
 use App\Entity\Pedagogie\ProfesseurMatiere;
 use App\Entity\Pedagogie\Programme;
 use App\Entity\Utilisateur\Personnel;
@@ -18,14 +17,8 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProfesseurRepository::class)]
-#[ORM\InheritanceType("JOINED")]
-#[ORM\DiscriminatorColumn(name: "discrimination", type: "string")]
 #[Vich\Uploadable]
 class Professeur extends Personnel{
-
-    
-
-
 
     /**
      * @var Collection<int, ProfesseurMatiere>
@@ -65,14 +58,6 @@ class Professeur extends Personnel{
         $this->exercices = new ArrayCollection();
 
     }
-
-
-
-    
-
-
-
-
 
     /**
      * @return Collection<int, ProfesseurMatiere>

@@ -50,8 +50,8 @@ class DirectionController extends AbstractController
             $direction->setPassword($this->passwordHasher->hashPassword($direction, $direction->getPassword()));
             
             $getter =new CouteauSuisse();
-            $username= $getter->getUsername($direction);
-            $email =$getter->getEmail($direction, $username);
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
             $direction->setUsername($username);
             $direction->setEmail($email);
 

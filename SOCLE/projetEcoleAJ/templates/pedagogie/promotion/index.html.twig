@@ -19,9 +19,11 @@
                     <td>{{ promotion.id }}</td>
                     <td>{{ promotion.libelle}}</td>
                     <td>
-                        <a href="{{ path('professeur_affichage', {'id': promotion.referent.professeur.id}) }}">
-                           {{ promotion.referent.professeur.prenom }} {{ promotion.referent.professeur.nom }}
-                        </a>
+                        {% if promotion.referent is not null %}
+                            <a href="{{ path('professeur_affichage', {'id': promotion.referent.id}) }}">
+                            {{ promotion.referent.prenom }} {{ promotion.referent.nom }}
+                            </a>
+                        {% endif %}
                     <td>
                         {% for eleve in promotion.eleves %}
                             <li>

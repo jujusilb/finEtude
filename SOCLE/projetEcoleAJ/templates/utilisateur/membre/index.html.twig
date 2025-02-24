@@ -12,6 +12,7 @@
                 <th>Prenom</th>
                 <th>Username</th>
                 <th>E-mail</th>
+                <th>Jeton-Repas</th>
                 <th>Role</th>
                 <th>Action</td>
             </tr>
@@ -28,7 +29,7 @@
                     <td>{{ membre.username }}</td>
 
                     <td>{{ membre.email}}</td>
-                    <td>{{membre.password}}</td>
+                    <td>{{ membre.jetonRepas}}
                     <td>
                         {% for role in membre.roles %}
                            <li>{{ role}}</li>

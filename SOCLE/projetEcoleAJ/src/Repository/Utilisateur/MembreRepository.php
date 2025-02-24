@@ -47,6 +47,31 @@ class MembreRepository extends ServiceEntityRepository
                 ->getOneOrNullResult(); 
         }
 
+
+    public function updateDestinataireIdToNull($idMembre)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb->update('App\Entity\Message', 'message')
+            ->set('message.destinataireId', '1')
+            ->where('message.destinataireId = :idMembre')
+            ->setParameter('idMembre', $idMembre);
+
+        $qb->getQuery()->execute();
+    }
+
+    public function updatExpediteurIdToNull($idMembre)
+    {
+        $qb = $this->getEntityManager()->createQueryBuilder();
+
+        $qb->update('App\Entity\Message', 'message')
+            ->set('message.expediteurId', '1')
+            ->where('message.expediteurId = :idMembre')
+            ->setParameter('idMembre', $idMembre);
+
+        $qb->getQuery()->execute();
+    }
+
 /*
 public function getConcatNames($value)
 {

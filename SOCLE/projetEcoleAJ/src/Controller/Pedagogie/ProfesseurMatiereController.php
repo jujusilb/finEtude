@@ -45,6 +45,7 @@ class ProfesseurMatiereController extends AbstractController
         }
 
         return $this->render('pedagogie/professeur_matiere/new.html.twig', [
+            'titre'=>'nouveau profMatiere',
             'professeurMatiere' => $professeurMatiere,
             'professeurMatiereForm' => $form->createView(),
         ]);

@@ -3,7 +3,7 @@
 namespace App\Form\Pedagogie;
 
 use App\Entity\Pedagogie\Matiere;
-use App\Entity\Pedagogie\Professeur;
+use App\Entity\Utilisateur\Professeur;
 use App\Entity\Pedagogie\ProfesseurMatiere;
 use App\Entity\Pedagogie\Promotion;
 

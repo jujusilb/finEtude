@@ -47,8 +47,8 @@ class InsertionController extends AbstractController
             $insertion->setPassword($this->passwordHasher->hashPassword($insertion, $insertion->getPassword()));
             
             $getter =new CouteauSuisse();
-            $username= $getter->getUsername($insertion);
-            $email =$getter->getEmail($insertion, $username);
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
             $insertion->setUsername($username);
             $insertion->setEmail($email);
 

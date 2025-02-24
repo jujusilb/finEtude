@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -69,6 +70,7 @@ class SecretariatType extends AbstractType
                     'placeholder' => '0123456789'
                 ]
             ]) 
+            ->add('jeton_repas', IntegerType::class)
             ->add('imageFile', VichImageType::class, [
                 'required'=>false
             ])

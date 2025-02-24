@@ -2,10 +2,12 @@
 
 namespace App\Controller\Cantine;
 
+use App\Entity\Cantine\Repas;
 use App\Entity\Utilisateur\Membre;
 use App\Entity\Cantine\PlanningRepas;
 use App\Repository\Cantine\PlanningRepasRepository;
 use App\Form\Cantine\PlanningRepasType;
+use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -106,4 +108,59 @@ class PlanningRepasController extends AbstractController
             return $this->redirectToRoute('emprunt_index');
         }
     }
+
+    #[Route('/{repas}/achat', name: 'achat', methods: ['GET'])]
+    public function achat (Repas $repas, PlanningRepasRepository $planningRepasRepo, EntityManagerInterface $entityManager): Response
+    {
+
+        $user = $this->getUser();
+
+        
+        $existingPlanning = $planningRepasRepo->findOneBy(['repas' => $repas, 'membre' => $user]);
+    
+        if ($existingPlanning) {
+            return $this->redirectToRoute('repas_listeRepas');  // Rediriger avec un message ou rien faire
+        }
+        if($user instanceof Membre) {
+            if ($user->getJetonRepas() > 0) {
+                $user->setJetonRepas($user->getJetonRepas()-1);
+                $planningRepas = new PlanningRepas();
+                $planningRepas->setRepas($repas);
+                $planningRepas->setMembre($user);
+                $planningRepas->setDateAchat(new \DateTime());
+                $entityManager ->persist($planningRepas);
+                $entityManager->flush();
+                return $this->redirectToRoute('repas_listeRepas');  // Redirection ou message de succès
+            } else {
+                return $this->redirectToRoute('repas_listeRepas');
+            }
+        } else {
+            return $this->redirectToRoute('repas_listeRepas');
+        }
+
+
+
+
+        $user=$this->getUser();
+        $planningRepas = new PlanningRepas();
+    
+            
+            $planningRepas->setDateAchat(new DateTimeImmutable());
+            $planningRepas->setMembre($user);
+            $planningRepas->setRepas($repas);
+            if ($user instanceof Membre){
+                $jeton=$user->getJetonRepas();
+                $jeton--;
+                $user->setJetonRepas($jeton);
+                $entityManager->persist($user);
+            }
+            $entityManager->persist($planningRepas);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('planningRepas_index', [], Response::HTTP_SEE_OTHER);
+        
+
+        return $this->redirectToRoute('repas_index');;
+    }
+
 }

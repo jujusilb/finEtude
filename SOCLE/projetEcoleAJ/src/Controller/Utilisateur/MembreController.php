@@ -4,9 +4,9 @@ namespace App\Controller\Utilisateur;
 
 use App\Entity\Utilisateur\Membre;
 use App\Repository\Utilisateur\MembreRepository;
-
 use App\Form\Utilisateur\MembreType;
 
+use App\Outils\CouteauSuisse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,6 +43,12 @@ class MembreController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $outil=new CouteauSuisse();
+            $membre->setRoles(['ROLE_MEMBRE']);
+            $username=$outil->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email=$outil->getEmail($username);
+            $membre->setUsername($username);
+            $membre->setEmail($email);
             $membre->setPassword($this->passwordHasher->hashPassword($membre, $membre->getPassword()));
             $membre->setCreatedAt(new \DateTimeImmutable()); // Set the createdAt field before persisting
             $entityManager->persist($membre);
@@ -55,7 +61,7 @@ class MembreController extends AbstractController
 
         return $this->render('utilisateur/membre/new.html.twig', [
             'membre' => $membre,
-            'titre' => 'N9ouveau Membre',
+            'titre' => 'Nouveau Membre',
             'membreForm' => $form->createView(),
         ]);
     }

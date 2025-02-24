@@ -17,12 +17,12 @@ class Fromage
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: 'ce champ ne peut pas être vide')]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
     #[Assert\Length(
         min: 1,
         max: 100,
         minMessage: 'La longueur minimale est de  {{ limit }} caractères',
-        maxMessage: 'la taille maximale est de  {{ limit }} characters',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
     )]
     private ?string $libelle = null;
 

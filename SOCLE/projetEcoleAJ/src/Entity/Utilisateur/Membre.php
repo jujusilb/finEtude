@@ -13,7 +13,6 @@ use App\Entity\Utilisateur\Eleve;
 use App\Entity\Utilisateur\Insertion;
 use App\Entity\Utilisateur\ParentEleve;
 use App\Entity\Utilisateur\Professeur;
-use App\Entity\Pedagogie\Referent;
 use App\Entity\CDI\Emprunt;
 use App\Entity\Cantine\Repas;
 use App\Entity\Forum\Message;
@@ -29,6 +28,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MembreRepository::class)]
 #[Vich\Uploadable]
@@ -115,7 +115,11 @@ class Membre extends User
      * @var Collection<int, Emprunt>
      */
     #[ORM\OneToMany(targetEntity: Emprunt::class, mappedBy: 'membre')]
-    private Collection $emprunts; // Valeur par défaut
+    private Collection $emprunts;
+
+    #[ORM\Column]
+    #[Assert\GreaterThanOrEqual(value: 0, message: "Le nombre de jetons ne peut pas être négatif.")]
+    private ?int $jetonRepas = null; // Valeur par défaut
 
     
     public function __construct(){
@@ -394,6 +398,18 @@ class Membre extends User
                 $emprunt->setMembre(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getJetonRepas(): ?int
+    {
+        return $this->jetonRepas;
+    }
+
+    public function setJetonRepas(int $jetonRepas): static
+    {
+        $this->jetonRepas = $jetonRepas;
 
         return $this;
     }

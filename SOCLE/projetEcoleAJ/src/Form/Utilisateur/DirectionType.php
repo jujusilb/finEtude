@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -62,6 +63,13 @@ class DirectionType extends AbstractType
                     'aria-label' =>'Date d\'embauche',
                 ]
             ]) 
+            ->add('jeton_repas', integerType::class, [
+                'label'=>'Nombre de jeton-repas',
+                'attr'=>[
+                    'aria-label'=>'nombre de jeton-repas',
+                    'placeholder'=>'Nombre de jeton-repas',
+                ]
+            ])
             ->add('poste', TelType::class, [
                 'label' => 'Poste',
                 'attr' => [

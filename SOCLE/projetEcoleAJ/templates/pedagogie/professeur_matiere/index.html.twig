@@ -18,8 +18,8 @@
             <td>{{ professeurMatiere.getProfesseur().prenom }} {{ professeurMatiere.getProfesseur().nom }}</td>     {# Assuming 'nom' is a property of 'Professeur' #}
             <td>{{ professeurMatiere.getMatiere().libelle }}</td>    {# Assuming 'libelle' is a property of 'Matiere' #}
             <td>
-                <a href="{{ path('professeurMatiere_affichage', {'id': professeurMatiere.id}) }}" class="btn btn-secondary">lire</a>
-                <a href="{{ path('professeurMatiere_edition', {'id': professeurMatiere.id}) }}" class="btn btn-secondary">editer</a>
+                {#<a href="{{ path('professeurMatiere_affichage', {'id': professeurMatiere.id}) }}" class="btn btn-secondary">lire</a>#}
+                {#  <a href="{{ path('professeurMatiere_edition', {'id': professeurMatiere.id}) }}" class="btn btn-secondary">editer</a>#}
             </td>
         </tr>
     {% endfor %}

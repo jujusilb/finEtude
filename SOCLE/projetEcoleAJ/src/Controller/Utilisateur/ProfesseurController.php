@@ -19,11 +19,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ProfesseurController extends AbstractController
 {
 
-        private $passwordHasher;
+    private $passwordHasher;
 
-        public function __construct(UserPasswordHasherInterface $passwordHasher){
-            $this -> passwordHasher=$passwordHasher;
-        }
+    public function __construct(UserPasswordHasherInterface $passwordHasher){
+        $this -> passwordHasher=$passwordHasher;
+    }
 
     #[Route('/index', name: 'index')]
     public function index(MatiereRepository $matiereRepo, ProfesseurRepository $professeurRepo): Response
@@ -35,7 +35,7 @@ class ProfesseurController extends AbstractController
             'professeurs' => $professeurRepo->findAll(),
             'matieres' => $matiereRepo->findAll(),
         ]);
-}
+    }
 
 
     

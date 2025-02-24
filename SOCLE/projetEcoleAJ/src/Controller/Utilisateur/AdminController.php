@@ -51,8 +51,8 @@ class AdminController extends AbstractController
             $admin->setPassword($this->passwordHasher->hashPassword($admin, $admin->getPassword()));
              
             $getter =new CouteauSuisse();
-            $username= $getter->getUsername($admin);
-            $email =$getter->getEmail($admin, $username);
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
             $admin->setUsername($username);
             $admin->setEmail($email);
 

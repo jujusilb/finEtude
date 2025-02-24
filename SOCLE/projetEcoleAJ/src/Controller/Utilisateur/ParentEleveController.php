@@ -54,8 +54,8 @@ class ParentEleveController extends AbstractController
             $parentEleve->setPassword($this->passwordHasher->hashPassword($parentEleve, $parentEleve->getPassword()));
             
             $getter =new CouteauSuisse();
-            $username= $getter->getUsername($parentEleve);
-            $email =$getter->getEmail($parentEleve, $username);
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
             $parentEleve->setUsername($username);
             $parentEleve->setEmail($email);
 

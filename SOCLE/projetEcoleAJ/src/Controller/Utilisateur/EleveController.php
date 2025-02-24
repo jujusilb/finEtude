@@ -52,8 +52,8 @@ class EleveController extends AbstractController
             $eleve->setPassword($this->passwordHasher->hashPassword($eleve, $eleve->getPassword()));
             
             $getter =new CouteauSuisse();
-            $username= $getter->getUsername($eleve);
-            $email =$getter->getEmail($eleve, $username);
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
             $eleve->setUsername($username);
             $eleve->setEmail($email);
             

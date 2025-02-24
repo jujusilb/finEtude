@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProfesseurType extends AbstractType
@@ -28,9 +29,7 @@ class ProfesseurType extends AbstractType
                 ],
                 'required'   => true,
                 'disabled' => false,
-               
             ])
-
             ->add('prenom', TextType::class, [
                 'label' => 'Prénom',
                 'attr' =>[
@@ -39,7 +38,6 @@ class ProfesseurType extends AbstractType
                 ],
                 'required'   => true,
                 'disabled' => false,
-                
             ])
 
             ->add('password', TextType::class, [
@@ -51,7 +49,6 @@ class ProfesseurType extends AbstractType
                 'required'   => true,
                 'disabled'=> false, 
             ])
-
             ->add('date_embauche', DateType::class, [
                 'label' => 'Date d\'embauche',
                 'placeholder' =>[
@@ -61,16 +58,22 @@ class ProfesseurType extends AbstractType
                 ],
                 'attr' => [
                     'aria-label' =>'Date d\'embauche',
-                    
                 ]
             ]) 
             ->add('poste', TelType::class, [
-                'label' => 'Poste',
+                'label' => 'Numéro de Poste',
                 'attr' => [
-                    'aria-label' => 'Poste',
+                    'aria-label' => 'Numéro de Poste',
                     'placeholder' => '0123456789'
                 ]
             ]) 
+            ->add('jetonRepas', integerType::class,[
+                'label'=>'Nombre de jeton-repas',
+                'attr'=>[
+                    'aria-label'=>'Nombre de jeton-repas',
+                    'placeholder'=>'Nombre de jeton-repas'
+                ],
+            ])
             ->add('imageFile', VichImageType::class, [
                 'required'=>false
             ])

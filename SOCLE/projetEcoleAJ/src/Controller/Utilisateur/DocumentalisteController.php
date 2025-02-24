@@ -53,8 +53,8 @@ class DocumentalisteController extends AbstractController
             $documentaliste->setPassword($this->passwordHasher->hashPassword($documentaliste, $documentaliste->getPassword()));
             
             $getter =new CouteauSuisse();
-            $username= $getter->getUsername($documentaliste);
-            $email =$getter->getEmail($documentaliste, $username);
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
             $documentaliste->setUsername($username);
             $documentaliste->setEmail($email);
            

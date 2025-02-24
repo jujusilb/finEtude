@@ -26,8 +26,21 @@
                     <td>{{ repas.date | date('d/m/Y') }}</td>
                     <td>{{ repas.heure }}</td>
                     <td>
-                        <a href="{{ path('repas_affichage', {'id': repas.id}) }}" class="btn btn-secondary">lire</a>
-                        <a href="{{ path('repas_edition', {'id': repas.id}) }}" class="btn btn-secondary">editer</a>
+                       {% set userHasOrdered = false %}
+{% for planning in repas.planningRepas %}
+    {% if planning.membre.id == app.user.id %}
+        {% set userHasOrdered = true %}
+    {% endif %}
+{% endfor %}
+
+{% if userHasOrdered %}
+    Repas déjà commandé.
+{% elseif app.user.jetonRepas > 0 %}
+    <a href="{{ path('planningRepas_achat', {'repas': repas.id}) }}" class="btn btn-secondary">Commander ce repas</a>
+{% else %}
+    Vous n'avez plus de jeton-repas
+{% endif %}
+
                     </td>
                 </tr>
             {% endfor %}

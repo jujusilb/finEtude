@@ -2,7 +2,7 @@
 
 namespace App\Entity\Cantine;
 
-use App\Repository\Cuisine\MenuRepository;
+use App\Repository\Cantine\MenuRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;

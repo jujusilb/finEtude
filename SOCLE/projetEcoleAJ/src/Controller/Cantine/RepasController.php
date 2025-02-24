@@ -26,6 +26,16 @@ class RepasController extends AbstractController
         ]);
     }
 
+    #[Route('/listeRepas', name: 'listeRepas')]
+    public function listeRepas(RepasRepository $repasRepo): Response
+    {
+        
+        return $this->render('cantine/repas/listeRepas.html.twig', [
+            'controller_name' => 'RepasController',
+            'titre' =>'Liste repas',
+            'repass' => $repasRepo->findAll(),
+        ]);
+    }
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
     public function new (Request $request, EntityManagerInterface $entityManager): Response
