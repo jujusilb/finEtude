@@ -2,6 +2,7 @@
 
 namespace App\Entity\CDI;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\CDI\StatutEmpruntRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -15,7 +16,14 @@ class StatutEmprunt
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 20)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 2,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $libelle = null;
 
     /**

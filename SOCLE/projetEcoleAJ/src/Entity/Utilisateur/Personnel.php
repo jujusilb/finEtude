@@ -2,7 +2,7 @@
 
 namespace App\Entity\Utilisateur;
 
-use App\Entity\Pedagogie\Pole;
+use App\Entity\Etablissement\Pole;
 use App\Entity\Utilisateur\User;
 use App\Entity\Utilisateur\Adulte;
 use App\Entity\Utilisateur\Cuisine;

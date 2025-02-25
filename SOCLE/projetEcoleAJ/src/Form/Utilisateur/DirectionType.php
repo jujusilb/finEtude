@@ -3,7 +3,7 @@
 namespace App\Form\Utilisateur;
 
 use App\Entity\Utilisateur\Direction;
-
+use App\Entity\Etablissement\Pole;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class DirectionType extends AbstractType
 {
@@ -41,7 +42,12 @@ class DirectionType extends AbstractType
                 'disabled' => false,
                 
             ])
-
+            ->add('pole', EntityType::class,[
+                'class'=>Pole::class,
+                'choice_label'=>'libelle',
+                'expanded'=>true,
+                'multiple'=>true
+            ])
             ->add('password', TextType::class, [
                 'label' => 'Mot de passe',
                 'attr' =>[
@@ -51,7 +57,13 @@ class DirectionType extends AbstractType
                 'required'   => true,
                 'disabled'=> false, 
             ])
-
+            ->add('jetonRepas', IntegerType::class, [
+                'label'=>'Nombre de jeton-repas',
+                'attr'=>[
+                    'aria-label'=>'Nombre de jeton-repas',
+                    'placeholder'=>'Nombre de jeton-repas'
+                ]
+            ])
             ->add('date_embauche', DateType::class, [
                 'label' => 'Date d\'embauche',
                 'placeholder' =>[
@@ -63,13 +75,6 @@ class DirectionType extends AbstractType
                     'aria-label' =>'Date d\'embauche',
                 ]
             ]) 
-            ->add('jeton_repas', integerType::class, [
-                'label'=>'Nombre de jeton-repas',
-                'attr'=>[
-                    'aria-label'=>'nombre de jeton-repas',
-                    'placeholder'=>'Nombre de jeton-repas',
-                ]
-            ])
             ->add('poste', TelType::class, [
                 'label' => 'Poste',
                 'attr' => [

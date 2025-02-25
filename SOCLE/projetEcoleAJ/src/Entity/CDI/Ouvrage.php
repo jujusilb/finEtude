@@ -2,6 +2,7 @@
 
 namespace App\Entity\CDI;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\CDI\OuvrageRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -16,7 +17,14 @@ class Ouvrage
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 255,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $titre = null;
 
     /**
@@ -41,15 +49,18 @@ class Ouvrage
         $this->categorieOuvrages = new ArrayCollection();
     }
 
-    public function getId(): ?int{
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
-    public function getTitre(): ?string{
+    public function getTitre(): ?string
+    {
         return $this->titre;
     }
 
-    public function setTitre(string $titre): static{
+    public function setTitre(string $titre): static
+    {
         $this->titre = $titre;
         return $this;
     }

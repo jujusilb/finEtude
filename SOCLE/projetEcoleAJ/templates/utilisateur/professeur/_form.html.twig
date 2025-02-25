@@ -39,8 +39,14 @@
             {{ form_widget(professeurForm.poste, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
         </div>
     </div>
+    <div>
 
+    </div>
     <div class="row">
+        <div class="col-sm-12">
+            <label for="professeur__form_pole">pôle</label>
+            {{ form_widget(professeurForm.pole, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
         <!-- Quatrième ligne : Jeton repas -->
         <div class="col-sm-12">
             <label for="professeur_jeton_repas">Nombre de Jeton-repas</label>

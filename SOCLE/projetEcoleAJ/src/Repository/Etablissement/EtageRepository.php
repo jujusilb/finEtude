@@ -1,40 +1,40 @@
 <?php
 
-namespace App\Repository\Pedagogie;
+namespace App\Repository\Etablissement;
 
-use App\Entity\Pedagogie\Pole;
+use App\Entity\Etablissement\Etage;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Pole>
+ * @extends ServiceEntityRepository<Etage>
  */
-class PoleRepository extends ServiceEntityRepository
+class EtageRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Pole::class);
+        parent::__construct($registry, Etage::class);
     }
 
 //    /**
-//     * @return Pole[] Returns an array of Pole objects
+//     * @return Etage[] Returns an array of Etage objects
 //     */
 //    public function findByExampleField($value): array
 //    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
+//        return $this->createQueryBuilder('e')
+//            ->andWhere('e.exampleField = :val')
 //            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
+//            ->orderBy('e.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Pole
+//    public function findOneBySomeField($value): ?Etage
 //    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
+//        return $this->createQueryBuilder('e')
+//            ->andWhere('e.exampleField = :val')
 //            ->setParameter('val', $value)
 //            ->getQuery()
 //            ->getOneOrNullResult()

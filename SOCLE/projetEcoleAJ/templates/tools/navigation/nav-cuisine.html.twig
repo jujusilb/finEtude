@@ -104,13 +104,21 @@
         <li>
             <a class='dropdown-arrow' href='{{path('documentaliste_index')}}'>CDI</a>
             <ul class='sub-menus'>
-                <li><a href='{{path('ouvrage_catalogue')}}'>Catalogue du CDI</a></li>
+                <li><a href='{{path('ouvrage_')}}'>Catalogue du CDI</a></li>
                 <li><a href='{{path('emprunt_mesEmprunts')}}'>Mes Emprunts</a></li>
             </ul>
         </li>
-        <li><a href='{{path('planningRepas_index')}}'>liste des repas</a></li>
+		    <a class='dropdown-arrow' href='#'>Repas</a>
+           	<ul class='sub-menus'>
+                <li><a href='{{path('planningRepas_index')}}'>Planning Repas</a></li>
+                <li><a href='{{path('repas_monPlanning')}}'>Mes</a></li>
+				<li><a href='{{path('repas_index')}}'>Repas</a></li>
+                <li><a href='{{path('repas_listeRepas')}}'>liste repas</a></li>
+				<li><a href='{{path('menu_index')}}'>Menu</a></li>
+            </ul>
+        </li>
         <li>
-			<a>Menu</a>
+		    <a class='dropdown-arrow' href='#'>Menus</a>
 			<ul class="sub-menus">
 				<li><a href='{{ path('menu_index') }}'>liste des Menu</a></li>
 				<li><a href="http://">Création de menus</a></li>

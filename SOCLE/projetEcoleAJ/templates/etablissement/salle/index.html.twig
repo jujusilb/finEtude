@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello salleController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>libelle</th>
+                <th>Promotion résidente</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for salle in salles %}
+                <tr>
+                    <td>{{salle.id}}</td>
+                    <td>{{ salle.libelle }}</td>
+                    <td>
+                        {% if salle.promoPrincipale | length > 0 %}
+                            {{ salle.promoPrincipale.libelle }}</td>
+                        {% else %}
+                            Aucune promotion résidente  
+                        {% endif %}
+                    <td>
+                        <a href="{{ path('salle_affichage', {'id': salle.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('salle_edition', {'id': salle.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('salle_nouveau') }}" class="btn" >Creer Nouveau salle</a>
+{% endblock %}

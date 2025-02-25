@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Form\Utilisateur;
-
+use App\Entity\Etablissement\Pole;
 use App\Entity\Utilisateur\Insertion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -11,7 +11,9 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class InsertionType extends AbstractType
 {
@@ -28,7 +30,12 @@ class InsertionType extends AbstractType
             'disabled' => false,
            
         ])
-
+        ->add('pole', EntityType::class,[
+            'class'=>Pole::class,
+            'choice_label'=>'libelle',
+            'expanded'=>true,
+            'multiple'=>true
+        ])
         ->add('prenom', TextType::class, [
             'label' => 'Prénom',
             'attr' =>[
@@ -49,7 +56,13 @@ class InsertionType extends AbstractType
             'required'   => true,
             'disabled'=> false, 
         ])
-
+        ->add('jeton_repas', IntegerType::class, [
+            'label'=>'Nombre de jeton-repas',
+            'attr'=>[
+                'aria-label'=>'Nombre de jeton-repas',
+                'placeholder'=>'Nombre de jeton-repas'
+            ]
+        ])
         ->add('date_embauche', DateType::class, [
             'label' => 'Date d\'embauche',
             'placeholder' =>[

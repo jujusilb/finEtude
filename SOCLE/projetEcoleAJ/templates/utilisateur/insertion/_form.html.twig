@@ -1,32 +1,59 @@
 {{ form_start(insertionForm) }}
-    <div class="col">
-                    <label for="insertion_date_embauche">Date d'embauche</label>
-                    <div class="row">
-                        {{ form_widget(insertionForm.date_embauche.day, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
-                        {{ form_widget(insertionForm.date_embauche.month, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
-                        {{ form_widget(insertionForm.date_embauche.year, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
-                    </div>
-                </div>
-                <div class="col">
-                    {{ form_widget(insertionForm.imageFile, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="insertion_Nom">Nom</label>
-                        {{ form_widget(insertionForm.nom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
-                    </div>
-                    <div class="col">
-                        <label for="insertion_prenom">Prénom</label>
-                        {{ form_widget(insertionForm.prenom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
-                    </div>
-                    <div class="col">
-                        <label for="insertion_password">Mot de passe</label>
-                        {{ form_widget(insertionForm.password, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
-                    </div>
-                    <div class="col">
-                        <label for="insertion_poste">Téléphone bureau</label>
-                        {{ form_widget(insertionForm.poste, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
-                    </div>
-                </div>
+
+    <div class="row">
+        <!-- Première ligne : Nom et Prénom -->
+        <div class="col-sm-6">
+            <label for="insertion_Nom">Nom</label>
+            {{ form_widget(insertionForm.nom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <div class="col-sm-6">
+            <label for="insertion_prenom">Prénom</label>
+            {{ form_widget(insertionForm.prenom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Deuxième ligne : Mot de passe et Image -->
+        <div class="col-sm-6">
+            <label for="insertion_password">Mot de passe</label>
+            {{ form_widget(insertionForm.password, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <div class="col-sm-6">
+            <label for="insertion_image_file">Image</label>
+            {{ form_widget(insertionForm.imageFile, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Troisième ligne : Date d'embauche et Téléphone bureau -->
+        <div class="col-sm-6">
+            <label for="date_embauche">Date d'embauche</label>
+            <div class="row">
+                {{ form_widget(insertionForm.date_embauche.day, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+                {{ form_widget(insertionForm.date_embauche.month, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+                {{ form_widget(insertionForm.date_embauche.year, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <label for="insertion_poste">Téléphone bureau</label>
+            {{ form_widget(insertionForm.poste, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+    <div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <label for="insertion__form_pole">pôle</label>
+            {{ form_widget(insertionForm.pole, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <!-- Quatrième ligne : Jeton repas -->
+        <div class="col-sm-12">
+            <label for="insertion_jeton_repas">Nombre de Jeton-repas</label>
+            {{ form_widget(insertionForm.jeton_repas, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+
     <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+
 {{ form_end(insertionForm) }}

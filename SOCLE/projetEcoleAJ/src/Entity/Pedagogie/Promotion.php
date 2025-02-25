@@ -2,6 +2,7 @@
 
 namespace App\Entity\Pedagogie;
 
+use App\Entity\Etablissement\Salle;
 use App\Entity\Utilisateur\Eleve;
 use App\Entity\Utilisateur\Professeur;
 use App\Repository\Pedagogie\PromotionRepository;
@@ -48,6 +49,16 @@ private Collection $exercices;
 #[ORM\OneToOne(inversedBy: 'promotion', cascade: ['persist', 'remove'])]
 private ?Professeur $referent = null;
 
+/**
+ * @var Collection<int, Salle>
+ */
+#[ORM\ManyToMany(targetEntity: Salle::class, mappedBy: 'promotion')]
+private Collection $salles;
+
+#[ORM\OneToOne(inversedBy: 'promoPrincipale', cascade: ['persist', 'remove'])]
+#[ORM\JoinColumn(nullable: false)]
+private ?Salle $sallePrincipale = null;
+
 
 
 public function getProgrammes(): Collection
@@ -63,6 +74,7 @@ public function getProgrammes(): Collection
         $this->programmes = new ArrayCollection();
         $this->cours = new ArrayCollection();
         $this->exercices = new ArrayCollection();
+        $this->salles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -200,6 +212,45 @@ public function getProgrammes(): Collection
     public function setReferent(?Professeur $referent): static
     {
         $this->referent = $referent;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Salle>
+     */
+    public function getSalles(): Collection
+    {
+        return $this->salles;
+    }
+
+    public function addSalle(Salle $salle): static
+    {
+        if (!$this->salles->contains($salle)) {
+            $this->salles->add($salle);
+            $salle->addPromotion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSalle(Salle $salle): static
+    {
+        if ($this->salles->removeElement($salle)) {
+            $salle->removePromotion($this);
+        }
+
+        return $this;
+    }
+
+    public function getSallePrincipale(): ?Salle
+    {
+        return $this->sallePrincipale;
+    }
+
+    public function setSallePrincipale(Salle $sallePrincipale): static
+    {
+        $this->sallePrincipale = $sallePrincipale;
 
         return $this;
     }

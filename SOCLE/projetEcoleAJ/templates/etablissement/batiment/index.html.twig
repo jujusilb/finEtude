@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello batimentController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>libelle</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for batiment in batiments %}
+                <tr>
+                    <td>{{batiment.id}}</td>
+                    <td>{{ batiment.libelle }}</td>
+                    <td>
+                        <a href="{{ path('batiment_affichage', {'id': batiment.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('batiment_edition', {'id': batiment.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('batiment_nouveau') }}" class="btn" >Creer Nouveau batiment</a>
+{% endblock %}

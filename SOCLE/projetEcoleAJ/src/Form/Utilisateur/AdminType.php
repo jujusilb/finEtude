@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\CallbackTransformer;
 
 
@@ -46,6 +47,13 @@ class AdminType extends AbstractType
                 ],
                 'required'   => true,
                 'disabled'=> false, 
+            ])
+            ->add('jeton_repas', IntegerType::class, [
+                'label'=>'Nombre de jeton-repas',
+                'attr'=>[
+                    'aria-label'=>'Nombre de jeton-repas',
+                    'placeholder'=>'Nombre de jeton-repas'
+                ]
             ])
             ->add('imageFile', VichImageType::class, [
                 'required'=>false

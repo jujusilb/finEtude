@@ -3,16 +3,18 @@
 namespace App\Form\Utilisateur;
 
 use App\Entity\Utilisateur\Surveillant;
-
+use App\Entity\Etablissement\Pole;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class SurveillantType extends AbstractType
 {
@@ -50,7 +52,19 @@ class SurveillantType extends AbstractType
                 'required'   => true,
                 'disabled'=> false, 
             ])
-
+            ->add('jetonRepas', integerType::class,[
+                'label'=>'Nombre de jeton-repas',
+                'attr'=>[
+                    'aria-label'=>'Nombre de jeton-repas',
+                    'placeholder'=>'Nombre de jeton-repas'
+                ],
+            ])
+            ->add('pole', EntityType::class,[
+                'class'=>Pole::class,
+                'choice_label'=>'libelle',
+                'expanded'=>true,
+                'multiple'=>true
+            ])
             ->add('date_embauche', DateType::class, [
                 'label' => 'Date d\'embauche',
                 'placeholder' =>[
@@ -60,7 +74,6 @@ class SurveillantType extends AbstractType
                 ],
                 'attr' => [
                     'aria-label' =>'Date d\'embauche',
-                    
                 ]
             ]) 
             ->add('poste', TelType::class, [
