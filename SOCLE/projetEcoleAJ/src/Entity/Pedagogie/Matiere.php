@@ -2,6 +2,7 @@
 
 namespace App\Entity\Pedagogie;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Utilisateur\Membre;
 use App\Repository\Pedagogie\MatiereRepository;
 
@@ -17,7 +18,14 @@ class Matiere
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 50,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $libelle = null;
 
     /**

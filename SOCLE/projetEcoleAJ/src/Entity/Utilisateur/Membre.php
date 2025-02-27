@@ -2,7 +2,10 @@
 
 namespace App\Entity\Utilisateur;
 
+use App\Entity\Boutique\Commande;
+use App\Entity\Boutique\membreEvent;
 use App\Entity\Cantine\PlanningRepas;
+use App\Entity\Etablissement\Boutique;
 use App\Entity\Utilisateur\User;
 use App\Entity\Utilisateur\Admin;
 use App\Entity\Utilisateur\Adulte;
@@ -119,7 +122,23 @@ class Membre extends User
 
     #[ORM\Column]
     #[Assert\GreaterThanOrEqual(value: 0, message: "Le nombre de jetons ne peut pas être négatif.")]
-    private ?int $jetonRepas = null; // Valeur par défaut
+    private ?int $jetonRepas = null;
+
+    /**
+     * @var Collection<int, Commande>
+     */
+    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'membre')]
+    private Collection $commandes;
+
+
+    /**
+     * @var Collection<int, membreEvent>
+     */
+    #[ORM\OneToMany(targetEntity: membreEvent::class, mappedBy: 'membre')]
+    private Collection $membreEvents;
+
+
+
 
     
     public function __construct(){
@@ -130,6 +149,8 @@ class Membre extends User
         $this->receiverMess = new ArrayCollection();
         $this->planningRepas = new ArrayCollection();
         $this->emprunts = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
+        $this->membreEvents = new ArrayCollection();
     }
 
 
@@ -413,6 +434,71 @@ class Membre extends User
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommandes(): Collection
+    {
+        return $this->commandes;
+    }
+
+    public function addCommande(Commande $commande): static
+    {
+        if (!$this->commandes->contains($commande)) {
+            $this->commandes->add($commande);
+            $commande->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): static
+    {
+        if ($this->commandes->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getMembre() === $this) {
+                $commande->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
+    /**
+     * @return Collection<int, membreEvent>
+     */
+    public function getMembreEvents(): Collection
+    {
+        return $this->membreEvents;
+    }
+
+    public function addMembreEvent(membreEvent $membreEvent): static
+    {
+        if (!$this->membreEvents->contains($membreEvent)) {
+            $this->membreEvents->add($membreEvent);
+            $membreEvent->setMembre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMembreEvent(membreEvent $membreEvent): static
+    {
+        if ($this->membreEvents->removeElement($membreEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($membreEvent->getMembre() === $this) {
+                $membreEvent->setMembre(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
     
     
 }

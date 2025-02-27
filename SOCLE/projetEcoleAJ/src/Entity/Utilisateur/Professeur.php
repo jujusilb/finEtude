@@ -44,8 +44,7 @@ class Professeur extends Personnel{
     #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'professeur')]
     private Collection $exercices;
 
-    #[ORM\OneToOne(mappedBy: 'referent', cascade: ['persist', 'remove'])]
-    private ?Promotion $promotion = null;
+   
 
     
 
@@ -179,34 +178,5 @@ class Professeur extends Personnel{
         return $this;
     }
 
-    public function getPromotion(): ?Promotion
-    {
-        return $this->promotion;
-    }
-
-    public function setPromotion(?Promotion $promotion): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($promotion === null && $this->promotion !== null) {
-            $this->promotion->setReferent(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($promotion !== null && $promotion->getReferent() !== $this) {
-            $promotion->setReferent($this);
-        }
-
-        $this->promotion = $promotion;
-
-        return $this;
-    }
-
-
-
-
-
-
-
-
-
+  
 }

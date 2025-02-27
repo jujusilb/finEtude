@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello viandeController!{% endblock %}
+
+{% block body %}
+    
+<H1>Produit</h1>
+{% include 'boutique/boutique/archive/archiveProduit.html.twig' %}
+
+<hr><hr>
+<h1>Evenement</h1>
+{% include 'boutique/boutique/archive/archive-Event.html.twig' %}
+
+    <a href="{{ path('viande_nouveau') }}" class="btn" >Creer Nouveau viande</a>
+{% endblock %}

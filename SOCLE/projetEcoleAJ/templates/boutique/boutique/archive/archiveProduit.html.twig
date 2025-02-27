@@ -1,0 +1,31 @@
+
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>created_at</th>
+                <th>libelle</th>
+                <th>type</th>
+                <th>Description</th>
+                <th>prix</th>
+                <th>stock</th>
+             
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produit in produits %}
+                <tr>
+                    <td>{{ produit.createdAt | date ('d/m/Y')}}</td>
+                    <td>{{ produit.libelle }}</td>
+                    <td>{{ produit.type }}</td>
+                    <td>{{ produit.description }}</td>
+                    <td>{{ produit.stock }}</td>  
+                    <td>{{ produit.prix }}</td>
+                    <td>
+                        <a href="{{ path('produit_affichage', {'id': produit.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('produit_edition', {'id': produit.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>

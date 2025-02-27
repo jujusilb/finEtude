@@ -2,6 +2,7 @@
 
 namespace App\Entity\Pedagogie;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Etablissement\Salle;
 use App\Entity\Utilisateur\Eleve;
 use App\Entity\Utilisateur\Professeur;
@@ -19,7 +20,14 @@ class Promotion
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 20,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $libelle = null;
 
     /**
@@ -46,8 +54,7 @@ private Collection $cours;
 #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'promotion')]
 private Collection $exercices;
 
-#[ORM\OneToOne(inversedBy: 'promotion', cascade: ['persist', 'remove'])]
-private ?Professeur $referent = null;
+
 
 /**
  * @var Collection<int, Salle>
@@ -55,10 +62,8 @@ private ?Professeur $referent = null;
 #[ORM\ManyToMany(targetEntity: Salle::class, mappedBy: 'promotion')]
 private Collection $salles;
 
-#[ORM\OneToOne(inversedBy: 'promoPrincipale', cascade: ['persist', 'remove'])]
-#[ORM\JoinColumn(nullable: false)]
-private ?Salle $sallePrincipale = null;
-
+#[ORM\OneToOne(mappedBy: 'promoPrincipale', cascade: ['persist', 'remove'])]
+private ?Salle $SallePrincipale = null;
 
 
 public function getProgrammes(): Collection
@@ -204,17 +209,7 @@ public function getProgrammes(): Collection
         return $this;
     }
 
-    public function getReferent(): ?Professeur
-    {
-        return $this->referent;
-    }
-
-    public function setReferent(?Professeur $referent): static
-    {
-        $this->referent = $referent;
-
-        return $this;
-    }
+   
 
     /**
      * @return Collection<int, Salle>
@@ -245,12 +240,22 @@ public function getProgrammes(): Collection
 
     public function getSallePrincipale(): ?Salle
     {
-        return $this->sallePrincipale;
+        return $this->SallePrincipale;
     }
 
-    public function setSallePrincipale(Salle $sallePrincipale): static
+    public function setSallePrincipale(?Salle $SallePrincipale): static
     {
-        $this->sallePrincipale = $sallePrincipale;
+        // unset the owning side of the relation if necessary
+        if ($SallePrincipale === null && $this->SallePrincipale !== null) {
+            $this->SallePrincipale->setPromoPrincipale(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($SallePrincipale !== null && $SallePrincipale->getPromoPrincipale() !== $this) {
+            $SallePrincipale->setPromoPrincipale($this);
+        }
+
+        $this->SallePrincipale = $SallePrincipale;
 
         return $this;
     }

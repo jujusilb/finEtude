@@ -29,7 +29,7 @@ class Salle
     #[ORM\ManyToMany(targetEntity: Promotion::class, inversedBy: 'salles')]
     private Collection $promotion;
 
-    #[ORM\OneToOne(mappedBy: 'sallePrincipale', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'sallePrincipale', cascade: ['persist', 'remove'])]
     private ?Promotion $promoPrincipale = null;
 
     public function __construct()

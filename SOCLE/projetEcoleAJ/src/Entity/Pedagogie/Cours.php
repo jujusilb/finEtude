@@ -2,6 +2,7 @@
 
 namespace App\Entity\Pedagogie;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Utilisateur\Professeur;
 use App\Repository\Pedagogie\CoursRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -21,7 +22,14 @@ class Cours
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 100,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $libelle = null;
 
     #[ORM\ManyToOne(inversedBy: 'Cours')]
@@ -30,7 +38,7 @@ class Cours
 
 
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
     private ?string $fichier = null;
 
     private ?File $file = null;
@@ -92,12 +100,12 @@ class Cours
     }
 
 
-    public function getFichier(): ?string
+    public function getFichier(): ?file
     {
         return $this->fichier;
     }
 
-    public function setFichier(string $fichier): static
+    public function setFichier(file $fichier): static
     {
         $this->fichier = $fichier;
 

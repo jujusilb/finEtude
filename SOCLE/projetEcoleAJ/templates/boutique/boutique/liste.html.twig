@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello viandeController!{% endblock %}
+
+{% block body %}
+
+  {% for titre, produits in produitss %}
+  <H1>{{ titre | upper }}</h1>
+  {% include 'boutique/boutique/liste/listeProduit.html.twig' %}
+  {% endfor %}
+  
+{#{% include 'boutique/boutique/liste/listeProduit.html.twig' %}#}
+
+<hr><hr>
+
+    <a href="{{ path('viande_nouveau') }}" class="btn" >Creer Nouveau viande</a>
+{% endblock %}

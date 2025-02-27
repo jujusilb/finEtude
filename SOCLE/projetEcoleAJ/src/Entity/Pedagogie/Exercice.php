@@ -2,6 +2,7 @@
 
 namespace App\Entity\Pedagogie;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Utilisateur\Professeur;
 use App\Repository\Pedagogie\ExerciceRepository;
 
@@ -33,7 +34,14 @@ class Exercice
     #[ORM\JoinColumn(nullable: false)]
     private ?Professeur $professeur = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 100,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $libelle = null;
 
     #[ORM\Column(length: 255)]

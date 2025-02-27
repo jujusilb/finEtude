@@ -2,6 +2,7 @@
 
 namespace App\Entity\Professionnel;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Professionnel\Professionnel;
 use App\Entity\Utilisateur\Eleve;
 use App\Repository\Professionnel\StageRepository;
@@ -22,7 +23,14 @@ class Stage
     #[ORM\ManyToOne(inversedBy: 'stages')]
     private ?Professionnel $responsable = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 255,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $fonction = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]

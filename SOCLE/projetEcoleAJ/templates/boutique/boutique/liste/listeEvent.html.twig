@@ -1,0 +1,34 @@
+<table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date de création</th>
+                <th>libelle</th>
+                <th>description</th>
+                <th>Date event</th>
+                <th>prix</th>
+                <th>stock</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+                <tr>
+                    <td>{{ event.id}}</td>
+                    <td>{{ event.createdAt | date('d/m/Y')}}
+                    <td>{{ event.libelle }}</td>
+                    <td>{{ event.description }}</td>
+                    <td>{{ event.dateEvent | date('d/m/Y') }}</td>
+                    <td>{{ event.prix }}</td>
+                    <td>{{ event.stock }}</td>  
+                    <td>
+                        <form id="form-P{{ event.id }}" method="POST" action="{{ path('boutique_achatevent', {'idProduit': produit.id}) }}">
+                        <label for="quantity-P{{ produit.id }}">Quantité</label>
+                        <input type="number" name="quantity" min="1" step="1" max="{{ produit.stock }}" id="quantity-P{{ produit.id }}" value="1" required class="form-control" style="width: 80px; display: inline-block;">
+                        <button type="submit" class="btn btn-secondary" style="display: inline-block;">Acheter</button>
+                    </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
