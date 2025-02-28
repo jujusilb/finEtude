@@ -2,6 +2,7 @@
 
 namespace App\Entity\Etablissement;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Pedagogie\Promotion;
 use App\Repository\Etablissement\SalleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,7 +17,14 @@ class Salle
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 15)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 50,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $libelle = null;
 
     #[ORM\ManyToOne(inversedBy: 'salles')]
@@ -29,7 +37,8 @@ class Salle
     #[ORM\ManyToMany(targetEntity: Promotion::class, inversedBy: 'salles')]
     private Collection $promotion;
 
-    #[ORM\OneToOne(inversedBy: 'sallePrincipale', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'SallePrincipale')]
+    #[ORM\JoinColumn(nullable: true)] // Permet à SallePrincipale d'être null
     private ?Promotion $promoPrincipale = null;
 
     public function __construct()

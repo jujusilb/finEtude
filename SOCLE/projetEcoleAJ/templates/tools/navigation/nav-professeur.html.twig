@@ -155,11 +155,26 @@
                 <li><a href='{{path('planningRepas_monPlanning')}}'>Mes repas</a></li>
             </ul>
         <li><a href='{{path('forum_index')}}'>Forum</a></li>
-		<li><a href='{{path('messagerie_index')}}'>Messagerie</a></li>
+		<li>
+			<a href="#">Boutique</a>
+			<ul class="sub-menus">
+				<li>
+					<a href="{{path('boutique_liste')}}">
+						liste des Produit
+					</a>
+				</li>
+				<li>
+					<a href="{{path('commande_mesCommande')}}">
+						mes Achats
+					</a>
+				</li>
+			</ul>
+		</li>
 		<li>
 			<a href="#">{{ app.user.username }}</a>
 			<ul class='sub-menus'>	
 				<li><a href="{{ path('membre_affichage', {'id': app.user.id }) }}">Mon Profil</a></li>
+				<li><a href='{{path('messagerie_index')}}'>Messagerie</a></li>
 				<li><a href="{{ path('app_logout') }}">Se déconnecter</a></li> 
 			</ul>
 		</li>

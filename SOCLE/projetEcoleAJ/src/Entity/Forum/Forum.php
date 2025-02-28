@@ -15,7 +15,14 @@ class Forum
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 10,
+        max: 50,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $libelle = null;
 
     #[ORM\Column(length: 255)]

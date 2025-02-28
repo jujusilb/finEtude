@@ -2,6 +2,7 @@
 
 namespace App\Entity\Forum;
 
+
 use App\Entity\Forum\SubForum;
 use App\Repository\Forum\ThreadRepository;
 use App\Entity\Utilisateur\Membre;
@@ -17,10 +18,24 @@ class Thread
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 255,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $libelle = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 10,
+        max: 255,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'threads')]

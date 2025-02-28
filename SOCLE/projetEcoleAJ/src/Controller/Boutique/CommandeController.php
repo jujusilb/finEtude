@@ -5,7 +5,7 @@ namespace App\Controller\Boutique;
 use App\Entity\Boutique\Commande;
 use App\Repository\Boutique\CommandeRepository;
 use App\Form\Boutique\CommandeType;
-
+use App\Entity\Utilisateur\Membre;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +48,7 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Commande $commande): Response
     {
         return $this->render('boutique/commande/show.html.twig', [
@@ -76,7 +76,7 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $commande->getId(), $request->getPayload()->getString('_token'))) {
@@ -85,5 +85,19 @@ class CommandeController extends AbstractController
         }
 
         return $this->redirectToRoute('commande_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/mesCommande', name: 'mesCommande')]
+    public function mesCommade(CommandeRepository $commandeRepo): Response
+    {
+        $user=$this->getUser();
+        if($user instanceof Membre){
+            $commande=$commandeRepo->findBy(['membre'=>$user]);
+        }
+        return $this->render('boutique/commande/index.html.twig', [
+            'controller_name' => 'CommandeController',
+		    'titre' => 'Mes commandes',
+            'commandes' => $commande,
+        ]);
     }
 }

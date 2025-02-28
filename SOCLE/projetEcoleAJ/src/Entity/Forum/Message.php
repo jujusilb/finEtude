@@ -2,6 +2,7 @@
 
 namespace App\Entity\Forum;
 
+
 use App\Repository\Forum\MessageRepository;
 use App\Entity\Utilisateur\Membre;
 
@@ -15,10 +16,24 @@ class Message
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 255,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $sujet = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 2048,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $contenu = null;
 
 
@@ -43,25 +58,37 @@ class Message
     #[ORM\ManyToOne(inversedBy: 'receiverMess')]
     private ?Membre $destinataire = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(nullable: true)]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 50,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $requerant = null;
 
-    public function getId(): ?int {
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
-    public function getSujet(): ?string {
+    public function getSujet(): ?string
+    {
         return $this->sujet;
     }
-    public function setSujet(string $sujet): static {
+    public function setSujet(string $sujet): static
+    {
         $this->sujet = $sujet;
         return $this;
     }
 
-    public function getContenu(): ?string {
+    public function getContenu(): ?string
+    {
         return $this->contenu;
     }
-    public function setContenu(string $contenu): static {
+    public function setContenu(string $contenu): static
+    {
         $this->contenu = $contenu;
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Entity\Pedagogie;
 
+use App\Entity\Etablissement\Pole;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Etablissement\Salle;
 use App\Entity\Utilisateur\Eleve;
@@ -64,6 +65,10 @@ private Collection $salles;
 
 #[ORM\OneToOne(mappedBy: 'promoPrincipale', cascade: ['persist', 'remove'])]
 private ?Salle $SallePrincipale = null;
+
+#[ORM\ManyToOne(inversedBy: 'promotions')]
+#[ORM\JoinColumn(nullable: false)]
+private ?Pole $pole = null;
 
 
 public function getProgrammes(): Collection
@@ -256,6 +261,18 @@ public function getProgrammes(): Collection
         }
 
         $this->SallePrincipale = $SallePrincipale;
+
+        return $this;
+    }
+
+    public function getPole(): ?Pole
+    {
+        return $this->pole;
+    }
+
+    public function setPole(?Pole $pole): static
+    {
+        $this->pole = $pole;
 
         return $this;
     }

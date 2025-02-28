@@ -30,8 +30,7 @@
                     <td>{{ eleve.prenom }}</td>
                     <td>{{ eleve.username }}</td>
                     <td>{{ eleve.email }}</td>
-                    <td>
-                        <a href="{{ path('promotion_affichage', {'id': eleve.promotion.id}) }}">
+                    <td><a href="{{ path('promotion_affichage', {'id': eleve.promotion.id}) }}">
                             {{ eleve.promotion.libelle }}
                         </a>
                     </td>

@@ -50,8 +50,8 @@ class CuisineController extends AbstractController
             $cuisine->setPassword($this->passwordHasher->hashPassword($cuisine, $cuisine->getPassword()));
             
             $getter =new CouteauSuisse();
-            $username= $getter->getUsername($cuisine);
-            $email =$getter->getEmail($cuisine, $username);
+            $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
+            $email =$getter->getEmail($username);
             $cuisine->setUsername($username);
             $cuisine->setEmail($email);
             

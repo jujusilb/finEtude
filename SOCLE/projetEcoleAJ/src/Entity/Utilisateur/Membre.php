@@ -151,6 +151,7 @@ class Membre extends User
         $this->emprunts = new ArrayCollection();
         $this->commandes = new ArrayCollection();
         $this->membreEvents = new ArrayCollection();
+        $this->charte=false;
     }
 
 

@@ -1,0 +1,618 @@
+delete from planning_repas;
+delete from repas;
+delete from commande;
+delete from ouvrage_categorie_ouvrage;
+delete from menu;
+delete from plat;
+delete from viande;
+delete from legume;
+delete from entree;
+delete from dessert;
+delete from fromage;
+delete from professeur_matiere;
+delete from professeur;
+delete from personnel;
+delete from admin;
+delete from adulte;
+delete from categorie_ouvrage;
+
+
+delete from emprunt;
+delete from ouvrage;
+delete from statut_emprunt;
+
+delete from eleve;
+delete from promotion;
+delete from membre;
+delete from user;
+delete from categorie_forum;
+delete from forum;
+delete from produit;
+delete from categorie_produit;
+delete from statut_ouvrage;
+delete from promotion;
+delete from ouvrage_categorie_ouvrage;
+
+
+
+delete from pole;
+delete from matiere;
+delete from entreprise;
+delete from salle;
+delete from etage;
+delete from batiment;
+
+
+
+INSERT INTO `viande` (`id`, `libelle`) VALUES
+(1, 'Boeuf Bourguignon'),
+(2, 'Escalope pané'),
+(3, 'Steak haché'),
+(4, 'Cordon Bleu'),
+(5, 'pilon de poulet'),
+(6, 'Saucisse de Francfort'),
+(7, 'ailes de poulet'),
+(8, 'Canard laqué'),
+(9, 'Brochette'),
+(10, 'Croque monsieur');
+
+
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `discrimination`) VALUES
+(1, 'jdoe@guinot.asso.fr', '[\"ROLE_MEMBRE\"]', '$2y$13$4idRJmJzEgA4Jud/gdPfo.2.g45/Mk7taMpES5ulUXipTOx0/EaVS', 'membre'),
+(2, 'snait-kaci@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$wGcabp7f6AOe/Xh8DmawTukumweP5Yz6gl1L8QpLAEB3TPtD3Ct/K', 'professeur'),
+(4, 'glevy@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$1IRsGoPwffCEM3aKDS/U..3v8BgQilRT/3tmX53ktfNuM3QPNH7aW', 'professeur'),
+(5, 'ipalafot@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$dP3Guz.fX5y6yg9fNCAE0O.WQTad5LSeWyBBG6UkOSVeGiDBYPJ0y', 'professeur'),
+(6, 'eschaff@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$wky7VYhk.Jp5qEQUBSE3vepZYqxPrZVDAlV5bS3gpQtjduJKEvvFW', 'professeur'),
+(7, 'vviala@guinot.asso.fr', '[\"ROLE_ADMIN\"]', '$2y$13$nV6PIIMx7nfY.G.mjwX8pe4o8go5ZErzhAnsKz7cY5f0a2UgRsaMm', 'admin'),
+(8, 'jsilberstein@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_DA2\"]', '$2y$13$i1xTW7dYNq6346tfRaTP7.aTsU7KlCjPWdu2SQqVv5lDiTV/iZxS.', 'eleve'),
+(9, 'adreche@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_DA2\"]', '$2y$13$PVmMyQse0Cw1VKv9DFCSuODLnfLtmCKVNzrM56tSTF7bzM0CQtSBy', 'eleve'),
+(10, 'mlnoel@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_DA2\"]', '$2y$13$scslDbEWj/gbqesfFwICc.JHXgu1TPAty7idx.L3nqkcyDNSIN7Ma', 'eleve'),
+(11, 'amarie@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_DA1\"]', '$2y$13$Iyf9pPSOD6cQ5ACFmdEOc.R3/O5.go41dqeEloFfvoPoTKXEzNJLm', 'eleve'),
+(12, 'cdubois@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_DA1\"]', '$2y$13$aoebZQyp1Ye9W9XRft8vB.6dugVHxLnar3TgZ0iQN05G9ktpp5EpS', 'eleve'),
+(13, 'mmazeau@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_DA1\"]', '$2y$13$BzZ.fodGUL1VLfilh7Po4O56.bfU7K7pge51aw9BfC3ZN3Jbl/UuW', 'eleve'),
+(14, 'mchabira@guinot.asso.fr', '[\"ROLE_INSERTION\"]', '$2y$13$JxdFxn7FR49IQVrIRFhhnu1Mks0lg8JEkMdTuWGQwEiYpRD595Ore', 'insertion'),
+(15, 'dburel@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$jTywhL30v/8v4RlL67gAsewYy3LUZcMNiyiDH5RaiSrMYB3lHapTC', 'professeur'),
+(17, 'mkheiar@guinot.asso.fr', '[\"ROLE_SECRETARIAT\"]', '$2y$13$nh9zRjTqfyc7ynn4hI/nJupoyz58AbQTCloThllkTgy6vrj.F4JWm', 'secretariat'),
+(18, 'cperrin@guinot.asso.fr', '[\"ROLE_DIRECTION\"]', '$2y$13$6bK0OQG65f4NxUc2kFSe.eSUzlwHkMgbk9a11bZWMptwHdcbqTLb6', 'direction'),
+(20, 'lterendij@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_PMK\"]', '$2y$13$45wrmlQazRz4wllpUnH5Weqd6PP6VzT.5ilIrVfLY3nWFpjkMA76W', 'eleve'),
+(21, 'tblondeleau@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$icZ4f32c4U8igXJyoTV8C.tcUPcCGU3Af81/4B.DsDvWRyDPTqdJW', 'professeur'),
+(22, 'rbenyahya@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$QHGe2/J54ypRGCY6W2a3jeqG8aT.j8nZU5GFE7.XHIyjC1dXlImjm', 'professeur'),
+(23, 'msakhraoui@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$boOq3uENeVYOD6pHkvgggO118L7yblILSY6RU9sxbuOplsDWC1qXq', 'professeur'),
+(24, 'hthomas@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$8JjNFm091D2Dr1XyZc97UOVyZSNd0t4a7cdN5fTxjzSFV0LxtRriq', 'professeur'),
+(25, 'mduveau hoaurau@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$I1.aIzpeovVugYg1P8x37uAl7oXenOjnx3CtF5A3xu0N2lRUy1A/G', 'professeur'),
+(26, 'ejeanson@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$vKR.EDEftuy/0TYfZ9PqH.F09PP/d/ZPmCaEriNR5mIkf1ec9Onfe', 'professeur'),
+(27, 'psorentino@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$Ii4qCb06LDhI1CJc5Nq2WOMy9LMeOpE.kC5T1Dxuu8FLMz8eHHHIS', 'professeur'),
+(28, 'epartouche@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$SrHzEy1tfZVjrPjlSJJ9WOsVZsBD/g.dL4SsKTRTN4..Bo4G4uOUa', 'professeur'),
+(29, 'qbalestan@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$H.K9nkDgywkWow3pZiny0OIATGlYHiiYGFHwhaI4KVjAln1TtDQ9W', 'professeur'),
+(30, 'mgranier@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K2\"]', '$2y$13$5by/iMwd5Bwm/oBREOlJnuMr61uoc2jbBDeheAj7tfjwUqd3u.Di2', 'eleve'),
+(31, 'mbelmonte-caussieu@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K5\"]', '$2y$13$ewbrLRHn6qu895tyN806.umcq/uypYsfi5t8tqvC4egUI8cg1QuwG', 'eleve'),
+(32, 'mkaufman@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K1\"]', '$2y$13$CUzISBwkzPiWkJBlgqJdhOeYj/fLhjAMoYfnwHItlyuAWpkeJBa96', 'eleve'),
+(33, 'lservajean@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K4\"]', '$2y$13$y3k1k5zXWOqOAbcKtWpWU.OvWZvGz2n844chE42OKFoUj9iHZpkGG', 'eleve'),
+(34, 'dedimo@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K3\"]', '$2y$13$HgCuzqo7Y1FD.KyXaYu9buJapmGdk0mLAD8WBNZyE9uD0vooFhXp.', 'eleve'),
+(35, 'nchaffey@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K1\"]', '$2y$13$Z1yybtUkQs5wKA0oUAdfCOtqMBvsIhhaNUbgRXkw2ibh3B7nfhG1G', 'eleve'),
+(36, 'mdrouart@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K3\"]', '$2y$13$X27qCjzSjsK6LFdzr/AGduAef3oUjJgr1C9AH8mRmen1R31kHl97q', 'eleve'),
+(37, 'souahabi@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K3\"]', '$2y$13$5AFUeBSyGq/HE46biqcbS.HEcMg9RJymNm7pOYNhqpiyAVyof9ucG', 'eleve'),
+(38, 'adoucoure@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_CRCD\"]', '$2y$13$N.eNNpQYDcwCgVnwz2e.deW0SzI3lf1C.T9vc74XvfO2.6pAqifxi', 'eleve'),
+(39, 'ftecher@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_PRéPADEV\"]', '$2y$13$Ffxrf9ELrPJCoMDRBfGUsurjAE40TqF4pn9pFCo1K2dljW/sQuIb2', 'eleve'),
+(40, 'bturpin@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_PMK\"]', '$2y$13$oUO2tjOGswGC.vmUJYHcdeXMnmefE3NntAQ2mv9k2P36CGy0RmCoC', 'eleve'),
+(41, 'svilan@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_PMK\"]', '$2y$13$eUkZIHqnjl14HTD.8CLC6.IL7ii9XHykxKcW20pqPPCYAsbaVcqMS', 'eleve'),
+(42, 'jcourtois@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K1\"]', '$2y$13$4J3mAvKjlJ/pYyYVlbY9GupN1HPe3HC63x72VhOYlT1/DCV3WaK2m', 'eleve'),
+(43, 'ragbovi@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K2\"]', '$2y$13$V64JGtzMR0uxS4Q2vAGxEOb1pyCu5fO4zx9TeEg6NjKdSScU0ZYjK', 'eleve'),
+(44, 'lcharbonnel@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K2\"]', '$2y$13$KEOcVaX3mNwSfAwQwEWsVOYZXkx9ZGyTvWQpu.Xybn95oqWpIsIcO', 'eleve'),
+(45, 'fdedinger@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K2\"]', '$2y$13$JZ7YRGa9QnH57X6aM0v2y.NhvK4geutf/vd.cIBAiCMO0pWyR5SBi', 'eleve'),
+(46, 'mverrier@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K2\"]', '$2y$13$hYrTl76Gm1p7VodoRAkhcOoqO2E3dyIRc/dhOWcyt5kg2tVqZMYmi', 'eleve'),
+(47, 'aariapoutri@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K3\"]', '$2y$13$niSK5WLzSUU1pgFjpTkTlOyTa4LNvnwrT0inIhMAGg67yD/l4Tzk.', 'eleve'),
+(48, 'larzur@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K3\"]', '$2y$13$ZeOWmBtOZvvVRptMLvCHxuPjhwsy0Nq2rDEF2i7bMh0SmFOT3ppBO', 'eleve'),
+(49, 'ycariou@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K3\"]', '$2y$13$BEMSXc4khlw/AcN7hevQZeoKnFwQv2VKkeJZ0WhpPLX5HnoOPlUJG', 'eleve'),
+(50, 'adesjars@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K3\"]', '$2y$13$bTohD7tqHjWg2ZJWK1pL2uG/NIDAExD9s4kTPAgaKv5UerO6zPpFu', 'eleve'),
+(51, 'mguezoul@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K3\"]', '$2y$13$5aTNYz0on1CWueZEl9wIOeXvzyOK2Pme/bhKUDdk8BIAODExnDFxa', 'eleve'),
+(52, 'jperruchon@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K3\"]', '$2y$13$iWmNhmWD.41QHammy5iE9ewLTgHyGErg/fvOF.OmBzZu4zrsqksg2', 'eleve'),
+(53, 'tvarbedjian@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K3\"]', '$2y$13$ASJxVGY2XkwNA95qbDkPg.qdOmw9.aFpX7RRtN2QpEX2sRt2SCPdq', 'eleve'),
+(54, 'cfauchard@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K4\"]', '$2y$13$gZrMHaxFRlSll208bjiZ.OzEEkYakJpxUv05Lod6/dpAjfmp..mFC', 'eleve'),
+(55, 'clacointe@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K4\"]', '$2y$13$mXyp0Gqvr8Nfo/eDM4GYme6bTHQ80v4c5k6dbbttnLNviSTtHGjCK', 'eleve'),
+(56, 'alapujade@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K4\"]', '$2y$13$RKgRo2OYQDmLJ.I7qyhN3.3Et1iY/nx/tSDCPWzPgcE9IwFeHT/T.', 'eleve'),
+(57, 'lwalter@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K5\"]', '$2y$13$MehUWGJfMvaydn2qzXBA7umbKtzJuj4pj2W7q3Mbm8Q6npvt.RUnq', 'eleve'),
+(58, 'ccommeau@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K5\"]', '$2y$13$9tf5YohU6XiJeVB3eBSdJuumfDmkBcNmzUg.2soRsav./fvt4csgS', 'eleve'),
+(59, 'sezzoubi@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K5\"]', '$2y$13$wmG5mAo53qRgDVIhh87/NuW4aIRQ8Z3I6Ruk9Z1OEZWZFcOXwy51C', 'eleve'),
+(60, 'ogomes@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K5\"]', '$2y$13$50YU7i90FM6Y6AtWy38nz.Q.yysXuD13SD5IjU5RBQkaC4YB1hJE2', 'eleve'),
+(61, 'hmakaya@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_USER\", \"ROLE_K5\"]', '$2y$13$vo5b1Fe1Df0AgOlnPrIEFOQIGFdAO2Ub0pP3lwfcgdC39HiIiCIGS', 'eleve'),
+(62, 'mtetegan@guinot.asso.fr', '[\"ROLE_SECRETARIAT\"]', '$2y$13$E3LrOFYYqsraz/4kdyrvx.9/YVcx4uQFYpl4ocCMmowG2rg2itL/y', 'secretariat'),
+(63, 'acozee@guinot.asso.fr', '[\"ROLE_DIRECTION\"]', '$2y$13$IcukdbxHbrNLAmlrIMX5FOWX1FK5wREECQBUHu0wjLUYkmqwR/UFq', 'direction'),
+(64, 'croels@guinot.asso.fr', '[\"ROLE_DOCUMENTALISTE\"]', '$2y$13$0h/ztWNHUBg7qi6a9pvDReEIbmvuz2t6F6neCPUvU0xu97rHoNk0a', 'documentaliste'),
+(65, 'zdendenis@guinot.asso.fr', '[\"ROLE_SECRETARIAT\"]', '$2y$13$2yuHDu2ukOqcXLn8S27f0..Ta54ZsomJsRhHOLlTzLuvx66zyMMNq', 'secretariat'),
+(66, 'nraad@guinot.asso.fr', '[\"ROLE_SURVEILLANT\"]', '$2y$13$zmMIV5nn0tO9oM3TlPUtcuy/O3PiNNRvRtpyDSTHQHjy9UdSduzMy', 'surveillant'),
+(67, 'idendenis@guinot.asso.fr', '[\"ROLE_SURVEILLANT\"]', '$2y$13$TeSb.lql2xib6/7L.qfJVOASmnx4k2458./pLoU70oTCh4ArkXEFi', 'surveillant');
+
+
+
+
+INSERT INTO `statut_ouvrage` (`id`, `libelle`) VALUES
+(1, 'Souhaité'),
+(2, 'Commandé'),
+(3, 'Disponible'),
+(4, 'Emprunt demandé'),
+(5, 'Emprunt en cours');
+
+INSERT INTO `ouvrage` (`id`, `statut_ouvrage_id`, `titre`) VALUES
+(1, 4, 'Le journal d\'Anne Frank'),
+(2, 4, 'Rendez-vous avec Rama'),
+(3, 4, 'Un sac de billes'),
+(4, 4, 'Le petit chaperon rouge'),
+(5, 4, 'My First English Book'),
+(6, 4, 'Dune'),
+(7, 4, 'Cendrille');
+
+INSERT INTO `statut_emprunt` (`id`, `libelle`) VALUES
+(1, 'Emprunt demandé'),
+(2, 'Emprunt en Cours'),
+(3, 'Ouvrage rendu');
+
+
+	
+
+
+
+INSERT INTO `membre` (`id`, `nom`, `prenom`, `image_name`, `updated_at`, `created_at`, `username`, `charte`, `jeton_repas`) VALUES
+(1, 'Doe', 'John', 'mur-des-je-t-aime-67bc5d1055653852202728.png', '2025-02-24 12:50:40', '2025-02-24 12:50:40', 'jdoe', NULL, 0),
+(2, 'NAIT-KACI', 'Said', NULL, NULL, '2025-02-24 14:49:12', 'snait-kaci', NULL, 99),
+(4, 'LEVY', 'Gilles', 'frame-5-678d88cb23933995413371-679fdb8d44e80804634621-67bc7ac6d9f55652268721.gif', '2025-02-24 14:57:26', '2025-02-24 14:57:26', 'glevy', NULL, 3),
+(5, 'PALAFOT', 'Igor', 'frame-28-67917aac7da72472337639-67bc7b36bbc13069525408.gif', '2025-02-24 14:59:18', '2025-02-24 14:59:18', 'ipalafot', NULL, 0),
+(6, 'SCHAFF', 'Estelle', 'frame-5-678d88cb23933995413371-679e8c75d3d32405802047-67bc7beb29a6f483678653.gif', '2025-02-24 15:02:19', '2025-02-24 15:02:18', 'eschaff', NULL, 0),
+(7, 'VIALA', 'Vincent', NULL, NULL, '2025-02-24 15:06:30', 'vviala', NULL, 0),
+(8, 'SILBERSTEIN', 'Julien', 'frame-28-67917aac7da72472337639-67bc8fb5ed8ee238960026.gif', '2025-02-24 16:26:45', '2025-02-24 16:26:45', 'jsilberstein', NULL, 0),
+(9, 'DRECHE', 'Aristide', 'frame-5-678d88cb23933995413371-679fdb8d44e80804634621-67bc900dd16bc038547128.gif', '2025-02-24 16:28:13', '2025-02-24 16:28:13', 'adreche', NULL, 0),
+(10, 'NOEL', 'Marie-Laure', 'frame-28-67917aac7da72472337639-67bc905ada541110443282.gif', '2025-02-24 16:29:30', '2025-02-24 16:29:30', 'mlnoel', NULL, 0),
+(11, 'MARIE', 'Alexis', NULL, NULL, '2025-02-24 16:29:56', 'amarie', NULL, 0),
+(12, 'DUBOIS', 'Corentin', NULL, NULL, '2025-02-24 16:30:18', 'cdubois', NULL, 0),
+(13, 'MAZEAU', 'Matthias', NULL, NULL, '2025-02-24 16:30:47', 'mmazeau', NULL, 0),
+(14, 'CHABIRA', 'Malika', NULL, NULL, '2025-02-24 16:33:16', 'mchabira', NULL, 0),
+(15, 'BUREL', 'Damien', NULL, NULL, '2025-02-24 16:45:08', 'dburel', NULL, 8),
+(17, 'KHEIAR', 'Myriam', NULL, NULL, '2025-02-24 22:56:41', 'mkheiar', NULL, 84),
+(18, 'PERRIN', 'Clement', NULL, NULL, '2025-02-24 23:23:31', 'cperrin', NULL, 0),
+(20, 'TERENDIJ', 'Lucas', NULL, NULL, '2025-02-25 09:02:37', 'shadjdoudou', NULL, 0),
+(21, 'BLONDELEAU', 'Thomas', NULL, NULL, '2025-02-25 09:05:05', 'tblondeleau', NULL, 0),
+(22, 'BENYAHYA', 'Rachida', NULL, NULL, '2025-02-25 09:05:58', 'rbenyahya', NULL, 0),
+(23, 'SAKHRAOUI', 'Mabrouk', NULL, NULL, '2025-02-25 09:06:44', 'msakhraoui', NULL, 0),
+(24, 'THOMAS', 'Hadrien', NULL, NULL, '2025-02-25 09:07:37', 'hthomas', NULL, 0),
+(25, 'DUVEAU HOAURAU', 'Mickaël', NULL, NULL, '2025-02-25 09:15:27', 'mduveau hoaurau', NULL, 0),
+(26, 'JEANSON', 'Edouard', NULL, NULL, '2025-02-25 09:17:43', 'ejeanson', NULL, 0),
+(27, 'SORENTINO', 'Patrice', NULL, NULL, '2025-02-25 09:26:58', 'psorentino', NULL, 0),
+(28, 'PARTOUCHE', 'Elie', NULL, NULL, '2025-02-25 09:28:21', 'epartouche', NULL, 0),
+(29, 'BALESTAN', 'Quentin', NULL, NULL, '2025-02-25 09:29:29', 'qbalestan', NULL, 0),
+(30, 'GRANIER', 'Manon', NULL, NULL, '2025-02-25 09:35:39', 'mgranier', NULL, 0),
+(31, 'BELMONTE-CAUSSIEU', 'Manon', NULL, NULL, '2025-02-25 09:36:13', 'mbelmonte-caussieu', NULL, 0),
+(32, 'KAUFMAN', 'Manon', NULL, NULL, '2025-02-25 09:36:38', 'mkaufman', NULL, 0),
+(33, 'SERVAJEAN', 'Laure', NULL, NULL, '2025-02-25 09:37:03', 'lservajean', NULL, 0),
+(34, 'EDIMO', 'Diane', NULL, NULL, '2025-02-25 09:37:23', 'dedimo', NULL, 0),
+(35, 'CHAFFEY', 'Nathan', NULL, NULL, '2025-02-25 09:40:39', 'nchaffey', NULL, 0),
+(36, 'DROUART', 'Melvin', NULL, NULL, '2025-02-25 09:42:03', 'mdrouart', NULL, 0),
+(37, 'OUAHABI', 'SOFIAN', NULL, NULL, '2025-02-25 09:42:31', 'souahabi', NULL, 0),
+(38, 'DOUCOURE', 'ADJA', NULL, NULL, '2025-02-25 09:43:22', 'adoucoure', NULL, 0),
+(39, 'TECHER', 'Florian', NULL, NULL, '2025-02-25 09:44:30', 'ftecher', NULL, 0),
+(40, 'TURPIN', 'Brandon', NULL, NULL, '2025-02-25 09:46:35', 'bturpin', NULL, 0),
+(41, 'VILAIN', 'Simon', NULL, NULL, '2025-02-25 09:51:17', 'svilan', NULL, 0),
+(42, 'COURTOIS', 'James', NULL, NULL, '2025-02-25 09:52:19', 'jcourtois', NULL, 0),
+(43, 'AGBOVI', 'Rolande', NULL, NULL, '2025-02-25 10:08:42', 'ragbovi', NULL, 0),
+(44, 'CHARBONNEL', 'Louane', NULL, NULL, '2025-02-25 10:09:31', 'lcharbonnel', NULL, 0),
+(45, 'DEDINGER', 'Fallone', NULL, NULL, '2025-02-25 10:10:12', 'mcapelle', NULL, 0),
+(46, 'VERRIER', 'Laura', NULL, NULL, '2025-02-25 10:11:11', 'mverrier', NULL, 0),
+(47, 'ARIAPOUTRI', 'ADELINE', NULL, NULL, '2025-02-25 10:14:51', 'aariapoutri', NULL, 0),
+(48, 'ARZUR', 'Lola', NULL, NULL, '2025-02-25 10:15:50', 'larzur', NULL, 0),
+(49, 'CARIOU', 'Youn', NULL, NULL, '2025-02-25 10:16:32', 'ycariou', NULL, 0),
+(50, 'DESJARS', 'Anna', NULL, NULL, '2025-02-25 10:17:12', 'adesjars', NULL, 0),
+(51, 'GUEZOUL', 'Myriam', NULL, NULL, '2025-02-25 10:17:54', 'mguezoul', NULL, 0),
+(52, 'PERRUCHON', 'JORDANE', NULL, NULL, '2025-02-25 10:18:42', 'jperruchon', NULL, 0),
+(53, 'VARBEDJIAN', 'Thaïs', NULL, NULL, '2025-02-25 10:19:50', 'tvarbedjian', NULL, 0),
+(54, 'FAUCHARD', 'Corinne', NULL, NULL, '2025-02-25 10:20:44', 'cfauchard', NULL, 0),
+(55, 'LACOINTE', 'Christian', NULL, NULL, '2025-02-25 10:21:21', 'clacointe', NULL, 0),
+(56, 'LAPUJADE', 'Alice', NULL, NULL, '2025-02-25 10:21:56', 'alapujade', NULL, 0),
+(57, 'WALTER', 'Léa', NULL, NULL, '2025-02-25 10:24:57', 'lwalter', NULL, 0),
+(58, 'COMMEAU', 'Cédric', NULL, NULL, '2025-02-25 10:26:20', 'ccommeau', NULL, 0),
+(59, 'EzZoubi', 'Sanah', NULL, NULL, '2025-02-25 10:27:07', 'sezzoubi', NULL, 0),
+(60, 'GOMES', 'Olivier', NULL, NULL, '2025-02-25 10:28:15', 'ogomes', NULL, 0),
+(61, 'MAKAYA', 'Henri', NULL, NULL, '2025-02-25 10:29:03', 'hmakaya', NULL, 0),
+(62, 'TETEGAN', 'Martine', NULL, NULL, '2025-02-25 10:58:21', 'mtetegan', NULL, 0),
+(63, 'Ozee', 'Anne-Cécile', NULL, NULL, '2025-02-25 17:00:28', 'acozee', NULL, 0),
+(64, 'ROELS', 'Catherine', NULL, NULL, '2025-02-25 17:15:57', 'croels', NULL, 0),
+(65, 'DENDENIS', 'Zoubida', 'frame-5-678d88cb23933995413371-679e8c75d3d32405802047-67bdee52cf3b2385718472.gif', '2025-02-25 17:22:42', '2025-02-25 17:22:42', 'zdendenis', NULL, 0),
+(66, 'RAAD', 'Nora', NULL, '2025-02-25 17:26:31', '2025-02-25 17:26:31', 'nraad', NULL, 0),
+(67, 'DENDENIS', 'Issam', NULL, '2025-02-25 19:26:08', '2025-02-25 19:26:08', 'idendenis', NULL, 0);
+
+INSERT INTO `pole` (`id`, `libelle`) VALUES
+(1, 'Général'),
+(2, 'Accompagnement'),
+(3, 'Kiné'),
+(4, 'Tertiaire');
+
+INSERT INTO `promotion` (`id`, `libelle`, `pole_id`) VALUES
+(1, 'Pmt1', 4),
+(2, 'Pmt2', 4),
+(3, 'CRCD', 4),
+(4, 'DA1', 4),
+(5, 'DA2', 4),
+(6, 'PmK', 3),
+(7, 'K1', 3),
+(8, 'K2', 3),
+(9, 'K3', 3),
+(10, 'K4', 3),
+(11, 'K5', 3);
+
+INSERT INTO `eleve` (id, promotion_id) VALUES
+(8, 5),
+(9, 5),
+(10, 5),
+(11, 4),
+(12, 4),
+(13, 4),
+(20, 6),
+(30, 7),
+(31, 11),
+(32, 6),
+(33, 10),
+(34, 9),
+(35, 7),
+(36, 9),
+(37, 9),
+(38, 3),
+(39, 1),
+(40, 6),
+(41, 6),
+(42, 7),
+(43, 8),
+(44, 8),
+(45, 8),
+(46, 8),
+(47, 9),
+(48, 9),
+(49, 9),
+(50, 9),
+(51, 9),
+(52, 9),
+(53, 9),
+(54, 10),
+(55, 10),
+(56, 10),
+(57, 11),
+(58, 11),
+(59, 11),
+(60, 11),
+(61, 11);
+
+
+INSERT INTO `matiere` (`id`, `libelle`) VALUES
+(1, 'Français'),
+(2, 'Mathématique'),
+(3, 'SVT'),
+(4, 'Histoire'),
+(5, 'Géographie'),
+(6, 'Anglais'),
+(7, 'Espagnol'),
+(8, 'Allemand'),
+(9, 'Physique'),
+(10, 'Chimie'),
+(11, 'Technologie'),
+(12, 'Bureautique'),
+(13, 'Informatique'),
+(14, 'EPS'),
+(15, 'Anatomie'),
+(16, 'Neurologie'),
+(17, 'Pharmacologie'),
+(18, 'Pratique de massage'),
+(19, 'Pratique de massage'),
+(20, 'Musique'),
+(21, 'CRCD'),
+(22, 'TRE');
+
+
+INSERT INTO `legume` (`id`, `libelle`) VALUES
+(1, 'pates'),
+(2, 'Endives'),
+(3, 'Ratatouille'),
+(4, 'Purée'),
+(5, 'Frites'),
+(6, 'Haricot verts'),
+(7, 'Lentilles Vertes'),
+(8, 'Pommes dauphine'),
+(9, 'Ebly'),
+(10, 'riz');
+
+
+INSERT INTO `fromage` (`id`, `libelle`) VALUES
+(1, 'Camembert'),
+(2, 'Gorgonzola'),
+(3, 'Brie'),
+(4, 'Saint-Nectaire'),
+(5, 'Fourme d\'Ambert'),
+(6, 'Babybel'),
+(7, 'Morbier'),
+(8, 'Tome de Savoie'),
+(9, 'Saint-Moret'),
+(10, 'Fourme d\'Yssingeaux'),
+(11, 'Rambol');
+
+
+
+INSERT INTO `forum` (`id`, `libelle`, `description`) VALUES
+(1, 'Forum Principal', 'Le Forum Principal de l\'établissement');
+
+
+INSERT INTO `entreprise`(`id`, `libelle`, `adresse`, `code_postal`, `ville`, `telephone`, `email`) VALUES
+(1, 'CNAM', '50 avenue du professeur lemiere', '75019', 'paris', '0123456789', 'contact@ameli.fr'),
+(2, 'Ubisoft', '20 avenue du parc', '94200','vincennes', '0123456789', 'contact@ubisoft.com'),
+(3, 'Google France', '25 rue LaFayette', '75009', 'Paris', '0123456789', 'contact@google.fr');
+
+
+INSERT INTO `entree` (`id`, `libelle`) VALUES
+(1, 'Oeufs mimosa'),
+(2, 'Poireaux Vinaigrette'),
+(3, 'Feuilleté au fromage'),
+(4, 'Tomates Mozzarella'),
+(5, 'coleslaw'),
+(6, 'Taboulé orientale'),
+(7, 'Carotte rapées'),
+(8, 'Foie gras'),
+(9, 'Terrine de campagne');
+
+INSERT INTO `dessert` (`id`, `libelle`) VALUES
+(1, 'Profiterolles'),
+(2, 'Banana split'),
+(3, 'Tarte aux pommes'),
+(4, 'Yaourt'),
+(5, 'Crème brulée'),
+(6, 'Brownie'),
+(7, 'Salade de fruits'),
+(8, 'Île flotante'),
+(9, 'Fruit'),
+(10, 'Tiramisu'),
+(11, 'Cheesecake');
+
+
+
+INSERT INTO `categorie_produit` (`id`, `libelle`) VALUES
+(1, 'jeton'),
+(2, 'Objet'),
+(3, 'Tombola'),
+(4, 'Sortie');
+
+INSERT INTO `categorie_ouvrage` (`id`, `libelle`) VALUES
+(1, 'Pedagogie'),
+(2, 'Humour'),
+(3, 'Policier'),
+(4, 'Drame'),
+(5, 'Science-Fiction'),
+(6, 'Historique'),
+(7, 'Document'),
+(8, 'Biographie'),
+(9, 'Fantastique'),
+(10, 'Théâtre'),
+(11, 'Jeunesse'),
+(12, 'Religion'),
+(13, 'Technique'),
+(14, 'Manga'),
+(15, 'Comic'),
+(16, 'Bande déssiné'),
+(17, 'Philosophie'),
+(18, 'Romance');
+
+
+INSERT INTO `categorie_forum` (`id`, `forum_id`, `libelle`, `description`) VALUES
+(1, 1, 'Pédagogie', 'Tout ce qui a trait au coté pédagogie');
+
+
+
+
+INSERT INTO `batiment` (`id`, `libelle`) VALUES
+(1, 'Guinot');
+
+
+INSERT INTO `adulte` (`id`) VALUES
+(2),
+(4),
+(5),
+(6),
+(14),
+(15),
+(17),
+(18),
+(21),
+(22),
+(23),
+(24),
+(25),
+(26),
+(27),
+(28),
+(29),
+(62),
+(63),
+(64),
+(65),
+(66),
+(67);
+
+
+INSERT INTO `admin` (`id`) VALUES
+(7);
+
+
+INSERT INTO `etage` (`id`, `batiment_id`, `libelle`) VALUES
+(1, 1, '1'),
+(2, 1, '2'),
+(3, 1, '3'),
+(4, 1, '4'),
+(5, 1, '5'),
+(6, 1, '6');
+
+INSERT INTO `personnel` (`id`, `date_embauche`, `poste`) VALUES
+(2, '2021-02-10', '0146780100'),
+(4, '2025-02-10', '0146780100'),
+(5, '2025-04-08', '0146780100'),
+(6, '2023-03-12', '0146780100'),
+(14, '2025-10-16', '0146780100'),
+(15, '2025-03-10', '0146780100'),
+(17, '2026-09-15', '0146780100'),
+(18, '2028-10-14', '0146780100'),
+(21, '2027-10-17', '0146780100'),
+(22, '2027-10-14', '0146780100'),
+(23, '2029-08-16', '0146780100'),
+(24, '2029-09-18', '0146780100'),
+(25, '2028-09-15', '0146780100'),
+(26, '2025-09-16', '0146780100'),
+(27, '2027-09-17', '0146780100'),
+(28, '2029-08-16', '0146780100'),
+(29, '2025-10-16', '0146780100'),
+(62, '2023-06-13', '0146780100'),
+(63, '2025-04-03', '0146780100'),
+(64, '2026-08-12', '0146780100'),
+(65, '2021-09-12', '0146780100'),
+(66, '2024-07-16', '0146780100'),
+(67, '2023-05-02', '0146780100');
+
+INSERT INTO `plat` (`id`, `viande_id`, `legume_id`, `libelle`) VALUES
+(1, 1, 1, 'Boeuf Bourguignon - pates'),
+(2, 3, 5, 'Steak haché - Frites'),
+(3, 4, 4, 'Cordon Bleu - Purée'),
+(4, 2, 2, 'Escalope pané - Endives'),
+(5, 3, 3, 'Steak haché - Ratatouille'),
+(6, 8, 8, 'Canard laqué Pommes dauphine'),
+(7, 3, 10, 'Steak haché riz'),
+(8, 9, 5, 'Brochette Frites'),
+(9, 10, 9, 'Croque monsieur Ebly'),
+(10, 5, 7, 'pilon de poulet Lentilles Vertes');
+
+INSERT INTO `menu` (`id`, `plat_id`, `fromage_id`, `dessert_id`, `entree_id`) VALUES
+(1, 2, 3, 2, 1),
+(2, 3, 4, 1, 3),
+(3, 4, 2, 3, 2),
+(4, 2, 3, 1, 2),
+(5, 4, 2, 2, 2),
+(6, 5, 2, 1, 1),
+(7, 7, 2, 1, 2),
+(8, 6, 1, 5, 3),
+(9, 2, 6, 7, 4),
+(10, 4, 7, 9, 8),
+(11, 9, 9, 4, 9),
+(12, 5, 2, 5, 1),
+(13, 1, 1, 3, 6),
+(14, 7, 1, 5, 5);
+
+INSERT INTO `repas` (`id`, `menu_id`, `prix`, `date`, `heure`) VALUES
+(1, 4, 4.5, '2025-03-09', 'Midi'),
+(2, 4, 4.5, '2025-02-11', 'Midi'),
+(3, 1, 4.5, '2025-02-20', 'Midi'),
+(4, 5, 4.5, '2025-02-26', 'Midi'),
+(5, 3, 4.5, '2025-03-03', 'Midi'),
+(6, 4, 4.5, '2025-03-11', 'Midi'),
+(7, 1, 4.5, '2025-03-19', 'Midi'),
+(8, 5, 4.5, '2025-03-04', 'Midi'),
+(9, 2, 4.5, '2025-03-21', 'Midi'),
+(10, 8, 4.5, '2023-04-10', 'Midi');
+
+INSERT INTO `salle` (`id`, `etage_id`, `libelle`, `promo_principale_id`) VALUES
+(1, 1, 'Pmt1', NULL),
+(2, 1, 'Pmt2', NULL),
+(3, 1, 'CRCD', NULL),
+(4, 1, 'DA1', NULL),
+(5, 1, 'DA2', NULL),
+(6, 1, 'Gymnase', NULL),
+(7, 2, 'DOTTE', NULL),
+(8, 2, 'GANTET', NULL),
+(9, 2, 'FOUCAULT', NULL),
+(10, 2, 'DOLTO', NULL),
+(11, 2, 'HUMBERT', NULL);
+
+
+
+INSERT INTO `surveillant` (`id`) VALUES
+(66),
+(67);
+
+INSERT INTO `secretariat` (`id`) VALUES
+(17),
+(62),
+(65);
+
+
+
+
+
+
+INSERT INTO `ouvrage_categorie_ouvrage` (`ouvrage_id`, `categorie_ouvrage_id`) VALUES
+(1, 4),
+(1, 6),
+(1, 8),
+(2, 5),
+(3, 4),
+(3, 6),
+(3, 8),
+(4, 11),
+(5, 1),
+(5, 2),
+(6, 5),
+(7, 4),
+(7, 11),
+(7, 18);
+
+
+INSERT INTO `produit` (`id`, `libelle`, `prix`, `description`, `stock`, `created_at`, `archive`, `date_event`, `type_id`) VALUES
+(2, 'Jetons Repas', 4, 'Sert à commander des repas', '100', '2025-02-27', 0, NULL, 1),
+(3, 'Boite à os', 150, 'Sert au étudient Kiné', '50', '2025-02-27', 0, NULL, 2),
+(4, 'Angleterre', 200, 'Séjour de 4jours', '10', '2025-02-27', 0, NULL, 4),
+(5, 'Tombola de noël', 2, 'Nombreux lot à gagner', '70', '2025-02-27', 0, NULL, 3),
+(6, 'blouse', 50, 'Habillement pour Kiné', '50', '2025-02-27', 0, NULL, 2),
+(7, 'Allemagne', 0, 'Séjour à Marbourg', '4', '2025-02-27', 0, NULL, 4),
+(8, 'Tombola Octobre Rose', 2, 'Nombreux lots à gagner !', '100', '2025-02-27', 0, NULL, 3);
+
+INSERT INTO `professeur` (`id`) VALUES
+(2),
+(4),
+(5),
+(6),
+(15),
+(21),
+(22),
+(23),
+(24),
+(25),
+(26),
+(27),
+(28),
+(29);
+
+INSERT INTO `professeur_matiere` (`professeur_id`, `matiere_id`) VALUES
+(2, 6),
+(4, 13),
+(5, 13),
+(6, 2);
+
+INSERT INTO `planning_repas` (`id`, `repas_id`, `membre_id`, `date_achat`) VALUES
+(1, 1, 4, '2025-02-24'),
+(2, 5, 4, '2025-02-24'),
+(3, 3, 17, '2025-02-25'),
+(4, 1, 17, '2025-02-25'),
+(5, 4, 17, '2025-02-25');
+
+INSERT INTO `insertion` (`id`) VALUES
+(14);
+
+INSERT INTO `emprunt` (`id`, `ouvrage_id`, `statut_id`, `membre_id`, `date_emprunt`, `date_demande`, `date_retour`) VALUES
+(1, 7, 1, 15, NULL, '2025-02-24', NULL),
+(2, 3, 1, 4, NULL, '2025-02-24', NULL);
+
+
+
+INSERT INTO `documentaliste` (`id`) VALUES
+(64);
+
+
+INSERT INTO `direction` (`id`) VALUES
+(18),
+(63);
+
+INSERT INTO `commande` (`id`, `membre_id`, `produit_id`, `quantity`, `prix_total`, `date_achat`) VALUES
+(1, 17, 2, 3, 12, '2025-02-28'),
+(2, 17, 2, 5, 20, '2025-02-28'),
+(3, 17, 3, 2, 300, '2025-02-28'),
+(4, 17, 6, 5, 250, '2025-02-28'),
+(5, 17, 4, 2, 400, '2025-02-28'),
+(6, 17, 2, 13, 52, '2025-02-28');

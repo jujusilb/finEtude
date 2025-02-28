@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Entity\Etablissement;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\Pedagogie\Promotion;
 use App\Entity\Utilisateur\Personnel;
 use App\Repository\Etablissement\PoleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -16,7 +17,14 @@ class Pole
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column]
+    #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
+    #[Assert\Length(
+        min: 1,
+        max: 50,
+        minMessage: 'La longueur minimale est de  {{ limit }} caractères',
+        maxMessage: 'La longueur maximale est de  {{ limit }} caractères',
+    )]
     private ?string $libelle = null;
 
     /**
@@ -25,9 +33,16 @@ class Pole
     #[ORM\ManyToMany(targetEntity: Personnel::class, mappedBy: 'pole')]
     private Collection $personnels;
 
+    /**
+     * @var Collection<int, Promotion>
+     */
+    #[ORM\OneToMany(targetEntity: Promotion::class, mappedBy: 'pole')]
+    private Collection $promotions;
+
     public function __construct()
     {
         $this->personnels = new ArrayCollection();
+        $this->promotions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -69,6 +84,36 @@ class Pole
     {
         if ($this->personnels->removeElement($personnel)) {
             $personnel->removePole($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Promotion>
+     */
+    public function getPromotions(): Collection
+    {
+        return $this->promotions;
+    }
+
+    public function addPromotion(Promotion $promotion): static
+    {
+        if (!$this->promotions->contains($promotion)) {
+            $this->promotions->add($promotion);
+            $promotion->setPole($this);
+        }
+
+        return $this;
+    }
+
+    public function removePromotion(Promotion $promotion): static
+    {
+        if ($this->promotions->removeElement($promotion)) {
+            // set the owning side to null (unless already changed)
+            if ($promotion->getPole() === $this) {
+                $promotion->setPole(null);
+            }
         }
 
         return $this;
