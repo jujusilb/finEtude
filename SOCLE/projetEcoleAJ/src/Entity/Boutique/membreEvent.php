@@ -3,12 +3,12 @@
 namespace App\Entity\Boutique;
 
 use App\Entity\Utilisateur\Membre;
-use App\Repository\Boutique\membreEventRepository;
+use App\Repository\Boutique\MembreEventRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: membreEventRepository::class)]
-class membreEvent
+#[ORM\Entity(repositoryClass: MembreEventRepository::class)]
+class MembreEvent
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

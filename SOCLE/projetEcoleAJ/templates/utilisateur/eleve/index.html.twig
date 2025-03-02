@@ -13,6 +13,7 @@
                 <th>Prenom</th>
                 <th>Username</th>
                 <th>E-mail</th>
+                <th>JetonRepas</th>
                 <th>Promotion</th>
                 <th class="text-nowrap w-auto">role</th>
                 <th>Stage</th>
@@ -34,6 +35,10 @@
                             {{ eleve.promotion.libelle }}
                         </a>
                     </td>
+                    <td>{% if eleve.membreJetons | length > 0 %}
+                            {{eleve.membreJetons.nombreJeton }}
+                        {% endif %}
+                    <td>
                     <td>
                         {% for role in eleve.roles %}
                            {{ role }}<br>

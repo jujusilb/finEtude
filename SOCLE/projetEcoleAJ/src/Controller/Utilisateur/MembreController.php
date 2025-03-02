@@ -49,7 +49,10 @@ class MembreController extends AbstractController
             $email=$outil->getEmail($username);
             $membre->setUsername($username);
             $membre->setEmail($email);
-            $membre->setPassword($this->passwordHasher->hashPassword($membre, $membre->getPassword()));
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($membre, $tmpPass);
+            $membre->setPassword($hashTmpPass);
+
             $membre->setCreatedAt(new \DateTimeImmutable()); // Set the createdAt field before persisting
             $entityManager->persist($membre);
             $entityManager->flush();
@@ -66,7 +69,7 @@ class MembreController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Membre $membre): Response
     {
         return $this->render('utilisateur/membre/show.html.twig', [
@@ -82,7 +85,10 @@ class MembreController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $membre->setPassword($this->passwordHasher->hashPassword($membre, $membre->getPassword()));
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($membre, $tmpPass);
+            $membre->setPassword($hashTmpPass);
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('membre_index', 
@@ -97,7 +103,7 @@ class MembreController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Membre $membre, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $membre->getId(), $request->getPayload()->getString('_token'))) {

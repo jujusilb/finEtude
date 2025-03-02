@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 class DocumentalisteType extends AbstractType
 {
@@ -45,22 +46,17 @@ class DocumentalisteType extends AbstractType
                 'required'   => true,
                 'disabled' => false,  
             ])
-            ->add('password', TextType::class, [
+            ->add('motDePasse', PasswordType::class, [
                 'label' => 'Mot de passe',
+                'mapped'=>false,
                 'attr' =>[
                     'aria-label' => 'Mot de passe',
                     'placeholder' => 'Mot de passe'
                 ],
-                'required'   => true,
+                'required' => $options['validation_groups'] !== ['edition'],
                 'disabled'=> false, 
             ])
-            ->add('jeton_repas', IntegerType::class, [
-                'label'=>'Nombre de jeton-repas',
-                'attr'=>[
-                    'aria-label'=>'Nombre de jeton-repas',
-                    'placeholder'=>'Nombre de jeton-repas'
-                ]
-            ])
+
             ->add('date_embauche', DateType::class, [
                 'label' => 'Date d\'embauche',
                 'placeholder' =>[

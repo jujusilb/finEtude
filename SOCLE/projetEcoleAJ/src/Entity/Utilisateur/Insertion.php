@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: InsertionRepository::class)]
 class Insertion extends Personnel
 {
-
-
+    public function __construct(){
+        parent::__construct();
+    }
 }

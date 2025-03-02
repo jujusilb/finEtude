@@ -8,11 +8,11 @@ use App\Exception\NotEnoughException;
 use App\Exception\OutOfStockException;
 use App\Entity\Utilisateur\Membre;
 use App\Entity\Boutique\Produit;
-use App\Entity\Boutique\membreEvent;
+use App\Entity\Boutique\MembreEvent;
 use App\Entity\Boutique\MembreJeton;
 use App\repository\Utilisateur\MembreJetonReository;
 use App\Repository\Boutique\ProduitRepository;
-use App\Repository\Forum\MembreRepository;
+use App\Repository\Utilisateur\MembreRepository;
 use DateTimeImmutable;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
@@ -69,7 +69,6 @@ final class BoutiqueController extends AbstractController
         $entityManager = $this->entityManager;
         $produit = $entityManager->getRepository(Produit::class)->find($idProduit);
         $quantity = $request->get('quantity');
-        //dd($quantity);
         if (!$produit) {
             throw $this->createNotFoundException('Produit non trouvé');
         } else if ($produit->getStock() <= 0) {
@@ -87,11 +86,17 @@ final class BoutiqueController extends AbstractController
         $commande->setDateAchat(new \DateTime());
         $produit->setStock($produit->getstock() - $quantity);
         $entityManager->persist($commande);
-        if ($produit->getType()->getLibelle() == 'Jetons') {
+        if ($produit->getType()->getLibelle() === 'Jeton') {
             $this->updateMembreJeton($user, $quantity);
-        }else if ($produit->getType() == 'Event') {
-            $this->addMembreToEvent($user, $produit);
+        } elseif ($produit->getType()->getLibelle() === 'Event') {
+            try {
+                $this->addMembreToEvent($user, $produit);
+                $this->addFlash('success', 'Inscription à l\'événement réussie.');
+            } catch (\Exception $e) {
+                $this->addFlash('error', $e->getMessage());
+            }
         }
+    
         $entityManager->flush();
         return $this->redirectToRoute('boutique_liste');
     }
@@ -100,24 +105,46 @@ final class BoutiqueController extends AbstractController
     private function updateMembreJeton($user, $quantity)
     {
         $entityManager = $this->entityManager;
-        $user = $this->getUser();
-        if ($user instanceof Membre) {
-            $jeton = $user->getJetonRepas();
-            $user->setJetonRepas($jeton + $quantity);
-            $entityManager->persist($user);
-            $entityManager->flush();
+        $record=$entityManager->getRepository(MembreJeton::class)->findOneBy(['membre'=>$user]);
+        if (!$record){
+            $record=new MembreJeton();
+            $record->setMembre($user);
+            $record->setNombreJeton($quantity);
+        } else {
+            $record->setMembre($user);
+            $jeton=$record->getNombreJeton();
+            $record->setNombreJeton($jeton+$quantity);
         }
+        $entityManager->persist($record);
+        $entityManager->flush();
     }
+    
    
     private function addMembreToEvent($user, $produit)
     {
-        $entityManager=$this->entityManager;
-        
+        $entityManager = $this->entityManager;
+    
+        // Vérifier si l'utilisateur est déjà inscrit à cet événement
+        $membreEventExistant = $entityManager->getRepository(MembreEvent::class)->findOneBy([
+            'membre' => $user,
+            'produit' => $produit,
+        ]);
+    
+        if ($membreEventExistant) {
+            // L'utilisateur est déjà inscrit, lancer une exception ou retourner une erreur
+            throw new \Exception("Vous êtes déjà inscrit à cet événement.");
+            // Ou, si vous ne voulez pas lancer d'exception :
+            // return false; 
+        }
+    
         $membreEvent = new MembreEvent();
         $membreEvent->setMembre($user);
         $membreEvent->setProduit($produit);
         $membreEvent->setCreatedAt(new DateTimeImmutable());
         $entityManager->persist($membreEvent);
         $entityManager->flush();
+    
+        // Ou, si vous ne voulez pas lancer d'exception :
+        // return true;
     }
 }

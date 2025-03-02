@@ -12,6 +12,7 @@
                 <th>Prenom</th>
                 <th>Username</th>
                 <th>E-mail</th>
+                <th>JetonRepas</th>
                 <th>role</th>
                 <th>Date d'Embauche</th>
                 <th>Poste</th>
@@ -28,6 +29,11 @@
                     <td>{{ insertion.prenom }}</td>
                     <td>{{ insertion.username }}</td>
                     <td>{{ insertion.email }}</td>
+                    </td>
+                    <td>{% if insertion.membreJetons | length > 0 %}
+                            {{insertion.membreJetons.nombreJeton }}
+                        {% endif %}
+                    <td>
                     <td>
                         {% for role in insertion.roles %}
                             <li>{{ role }}</li>

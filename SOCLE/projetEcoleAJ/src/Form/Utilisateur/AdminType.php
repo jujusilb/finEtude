@@ -12,6 +12,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\CallbackTransformer;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -48,13 +49,7 @@ class AdminType extends AbstractType
                 'required'   => true,
                 'disabled'=> false, 
             ])
-            ->add('jeton_repas', IntegerType::class, [
-                'label'=>'Nombre de jeton-repas',
-                'attr'=>[
-                    'aria-label'=>'Nombre de jeton-repas',
-                    'placeholder'=>'Nombre de jeton-repas'
-                ]
-            ])
+
             ->add('imageFile', VichImageType::class, [
                 'required'=>false
             ])

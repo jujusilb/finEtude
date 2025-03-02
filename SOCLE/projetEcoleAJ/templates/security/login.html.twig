@@ -19,11 +19,10 @@
     <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     <label for="inputPassword">Password</label>
     <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
-
+<div id="idForgot"></div>
     <div class="checkbox mb-3">
         <label>
             <input type="checkbox" name="_remember_me"> Remember me
@@ -34,4 +33,5 @@
         Sign in
     </button>
 </form>
+
 {% endblock %}

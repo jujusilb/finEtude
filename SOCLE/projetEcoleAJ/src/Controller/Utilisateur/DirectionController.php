@@ -47,8 +47,9 @@ class DirectionController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $direction->setRoles(["ROLE_DIRECTION"]);
-            $direction->setPassword($this->passwordHasher->hashPassword($direction, $direction->getPassword()));
-            
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($direction, $tmpPass);
+            $direction->setPassword($hashTmpPass);
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
             $email =$getter->getEmail($username);
@@ -68,7 +69,7 @@ class DirectionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Direction $direction): Response
     {
         return $this->render('utilisateur/direction/show.html.twig', [
@@ -84,8 +85,9 @@ class DirectionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $direction->setPassword($this->passwordHasher->hashPassword($direction, $direction->getPassword()));
-            $entityManager->flush();
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($direction, $tmpPass);
+            $direction->setPassword($hashTmpPass);$entityManager->flush();
 
             return $this->redirectToRoute('direction_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -97,7 +99,7 @@ class DirectionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Direction $direction, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $direction->getId(), $request->getPayload()->getString('_token'))) {

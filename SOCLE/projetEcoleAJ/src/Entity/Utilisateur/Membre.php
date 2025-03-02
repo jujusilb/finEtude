@@ -3,7 +3,8 @@
 namespace App\Entity\Utilisateur;
 
 use App\Entity\Boutique\Commande;
-use App\Entity\Boutique\membreEvent;
+use App\Entity\Boutique\MembreEvent;
+use App\Entity\Boutique\MembreJeton;
 use App\Entity\Cantine\PlanningRepas;
 use App\Entity\Etablissement\Boutique;
 use App\Entity\Utilisateur\User;
@@ -22,7 +23,7 @@ use App\Entity\Forum\Message;
 use App\Entity\Forum\Thread;
 use App\Entity\Utilisateur\Secretariat;
 use App\Entity\Utilisateur\Surveillant;
-
+use doctrine\Commons\Collections\Collectin;
 use App\Repository\Utilisateur\MembreRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -75,11 +76,7 @@ class Membre extends User
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    /**
-     * @var Collection<int, Repas>
-     */
-    #[ORM\OneToMany(targetEntity: Repas::class, mappedBy: 'membreb')]
-    private Collection $repas;
+
 
 
     #[ORM\Column(length: 255)]
@@ -120,16 +117,14 @@ class Membre extends User
     #[ORM\OneToMany(targetEntity: Emprunt::class, mappedBy: 'membre')]
     private Collection $emprunts;
 
-    #[ORM\Column]
-    #[Assert\GreaterThanOrEqual(value: 0, message: "Le nombre de jetons ne peut pas être négatif.")]
-    private ?int $jetonRepas = null;
-
     /**
      * @var Collection<int, Commande>
      */
     #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'membre')]
     private Collection $commandes;
 
+    #[ORM\OneToOne(targetEntity: MembreJeton::class, mappedBy: 'membre')]
+    private ?MembreJeton $membreJetons;
 
     /**
      * @var Collection<int, membreEvent>
@@ -142,8 +137,8 @@ class Membre extends User
 
     
     public function __construct(){
+        parent::__construct();
         $this->createdAt = new \DateTimeImmutable();  // Initialise la date de création
-        $this->repas = new ArrayCollection();
         $this->threads = new ArrayCollection();
         $this->senderMess = new ArrayCollection();
         $this->receiverMess = new ArrayCollection();
@@ -219,35 +214,7 @@ class Membre extends User
     }
 
 
-    /**
-     * @return Collection<int, Repas>
-     */
-    public function getRepas(): Collection
-    {
-        return $this->repas;
-    }
-
-    public function addRepa(Repas $repa): static
-    {
-        if (!$this->repas->contains($repa)) {
-            $this->repas->add($repa);
-            $repa->setMembre($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRepa(Repas $repa): static
-    {
-        if ($this->repas->removeElement($repa)) {
-            // set the owning side to null (unless already changed)
-            if ($repa->getMembre() === $this) {
-                $repa->setMembre(null);
-            }
-        }
-
-        return $this;
-    }
+    
 
 
     public function getUsername(): ?string
@@ -424,17 +391,6 @@ class Membre extends User
         return $this;
     }
 
-    public function getJetonRepas(): ?int
-    {
-        return $this->jetonRepas;
-    }
-
-    public function setJetonRepas(int $jetonRepas): static
-    {
-        $this->jetonRepas = $jetonRepas;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Commande>
@@ -476,7 +432,7 @@ class Membre extends User
         return $this->membreEvents;
     }
 
-    public function addMembreEvent(membreEvent $membreEvent): static
+    public function addMembreEvent(MembreEvent $membreEvent): static
     {
         if (!$this->membreEvents->contains($membreEvent)) {
             $this->membreEvents->add($membreEvent);
@@ -486,7 +442,7 @@ class Membre extends User
         return $this;
     }
 
-    public function removeMembreEvent(membreEvent $membreEvent): static
+    public function removeMembreEvent(MembreEvent $membreEvent): static
     {
         if ($this->membreEvents->removeElement($membreEvent)) {
             // set the owning side to null (unless already changed)
@@ -498,7 +454,23 @@ class Membre extends User
         return $this;
     }
 
+    public function getMembreJetons(): ?MembreJeton
+    {
+        return $this->membreJetons;
+    }
 
+    public function setMembreJetons(?MembreJeton $membreJetons): static
+{
+    // Si on change le MembreJeton, il faut aussi mettre à jour la relation inverse
+    if ($this->membreJetons !== $membreJetons) {
+        $this->membreJetons = $membreJetons;
+        // On vérifie que le nouveau MembreJeton n'est pas null
+        if ($membreJetons !== null && $membreJetons->getMembre() !== $this) {
+            $membreJetons->setMembre($this);
+        }
+    }
+    return $this;
+}
 
     
     

@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProfesseurType extends AbstractType
@@ -46,22 +47,17 @@ class ProfesseurType extends AbstractType
                 'expanded'=>true,
                 'multiple'=>true
             ])
-            ->add('password', TextType::class, [
+            ->add('motDePasse', PasswordType::class, [
                 'label' => 'Mot de passe',
+                'mapped'=>false,
                 'attr' =>[
                     'aria-label' => 'Mot de passe',
                     'placeholder' => 'Mot de passe'
                 ],
-                'required'   => true,
+                'required' => $options['validation_groups'] !== ['edition'],
                 'disabled'=> false, 
             ])
-            ->add('jetonRepas', integerType::class,[
-                'label'=>'Nombre de jeton-repas',
-                'attr'=>[
-                    'aria-label'=>'Nombre de jeton-repas',
-                    'placeholder'=>'Nombre de jeton-repas'
-                ],
-            ])
+
             ->add('date_embauche', DateType::class, [
                 'label' => 'Date d\'embauche',
                 'placeholder' =>[

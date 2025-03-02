@@ -12,6 +12,7 @@
                 <th>Prenom</th>
                 <th>Username</th>
                 <th>E-mail</th>
+                <th>JetonRepas</th>
                 <th>role</th>
                 <th>Date d'Embauche</th>
                 <th>Poste</th>
@@ -28,6 +29,9 @@
                     <td>{{ secretariat.prenom }}</td>
                     <td>{{ secretariat.username }}</td>
                     <td>{{ secretariat.email }}</td>
+                    <td>{% if secretariat.membreJetons | length > 0 %}
+                            {{ secretariat.membreJetons.nombreJeton }}
+                        {% endif %}
                     <td>
                         {% for role in secretariat.roles %}
                             <li>{{ role }}</li>

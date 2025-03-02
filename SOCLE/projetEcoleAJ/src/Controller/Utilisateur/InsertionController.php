@@ -44,8 +44,10 @@ class InsertionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $insertion->setRoles(["ROLE_INSERTION"]);
-            $insertion->setPassword($this->passwordHasher->hashPassword($insertion, $insertion->getPassword()));
-            
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($insertion, $tmpPass);
+            $insertion->setPassword($hashTmpPass);
+
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
             $email =$getter->getEmail($username);
@@ -64,7 +66,7 @@ class InsertionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Insertion $insertion): Response
     {
         return $this->render('utilisateur/insertion/show.html.twig', [
@@ -80,7 +82,9 @@ class InsertionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $insertion->setPassword($this->passwordHasher->hashPassword($insertion, $insertion->getPassword()));
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($insertion, $tmpPass);
+            $insertion->setPassword($hashTmpPass);
             $insertion->setRoles(["ROLE_INSERTION"]);
             
             $entityManager->flush();
@@ -94,7 +98,7 @@ class InsertionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Insertion $insertion, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $insertion->getId(), $request->getPayload()->getString('_token'))) {

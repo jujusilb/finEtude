@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class ParentEleveType extends AbstractType
 {
@@ -41,13 +42,14 @@ class ParentEleveType extends AbstractType
             'disabled' => false,
             
         ])
-        ->add('password', TextType::class, [
+        ->add('motDePasse', PasswordType::class, [
             'label' => 'Mot de passe',
+            'mapped'=>false,
             'attr' =>[
                 'aria-label' => 'Mot de passe',
                 'placeholder' => 'Mot de passe'
             ],
-            'required'   => true,
+            'required' => $options['validation_groups'] !== ['edition'],
             'disabled'=> false, 
         ])
             

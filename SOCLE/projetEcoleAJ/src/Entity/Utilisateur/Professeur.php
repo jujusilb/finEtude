@@ -50,12 +50,13 @@ class Professeur extends Personnel{
 
     public function __construct()
     {
+        parent::__construct();
+        parent::__construct();
         //$this->createdAt = new \DateTimeImmutable();  // Initialise la date de création
         $this->professeurMatiere = new ArrayCollection();
         $this->programme = new ArrayCollection();
         $this->Cours = new ArrayCollection();
         $this->exercices = new ArrayCollection();
-
     }
 
     /**

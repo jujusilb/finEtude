@@ -9,5 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CuisineRepository::class)]
 class Cuisine extends Personnel
 {
-    
+    public function __construct(){
+        parent::__construct();
+    }
 }

@@ -51,7 +51,9 @@ class ParentEleveController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $parentEleve->setRoles(["ROLE_PARENTELEVE"]);
-            $parentEleve->setPassword($this->passwordHasher->hashPassword($parentEleve, $parentEleve->getPassword()));
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($parentEleve, $tmpPass);
+            $parentEleve->setPassword($hashTmpPass);
             
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
@@ -72,7 +74,7 @@ class ParentEleveController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(ParentEleve $parentEleve): Response
     {
         return $this->render('utilisateur/parent_eleve/show.html.twig', [
@@ -88,7 +90,10 @@ class ParentEleveController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $parentEleve->setPassword($this->passwordHasher->hashPassword($parentEleve, $parentEleve->getPassword()));
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($parentEleve, $tmpPass);
+            $parentEleve->setPassword($hashTmpPass);
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('parentEleve_index', [], Response::HTTP_SEE_OTHER);
@@ -101,7 +106,7 @@ class ParentEleveController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, ParentEleve $parentEleve, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $parentEleve->getId(), $request->getPayload()->getString('_token'))) {

@@ -28,6 +28,10 @@
                     <td>{{ direction.prenom }}</td>
                     <td>{{ direction.username }}</th>
                     <td>{{ direction.email }}</td>
+                     <td>{% if direction.membreJetons | length > 0 %}
+                            {{ direction.membreJetons.nombreJeton }}
+                        {% endif %}
+                    <td>
                     <td>
                         {% for role in direction.roles %}
                             <li>{{ role }}</li>

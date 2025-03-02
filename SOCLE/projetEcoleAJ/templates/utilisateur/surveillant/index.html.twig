@@ -12,6 +12,7 @@
                 <th>Prenom</th>
                 <th>Username</th>
                 <th>E-mail</th>
+                <th>JetonRepas</th>
                 <th>role</th>
                 <th>Date d'Embauche</th>
                 <th>Poste</th>
@@ -28,6 +29,11 @@
                     <td>{{ surveillant.prenom }}</td>
                     <td>{{ surveillant.username}}
                     <td>{{ surveillant.email }}</td>
+                    </td>
+                    <td>{% if surveillant.membreJetons | length > 0 %}
+                            {{surveillant.membreJetons.nombreJeton }}
+                        {% endif %}
+                    <td>
                     <td>
                         {% for role in surveillant.roles %}
                             <li>{{ role }}</li>

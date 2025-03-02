@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 class CuisineType extends AbstractType
 {
@@ -22,7 +23,16 @@ class CuisineType extends AbstractType
         ->add('prenom', TextType::class, [])
         ->add('username', TextType::class, [])
         ->add('email', TextType::class, [])
-        ->add('password', TextType::class, [])
+        ->add('motDePasse', PasswordType::class, [
+            'label' => 'Mot de passe',
+            'mapped'=>false,
+            'attr' =>[
+                'aria-label' => 'Mot de passe',
+                'placeholder' => 'Mot de passe'
+            ],
+            'required' => $options['validation_groups'] !== ['edition'],
+            'disabled'=> false, 
+        ])
 
         ->add('roles', ChoiceType::class, [
             'choices' => [

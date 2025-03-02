@@ -16,5 +16,8 @@ use Doctrine\ORM\Mapping as ORM;
     'direction' => Direction::class
     ])]
 class Secretariat extends Personnel {
-
+    public function __construct()
+    {
+        parent::__construct();
+    }
 }

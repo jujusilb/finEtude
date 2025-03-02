@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 class EleveType extends AbstractType
 {
@@ -39,22 +40,17 @@ class EleveType extends AbstractType
                 'required'   => true,
                 'disabled' => false,
             ])
-            ->add('password', TextType::class, [
+            ->add('motDePasse', PasswordType::class, [
                 'label' => 'Mot de passe',
+                'mapped'=>false,
                 'attr' =>[
                     'aria-label' => 'Mot de passe',
                     'placeholder' => 'Mot de passe'
                 ],
-                'required'   => true,
+                'required' => $options['validation_groups'] !== ['edition'],
                 'disabled'=> false, 
             ])
-            ->add('jeton_repas', IntegerType::class, [
-                'label'=>'Nombre de jeton-repas',
-                'attr'=>[
-                    'aria-label'=>'Nombre de jeton-repas',
-                    'placeholder'=>'Nombre de jeton-repas'
-                ]
-            ])
+
             ->add('imageFile', VichImageType::class)
             ->add('promotion', EntityType::class, [
                 'attr' => [

@@ -52,7 +52,10 @@ class ProfesseurController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $professeur->setRoles(["ROLE_PROFESSEUR"]);
-            $professeur->setPassword($this->passwordHasher->hashPassword($professeur, $professeur->getPassword()));
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($professeur, $tmpPass);
+            $professeur->setPassword($hashTmpPass);
+            
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
             $email =$getter->getEmail($username);
@@ -72,7 +75,7 @@ class ProfesseurController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Professeur $professeur): Response
     {
         return $this->render('utilisateur/professeur/show.html.twig', [
@@ -88,14 +91,10 @@ class ProfesseurController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $professeur->setRoles(["ROLE_PROFESSEUR"]);
-            $professeur
-                ->setPassword(
-                    $this->passwordHasher
-                        ->hashPassword(
-                            $professeur, 
-                            $form->get('password')->getData()
-                        )
-                );
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($professeur, $tmpPass);
+            $professeur->setPassword($hashTmpPass);
+            
             
             $professeur->setPassword($this->passwordHasher->hashPassword($professeur, $professeur->getPassword()));
             $getter =new CouteauSuisse();
@@ -118,7 +117,7 @@ class ProfesseurController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/dlete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Professeur $professeur, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $professeur->getId(), $request->getPayload()->getString('_token'))) {

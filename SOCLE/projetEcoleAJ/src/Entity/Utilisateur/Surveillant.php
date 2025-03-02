@@ -15,5 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
     ])]
 class Surveillant extends Personnel
 {
-   
+    public function __construct(){
+        parent::__construct();
+    }
 }

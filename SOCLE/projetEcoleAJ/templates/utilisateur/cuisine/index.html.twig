@@ -12,6 +12,7 @@
                 <th>Prenom</th>
                 <th>Username</th>
                 <th>E-mail</th>
+                <th>JetonRepas</th>
                 <th>role</th>
                 <th>Date d'Embauche</th>
                 <th>Poste</th>
@@ -29,6 +30,10 @@
                     <td>{{ cuisine.prenom }}</td>
                     <td>{{ cuisine.username }}</td>
                     <td>{{ cuisine.email }}</td>
+                    <td>{% if cuisine.membreJetons | length > 0 %}
+                            {{ cuisine.membreJetons.nombreJeton }}
+                        {% endif %}
+                    <td>
                     <td>
                         {% for role in cuisine.roles %}
                             <li>{{ role }}</li>

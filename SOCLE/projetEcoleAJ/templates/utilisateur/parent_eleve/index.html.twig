@@ -13,6 +13,7 @@
                 <th>Username</th>
                 <th>E-mail</th>
                 <th>password</th>
+                <th>JetonRepas</th>
                 <th>role</th>
                 <th>Eleve</th>
                 <th>Action</td>
@@ -30,6 +31,11 @@
                     <td>{{ parentEleve.username }}</td>
                     <td>{{ parentEleve.email }}</td>
                     <td>{{ parentEleve.password }}</td>
+                    </td>
+                    <td>{% if parentEleve.membreJetons | length > 0 %}
+                            {{parentEleve.membreJetons.nombreJeton }}
+                        {% endif %}
+                    <td>
                     <td>
                         {% for role in parentEleve.roles %}
                             <li>{{ role }}</li>

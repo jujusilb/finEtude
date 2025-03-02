@@ -30,6 +30,11 @@
 
                     <td>{{ membre.email}}</td>
                     <td>{{ membre.jetonRepas}}
+                    </td>
+                    <td>{% if membre.membreJetons | length > 0 %}
+                            {{membre.membreJetons.nombreJeton }}
+                        {% endif %}
+                    <td>
                     <td>
                         {% for role in membre.roles %}
                            <li>{{ role}}</li>

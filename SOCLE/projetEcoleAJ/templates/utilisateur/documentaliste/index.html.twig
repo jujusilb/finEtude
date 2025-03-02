@@ -12,6 +12,7 @@
                 <th>Prenom</th>
                 <th>Usernaùe</th>
                 <th>E-mail</th>
+                <th>JetonRepas</th>
                 <th>role</th>
                 <th>Date d'Embauche</th>
                 <th>Poste</th>
@@ -28,6 +29,10 @@
                     <td>{{ documentaliste.prenom }}</td>
                     <td>{{ documentaliste.username }}</td>
                     <td>{{ documentaliste.email }}</td>
+                    <td>{% if documentaliste.membreJetons | length > 0 %}
+                            {{documentaliste.membreJetons.nombreJeton }}
+                        {% endif %}
+                    <td>
                     <td>
                         {% for role in documentaliste.roles %}
                             <li>{{ role }}</li>

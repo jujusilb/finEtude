@@ -28,5 +28,7 @@ use Doctrine\ORM\Mapping as ORM;
     ])]
 class Adulte extends Membre
 {
-
+    public function __construct(){
+        parent::__construct();
+    }
 }

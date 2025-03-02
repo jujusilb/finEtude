@@ -6,7 +6,7 @@ use App\Outils\CouteauSuisse;
 use App\Entity\Utilisateur\Eleve;
 use App\Repository\Utilisateur\EleveRepository;
 use App\Form\Utilisateur\EleveType;
-
+use ContainerCpcLtUc\getRepasRepositoryService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +19,11 @@ class EleveController extends AbstractController
 {
 
     private $passwordHasher;
-
-    public function __construct(UserPasswordHasherInterface $passwordHasher){
+    Private $entityManager;
+    
+    public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager){
         $this -> passwordHasher=$passwordHasher;
+        $this -> entityManager=$entityManager;
     }
 
     #[Route('/index', name: 'index')]
@@ -49,8 +51,10 @@ class EleveController extends AbstractController
                 $rolePromotion = 'ROLE_' . strtoupper($promotion->getLibelle());
                 $eleve->setRoles(array_merge($eleve->getRoles(), [$rolePromotion]));
             }
-            $eleve->setPassword($this->passwordHasher->hashPassword($eleve, $eleve->getPassword()));
-            
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($eleve, $tmpPass);
+            $eleve->setPassword($hashTmpPass);
+
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
             $email =$getter->getEmail($username);
@@ -62,6 +66,7 @@ class EleveController extends AbstractController
             return $this->redirectToRoute('eleve_index', [], Response::HTTP_SEE_OTHER);
         }
 
+        
         return $this->render('utilisateur/eleve/new.html.twig', [
             'eleve' => $eleve,
             'titre' => 'Nouvel Élève',
@@ -69,7 +74,10 @@ class EleveController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    
+
+
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Eleve $eleve): Response
     {
         return $this->render('utilisateur/eleve/show.html.twig', [
@@ -78,6 +86,8 @@ class EleveController extends AbstractController
             ]);
     }
 
+
+    
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
     public function edit(Request $request, eleve $eleve, EntityManagerInterface $entityManager): Response
     {
@@ -85,7 +95,9 @@ class EleveController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $eleve->setPassword($this->passwordHasher->hashPassword($eleve, $eleve->getPassword()));
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($eleve, $tmpPass);
+            $eleve->setPassword($hashTmpPass);
             $eleve->setRoles(["ROLE_ELEVE"]);
             $promotion = $eleve->getPromotion();
             if ($promotion) {
@@ -103,7 +115,7 @@ class EleveController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Eleve $eleve, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $eleve->getId(), $request->getPayload()->getString('_token'))) {

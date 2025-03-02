@@ -48,8 +48,10 @@ class AdminController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $admin->setRoles(["ROLE_ADMIN"]);
-            $admin->setPassword($this->passwordHasher->hashPassword($admin, $admin->getPassword()));
-             
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($admin, $tmpPass);
+            $admin->setPassword($hashTmpPass);
+
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
             $email =$getter->getEmail($username);
@@ -69,7 +71,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Admin $admin): Response
     {
         return $this->render('Utilisateur/admin/show.html.twig', [
@@ -84,8 +86,9 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $admin->setPassword($this->passwordHasher->hashPassword($admin, $admin->getPassword()));
-            $entityManager->flush();
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($admin, $tmpPass);
+            $admin->setPassword($hashTmpPass);$entityManager->flush();
 
             return $this->redirectToRoute('admin_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -97,7 +100,7 @@ class AdminController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Admin $admin, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $admin->getId(), $request->getPayload()->getString('_token'))) {

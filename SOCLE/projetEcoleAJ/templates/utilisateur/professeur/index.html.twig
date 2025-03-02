@@ -31,7 +31,10 @@
                     <td>{{ professeur.prenom }}</td>
                     <td>{{ professeur.username }}</td>
                     <td>{{ professeur.email }}</td>
-                    <td>{{professeur.jetonRepas}}</td>
+                    <td>{% if professeur.membreJetons | length >0 %}
+                            {{professeur.membreJetons.nombreJeton}}
+                        {% endif %}
+                    </td>
                     <td>
                         {% for role in professeur.roles %}
                             <li>{{ role }}</li>

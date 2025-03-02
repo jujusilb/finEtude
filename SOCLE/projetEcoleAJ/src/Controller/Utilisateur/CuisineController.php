@@ -47,8 +47,9 @@ class CuisineController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $cuisine->setRoles(["ROLE_CUISINE"]);
-            $cuisine->setPassword($this->passwordHasher->hashPassword($cuisine, $cuisine->getPassword()));
-            
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($cuisine, $tmpPass);
+            $cuisine->setPassword($hashTmpPass);
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
             $email =$getter->getEmail($username);
@@ -69,7 +70,7 @@ class CuisineController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Cuisine $cuisine): Response
     {
         return $this->render('utilisateur/cuisine/show.html.twig', [
@@ -85,8 +86,9 @@ class CuisineController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $cuisine->setPassword($this->passwordHasher->hashPassword($cuisine, $cuisine->getPassword()));
-            
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($cuisine, $tmpPass);
+            $cuisine->setPassword($hashTmpPass);
             $entityManager->flush();
 
             return $this->redirectToRoute('cuisine_index', [], Response::HTTP_SEE_OTHER);
@@ -99,7 +101,7 @@ class CuisineController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Cuisine $cuisine, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $cuisine->getId(), $request->getPayload()->getString('_token'))) {

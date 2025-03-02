@@ -33,7 +33,9 @@ class SecretariatController extends AbstractController
 		    'titre' => 'Secretariat',
             'secretariats' => $secretariatRepo->findAll(),
         ]);
-    }    #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
+    }    
+    
+    #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
     public function new (Request $request, EntityManagerInterface $entityManager): Response
     {
         $secretariat = new Secretariat();
@@ -46,8 +48,11 @@ class SecretariatController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $secretariat->setRoles(["ROLE_SECRETARIAT"]);
-            $secretariat->setPassword($this->passwordHasher->hashPassword($secretariat, $secretariat->getPassword()));
-            
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($secretariat, $tmpPass);
+            $secretariat->setPassword($hashTmpPass);
+                        
+
             $getter =new CouteauSuisse();
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
@@ -68,7 +73,7 @@ class SecretariatController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Secretariat $secretariat): Response
     {
         return $this->render('utilisateur/secretariat/show.html.twig', [
@@ -85,7 +90,10 @@ class SecretariatController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $secretariat->setRoles(["ROLE_SECRETARIAT"]);
-            $secretariat->setPassword($this->passwordHasher->hashPassword($secretariat, $secretariat->getPassword()));
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($secretariat, $tmpPass);
+            $secretariat->setPassword($hashTmpPass);
+                        
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
             $email =$getter->getEmail($username);
@@ -104,7 +112,7 @@ class SecretariatController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Secretariat $secretariat, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $secretariat->getId(), $request->getPayload()->getString('_token'))) {

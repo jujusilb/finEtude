@@ -9,11 +9,10 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "aldaflux/game-quizz-bundle": "*",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.3",
-        "doctrine/orm": "^3.3",
+        "doctrine/orm": "^2",
         "fakerphp/faker": "^1.24",
         "fixpunkt/fp-masterquiz": "*",
         "kartik-v/bootstrap-fileinput": "^5.5",
@@ -51,7 +50,7 @@
         "symfony/yaml": "6.4.*",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0",
-        "vich/uploader-bundle": "*"
+        "vich/uploader-bundle": "^2.5"
     },
     "config": {
         "allow-plugins": {

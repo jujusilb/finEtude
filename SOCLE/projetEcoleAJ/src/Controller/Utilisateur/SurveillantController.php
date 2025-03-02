@@ -51,7 +51,9 @@ class SurveillantController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $surveillant->setRoles(["ROLE_SURVEILLANT"]);
-            $surveillant->setPassword($this->passwordHasher->hashPassword($surveillant, $surveillant->getPassword()));
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($surveillant, $tmpPass);
+            $surveillant->setPassword($hashTmpPass);
              
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
@@ -71,7 +73,7 @@ class SurveillantController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Surveillant $surveillant): Response
     {
         return $this->render('utilisateur/surveillant/show.html.twig', [
@@ -88,8 +90,10 @@ class SurveillantController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $surveillant->setRoles(["ROLE_SECRETARIAT"]);
-            $surveillant->setPassword($this->passwordHasher->hashPassword($surveillant, $surveillant->getPassword()));
-            
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($surveillant, $tmpPass);
+            $surveillant->setPassword($hashTmpPass);
+             
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
             $email =$getter->getEmail($username);
@@ -106,7 +110,7 @@ class SurveillantController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Surveillant $surveillant, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $surveillant->getId(), $request->getPayload()->getString('_token'))) {

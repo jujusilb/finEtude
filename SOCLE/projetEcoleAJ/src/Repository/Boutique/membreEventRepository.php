@@ -2,14 +2,14 @@
 
 namespace App\Repository\Boutique;
 
-use App\Entity\Boutique\membreEvent;
+use App\Entity\Boutique\MembreEvent;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @extends ServiceEntityRepository<membreEvent>
  */
-class membreEventRepository extends ServiceEntityRepository
+class MembreEventRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {

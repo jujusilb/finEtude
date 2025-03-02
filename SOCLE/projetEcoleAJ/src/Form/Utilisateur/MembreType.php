@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -37,22 +38,17 @@ class MembreType extends AbstractType
             'disabled' => false,
             
         ])
-->add('jetonRepas', integerType::class,[
-    'label'=>'Nombre de jeton-repas',
-    'attr'=>[
-        'aria-label'=>'Nombre de jeton-repas',
-        'placeholder'=>'Nombre de jeton-repas'
+
+->add('motDePasse', PasswordType::class, [
+    'label' => 'Mot de passe',
+    'mapped'=>false,
+    'attr' =>[
+        'aria-label' => 'Mot de passe',
+        'placeholder' => 'Mot de passe'
     ],
+    'required' => $options['validation_groups'] !== ['edition'],
+    'disabled'=> false, 
 ])
-        ->add('password', TextType::class, [
-            'label' => 'Mot de passe',
-            'attr' =>[
-                'aria-label' => 'Mot de passe',
-                'placeholder' => 'Mot de passe'
-            ],
-            'required'   => true,
-            'disabled'=> false, 
-        ])
         ->add('imageFile', VichImageType::class, [
             'required'=>false
         ])

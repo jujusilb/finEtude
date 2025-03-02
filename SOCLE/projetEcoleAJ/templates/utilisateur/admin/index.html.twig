@@ -13,6 +13,7 @@
                 <th>Username</th>
                 <th>E-mail</th>
                 <th>password</th>
+                <th>JetonRepas</th>
                 <th>role</th>
 
             </tr>
@@ -29,6 +30,10 @@
                     <td>{{ admin.username }}</th>
                     <td>{{ admin.email }}</td>
                     <td>{{ admin.password }}</td>
+                    <td>{% if secretariat.membreJetons | length > 0 %}
+                            {{ secretariat.membreJetons.nombreJeton }}
+                        {% endif %}
+                    <td>
                     <td>
                         {% for role in admin.roles %}
                             <li>{{ role }}</li>

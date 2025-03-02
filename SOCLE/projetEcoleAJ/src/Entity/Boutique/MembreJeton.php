@@ -14,7 +14,7 @@ class MembreJeton
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'membreJetons')]
+    #[ORM\OneToOne(inversedBy: 'membreJetons')]
     private ?Membre $membre = null;
 
     #[ORM\Column]

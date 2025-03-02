@@ -50,8 +50,9 @@ class DocumentalisteController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $documentaliste->setRoles(["ROLE_DOCUMENTALISTE"]);
-            $documentaliste->setPassword($this->passwordHasher->hashPassword($documentaliste, $documentaliste->getPassword()));
-            
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($documentaliste, $tmpPass);
+            $documentaliste->setPassword($hashTmpPass);
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
             $email =$getter->getEmail($username);
@@ -71,7 +72,7 @@ class DocumentalisteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Documentaliste $documentaliste): Response
     {
         return $this->render('utilisateur/documentaliste/show.html.twig', [
@@ -87,7 +88,9 @@ class DocumentalisteController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $documentaliste->setPassword($this->passwordHasher->hashPassword($documentaliste, $documentaliste->getPassword()));
+            $tmpPass=$form->get('motDePasse')->getData();
+            $hashTmpPass=$this->passwordHasher->hashPassword($documentaliste, $tmpPass);
+            $documentaliste->setPassword($hashTmpPass);
             $entityManager->flush();
 
             return $this->redirectToRoute('documentaliste_index', [], Response::HTTP_SEE_OTHER);
@@ -100,7 +103,7 @@ class DocumentalisteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Documentaliste $documentaliste, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $documentaliste->getId(), $request->getPayload()->getString('_token'))) {

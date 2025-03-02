@@ -15,6 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class SurveillantType extends AbstractType
 {
@@ -43,22 +44,17 @@ class SurveillantType extends AbstractType
                 
             ])
 
-            ->add('password', TextType::class, [
+            ->add('motDePasse', PasswordType::class, [
                 'label' => 'Mot de passe',
+                'mapped'=>false,
                 'attr' =>[
                     'aria-label' => 'Mot de passe',
                     'placeholder' => 'Mot de passe'
                 ],
-                'required'   => true,
+                'required' => $options['validation_groups'] !== ['edition'],
                 'disabled'=> false, 
             ])
-            ->add('jetonRepas', integerType::class,[
-                'label'=>'Nombre de jeton-repas',
-                'attr'=>[
-                    'aria-label'=>'Nombre de jeton-repas',
-                    'placeholder'=>'Nombre de jeton-repas'
-                ],
-            ])
+
             ->add('pole', EntityType::class,[
                 'class'=>Pole::class,
                 'choice_label'=>'libelle',
