@@ -1,3 +1,4 @@
+
 delete from planning_repas;
 delete from repas;
 delete from menu;
@@ -23,6 +24,217 @@ delete from personnel;
 delete from cuisine;
 delete from documentaliste;
 
+
+
+
+
+delete from entree;
+delete from legume;
+delete from viande;
+delete from fromage;
+delete from dessert;
+delete from categorie_produit;
+delete from categorie_ouvrage;
+delete from statut_ouvrage;
+delete from statut_emprunt;
+delete from pole;
+delete from entreprise;
+delete from matiere;
+delete from forum;
+delete from batiment;
+
+INSERT INTO `statut_emprunt` (`id`, `libelle`) VALUES
+(1, 'Emprunt demandé'),
+(2, 'Emprunt en Cours'),
+(3, 'Ouvrage rendu');
+
+
+INSERT INTO `pole` (`id`, `libelle`) VALUES
+(1, 'Général'),
+(2, 'Accompagnement'),
+(3, 'Kiné'),
+(4, 'Tertiaire');
+
+INSERT INTO `matiere` (`id`, `libelle`) VALUES
+(1, 'Bureautique'),
+(2, 'Français'),
+(3, 'Anglais'),
+(4, 'Mathématique'),
+(5, 'Informatique'),
+(6, 'Anatomie'),
+(7, 'Pratique de massage'),
+(8, 'Pratique de massage'),
+(9, 'Physique'),
+(10, 'Chimie'),
+(11, 'CRCD'),
+(12, 'TRE'),
+(13, 'Neurologie'),
+(14, 'Pharmacologie');
+
+
+INSERT INTO `legume` (`id`, `libelle`) VALUES
+(1, 'pates'),
+(2, 'Endives'),
+(3, 'Ratatouille'),
+(4, 'Purée'),
+(5, 'Frites'),
+(6, 'Haricot verts'),
+(7, 'Lentilles Vertes'),
+(8, 'Pommes dauphine'),
+(9, 'Ebly'),
+(10, 'riz');
+
+
+INSERT INTO `fromage` (`id`, `libelle`) VALUES
+(1, 'Camembert'),
+(2, 'Gorgonzola'),
+(3, 'Brie'),
+(4, 'Saint-Nectaire'),
+(5, 'Fourme d\'Ambert'),
+(6, 'Babybel'),
+(7, 'Morbier'),
+(8, 'Tome de Savoie'),
+(9, 'Saint-Moret'),
+(10, 'Fourme d\'Yssingeaux'),
+(11, 'Rambol');
+
+
+
+
+INSERT INTO `entreprise`(`id`, `libelle`, `adresse`, `code_postal`, `ville`, `telephone`, `email`) VALUES
+(1, 'CNAM', '50 avenue du professeur lemiere', '75019', 'paris', '0123456789', 'contact@ameli.fr'),
+(2, 'Ubisoft', '20 avenue du parc', '94200','vincennes', '0123456789', 'contact@ubisoft.com'),
+(3, 'Google France', '25 rue LaFayette', '75009', 'Paris', '0123456789', 'contact@google.fr'),
+(4, 'pier et vacances', '3 rue des cocotiers', '75001', 'Paris', '0123456789', 'contact@pieretvacance.com'),
+(5, 'C&A', '4 avenue du linge', '75010', 'Paris', '0123456789', 'contact@ca.com'),
+(6, 'H&M',  '12 boulevard Gerard Demanche', '75016', 'Paris', '0123456789', 'contact@hm.com'),
+(7, 'RATP', '1 quai de la rapée', '75012', 'Paris', '0123456789', 'contact@ratp.fr'),
+(8, 'SNCF', '3 boulevard Georgio', '75008', 'Paris', '0123456789','contact@sncf.com'),
+(9, 'DGSI', '1 rue nelaton', '75015', 'Paris',  '0123456789', 'contact@dgsi.interieur.gouv.fr'),
+(10, 'Auchan', 'esplanade de la defense', '92000', 'Nanterre',  '0123456789', 'contact@auchan.fr');
+
+
+
+
+INSERT INTO `forum` (`id`, `libelle`, `description`, `role`) VALUES
+(1, 'Pédagogie', 'Tout ce qui à concerne la pédagogie', '[\"ROLE_PROFESSEUR\", \"ROLE_ELEVE\"]'),
+(2, 'Para-scolaire', 'Tout ce qui concerne les activités', '[\"ROLE_MEMBRE\"]'),
+(3, 'Insertion', 'Avis sur les entreprises, petites annonces...', '[\"ROLE_INSERTION\", \"ROLE_ELEVE\", \"ROLE_PARENT\"]'),
+(4, 'Votre école', 'Tout ce qui concerne votre école', '[\"ROLE_MEMBRE\"]'),
+(5, 'Personnel', 'Discussion entre employés', '[\"ROLE_PERSONNEL\"]');
+
+
+
+
+INSERT INTO `entree` (`id`, `libelle`) VALUES
+(1, 'Oeufs mimosa'),
+(2, 'Poireaux Vinaigrette'),
+(3, 'Feuilleté au fromage'),
+(4, 'Tomates Mozzarella'),
+(5, 'coleslaw'),
+(6, 'Taboulé orientale'),
+(7, 'Carotte rapées'),
+(8, 'Foie gras'),
+(9, 'Terrine de campagne');
+
+
+INSERT INTO `dessert` (`id`, `libelle`) VALUES
+(1, 'Profiterolles'),
+(2, 'Banana split'),
+(3, 'Tarte aux pommes'),
+(4, 'Yaourt'),
+(5, 'Crème brulée'),
+(6, 'Brownie'),
+(7, 'Salade de fruits'),
+(8, 'Île flotante'),
+(9, 'Fruit'),
+(10, 'Tiramisu'),
+(11, 'Cheesecake');
+
+
+INSERT INTO `categorie_produit` (`id`, `libelle`) VALUES
+(1, 'jeton'),
+(2, 'Objet'),
+(3, 'Tombola'),
+(4, 'Event');
+
+
+INSERT INTO `categorie_ouvrage` (`id`, `libelle`) VALUES
+(1, 'Pedagogie'),
+(2, 'Humour'),
+(3, 'Policier'),
+(4, 'Drame'),
+(5, 'Science-Fiction'),
+(6, 'Historique'),
+(7, 'Document'),
+(8, 'Biographie'),
+(9, 'Fantastique'),
+(10, 'Théâtre'),
+(11, 'Jeunesse'),
+(12, 'Religion'),
+(13, 'Technique'),
+(14, 'Manga'),
+(15, 'Comic'),
+(16, 'Bande déssiné'),
+(17, 'Philosophie'),
+(18, 'Romance');
+
+
+INSERT INTO `batiment` (`id`, `libelle`) VALUES
+(1, 'Guinot');
+
+
+INSERT INTO `viande` (`id`, `libelle`) VALUES
+(1, 'Boeuf Bourguignon'),
+(2, 'Escalope pané'),
+(3, 'Steak haché'),
+(4, 'Cordon Bleu'),
+(5, 'pilon de poulet'),
+(6, 'Saucisse de Francfort'),
+(7, 'ailes de poulet'),
+(8, 'Canard laqué'),
+(9, 'Brochette'),
+(10, 'Croque monsieur');
+
+
+INSERT INTO `statut_ouvrage` (`id`, `libelle`) VALUES
+(1, 'Souhaité'),
+(2, 'Commandé'),
+(3, 'Disponible'),
+(4, 'Emprunt demandé'),
+(5, 'Emprunt en cours');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `discrimination`) VALUES
 (1, 'jdoe@guinot.asso.fr', '[]', 'mdp', 'membre'),
 (2, 'snait-kaci@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$hWOHdy31AE8m3NspmWIuFuwoWC8SUZUl/IFL4X3YdIigeAQikoqKG', 'professeur'),
@@ -30,17 +242,17 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `discrimination`) VALUES
 (4, 'ipalafot@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$9cMUaegw7PltGQad/zyChelB6S.WqLLhCR9JvyHqJhyNLOze/guH6', 'professeur'),
 (5, 'eschaff@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$OHAXt55IlEfKimdyA8IBfeYcSI.UHiVWOHZglOk5jKF2mG9QjE/9S', 'professeur'),
 (6, 'vviala@guinot.asso.fr', '[\"ROLE_ADMIN\"]', '$2y$13$dx2ZPEIMNBIl/w6cvfpo/u3.R02MsmbNl.TXNc/1LhRP4JPh1d802', 'admin'),
-(7, 'jsilberstein@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_DA2\"]', '$2y$13$B9MJme0lH0PQ9xokAxayQODuNfJScRJOPxm1nIomfuTA616nYDswa', 'eleve'),
-(8, 'adreche@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_DA2\"]', '$2y$13$nu2js7hKqe2jxPpX93.CYubyN42nfP0nxOcaQ12d2d4PG79VOpxpK', 'eleve'),
-(9, 'mlnoel@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_DA2\"]', '$2y$13$5dYfF4zX8Zu/sn1/VMRwsuTrEhU3LxR5ZLeoAlErYPsmCCkFpQ3rC', 'eleve'),
-(10, 'amarie@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_DA1\"]', '$2y$13$HlqHPoF49YyQYdNYBp7r.u3AJICCYHZkmnoqnh2iZgiy/TGZzeXS.', 'eleve'),
-(11, 'cdubois@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_DA1\"]', '$2y$13$oL3bx12snVgqPWRBJWVcSO9cCMV14CeO0zu3NYWd7XwKRGR.dd0Hm', 'eleve'),
-(12, 'mmazeau@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_DA1\"]', '$2y$13$rCNs07AUE1apy0IBVVz/wemmyqEzHg4Dr.lRKORS3ipVS./715MQO', 'eleve'),
+(7, 'jsilberstein@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$B9MJme0lH0PQ9xokAxayQODuNfJScRJOPxm1nIomfuTA616nYDswa', 'eleve'),
+(8, 'adreche@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$nu2js7hKqe2jxPpX93.CYubyN42nfP0nxOcaQ12d2d4PG79VOpxpK', 'eleve'),
+(9, 'mlnoel@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$5dYfF4zX8Zu/sn1/VMRwsuTrEhU3LxR5ZLeoAlErYPsmCCkFpQ3rC', 'eleve'),
+(10, 'amarie@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$HlqHPoF49YyQYdNYBp7r.u3AJICCYHZkmnoqnh2iZgiy/TGZzeXS.', 'eleve'),
+(11, 'cdubois@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$oL3bx12snVgqPWRBJWVcSO9cCMV14CeO0zu3NYWd7XwKRGR.dd0Hm', 'eleve'),
+(12, 'mmazeau@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$rCNs07AUE1apy0IBVVz/wemmyqEzHg4Dr.lRKORS3ipVS./715MQO', 'eleve'),
 (13, 'mchabira@guinot.asso.fr', '[\"ROLE_INSERTION\"]', '$2y$13$E4URidk9v24tMaR2nRxNgOUvwPma/eyw.zA3y/8sFuYAf.zDP0o7S', 'insertion'),
 (14, 'dburel@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$fHcMtwTfQOn12wtujFUxk.4LmjtytrROfJICmxjuRgq6PYuurQ/ni', 'professeur'),
 (15, 'mkheiar@guinot.asso.fr', '[\"ROLE_SECRETARIAT\"]', '$2y$13$84u90djRyiemsfmNI6zhY.MNvymItMlZVifcLgjK6a8nuPjM1adt.', 'secretariat'),
 (16, 'cperrin@guinot.asso.fr', '[\"ROLE_DIRECTION\"]', '$2y$13$qJufwh7mYId6BvtxIqiYAOD0JkLJCXfbYY5MtKePiz7wesTWcqsP6', 'direction'),
-(17, 'lterendij@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_PMK\"]', '$2y$13$SM7RfYB27EnKZWJ360Od4.QzbCSQwDJty3uNGClMmzZDnw4PFgSxO', 'eleve'),
+(17, 'lterendij@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$SM7RfYB27EnKZWJ360Od4.QzbCSQwDJty3uNGClMmzZDnw4PFgSxO', 'eleve'),
 (18, 'tblondeleau@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$shhfZOfzOEZ6tUX7JHTBKOwmKh1Ro270qNytNYOrlKNFnlZaTmrky', 'professeur'),
 (19, 'rbenyahya@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$T7nVN5AGcGH5w1nbWUCRIe/Csgd5rYwK2QEXvQuCLS/AcPeBkrIa.', 'professeur'),
 (20, 'msakhraoui@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$eRf8IfVnK18pVH7z1jLs9./qgUN79OJVq616kE9Hc5eZmBlJjm6Ee', 'professeur'),
@@ -50,38 +262,38 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `discrimination`) VALUES
 (24, 'psorentino@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$qPLNXRdZsZidZOgX/QslQ.tW4tBwaEC0sM80bSgsLeVRKZ.Q8zt7u', 'professeur'),
 (25, 'epartouche@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$tbKqv8VTtm8ci0jezPsWLO5bLSA73LrGowsIEcfc6AXICjaqKtoj.', 'professeur'),
 (26, 'qbalestan@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$WA.F5seGQLjkG.m//L4bme2rHxC4ZyqX9VA8dNpvY/CldbK.BUAyK', 'professeur'),
-(27, 'mgranier@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K2\"]', '$2y$13$MkRl3jIYC/Yf7HKRClxeJeNIr21KpYF69dSJ2fQ14kOhpBQc9YhBC', 'eleve'),
-(28, 'mbelmonte-caussieu@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K5\"]', '$2y$13$xcORWCv8t0pKh1YD/ZnWgOcgNU6Zs7Zc8a1tCmVPxXbslq2uemQL.', 'eleve'),
-(29, 'mkaufman@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K1\"]', '$2y$13$6JM9KVzD/XIajlvRLxfzm.bD6r3ZaP9Fbx36MEYr31jZq1TuLZ3S.', 'eleve'),
-(30, 'lservajean@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K4\"]', '$2y$13$pP97zq6GqoAkIg2gS649Ce5k7gwJ.SkwsfzH2RI1IRv3sj1akgHDu', 'eleve'),
-(31, 'dedimo@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K3\"]', '$2y$13$iqagmA/FVq/SPfL/vCcTfOf7FRP95vKIMtwSjh0HnO.X1gi7/wHlK', 'eleve'),
-(32, 'nchaffey@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K1\"]', '$2y$13$G4PSXm3rmSmsJM6qjqoHe.d.EKFFeBHWriKKmpeU0sh2BNX9Cd8m2', 'eleve'),
-(33, 'mdrouart@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K3\"]', '$2y$13$erTtsZtVreToimfmI7e4O.TIeC/X.e/odf3/5tWFG/iK.58sgDw/G', 'eleve'),
-(34, 'souahabi@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K3\"]', '$2y$13$euzZmMGjgF2XVoc2vtTTv.JRAf8X.KX8BBBerrB5wu3yolmhMRWOK', 'eleve'),
-(35, 'adoucoure@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_CRCD\"]', '$2y$13$GShoArubfPAypq1Ic1unOeuvjFwq4cWeaDyOzXix1Y.YdG9bHH45G', 'eleve'),
-(36, 'ftecher@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_PMT\"]', '$2y$13$mkaLrzz5VBaJpojK7.1jfeMJ9j3rrXI/hAxHRxJNskyoCECH4zJxG', 'eleve'),
-(37, 'bturpin@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_PMK\"]', '$2y$13$Nwj0VN8W9hGXyUNn/BNs9OGRWeuLozdG29Tftw/kau96rVUD5asCq', 'eleve'),
-(38, 'svilan@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_PMK\"]', '$2y$13$AWtwqdZn9MLHvsGOYM1vh.e2Aja/ofkgzqq1b0ebtGIK6.H/fyRpK', 'eleve'),
-(39, 'jcourtois@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K1\"]', '$2y$13$hM4cEKnnMxZuF0J71fx1i.EgSoBT/ED1N2T4al5iL9EddNOsrqx9W', 'eleve'),
-(40, 'ragbovi@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K2\"]', '$2y$13$JiMzlYxcp/gWknrtEJ8ly.uaJvsUAspuX.QwPgLoy8SdwYBQYvwpe', 'eleve'),
-(41, 'lcharbonnel@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K2\"]', '$2y$13$PHayFl22Ejyg2S2cMrNeZeVvP1B4i3ngWwXvh33ig/X/Nbp/dipAy', 'eleve'),
-(42, 'fdedinger@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K2\"]', '$2y$13$8Gks0GLYPUSYbFhrebrAce.QA4BscQqdZbIg8TtNlcv5G59LJjSvC', 'eleve'),
-(43, 'mverrier@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K2\"]', '$2y$13$m8Mjqkf7oLSzhhZnxcCzpO6HkJHCZcsPk0i1fhnvvrhamBdmX7AGG', 'eleve'),
-(44, 'aariapoutri@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K3\"]', '$2y$13$wSw3zQbGqArlgGxWY.EYz.prwfeqOAII4oatEy7kBw3t88O3LS0yu', 'eleve'),
-(45, 'larzur@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K3\"]', '$2y$13$f/HHT4PbqFGp8mDHIafoL.8UXmCDmSQi2W0viIsTeQeA4NQwuHFCa', 'eleve'),
-(46, 'ycariou@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K3\"]', '$2y$13$nspMXBdZYCKJaOc2Uq7jNuCR8FPOfseFGh1CN0LxO5foeQhGOVV1q', 'eleve'),
-(47, 'adesjars@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K3\"]', '$2y$13$ZdnH7ApAojPMmS9rfD5Bvuah.MB6/pk4TRi58FGXFC/D2R74.9M7m', 'eleve'),
-(48, 'mguezoul@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K3\"]', '$2y$13$Vbi/HyiRR5eHme9b4aK/n.sZrhsUwtZY736Kv603BZew3jmtiOJ2a', 'eleve'),
-(49, 'jperruchon@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K3\"]', '$2y$13$yQKLO1mxUlrhzXb3KoCgoer.aFjKci6K2SXR0b/piu6GGXaqIdPzO', 'eleve'),
-(50, 'tvarbedjian@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K3\"]', '$2y$13$Z2UMCroQEcxP1ZVzcM0PY.BkLaYevfCBKwvvYyxuv1VTnoWn5opo6', 'eleve'),
-(51, 'cfauchard@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K4\"]', '$2y$13$LAD6zxaWtqGfUI7qJ3l5OuBVF298bF0ctprAzvS2vdU3cpUMtFgka', 'eleve'),
-(52, 'clacointe@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K4\"]', '$2y$13$yRW1JkxOnscth6pZMYNIjeDFWxZZmGKQwoV1DD6Z2l4PgfrWda8OS', 'eleve'),
-(53, 'alapujade@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K4\"]', '$2y$13$DlUQ3lcEXwX0Y6x/urySlO4Hh0nWUB4ydcs.YNQw4ouBzYQW9wAja', 'eleve'),
-(54, 'lwalter@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K5\"]', '$2y$13$RoBHiqpdS/dnwL6ZN8pQtesxPeM2nXl4elUiYNaCQCocj5gX/mnXq', 'eleve'),
-(55, 'ccommeau@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K5\"]', '$2y$13$53W5pfslVvxd7LoqhSu7Weo1jgtC6GNbqcwkuggnaA2V7tMkth8w6', 'eleve'),
-(56, 'sezzoubi@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K5\"]', '$2y$13$dCYkIm4Y.ZRa1aD1U326WeYgGsCL32sYLcxtbj4Wu.gHS9Ws6MNke', 'eleve'),
-(57, 'ogomes@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K5\"]', '$2y$13$/vAhR/vJVpk1kaQ7LlPV6OHNRCwll1/H8FUFb0mKVlT4g9lXun6zO', 'eleve'),
-(58, 'hmakaya@guinot.asso.fr', '[\"ROLE_ELEVE\", \"ROLE_K5\"]', '$2y$13$5hnGfp3dJM0sdUBskM80DeM9eWuUH055dJuU.0tZaqI/YaUvmoghC', 'eleve'),
+(27, 'mgranier@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$MkRl3jIYC/Yf7HKRClxeJeNIr21KpYF69dSJ2fQ14kOhpBQc9YhBC', 'eleve'),
+(28, 'mbelmonte-caussieu@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$xcORWCv8t0pKh1YD/ZnWgOcgNU6Zs7Zc8a1tCmVPxXbslq2uemQL.', 'eleve'),
+(29, 'mkaufman@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$6JM9KVzD/XIajlvRLxfzm.bD6r3ZaP9Fbx36MEYr31jZq1TuLZ3S.', 'eleve'),
+(30, 'lservajean@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$pP97zq6GqoAkIg2gS649Ce5k7gwJ.SkwsfzH2RI1IRv3sj1akgHDu', 'eleve'),
+(31, 'dedimo@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$iqagmA/FVq/SPfL/vCcTfOf7FRP95vKIMtwSjh0HnO.X1gi7/wHlK', 'eleve'),
+(32, 'nchaffey@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$G4PSXm3rmSmsJM6qjqoHe.d.EKFFeBHWriKKmpeU0sh2BNX9Cd8m2', 'eleve'),
+(33, 'mdrouart@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$erTtsZtVreToimfmI7e4O.TIeC/X.e/odf3/5tWFG/iK.58sgDw/G', 'eleve'),
+(34, 'souahabi@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$euzZmMGjgF2XVoc2vtTTv.JRAf8X.KX8BBBerrB5wu3yolmhMRWOK', 'eleve'),
+(35, 'adoucoure@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$GShoArubfPAypq1Ic1unOeuvjFwq4cWeaDyOzXix1Y.YdG9bHH45G', 'eleve'),
+(36, 'ftecher@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$mkaLrzz5VBaJpojK7.1jfeMJ9j3rrXI/hAxHRxJNskyoCECH4zJxG', 'eleve'),
+(37, 'bturpin@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$Nwj0VN8W9hGXyUNn/BNs9OGRWeuLozdG29Tftw/kau96rVUD5asCq', 'eleve'),
+(38, 'svilan@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$AWtwqdZn9MLHvsGOYM1vh.e2Aja/ofkgzqq1b0ebtGIK6.H/fyRpK', 'eleve'),
+(39, 'jcourtois@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$hM4cEKnnMxZuF0J71fx1i.EgSoBT/ED1N2T4al5iL9EddNOsrqx9W', 'eleve'),
+(40, 'ragbovi@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$JiMzlYxcp/gWknrtEJ8ly.uaJvsUAspuX.QwPgLoy8SdwYBQYvwpe', 'eleve'),
+(41, 'lcharbonnel@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$PHayFl22Ejyg2S2cMrNeZeVvP1B4i3ngWwXvh33ig/X/Nbp/dipAy', 'eleve'),
+(42, 'fdedinger@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$8Gks0GLYPUSYbFhrebrAce.QA4BscQqdZbIg8TtNlcv5G59LJjSvC', 'eleve'),
+(43, 'mverrier@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$m8Mjqkf7oLSzhhZnxcCzpO6HkJHCZcsPk0i1fhnvvrhamBdmX7AGG', 'eleve'),
+(44, 'aariapoutri@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$wSw3zQbGqArlgGxWY.EYz.prwfeqOAII4oatEy7kBw3t88O3LS0yu', 'eleve'),
+(45, 'larzur@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$f/HHT4PbqFGp8mDHIafoL.8UXmCDmSQi2W0viIsTeQeA4NQwuHFCa', 'eleve'),
+(46, 'ycariou@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$nspMXBdZYCKJaOc2Uq7jNuCR8FPOfseFGh1CN0LxO5foeQhGOVV1q', 'eleve'),
+(47, 'adesjars@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$ZdnH7ApAojPMmS9rfD5Bvuah.MB6/pk4TRi58FGXFC/D2R74.9M7m', 'eleve'),
+(48, 'mguezoul@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$Vbi/HyiRR5eHme9b4aK/n.sZrhsUwtZY736Kv603BZew3jmtiOJ2a', 'eleve'),
+(49, 'jperruchon@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$yQKLO1mxUlrhzXb3KoCgoer.aFjKci6K2SXR0b/piu6GGXaqIdPzO', 'eleve'),
+(50, 'tvarbedjian@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$Z2UMCroQEcxP1ZVzcM0PY.BkLaYevfCBKwvvYyxuv1VTnoWn5opo6', 'eleve'),
+(51, 'cfauchard@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$LAD6zxaWtqGfUI7qJ3l5OuBVF298bF0ctprAzvS2vdU3cpUMtFgka', 'eleve'),
+(52, 'clacointe@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$yRW1JkxOnscth6pZMYNIjeDFWxZZmGKQwoV1DD6Z2l4PgfrWda8OS', 'eleve'),
+(53, 'alapujade@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$DlUQ3lcEXwX0Y6x/urySlO4Hh0nWUB4ydcs.YNQw4ouBzYQW9wAja', 'eleve'),
+(54, 'lwalter@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$RoBHiqpdS/dnwL6ZN8pQtesxPeM2nXl4elUiYNaCQCocj5gX/mnXq', 'eleve'),
+(55, 'ccommeau@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$53W5pfslVvxd7LoqhSu7Weo1jgtC6GNbqcwkuggnaA2V7tMkth8w6', 'eleve'),
+(56, 'sezzoubi@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$dCYkIm4Y.ZRa1aD1U326WeYgGsCL32sYLcxtbj4Wu.gHS9Ws6MNke', 'eleve'),
+(57, 'ogomes@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$/vAhR/vJVpk1kaQ7LlPV6OHNRCwll1/H8FUFb0mKVlT4g9lXun6zO', 'eleve'),
+(58, 'hmakaya@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$5hnGfp3dJM0sdUBskM80DeM9eWuUH055dJuU.0tZaqI/YaUvmoghC', 'eleve'),
 (59, 'mtetegan@guinot.asso.fr', '[\"ROLE_SECRETARIAT\"]', '$2y$13$/717yK6Vo5KAKSXs9RiWxO7v2wQGvazIXnXPvgu7VLJxuCE437W1m', 'secretariat'),
 (60, 'acozee@guinot.asso.fr', '[\"ROLE_DIRECTION\"]', '$2y$13$wblvQInsbAY2Jb92X4KekecavgBr2mXYf3BVeP8f5V/QnKdQm0XAW', 'direction'),
 (61, 'croels@guinot.asso.fr', '[\"ROLE_DOCUMENTALISTE\"]', '$2y$13$cRab9KY6txVS1lp6GzjENe1dAql74dx8hK5M9898eq8rFY.U5Msxa', 'documentaliste'),
@@ -89,14 +301,14 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `discrimination`) VALUES
 (63, 'nraad@guinot.asso.fr', '[\"ROLE_SURVEILLANT\"]', '$2y$13$WNPiFZGYcgE5F5xF8rlMHOrr0p4HDEn1F23mZ0RHmxkPOnzfpTpe6', 'surveillant'),
 (64, 'idendenis@guinot.asso.fr', '[\"ROLE_SURVEILLANT\"]', '$2y$13$vwgWocTqFtEf5xoGpNvrxu/zp01fR1wmblodiU7pR465huWBe6ZF.', 'surveillant'),
 (65, 'tbozin@guinot.asso.fr', '[\"ROLE_CUISINE\"]', '$2y$13$9UzgqEgjNiFqrLDqEjznfu21Donx7FU1UubHPmB8o/OUTEnGiFt8W', 'cuisine'),
-(66, 'asilberstein@guinot.asso.fr', '[\"ROLE_PARENTELEVE\"]', '$2y$13$JbEl1rtwE22fNy/6wqI.aen0v9sXW2I5JWeya9pduj7UEfUzlFGVi', 'parentEleve'),
+(66, 'asilberstein@guinot.asso.fr', '[\"ROLE_PARENT\"]', '$2y$13$JbEl1rtwE22fNy/6wqI.aen0v9sXW2I5JWeya9pduj7UEfUzlFGVi', 'parentEleve'),
 (67, 'gguyot@guinot.asso.fr', '[\"ROLE_DIRECTION\"]', '$2y$13$aU6vfrt/Q4cAIJR.oeXDgef1Ip3SEjCpglH1i6dzngicU4Uvmcsom', 'direction'),
 (68, 'lsimonet@guinot.asso.fr', '[\"ROLE_DIRECTION\"]', '$2y$13$Iyh47tkBhNYZ1oZgGQKdPO3FdtJjobRH.LvARYBkL.lXlj5KH99oy', 'direction'),
 (69, 'acstromengeg@guinot.asso.fr', '[\"ROLE_DIRECTION\"]', '$2y$13$aQwlOvZldGf5Dphx8sRbcu7.tNBkEmT/TuQ/2BEXkRTTFgORyG7Si', 'direction'),
-(70, 'nriou@guinot.asso.fr', '[\"ROLE_PARENTELEVE\"]', '$2y$13$b8Bfg/3uWBb98PrQ/KgVTeZWYTn2ZiKESjlOMvoFTwcCfvk8FlrSO', 'parentEleve'),
+(70, 'nriou@guinot.asso.fr', '[\"ROLE_PARENT\"]', '$2y$13$b8Bfg/3uWBb98PrQ/KgVTeZWYTn2ZiKESjlOMvoFTwcCfvk8FlrSO', 'parentEleve'),
 (71, 'dcany@guinot.asso.fr', '[\"ROLE_SECRETARIAT\"]', '$2y$13$.nxvwKT2ry2UiOnvRgoDvODiEyN1OlkQs/R.jz.wVJjZ0t3a.yfGK', 'secretariat'),
-(74, 'lfevrier@guinot.asso.fr', '[\"ROLE_ELEVE\",\"ROLE_MEMBRE\",\"ROLE_PMT1\"]', '$2y$13$3iH5O0unQdUZvdkYsCdoA.QnToL6oHbVZMMgpNbLBYIsfOg61xe6a', 'eleve'),
-(75, 'everdino@guinot.asso.fr', '[\"ROLE_ELEVE\",\"ROLE_MEMBRE\",\"ROLE_PMT1\"]', '$2y$13$ZFisP.PH7f/XZ8JV.TZexOrfz/yq5GKOsFGpo/8hz/Jr9PVx3CIgi', 'eleve');
+(74, 'lfevrier@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$3iH5O0unQdUZvdkYsCdoA.QnToL6oHbVZMMgpNbLBYIsfOg61xe6a', 'eleve'),
+(75, 'everdino@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$ZFisP.PH7f/XZ8JV.TZexOrfz/yq5GKOsFGpo/8hz/Jr9PVx3CIgi', 'eleve');
 
 
 INSERT INTO `membre` (`id`, `nom`, `prenom`, `image_name`, `updated_at`, `created_at`, `username`, `charte`, `civilite`) VALUES
@@ -284,6 +496,9 @@ INSERT INTO `repas` (`id`, `menu_id`, `prix`, `date`, `heure`) VALUES
 
 
 
+
+
+
 INSERT INTO `ouvrage` (`id`, `statut_ouvrage_id`, `titre`) VALUES
 (1, 4, 'Le journal d\'Anne Frank'),
 (2, 4, 'Rendez-vous avec Rama'),
@@ -383,6 +598,12 @@ INSERT INTO `eleve` (`id`, `promotion_id`) VALUES
 INSERT INTO `admin` (`id`) VALUES
 (6);
 
+	
+
+
+
+
+
 
 INSERT INTO `personnel` (`id`, `date_embauche`, `poste`) VALUES
 (2, '2021-02-10', '0146780100'),
@@ -452,6 +673,9 @@ INSERT INTO `professeur` (`id`) VALUES
 (24),
 (25),
 (26);
+
+
+
 
 
 
@@ -527,6 +751,7 @@ INSERT INTO `categorie_forum` (`id`,`forum_id`, `libelle`, `description`) VALUES
 (43, 5, 'Apéro', 'Organisation d\'apéros entre collègues, choix des lieux, des dates et des thèmes.'),
 (44, 5, 'Projet', 'Discussions sur les projets en cours, les idées, les suggestions et les informations pratiques.'),
 (45, 5, 'DRH', 'Discussions sur les questions liées aux ressources humaines, aux carrières, aux formations et aux démarches administratives.');
+
 
 
 
@@ -645,6 +870,9 @@ INSERT INTO `membre_jeton` (`id`, `membre_id`, `nombre_jeton`) VALUES
 (71, 71, 0),
 (72, 74, 0),
 (73, 75, 0);
+
+
+
 
 INSERT INTO `salle` (`id`, `etage_id`, `libelle`, `promo_principale_id`) VALUES
 (1, 1, 'Pmt1', NULL),
@@ -811,15 +1039,17 @@ INSERT INTO `sub_forum` (`id`, `categorie_forum_id`, `libelle`, `description`) V
 
 
 
+
+
+
 INSERT INTO `professeur_matiere` (`professeur_id`, `matiere_id`) VALUES
 (2, 3),
 (3, 5),
 (4, 5),
 (5, 4),
-(18, 8),
 (14, 2),
 (14, 12),
-(18, 16),
+(18, 6),
 (19, 11),
 (20, 1),
 (25, 13);

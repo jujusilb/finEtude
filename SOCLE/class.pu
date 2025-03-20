@@ -1,0 +1,17 @@
+@startuml class
+class User {}
+class Membre extends User {}
+class Admin extends Membre {}
+class Eleve extends Membre {}
+class Adulte extends Membre {}
+class ParentEleve extends Adulte {}
+class Personnel extends Adulte {}
+class Cuisine extends Personnel {}
+class Documentaliste extends Personnel {}
+class Insertion extends Personnel {}
+class Professeur extends Personnel {}
+class Secretariat extends Personnel {}
+class Direction extends Secretariat {}
+class Surveillant extends Personnel {}
+
+@enduml
