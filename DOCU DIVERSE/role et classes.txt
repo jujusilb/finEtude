@@ -1,0 +1,14 @@
+classes
+Membre 						= ROLE_USER
+	Admin 					= ROLE_ADMIN
+	Eleve					= ROLE_ELEVE
+	Adultes 				= ROLE_ADULTE
+		ParentEleve 			= ROLE_PARENT
+		Personnel 			= ROLE_PERSONNEL
+			Cuisine			= ROLE_CUISINE
+			Documentaliste		= ROLE_DOCUMENTALISTE
+			Professeur		= ROLE_PROFESSEUR
+				referent	= ROLE_REFERENT
+			Secretariat		= ROLE_SECRETARIAT
+				Direction	= ROLE_DIRECTION
+	

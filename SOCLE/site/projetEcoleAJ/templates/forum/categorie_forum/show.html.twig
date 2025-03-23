@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie Forum
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Catégorie Forum</h5>
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ categorieForum.id }}</td>
+				</tr>
+				<tr>
+					<th>Libelle</th>
+					<td>{{ categorieForum.libelle }}</td>
+				</tr>
+				<tr>
+					<th>Description</th>
+					<td>{{ categorieForum.description }}</td>
+				</tr>
+				<tr>
+					<table class="table">
+						<tr>
+							<th>libelle</th>
+							<th>description</th>
+						</tr>
+						{% for subForum in categorieForum.subForums%}
+							<tr>
+								<td>
+									<a href="{{ path('subForum_affichage', {'id': subForum.id}) }}">
+									{{ subForum.libelle }}
+									
+								</td>
+								<td>{{ subForum.description}}</td>
+							</tr>
+						{% endfor %}
+					</table>
+				</tr>
+			</tbody>
+		</table>
+
+		<a href="{{ path('categorieForum_index') }}" class="btn btn-secondary">Liste de sieges</a>
+
+		<a href="{{ path('categorieForum_edition', {'id': categorieForum.id}) }}" class="btn btn-secondary">Modifier</a>
+
+		{{ include('forum/categorie_forum/_delete_form.html.twig') }}
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+{% endblock %}

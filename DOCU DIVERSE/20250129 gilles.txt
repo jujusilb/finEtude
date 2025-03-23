@@ -1,0 +1,52 @@
+En fait la règle de gestion se traduit simplement par un index unique entre id_classe et id_matière dans la table de liaison , voici le MLD :
+
+Professeur
+	ID_Professeur (PK)
+	Nom
+	Prénom
+Matière
+	ID_Matière (PK)
+	Nom
+Classe
+	ID_Classe (PK)
+	Nom
+Enseigner 
+(table de liaison entre Professeur et Matière)
+	ID_Professeur (FK)
+	ID_Matière (FK)
+clé primaire composite : (ID_Professeur,ID_Matière) (PK)
+
+Programme 
+(table de liaison entre Classe, Matière et Professeur)
+	ID_Classe (FK)
+	ID_Matière (FK)
+	ID_Professeur (FK)
+clé primaire composite : 	(ID_Classe,ID_Matière,ID_Professeur) (PK)
+index unique composite : 	(ID_Classe,ID_Matière)
+
+
+
+---------------------------
+Professeur
+	pro_id
+Matière
+	mat_id
+	Nom
+Classe
+	cla_id
+	Nom
+
+Enseigner
+	ens_professeur
+	ens_matière
+primary key(ens_professeur, ens_matière)
+
+Agenda
+	age_classe
+	age_matière
+	age_professeur
+primary key (age_classe, age_matière, age_professeur)
+idx(age_classe, age_matière)
+
+
+

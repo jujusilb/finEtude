@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+{% include 'tools/page/head.html.twig' %}
+ <body>
+    {% include 'tools/page/header.html.twig' %}
+     {% if app.user %}
+        {% for role in app.user.roles %}
+            {% if role == "ROLE_ELEVE"%}
+                {% include 'tools/navigation/nav-eleve.html.twig' %}
+            {% elseif role == "ROLE_ADMIN"%}
+                {% include 'tools/navigation/nav-admin.html.twig' %}
+            {% elseif role == "ROLE_PROFESSEUR" %}
+                {% include 'tools/navigation/nav-professeur.html.twig' %}
+            {% elseif role == "ROLE_DOCUMENTALISTE" %}
+                {% include 'tools/navigation/nav-documentaliste.html.twig' %}
+            {% elseif role == "ROLE_CUISINE" %}
+                {% include 'tools/navigation/nav-cuisine.html.twig' %}
+            {% elseif role == "ROLE_INSERTION" %}
+                {% include 'tools/navigation/nav-insertion.html.twig' %}
+            {% elseif role == "ROLE_SECRETARIAT"  or role == "ROLE_DIRECTION" %}
+                {% include 'tools/navigation/nav-secretariat.html.twig' %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        {% include 'tools/navigation/navigation.html.twig' %}
+    {% endif %}    
+        {% block body %}
+            
+        {% endblock %}
+    {% include 'tools/page/footer.html.twig' %}
+    {{dump(app.user)}}
+    </body>
+</html>

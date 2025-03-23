@@ -1,0 +1,77 @@
+Admin extends Membre{
+}
+Adulte extends Membre{
+}
+Cuisine extends Personnel{
+}
+Documentaliste extends Personnel{
+}
+Eleve extends Membre{
+    -promotion :Promotion
+    -listMatiere :Matiere[]
+}
+Emprunt{
+    -ouvrage :Ouvrages
+    -membre :Membre
+    -dateEmprunt :date
+    -statutEmprunt :string
+}
+exercice {
+	#date :date
+	#professeur :professeur
+	#promotion :promotion
+	#matiere :matiere
+}
+Matiere {
+    -libelleMatiere :string
+    -listProfesseur :Professeur[]
+}
+Membre{
+    *#nom :string
+    *#prenom :string
+    *#mail :string
+    *#photoProfil :string
+}
+Ouvrages {
+    -nomOuvrages :string
+    -statut :string
+}
+Parent extends Adulte{
+    #eleve :Eleve[]
+}
+Personnel extends Adulte{
+    *#dateEmbauche :date
+    #contactPoste :string /'telephone du bureau'/
+}
+Professeur extends Personnel{
+    #matiere :string
+    #promotion :Promotion[]
+}
+Promotion{
+    #listEleve :Eleve[]
+    #profPrinc :Professeur
+    #niveau : string
+}
+proviseur extend secretariat{
+}
+referent extends Professeur{
+    -Promotion :Promotion
+}
+RemplirExo{
+    #date :date
+    #eleve :Eleve
+    #exercice :Exercice
+    #note :float
+}
+Secretariat extends Personnel{
+}
+Surveillant extend personnel {
+}
+
+
+
+
+
+
+
+

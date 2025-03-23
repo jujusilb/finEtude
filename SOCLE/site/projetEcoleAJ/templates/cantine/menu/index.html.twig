@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello menuController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Entrée</th>
+                <th>Viande - Légume</th>
+                <th>Fromage</th>
+                <th>Dessert</th>
+                <th>liste de repas</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for menu in menus %}
+                <tr>
+                    <td>{{menu.id}}</td>
+                    <td>{{ menu.entree.libelle }}</td>
+                    <td>{{ menu.plat.viande.libelle }} - {{ menu.plat.legume.libelle }}</td>
+                    <td>{{ menu.fromage.libelle }}</td>
+                    <td>{{ menu.dessert.libelle }}</td>
+                    <td>
+                        {% if menu.repas | length >0 %}
+                            {% for repas in menu.repas %}
+                                <li>{{ repas.date | date('d/m/Y') }} {{repas.heure }}</li>
+                            {% endfor %}
+                        {% else %}
+                            Ce menu n'a jamais été programmé
+                        {% endif %}
+                    <td>
+                        <a href="{{ path('menu_affichage', {'id': menu.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('menu_edition', {'id': menu.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('menu_nouveau') }}" class="btn" >Creer Nouveau menu</a>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme professionnelForm 'bootstrap_4_layout.html.twig'  %}
+
+{% block title %}New Professionnel
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Creation d'un nouveau Professionnel</h5>
+
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		{{ include('professionnel/professionnel/_form.html.twig') }}
+
+		<a href="{{ path('professionnel_index') }}" class="btn btn-dark">Liste de professionnel</a>
+	</div>
+{% endblock %}

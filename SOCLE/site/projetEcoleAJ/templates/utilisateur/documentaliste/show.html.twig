@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matiere
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Documentaliste</h5>
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ documentaliste.id }}</td>
+				</tr>
+				<tr>
+					<th>photo</th>
+					<td><img src="{{ vich_uploader_asset(documentaliste, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="..."></td>
+				</tr>
+								<tr>
+					<th>Nom</th>
+					<td>{{ documentaliste.nom }}</td>
+				</tr>
+								<tr>
+					<th>Prenom</th>
+					<td>{{ documentaliste.prenom }}</td>
+				</tr>
+								<tr>
+					<th>email</th>
+					<td>{{ documentaliste.email }}</td>
+				</tr>
+								<tr>
+					<th>Password</th>
+					<td>{{ documentaliste.password }}</td>
+				</tr>
+								<tr>
+					<th>date d'embauche</th>
+					<td>{{ documentaliste.dateEmbauche| date('d/m/Y' ) }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<a href="{{ path('documentaliste_index') }}" class="btn btn-secondary">Liste de sieges</a>
+
+		<a href="{{ path('documentaliste_edition', {'id': documentaliste.id}) }}" class="btn btn-secondary">Modifier</a>
+
+		{{ include('utilisateur/documentaliste/_delete_form.html.twig') }}
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+{% endblock %}

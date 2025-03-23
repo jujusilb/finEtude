@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello poleController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>libelle</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pole in poles %}
+                <tr>
+                    <td>{{pole.id}}</td>
+                    <td>{{ pole.libelle }}</td>
+                    <td>
+                        <a href="{{ path('pole_affichage', {'id': pole.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('pole_edition', {'id': pole.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('pole_nouveau') }}" class="btn" >Creer Nouveau pole</a>
+{% endblock %}

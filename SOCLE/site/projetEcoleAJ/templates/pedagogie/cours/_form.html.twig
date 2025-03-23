@@ -1,0 +1,34 @@
+{{ form_start(coursForm) }}
+    <div class="row">
+        <div class="col-md-6">
+            <label for="input-id">Fichier</label>
+            {{ form_widget(coursForm.file, {'attr': {'class': 'file', 'data-preview-file-type': 'any'}}) }}
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-4">
+            <label for="cours_libelle">Libellé du cours</label>
+           {{ form_widget(coursForm.libelle, {'attr': {'style': 'width: auto'}}) }}
+        </div>
+        <div class="col-md-4">
+            <label for="cours_matiere">Choisissez la matière</label>
+            {{ form_widget(coursForm.matiere, {'attr': {'style': 'width: auto'}}) }}
+        </div>
+        <div class="col-md-4">
+            <label for="cours_promotion">Promotion(s)</label>        
+            {{ form_widget(coursForm.promotion, {'attr': {'style': 'width: auto'}}) }}
+
+        </div>
+    </div>
+    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+{{ form_end(coursForm) }}
+<script>
+$(document).ready(function() {
+    // initialize with defaults
+    $.fn.fileinputBsVersion = '3.4.1';
+    $("#input-id").fileinput();
+
+    // with plugin options
+    $("#input-id").fileinput({'uploadUrl': '/path/to/your-upload-api', 'previewFileType': 'any'});
+});
+</script>

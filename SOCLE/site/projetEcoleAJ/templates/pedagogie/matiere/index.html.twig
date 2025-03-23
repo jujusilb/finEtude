@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de matières{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libellé</th>
+                <th>Professeur</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for matiere in matieres %}
+                <tr>
+                    <td>{{matiere.id}}</td>
+                    <td>{{ matiere.libelle }}</td>
+                    <td>
+                        {% if matiere.professeurMatiere | length > 0 %}
+                            {% for matiere in matiere.professeurMatiere %}
+                                <li>
+                                    <a href="{{ path('professeur_affichage', {'id' : matiere.professeur.id}) }}">
+                                        {{matiere.professeur.prenom}} {{ matiere.professeur.nom}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            Aucun professeur 
+                        {% endif %}
+                    <td>
+                        <a href="{{ path('matiere_affichage', {'id': matiere.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('matiere_edition', {'id': matiere.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('matiere_nouveau') }}" class="btn" >Creer Nouvelle matière</a>
+{% endblock %}

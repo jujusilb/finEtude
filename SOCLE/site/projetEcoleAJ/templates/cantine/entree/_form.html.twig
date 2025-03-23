@@ -1,0 +1,48 @@
+{{ form_start(entreeForm) }}
+    {{ form_widget(entreeForm.libelle) }}
+    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+{{ form_end(entreeForm) }}
+<script>
+        let testeur=document.getElementById("testeur")
+        let inputLibelle=document.getElementById("entree_ajax")
+        let inputId=document.getElementById("entree.libelle")
+        qui.addEventListener('input', action);
+        
+        async function action(e){
+            testeur.innerText="";
+            let value=e.target.value
+            if (value.length>=2){
+                let url =`/entree/libelle/${value}`
+                let response =await fetch(url)
+                let data =await response.json()
+                console.log(data)
+                for(let i=0;i<data.length;i++){
+                    let libelle=data[i].libelle
+                    let id=data[i].id
+                    let liste=document.querySelectorAll(".name")
+                    let existe=false
+                    for (let j = 0; j < liste.length; j++) {
+                        if (liste[j].innerText === s) {
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if (!existe) {
+                        let names = document.createElement("div");
+                        testeur.appendChild(names);
+                        console.log(liste)
+                        names.classList.add("name");
+                        names.style.border = "1px solid black";
+                        names.style.padding = "15px";
+                        names.innerText = libelle;
+                        names.addEventListener("click", function() {
+                            inputLibelle.value = libelle;
+                            inputId.value=id;   
+                            quoi.v
+                            testeur.innerText = "";
+                        });
+                    }
+                }
+            }
+        }
+</script>

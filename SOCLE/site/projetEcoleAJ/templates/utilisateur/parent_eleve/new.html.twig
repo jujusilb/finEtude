@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% form_theme parentEleveForm 'bootstrap_4_layout.html.twig'  %}
+{% block title %}New ParentEleve
+{% endblock %}
+{% block body %}
+	<div class="container">
+		<h5>Creation d'un nouveau ParentEleve</h5>
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+		{{ include ('Utilisateur/parent_eleve/_form.html.twig') }}
+		<a href="{{ path('parentEleve_index') }}" class="btn btn-dark">Liste de parentEleve</a>
+	</div>
+{% endblock %}

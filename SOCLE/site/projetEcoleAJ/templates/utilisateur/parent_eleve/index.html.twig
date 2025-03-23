@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello parentEleveController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-nowrap">Id</th>
+                <th class="text-nowrap">photo</th>
+                <th class="text-nowrap">Nom</th>
+                <th class="text-nowrap">Prenom</th>
+                <th class="text-nowrap">Username</th>
+                <th class="text-nowrap">E-mail</th>
+                <th class="text-nowrap">password</th>
+                <th class="text-nowrap">JetonRepas</th>
+                <th class="text-nowrap">role</th>
+                <th class="text-nowrap">Eleve</th>
+                <th class="text-nowrap">Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for parentEleve in parentEleves %}
+                <tr>
+                    <td>{{parentEleve.id}}</td>
+                    <td>
+                        {% if parentEleve.imageName | length >0 %}
+                        <img src="{{ vich_uploader_asset(parentEleve, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="{{ parentEleve.prenom }} {{ parentEleve.nom }}">
+                        {% else %}
+                        Pas de photo pour {{ parentEleve.prenom }} {{ parentEleve.nom }}
+                        {% endif %}
+                    </td>
+                    <td>{{ parentEleve.nom }}</td>
+                    <td>{{ parentEleve.prenom }}</td>
+                    <td>{{ parentEleve.username }}</td>
+                    <td>{{ parentEleve.email }}</td>
+                    <td>{{ parentEleve.password }}</td>
+                    </td>
+                    <td>
+                        {% if parentEleve.membreJetons.nombreJeton > 0 %}
+                            {{ parentEleve.membreJetons.nombreJeton }}
+                        {% else %}
+                        Jetons épuisés
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for role in parentEleve.roles %}
+                            <li>{{ role }}</li>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for eleve in parentEleve.eleves %}
+                           <li>{{ eleve.prenom }} {{eleve.nom}}</li>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{{ path('parentEleve_affichage', {'id': parentEleve.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('parentEleve_edition', {'id': parentEleve.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('parentEleve_nouveau') }}" class="btn" >Creer Nouveau parentEleve</a>
+{% endblock %}

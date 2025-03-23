@@ -1,0 +1,17 @@
+{{ form_start(reservationRepasForm) }}
+    <div class="row mx-auto">
+        <div class="col-sm-4">
+            <label for="dateAchat">Date d'achat</label>
+            <div class="row">
+                {{ form_widget(reservationRepasForm.dateAchat.day, {'attr': {'style': 'width: auto'}}) }} {# Correct style attribute #}
+                {{form_widget(reservationRepasForm.dateAchat.month, {'attr': {'style': 'width: auto'}}) }} {# Correct style attribute #}
+                {{form_widget(reservationRepasForm.dateAchat.year, {'attr': {'style': 'width: auto'}}) }} {# Correct style attribute #}}
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <label for="emprunt_repas">Choisissez le repas</label>
+            {{ form_widget(reservationRepasForm.repas, {'attr': {'style': 'width: auto'}}) }} {# Correct style attribute #}
+        </div>
+    </div>
+    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+{{ form_end(reservationRepasForm) }}

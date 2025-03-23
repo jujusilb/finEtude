@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello surveillantController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-nowrap">Id</th>
+                <th class="text-nowrap">photo</th>
+                <th class="text-nowrap">Nom</th>
+                <th class="text-nowrap">Prenom</th>
+                <th class="text-nowrap">Username</th>
+                <th class="text-nowrap">E-mail</th>
+                <th class="text-nowrap">JetonRepas</th>
+                <th class="text-nowrap">role</th>
+                <th class="text-nowrap">Date d'Embauche</th>
+                <th class="text-nowrap">Poste</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for surveillant in surveillants %}
+                <tr>
+                    <td>{{surveillant.id}}</td>
+                    <td>
+                        {% if surveillant.imageName | length >0 %}
+                        <img src="{{ vich_uploader_asset(surveillant, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="{{ surveillant.prenom }} {{ surveillant.nom }}">
+                        {% else %}
+                        Pas de photo pour {{ surveillant.prenom }} {{ surveillant.nom }}
+                        {% endif %}
+                    </td>
+                    <td>{{ surveillant.nom }}</td>
+                    <td>{{ surveillant.prenom }}</td>
+                    <td>{{ surveillant.username}}
+                    <td>{{ surveillant.email }}</td>
+                    </td>
+                    <td>{% if surveillant.membreJetons | length > 0 %}
+                            {{surveillant.membreJetons.nombreJeton }}
+                        {% endif %}
+                    <td>
+                    <td>
+                        {% for role in surveillant.roles %}
+                            <li>{{ role }}</li>
+                        {% endfor %}
+                    </td>
+                    <td>{{ surveillant.dateEmbauche | date('d/m/Y') }}</td>
+                    <td>{{ surveillant.poste}}</td>
+                    
+                    <td>
+                        <a href="{{ path('surveillant_affichage', {'id': surveillant.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('surveillant_edition', {'id': surveillant.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('surveillant_nouveau') }}" class="btn" >Creer Nouveau surveillant</a>
+{% endblock %}

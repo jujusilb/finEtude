@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello dessertController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>libelle</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dessert in desserts %}
+                <tr>
+                    <td>{{dessert.id}}</td>
+                    <td>{{ dessert.libelle }}</td>
+                    <td>
+                        <a href="{{ path('dessert_affichage', {'id': dessert.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('dessert_edition', {'id': dessert.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('dessert_nouveau') }}" class="btn" >Creer Nouveau dessert</a>
+{% endblock %}

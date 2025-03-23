@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello commandeController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Membre</th>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix Total</th>
+                <th>Date d'achat</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for commande in commandes %}
+                <tr>
+                    <td>{{commande.id}}</td>
+                    <td>{{ commande.membre.prenom }} {{ commande.membre.nom }}</td>
+                    <td>{{ commande.produit.libelle }}</td>
+                    <td>{{commande.quantity}}</td>
+                    <td>{{commande.prixTotal}}</td>
+                    <td>{{commande.dateAchat | date ('d/m/Y'    )}}
+                    <td>
+                        <a href="{{ path('commande_affichage', {'id': commande.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('commande_edition', {'id': commande.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('commande_nouveau') }}" class="btn" >Creer Nouveau commande</a>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ouvrageController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Categorie</th>
+                <th>Statut</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ouvrage in ouvrages %}
+                <tr>
+                    <td>{{ouvrage.id}}</td>
+                    <td>{{ ouvrage.titre }}
+                    </td>
+                    <td>
+                        {% for categorieOuvrage in ouvrage.categorieOuvrages %}
+                            <li>{{categorieOuvrage.libelle }}</li>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {{ ouvrage.statutOuvrage.libelle }}
+                    </td>
+                    <td>
+                        <a href="{{ path('ouvrage_affichage', {'id': ouvrage.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('ouvrage_edition', {'id': ouvrage.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('ouvrage_nouveau') }}" class="btn" >Creer Nouveau ouvrage</a>
+{% endblock %}

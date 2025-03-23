@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Thread
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Thread</h5>
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ thread.id }}</td>
+				</tr>
+				<tr>
+					<th>Libelle</th>
+					<td>{{ thread.libelle }}</td>
+				</tr>
+				<tr>
+					<th>Déscription</th>
+					<td>{{ thread.description }}</td>
+				</tr>
+				<tr>
+					<table class="table">
+						{% for messageForum in thread.messageForums %}
+						<tr>
+							<td>{{messageForum.expediteur.username}}</td>
+							<td>
+								{{messageForum.createdAt | date('d/m/Y')}}
+								<hr>
+								{{messageForum.contenu}}
+								<hr>
+								{% if messageForum.updatedAt > messageForum.createdAt %}
+									{{messageForum.updatedAt |date('d/m/Y')}}
+								{% endif %}
+							</td>
+						<tr>
+						{% endfor %}
+					</table>
+				</tr>
+
+			</tbody>
+		</table>
+
+		<a href="{{ path('thread_index') }}" class="btn btn-secondary">Liste de sieges</a>
+
+		<a href="{{ path('thread_edition', {'id': thread.id}) }}" class="btn btn-secondary">Modifier</a>
+
+		{{ include('forum/thread/_delete_form.html.twig') }}
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+{% endblock %}

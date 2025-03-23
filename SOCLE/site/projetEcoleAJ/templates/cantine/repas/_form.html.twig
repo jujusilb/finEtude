@@ -1,0 +1,31 @@
+{{ form_start(repasForm) }}
+    <div class="row">
+        <!-- Première ligne : Date du repas et Heure du service -->
+        <div class="col-sm-6">
+            <label for="repas_date">Date du repas</label>
+            <div class="row">
+                {{ form_widget(repasForm.date.day, {'attr': {'style':'width:auto;', 'class': 'form-select'}}) }}
+                {{ form_widget(repasForm.date.month, {'attr': {'style':'width:auto;', 'class': 'form-select'}}) }}
+                {{ form_widget(repasForm.date.year, {'attr': {'style':'width:auto;', 'class': 'form-select'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <label for="repas_heure">Heure du service</label>
+            {{ form_widget(repasForm.heure, {'attr': {'style':'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+    
+    <div class="row">
+        <!-- Deuxième ligne : Menu du repas et Prix -->
+        <div class="col-sm-6">
+            <label for="repas_menu">Menu du repas</label>
+            {{ form_widget(repasForm.menu, {'attr': {'style':'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <div class="col-sm-6">
+            <label for="repas_prix">Prix du repas</label>
+            {{ form_widget(repasForm.prix, {'attr': {'style':'width:30px;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+    
+    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button>
+{{ form_end(repasForm) }}

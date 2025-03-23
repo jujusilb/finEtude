@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="demarrer-quiz">Démarrer le Quiz</button>
+
+<div id="conteneur-question" style="display: none;">
+    <button id="ajouter-question">Ajouter une Question</button>
+    <button id="valider-questionnaire" style="display: none;">Valider le Questionnaire</button>
+
+    <div id="formulaire-question" style="display: none;">
+        <label for="question-label">Question :</label>
+        <input type="text" id="question-label" name="question-label"><br><br>
+
+        <div id="type-question">
+            <button id="type-checkbox">Checkbox</button>
+            <button id="type-radio">Radio</button>
+            <button id="type-text">Texte</button>
+        </div>
+
+        <div id="reponses-container" style="display: none;">
+            </div>
+
+        <button id="valider-question">Valider la Question</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

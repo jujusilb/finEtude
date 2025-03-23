@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello adulteController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>photo</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Username</th>
+                <th>E-mail</th>
+                <th>password</th>
+                <th>role</th>
+                <th>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for adulte in adultes %}
+                <tr>
+                    <td>{{adulte.id}}</td>
+                    <td>
+                        <img src="{{ vich_uploader_asset(adulte, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                    </td>
+                    <td>{{ adulte.nom }}</td>
+                    <td>{{ adulte.prenom }}</td>
+                    <td>{{ adulte.username }}</td>
+                    <td>{{ adulte.email }}</td>
+                    <td>{{ adulte.password }}</td>
+                    <td>
+                        {% for role in adulte.roles %}
+                            <li>{{ role }}</li>
+                        {% endfor %}
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

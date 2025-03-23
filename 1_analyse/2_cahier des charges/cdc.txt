@@ -1,0 +1,24 @@
+Cahier des charges
+Objectif
+
+Description du site
+Accueil :cette page permettra d’accéder au différentes section avec une explication pour chacune mais permettra egalement d’afficher les differentes annonces comme les absences de professeurs, les cours mis en lignes, les annonces d’examens ou meme les menus de la cantine
+Profil : cette page permettra de de consulter et modifier ses information et données personnelles
+Annuaire : cette pages permettra a tous de retrouver dans diverse rubriques l’integralité des personnes de l’etablissement personnel comme élève
+On pourra y retrouver la liste des services et des promotions chacunes avec les liste des individus les composants
+Chaque personne sera identifiée par son nom, prenom, fonction, services, contact et numero de telephone de poste 
+Cantine : cette page sera composé du calendrier de la semaine ou l’on pourra retrouver tout les menus
+Il y aura une section de sondage et un formulaire de reclamation ou d’idées de repas
+Promotions :  cette page sera la page d’entrée du portail de l’élève
+	
+Forum
+Connexion
+Inscription
+
+
+
+Description des pages
+
+
+
+

@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello repasController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>menu</th>
+                <th>date</th>
+                <th>heure</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for repas in repass %}
+                <tr>
+                    <td>{{repas.id}}</td>
+                    <td>
+                       <strong>Entrée :</strong>{{ repas.menu.entree.libelle}}<br>
+                        <strong>Plat :</strong>{{ repas.menu.plat.libelle}}<br>
+                        <strong>Fromage :</strong>{{ repas.menu.fromage.libelle}}<br>
+                        <strong>Dessert :</strong>{{ repas.menu.dessert.libelle}}
+                        </td>
+                    <td>{{ repas.date | date('d/m/Y') }}</td>
+                    <td>{{ repas.heure }}</td>
+                    <td>
+                       {% set userHasOrdered = false %}
+                        {% for reservation in repas.reservationRepas %}
+                            {% if reservation.membre.id == app.user.id %}
+                                {% set userHasOrdered = true %}
+                            {% endif %}
+                        {% endfor %}
+
+{% if userHasOrdered %}
+    Repas déjà commandé.
+{% elseif app.user.membreJetons.nombreJeton > 0 %}
+    <a href="{{ path('reservationRepas_achat', {'repas': repas.id}) }}" class="btn btn-secondary">Commander ce repas</a>
+{% else %}
+    Vous n'avez plus de jeton-repas
+{% endif %}
+
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('repas_nouveau') }}" class="btn" >Creer Nouveau repas</a>
+{% endblock %}

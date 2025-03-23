@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme secretariatForm 'bootstrap_4_layout.html.twig'  %}
+
+{% block title %}New Secretariat
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Creation d'un nouveau Secretariat</h5>
+
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		{{ include('Utilisateur/secretariat/_form.html.twig') }}
+
+		<a href="{{ path('secretariat_index') }}" class="btn btn-dark">Liste de secretariat</a>
+	</div>
+{% endblock %}

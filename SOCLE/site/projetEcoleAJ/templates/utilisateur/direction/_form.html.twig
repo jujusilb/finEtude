@@ -1,0 +1,59 @@
+{{ form_start(directionForm) }}
+
+    <div class="row">
+        <!-- Première ligne : Nom et Prénom -->
+        <div class="col-sm-6">
+            <label for="direction_Nom">Nom</label>
+            {{ form_widget(directionForm.nom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <div class="col-sm-6">
+            <label for="direction_prenom">Prénom</label>
+            {{ form_widget(directionForm.prenom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Deuxième ligne : Mot de passe et Image -->
+        <div class="col-sm-6">
+            <label for="direction_password">Mot de passe</label>
+            {{ form_widget(directionForm.password, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <div class="col-sm-6">
+            <label for="direction_image_file">Image</label>
+            {{ form_widget(directionForm.imageFile, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Troisième ligne : Date d'embauche et Téléphone bureau -->
+        <div class="col-sm-6">
+            <label for="date_embauche">Date d'embauche</label>
+            <div class="row">
+                {{ form_widget(directionForm.date_embauche.day, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+                {{ form_widget(directionForm.date_embauche.month, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+                {{ form_widget(directionForm.date_embauche.year, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <label for="direction_poste">Téléphone bureau</label>
+            {{ form_widget(directionForm.poste, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+    <div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <label for="direction__form_pole">pôle</label>
+            {{ form_widget(directionForm.pole, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <!-- Quatrième ligne : Jeton repas -->
+        <div class="col-sm-12">
+            <label for="direction_jeton_repas">Nombre de Jeton-repas</label>
+            {{ form_widget(directionForm.jetonRepas, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+
+    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+
+{{ form_end(directionForm) }}

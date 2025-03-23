@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme exerciceForm 'bootstrap_4_layout.html.twig'  %}
+
+{% block title %}New Exercice
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Creation d'une nouvelle Exercice </h5>
+
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		{{ include('pedagogie/exercice/_form.html.twig') }}
+
+		<a href="{{ path('exercice_index') }}" class="btn btn-dark">Liste de exercice</a>
+	</div>
+{% endblock %}

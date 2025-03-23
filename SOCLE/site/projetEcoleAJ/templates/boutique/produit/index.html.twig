@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello produitController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>libelle</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Stock</th>
+                <th>Date de création</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produit in produits %}
+                <tr>
+                    <td>{{produit.id}}</td>
+                    <td>{{ produit.libelle }}</td>
+                     <td>{{ produit.type.libelle }}</td>
+                      <td>{{ produit.description }}</td>
+                       <td>{{ produit.prix }}</td>
+                        <td>{{ produit.stock }}</td>
+                        <td>{{ produit.createdAt | date('d/m/Y')}}</td>
+                    <td>
+                        <a href="{{ path('produit_affichage', {'id': produit.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('produit_edition', {'id': produit.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('produit_nouveau') }}" class="btn" >Creer Nouveau produit</a>
+{% endblock %}

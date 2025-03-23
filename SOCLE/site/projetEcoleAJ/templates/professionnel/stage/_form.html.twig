@@ -1,0 +1,56 @@
+{{ form_start(stageForm) }}
+    <div class="form-group">
+        <label for="entreprise">Entreprise</label>
+        <div class="col-sm-4">
+            {{ form_widget(stageForm.entreprise, {'attr': {'class': 'form-select'}}) }}
+        </div>
+    </div>  
+    <div class="form-group">
+        <label for="dateDebut">Date de début</label>
+        <div class="row">
+            <div class="col-sm-4">
+                {{ form_widget(stageForm.dateDebut.day, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_widget(stageForm.dateDebut.month, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_widget(stageForm.dateDebut.year, {'attr': {'class': 'form-select'}}) }}
+            </div>
+        </div>
+        <label for="stage_date_fin">Date de Fin</label>
+        <div class="row">
+            <div class="col-sm-4">
+                {{ form_widget(stageForm.dateFin.day, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_widget(stageForm.dateFin.month, {'attr': {'class': 'form-select'}}) }}
+            </div>
+            <div class="col-sm-4">
+                {{ form_widget(stageForm.dateFin.year, {'attr': {'class': 'form-select'}}) }}
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="fonction">Fonction</label>
+        <div class="col-sm-4">
+             {{ form_widget(stageForm.fonction) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="responsablee">Responsable</label>
+        <div class="col-sm-4">
+            {{ form_widget(stageForm.responsable, {'attr': {'class': 'form-select'}}) }}
+        </div>
+    </div>
+   <div class="form-group">
+        <label for="stagiaire">Stagiaire</label>
+        <div class="col-sm-4">
+            {{ form_widget(stageForm.stagiaire, {'attr': {'class': 'form-select', 'id' : 'fonctionID'}}) }}
+        </div>
+    </div>
+</div>
+    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+
+
+{{ form_end(stageForm) }}

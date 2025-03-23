@@ -1,0 +1,56 @@
+{{ form_start(cuisineForm) }}
+
+    <div class="row">
+        <!-- Première ligne : Nom et Prénom -->
+        <div class="col-sm-6">
+            <label for="cuisine_Nom">Nom</label>
+            {{ form_widget(cuisineForm.nom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <div class="col-sm-6">
+            <label for="cuisine_prenom">Prénom</label>
+            {{ form_widget(cuisineForm.prenom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Deuxième ligne : Mot de passe et Image -->
+        <div class="col-sm-6">
+            <label for="cuisine_motDePasse">Mot de passe</label>
+            {{ form_widget(cuisineForm.motDePasse, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <div class="col-sm-6">
+            <label for="cuisine_image_file">Image</label>
+            {{ form_widget(cuisineForm.imageFile, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Troisième ligne : Date d'embauche et Téléphone bureau -->
+        <div class="col-sm-6">
+            <label for="date_embauche">Date d'embauche</label>
+            <div class="row">
+                {{ form_widget(cuisineForm.date_embauche.day, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+                {{ form_widget(cuisineForm.date_embauche.month, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+                {{ form_widget(cuisineForm.date_embauche.year, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <label for="cuisine_poste">Téléphone bureau</label>
+            {{ form_widget(cuisineForm.poste, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+    <div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <label for="cuisine__form_pole">pôle</label>
+            {{ form_widget(cuisineForm.pole, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <!-- Quatrième ligne : Jeton repas -->
+
+    </div>
+
+    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+
+{{ form_end(cuisineForm) }}

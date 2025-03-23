@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme empruntForm 'bootstrap_4_layout.html.twig'  %}
+
+{% block title %}New Matiere
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Creation d'une nouvelle Matiere </h5>
+
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		{{ include('CDI/emprunt/_form.html.twig') }}
+
+		<a href="{{ path('emprunt_mesEmprunts') }}" class="btn btn-dark">Liste de emprunt</a>
+	</div>
+{% endblock %}

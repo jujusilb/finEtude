@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+{{reponse}}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libellé</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for forum in forums %}
+                <tr>
+                    <td>{{forum.id}}</td>
+                    <td>
+                    <a href="{{ path('forum_affichage', {'id': forum.id}) }}">
+                        {{ forum.libelle }}
+                    </a>
+                    </td>
+                    <td>
+                    {{ forum.description }}
+                    </td>
+                    <td>
+                        <a href="{{ path('forum_affichage', {'id': forum.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('forum_edition', {'id': forum.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('forum_nouveau') }}" class="btn" >Creer Nouvel admin</a>
+{% endblock %}

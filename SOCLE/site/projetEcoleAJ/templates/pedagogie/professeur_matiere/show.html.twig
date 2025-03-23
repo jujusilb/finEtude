@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Matiere
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>MessageprofesseurMatière</h5>
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ professeurMatiere.id }}</td>
+				</tr>
+				<tr>
+					<th>Libelle</th>
+					<td>{{ professeurMatiere.titre }}</td>
+				</tr>
+				<tr>
+					<th>Categorie</th>
+					<td>{{ professeurMatiere.categorie }}</td>
+				</tr>
+			</tr>
+			</tbody>
+		</table>
+
+		<a href="{{ path('professeurMatiere_index') }}" class="btn btn-secondary">Liste de professeurMatières</a>
+
+		<a href="{{ path('professeurMatiere_edition', {'id': professeurMatiere.id}) }}" class="btn btn-secondary">Modifier</a>
+
+		{{ include('pedagogie/professeur_matiere/_delete_form.html.twig') }}
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+{% endblock %}

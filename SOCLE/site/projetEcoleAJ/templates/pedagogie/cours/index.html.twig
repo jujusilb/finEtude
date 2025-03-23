@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des cours!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>date</th>
+                <th>Libellé</th>
+                <th>Professeur</th>
+                <th>Promotion</th>
+                <th>Matiere</th>
+                <th>Fichier</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cours in courss %}
+                <tr>
+                    <td>{{cours.id}}</td>
+                    <td>{{ cours.date | date('d/m/Y') }}</td>
+                    <td>{{cours.libelle}}</td>
+                    <td>
+                        {% if cours.professeur | length > 0 %}
+                            {% for cours in cours.professeur %}
+                                <li>
+                                    <a href="{{ path('professeur_affichage', {'id' : cours.professeur.id}) }}">
+                                        {{cours.professeur.prenom}} {{ cours.professeur.nom}}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            Aucun professeur %}
+                        {% endif %}
+                    <td>
+                        {% for promo in cours.promotion %}
+                        {{ promo.libelle}}
+                        {% endfor %}
+                    </td>
+                    <td>{{cours.matiere.libelle }}</td>
+                    <td>
+                        <embed data="{{asset('uploads/'~cours.fichier)}}" type="application/pdf" width="40px" height="60px">
+                             <p>    
+                                Your browser does not support PDF viewing. <a href="{{asset('uploads/'~cours.fichier)}}">Download the PDF</a>.
+                             </p>
+                        </embed >
+                    </td>
+                    <td>
+                        <a href="{{ path('cours_affichage', {'id': cours.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('cours_edition', {'id': cours.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('cours_nouveau') }}" class="btn" >Creer Nouveau Cours</a>
+{% endblock %}

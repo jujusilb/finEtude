@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello entrepriseController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-nowrap">Id</th>
+                <th class="text-nowrap">Libelle</th>
+                <th class="text-nowrap">adresse</th>
+                <th class="text-nowrap">Code Postal</th>
+                <th class="text-nowrap">Ville</th>
+                <th class="text-nowrap">Telephone</th>
+                <th class="text-nowrap">E-mail</th>
+                <th class="text-nowrap">contacts</th>
+                <th class="text-nowrap">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entreprise in entreprises %}
+                <tr>
+                    <td>{{entreprise.id}}</td>
+                    <td>{{ entreprise.libelle }}</td>
+                    <td>{{ entreprise.adresse }}</td>
+                    <td>{{ entreprise.codePostal }}</td>
+                    <td>{{ entreprise.ville }}</td>
+                    <td>{{ entreprise.telephone }}</td>
+                    <td>{{ entreprise.email }}</td>
+                    <td>
+                        {% if entreprise.professionnels | length > 0 %}
+                            {% for professionnel in entreprise.professionnels %}
+                               <li>
+                               <a href="{{path('professionnel_affichage', {'id':professionnel.id}) }}">
+                                 {{ professionnel.prenom }} {{ professionnel.nom }}</a> -- {{ professionnel.profession }}</li>
+                            {% endfor %}
+                        {% else %}
+                            Aucun contact pour cette entreprise
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('entreprise_affichage', {'id': entreprise.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('entreprise_edition', {'id': entreprise.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('entreprise_nouveau') }}" class="btn" >Creer Nouveau entreprise</a>
+{% endblock %}

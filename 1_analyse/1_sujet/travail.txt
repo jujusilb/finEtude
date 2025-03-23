@@ -1,0 +1,162 @@
+Mon Projet : Site d'école
+Ce site permettra aux élèves ainsi qu'à l'administration de se retrouver sur une plateforme commune
+
+Tout utilisateur aura accès a une messagerie interne au site qui permettra une communication plus rapide.
+
+Les élèves pourront y trouver :
+    	Un espace pour s’inscrire
+        o	A la cantine
+        o	A différente activités
+    	Leur emploi du temps de promotion
+    	Leurs cours et documents
+    	Leurs notes et/ou classements
+        	Un contact direct avec l’administration
+            o	Pour régler différents
+        	Conflit
+        	Problèmes administratifs
+    	Retrouver une plateforme pour paiments
+        o	Cantine
+        o	Activités
+    o	Matériel emprunté
+    	Retrouver l’historique de leurs paiements
+    	Le centre de documentation
+    	Donner leurs avis sur la cuisine
+    	 Un forum de discussion pour
+        o	S’organiser entre eux (BDE)	
+        o	Discuter
+        o	S’entraider pour les cours
+
+Administration pourra
+	Y déposer les grandes annonces internes 
+	Alerter un élève donné d’un problème
+le personnel pourra  y gérer
+    	Tout ce qui à trait à l'administration 
+        o	La comptabilité
+        o	La gestion des documents  
+            	Assurances
+            	Etat civil
+        o	Les activités misent en places
+            	Le sport
+            	La visite de musées etc.
+        o	Les inscriptions
+    	Gérer les élèves
+    	Gérer les paiements
+    	Gérer le côté pédagogique 
+        o	Générer des emploi du temps dynamiquement
+    	Gestion des salles 
+    	Gestion des horaires
+    	Affectation professeur aux promos		
+
+
+
+La cuisine pourra :
+    	Gérer les inscriptions
+    	Recevoir les paiements
+    	Organiser des sondages
+        o	Donner des choix de nourriture 
+    	Informer des menus
+        o	La liste de menus semaines après semaines
+    	Avoir les avis des élèves
+        o	Pour pouvoir améliorer le service
+
+Une base de données recensera
+    	Pour emplois du temps dynamiquement
+        o	Les matières
+        o	Les salles
+        o	Les promotions
+    	Les personnes selon leur profil
+        o	Ce qui leur permettra d'accéder à différente partie du site
+    	Administratif
+    	Professeurs
+    	Élèves
+    	Le centre de documentation
+        o	La liste des livres et documents
+        o	Le statut des livres documents
+            	Disponible
+            	Emprunté
+            	nouveauté
+
+Différentes pages seront disponibles :
+    	Connexion
+    	profil
+        Page de modification des information de l'utilisateur connecté
+    	Accueil
+        o	Les liens vers les différentes sections
+        o	Les dernières actualité pélagiques
+    	Absence de professeurs
+    	Annonces d’examens
+    	Cours mis en lignes
+        o	Les grandes annonces
+        o	Les menus de la cantine
+
+    	Annuaire 
+        o	Services
+        o	Promotion
+        o	Personnel
+        o	Élèves
+
+    	Matière
+        o	Les cours
+        o	Les notes
+        o	Les dates d’examens
+        	Forum
+        o	Accès au portails de discussion
+    	Emploi du temps 
+        o	Emploi du temps de l’élevé connectée
+        o	Emploi du temps annuel de l’élève connecté 
+        o	Emploi du temps d’une promotion sélectionnée
+        o	Emploi du temps annuel d’une promotion sélectionnée
+        o	Emploi du temps d’un professeur
+
+    	Le centre de documentation
+        o	Les nouveautés
+        o	Le catalogue des documents disponibles 
+        o	La réservation en ligne
+
+    	Messagerie
+    	Plan de l’établissement
+        Affiche les différentes salles et leurs affectation (matiee, promotion, horaire)
+
+: Connexion
+    lorsque qu'un utilisateur se connnecte sur l'applcation, il n'a accès qu'à la page d'accueil qui est expurgé de toute information concernant des élèves, il n'apparait que les information générale et/ou les dates d'examens
+    Pour son inscription, l'administration se chargera lors de son inscritpion/embauche dans l'établissement, de lui fournir un compte
+
+    pour accéder aux contenu du site, il cliquera sur "connexion"
+    la page lui demandera alors son login et son mot de passe
+
+    :Categorie de profil
+    Visiteur (absence de connexion)
+    le visiteur est un utilisateur qui n'est pas authentifier, il n'a donc accès qu'a une infime partie du site, anonymisé (c'est a dire les annonces generales, telle les menus de la cantine, les dates d'examens ou les projet d'activités globales)
+   
+   Élève :
+        l'elève peut accéder à
+		ses informations personnelles et changer son mot de passe. Pour les informations administratives, lorsque l'élève validera son formulaire, il ne sera pas directement envoyé en base de données mais envoyé a l'administration pour validation
+        	sa messagerie dans laquelle il y recevra les messages de ses professeurs, de l'administration mais aussi d'autres élèves, il pourra également en envoyer lui aussi. l'élève a accès aux différents sondages de la cantine auxquels il ne peut que répondre, il a également accès 
+        	la plateforme pedagogique dans laquelle il retrouvera les cours, les horaire d'examens et un lien direct avec ses professeurs.
+        	repondre a des questionnaire en ligne qui pourront servir de devoir maison (comme champs de texte, des question a choix multiple...)
+        	ses emploi du temps personnel (annuel et hebdomadaire), mais egalement celui d'un de ses professeurs pour savoir s'il est disponible ou a quelle heure le joindre.
+        	participer sur la page de la cantine, aux sondage et remplir des questionnaires de satisfaction ou de demande de plat que le service pourra ou non prendre en compte.
+        	apres signature de la chartes de bonne conduite, au forum de discussion,  et avoir acces à une section reservée a sa promotion, pour echanger des conseils et des information entre eux
+        		il pourra egalement dans les autre section (a l'exception de celle reservée aux different profil) poster des reponse et modifier ses propres post. s'il veux supprimer un message, il ne sera dans l'immediat que caché aux autres utilisateurs mais toujours visible (grisé) de lui et l'administrateur.
+        		l'administrateur pourra ensuite decider de le supprimer definitivement ce qui empecherer de "cacher des messages de harcelement".
+    
+	Professeurs
+    		comme tout utilisateur, le professeur a acces a la page de son profil ou il pourra modifier ses informations
+    		par contre, a la difference de l'eleve, il n'yaura pas besoin de l'accord de l'administration.
+    		sur la plateforme pedagogique, il aura la possibilité de selectionner une promotion pour y deposer des document, annoncer les prochains cours ou controle, mais egalement deposer des exercice directement sur l'application via un formulaire qu'il pourra creer via des outils disponible sur l'application.
+    		il pourra egalement participer au sondage de la cantine et y reserver et payer ses repas
+    		sur le forum de discussion, il aura acces a la section reservé au personnel ainsi qu'a la section des promotions auquelles il est affecté et a la section general
+    		il pourra modifier et supprimer ses propres message sans avoir l'aval de l'administrateur
+    		dans la section de la promotion auquel il est affecté, il pourra modifier les messages de ses eleves.
+       il aura accès a son profil d'utilisateur personnel, ou il pourra modifier ses informations personnels
+    
+    	Administratif
+		l'administratif pourra consulter les derniers paiement de chaque eleves, pourra deposer des annonces sur la pages d'accueil
+    
+	Parent d'élèves 
+		le parent d'eleve aura acces a toute la plateforme pedagogique de son enfant a l'exception des exercice ou il ne pourra que voir les exercice fini de son enfant ainsi que leur correction
+		il ne pourra pas repondre aux sondage de la cantine mais pourra  voir les menus proposer
+		il pourra payer des choses pour son enfants (tel le pret de materiel, les sortie, les repas etc.)
+
+        la messagerie est un espace securisé qui permet de transmettre des message d'un utilisateur a l'autre sans accès a l'exterieur
+        seuls les utilisateur inscrits sur l'application peuvent recevoir ou envoyer des messages.

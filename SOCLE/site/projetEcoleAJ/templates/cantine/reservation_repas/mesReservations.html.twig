@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+{% block title %}Hello reservationRepasController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>date d'achat</th>
+                <th>Repas</th>
+                <th>date du repas</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservationRepas in reservationRepass %}
+                <tr>
+                    <td>{{reservationRepas.id}}</td>
+                    <td>{{ reservationRepas.dateAchat | date('d/m/Y') }}</td>
+                    <td>
+                       <strong>Entrée :</strong>{{ reservationRepas.repas.menu.entree.libelle}}<br>
+                        <strong>Plat :</strong>{{ reservationRepas.repas.menu.plat.libelle}}<br>
+                        <strong>Fromage :</strong>{{ reservationRepas.repas.menu.fromage.libelle}}<br>
+                        <strong>Dessert :</strong>{{ reservationRepas.repas.menu.dessert.libelle}}
+                        
+                    </td>
+                    <td>{{ reservationRepas.repas.date | date('d/m/Y') }} {{ reservationRepas.repas.heure}}</td>
+                    <td>
+                        <a href="{{ path('reservationRepas_affichage', {'id': reservationRepas.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('reservationRepas_edition', {'id': reservationRepas.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('reservationRepas_nouveau') }}" class="btn" >Creer Nouveau reservationRepas</a>
+
+    
+{% endblock %}

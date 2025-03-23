@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello documentalisteController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-nowrap">Id</th>
+                <th class="text-nowrap">photo</th>
+                <th class="text-nowrap">Nom</th>
+                <th class="text-nowrap">Prenom</th>
+                <th class="text-nowrap">Usernaùe</th>
+                <th class="text-nowrap">E-mail</th>
+                <th class="text-nowrap">JetonRepas</th>
+                <th class="text-nowrap">role</th>
+                <th class="text-nowrap">Date d'Embauche</th>
+                <th class="text-nowrap">Poste</th>
+                <th class="text-nowrap">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for documentaliste in documentalistes %}
+                <tr>
+                    <td>{{documentaliste.id}}</td>
+                    <td>
+                        {% if documentaliste.imageName | length >0 %}
+                        <img src="{{ vich_uploader_asset(documentaliste, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="{{ documentaliste.prenom }} {{ documentaliste.nom }}">
+                        {% else %}
+                        Pas de photo pour {{ documentaliste.prenom }} {{ documentaliste.nom }}
+                        {% endif %}
+                    </td>
+                    <td>{{ documentaliste.nom }}</td>
+                    <td>{{ documentaliste.prenom }}</td>
+                    <td>{{ documentaliste.username }}</td>
+                    <td>{{ documentaliste.email }}</td>
+                    <td>
+                        {% if documentaliste.membreJetons.nombreJeton > 0 %}
+                            {{documentaliste.membreJetons.nombreJeton }}
+                        {% else %}
+                        Jetons épuisés
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for role in documentaliste.roles %}
+                            <li>{{ role }}</li>
+                        {% endfor %}
+                    </td>
+                    <td>{{ documentaliste.dateEmbauche | date('d/m/Y') }}</td>
+                    <td>{{ documentaliste.poste}}</td>
+                    <td>
+                        <a href="{{ path('documentaliste_affichage', {'id': documentaliste.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('documentaliste_edition', {'id': documentaliste.id}) }}" class="btn btn-secondary">editer</a>
+                        </td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('documentaliste_nouveau') }}" class="btn" >Creer Nouveau documentaliste</a>
+{% endblock %}

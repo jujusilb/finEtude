@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello personnelController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>photo</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Username</th>
+                <th>E-mail</th>
+                <th>password</th>
+                <th>role</th>
+                <th>Eleve</th>
+                <th>Action</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for personnel in personnels %}
+                <tr>
+                    <td>{{personnel.id}}</td>
+                    <td>
+                        <img src="{{ vich_uploader_asset(personnel, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                    </td>
+                    <td>{{ personnel.nom }}</td>
+                    <td>{{ personnel.prenom }}</td>
+                    <td>{{ personnel.username }}</td>
+                    <td>{{ personnel.email }}</td>
+                    <td>{{ personnel.password }}</td>
+                    <td>
+                        {% for role in personnel.roles %}
+                            <li>{{ role }}</li>
+                        {% endfor %}
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                        
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

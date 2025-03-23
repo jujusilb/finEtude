@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello repasController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-nowrap">Id</th>
+                <th class="text-nowrap">menu</th>
+                <th class="text-nowrap">date</th>
+                <th class="text-nowrap">heure</th>
+                <th class="text-nowrap">Liste des réservations</th>
+                <th class="text-nowrap">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for repas in repass %}
+                <tr>
+                    <td>{{repas.id}}</td>
+                    <td>
+                       <strong>Entrée :</strong>{{ repas.menu.entree.libelle}}<br>
+                        <strong>Plat :</strong>{{ repas.menu.plat.libelle}}<br>
+                        <strong>Fromage :</strong>{{ repas.menu.fromage.libelle}}<br>
+                        <strong>Dessert :</strong>{{ repas.menu.dessert.libelle}}
+                        </td>
+                    <td>{{ repas.date | date('d/m/Y') }}</td>
+                    <td>{{ repas.heure }}</td>
+                    <td>
+                        {% if repas.ReservationRepas | length > 0 %}
+                            {% for reservation in repas.reservationRepas %}
+                                <li>{{ reservation.membre.prenom }} {{ reservation.membre.nom }}</li>
+                            {% endfor %}
+                        {% else %}
+                            Aucune réservation pour ce repas
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('repas_affichage', {'id': repas.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('repas_edition', {'id': repas.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('repas_nouveau') }}" class="btn" >Creer Nouveau repas</a>
+{% endblock %}

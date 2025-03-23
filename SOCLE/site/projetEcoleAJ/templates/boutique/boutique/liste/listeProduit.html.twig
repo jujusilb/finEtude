@@ -1,0 +1,54 @@
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Id</th> 
+            <th>created_at</th>
+            <th>libelle</th>
+            <th>Description</th>
+            <th>prix</th>
+            <th>stock</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.createdAt | date('d/m/Y') }}</td>
+                <td>{{ produit.libelle }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.prix }}</td>  
+                <td>{{ produit.stock }}</td>
+                <td>
+                    <form id="form-P{{ produit.id }}" method="POST" action="{{ path('boutique_achatProduit', {'idProduit': produit.id}) }}">
+                        <label for="quantity-P{{ produit.id }}">Quantité</label>
+                        <input type="number" name="quantity" min="1" step="1" max="{{ produit.stock }}" id="quantity-P{{ produit.id }}" value="1" required class="form-control" style="width: 80px; display: inline-block;">
+                        <button type="submit" class="btn btn-secondary" style="display: inline-block;">Acheter</button>
+                    </form>
+                </td>
+            </tr>   
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        {% for produit in produits %}
+            // Récupère le formulaire et le champ quantité
+            const form = document.getElementById('form-P{{ produit.id }}');
+            const quantityInput = document.getElementById('quantity-P{{ produit.id }}');
+            const stock = {{ produit.stock }};
+
+            quantityInput.addEventListener("input", function(e){
+            let entry=e.target.value
+            console.log(entry, stock)
+            if (entry >stock){
+                console.log("CA MARCHE")
+                quantityInput.value=stock
+                console.log(quantityInput)
+            }})
+                
+        {% endfor %}
+    });
+</script>

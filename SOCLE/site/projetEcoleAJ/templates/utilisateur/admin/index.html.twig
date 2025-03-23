@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello adminController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>photo</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Username</th>
+                <th>E-mail</th>
+                <th>password</th>
+                <th>JetonRepas</th>
+                <th>role</th>
+                <th>Admin</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for admin in admins %}
+                <tr>
+                    <td>{{admin.id}}</td>
+                    <td>
+                        {% if admin.imageName | length >0 %}
+                            <img src="{{ vich_uploader_asset(admin, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="{{ admin.prenom }} {{ admin.nom }}">
+                        {% else %}
+                            Pas de photo pour {{ admin.prenom }} {{ admin.nom }}
+                        {% endif %}
+                    </td>
+                    <td>{{ admin.nom }}</td>
+                    <td>{{ admin.prenom }}</td>
+                    <td>{{ admin.username }}</th>
+                    <td>{{ admin.email }}</td>
+                    <td>{{ admin.password }}</td>
+                    <td>
+                        {% if admin.membreJetons.nombreJeton > 0 %}
+                            {{admin.membreJetons.nombreJeton }}
+                        {% else %}
+                        Jetons épuisés
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for role in admin.roles %}
+                            <li>{{ role }}</li>
+                        {% endfor %}
+                    </td>
+
+                    <td>
+                        <a href="{{ path('admin_affichage', {'id': admin.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('admin_edition', {'id': admin.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('admin_nouveau') }}" class="btn" >Creer Nouveau admin</a>
+{% endblock %}

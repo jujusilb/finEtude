@@ -1,0 +1,411 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+<style>
+.contour {
+    color: #000000;
+    font-size:40px;
+    text-shadow:
+        0px -1px 0 #FA0,
+        0px 1px 0 #FA0,
+        -1px 0px 0 #FA0,
+        1px 0px 0 #FA0;
+
+}
+.degrade{
+    background-color:#333333;
+
+}
+</style>
+<div>
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row">
+			<div class="container">
+				<div class="row">
+                    <h2>Admin</h2>
+                    {% for admin in admins %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{admin.id}}
+                                </h6>
+                                <h5>
+                                    Prenom NOM :
+                                    <br>
+                                    {{admin.prenom}}  {{admin.nom}}
+                                </h5>
+                        {% if admin.imageName | length >0 %}
+                            <img src="{{ vich_uploader_asset(admin, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="{{ admin.prenom }} {{ admin.nom }}">
+                        {% else %}
+                            Pas de photo pour {{ admin.prenom }} {{ admin.nom }}
+                        {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
+                <hr><hr>
+                    <h2>Dessert</h2>
+                    {% for dessert in desserts %}
+                        <div class="col-sm-3">
+                            <div class="card">
+                                <h6>
+                                    id : {{dessert.id}}
+                                <h6>
+                                <h5>
+                                    libelle :
+                                    <br>
+                                    {{dessert.libelle }}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    
+                <hr><hr>
+                
+                    <h2>Direction</h2>
+                
+                    {% for direction in directions %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{direction.id}}
+                                </h6>
+                                <h5>
+                                    Prenom NOM :
+                                    <br>
+                                    {{direction.prenom}} {{direction.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(direction, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                    <h2>Documentaliste</h2>
+                    {% for documentaliste in documentalistes %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                     id : {{documentaliste.id}}
+                                </h6>
+                                <h5>
+                                    Prenom NOM :
+                                    <br>
+                                    {{documentaliste.prenom}} {{documentaliste.nom}}
+                                </h5>
+                                   <img src="{{ vich_uploader_asset(documentaliste, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                                </h6>
+                            </div>
+                       </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                  
+                    <h2>Eleve</h2>
+                    {% for eleve in eleves %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{eleve.id}}
+                                </h6>
+                                <h5>
+                                    Prenom NOM :
+                                    <br>
+                                    {{eleve.prenom}} {{eleve.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(eleve, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                     {% endfor %}
+                
+                <hr><hr>
+                
+                    <h2>Emprunt</h2>
+                
+                    {% for emprunt in emprunts %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{emprunt.id}}
+                                </h6>
+                                <h5>
+                                    Membre : {{emprunt.membre.prenom}} {{emprunt.membre.nom}}
+                                    <br>
+                                    Ouvrage : {{emprunt.ouvrage.titre}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                
+                    <h2>Entrée</h2>
+                
+                    {% for entree in entrees %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{entree.id}}
+                                </h6>
+                                <h5>
+                                    Libellé
+                                    <br>
+                                    {{entree.libelle}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                
+                    <h2>Fromage</h2>
+                
+                    {% for fromage in fromages %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{fromage.id}}
+                                </h6>
+                                <h5>
+                                    Libellé
+                                    <br>
+                                    {{fromage.libelle}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                
+                    
+                        <h2>legume</h2>
+                    
+                    {% for legume in legumes %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{legume.id}}
+                                </h6>
+                                <h5>
+                                    Libellé
+                                    <br>
+                                    {{legume.libelle}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>  
+                
+                              
+                        <h2>Matiere</h2>
+                    
+                    {% for matiere in matieres %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{matiere.id}}
+                                </h6>
+                                <h5>
+                                    Lbelle : {{matiere.libelle}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                
+                    
+                        <h2>Menu</h2>
+                    
+                    {% for menu in menus %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{menu.id}}
+                                </h6>
+                                <h5>
+                                    Entree : {{menu.entree.libelle}}
+                                    <br>
+                                    Plat : {{menu.plat.viande.libelle}} - {{ menu.plat.legume.libelle }}
+                                    <br>
+                                    Fromage : {{menu.fromage.libelle}}
+                                    <br>
+                                    Dessert : {{menu.dessert.libelle }}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                <hr><hr>
+                   
+                <hr><hr>
+                
+                    
+                        <h2>Ouvrage</h2>
+                    
+                    {% for ouvrage in ouvrages %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{ouvrage.id}}
+                                </h6>
+                                <h5>
+                                    Titre : {{ouvrage.titre}}
+                                    <br>
+                                    categorie : 
+                                    {% for categorieOuvrage in ouvrage.categorieOuvrages %}
+                                        {{ categorieOuvrage.libelle }}
+                                    {% endfor %}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                
+                      
+                <h2>Plat</h2>
+                    
+                    {% for plat in plats %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{plat.id}}
+                                </h6>
+                                <h5>
+                                    Viande - Légume
+                                    <br>
+                                    {{plat.viande.libelle}} - {{ plat.legume.libelle}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                  
+                <hr><hr>
+                
+                        
+                        <h2>Professeur</h2>
+                    
+                    {% for professeur in professeurs %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h5>
+                                    id : {{professeur.id}}
+                                </h6>
+                                <h5>
+                                    Prenom NOM : 
+                                    <br>
+                                    {{professeur.prenom}} {{professeur.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(professeur, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                
+                    
+                        <h2>Promotion</h2>
+                    
+                    {% for promotion in promotions %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{promotion.id}}
+                                </h6>
+                                <h5>
+                                    Libelle : {{promotion.libelle}}
+                                    <br>
+                                   
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                
+                    <h2>Repas</h2>
+                
+                    {% for repa in repas %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{repa.id}}
+                                </h6>
+                                <h5>
+                                    date et heure: {{repa.date | date('d/m/Y')}} - {{repa.heure}} {{ repa.heure }}
+                                    <br>
+                                    prix : {{ repa.prix }}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                
+                    <h2>Secretariat</h2>
+                
+                    {% for secretariat in secretariats %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id :{{secretariat.id}}
+                                </h6>
+                                <h5>
+                                     prenom NOM :
+                                    <br>
+                                    {{secretariat.prenom}} {{secretariat.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(secretariat, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                
+                    <h2>Surveillant</h2>
+                
+                    {% for surveillant in surveillants %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{surveillant.id}}
+                                <h6>
+                                <h5>
+                                    Prenom  NOM :
+                                    <br>
+                                    {{surveillant.prenom}} {{surveillant.nom}}
+                                </h5>
+                                <img src="{{ vich_uploader_asset(surveillant, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                
+                 <h2>Viande</h2>
+                
+                    {% for viande in viandes %}
+                        <div class="col-sm-3">
+                            <div class="card contour">
+                                <h6>
+                                    id : {{viande.id}}
+                                </h6>
+                                <h5>
+                                    Libellé
+                                    <br>
+                                    {{viande.libelle}}
+                                </h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                <hr><hr>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

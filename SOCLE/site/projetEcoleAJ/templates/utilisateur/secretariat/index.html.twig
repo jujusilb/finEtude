@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello secretariatController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-nowrap">Id</th>
+                <th class="text-nowrap">photo</th>
+                <th class="text-nowrap">Nom</th>
+                <th class="text-nowrap">Prenom</th>
+                <th class="text-nowrap">Username</th>
+                <th class="text-nowrap">E-mail</th>
+                <th class="text-nowrap">JetonRepas</th>
+                <th class="text-nowrap">role</th>
+                <th class="text-nowrap">Date d'Embauche</th>
+                <th class="text-nowrap">Poste</th>
+                <th class="text-nowrap">Action</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for secretariat in secretariats %}
+                <tr>
+                    <td>{{secretariat.id}}</td>
+                    <td>
+                        {% if secretariat.imageName | length >0 %}
+                        <img src="{{ vich_uploader_asset(secretariat, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="{{ secretariat.prenom }} {{ secretariat.nom }}">
+                        {% else %}
+                        Pas de photo pour {{ secretariat.prenom }} {{ secretariat.nom }}
+                        {% endif %}
+                    </td>
+                    <td>{{ secretariat.nom }}</td>
+                    <td>{{ secretariat.prenom }}</td>
+                    <td>{{ secretariat.username }}</td>
+                    <td>{{ secretariat.email }}</td>
+                    <td>
+                        {#{{dump (professeur)}}#}
+                        {% if secretariat.membreJetons.nombreJeton > 0 %}
+                            {{ secretariat.membreJetons.nombreJeton }}
+                        {% else %}
+                        Jetons épuisés
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for role in secretariat.roles %}
+                            <li>{{ role }}</li>
+                        {% endfor %}
+                    </td>
+                    <td>{{ secretariat.dateEmbauche | date('d/m/Y') }}</td>
+                    <td>{{ secretariat.poste}}</td>
+                    
+                    <td>
+                        <a href="{{ path('secretariat_affichage', {'id': secretariat.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('secretariat_edition', {'id': secretariat.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('secretariat_nouveau') }}" class="btn" >Creer Nouveau secretariat</a>
+{% endblock %}

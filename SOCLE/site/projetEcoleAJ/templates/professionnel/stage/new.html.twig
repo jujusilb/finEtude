@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme stageForm 'bootstrap_4_layout.html.twig'  %}
+
+{% block title %}New Stage
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Creation d'un nouveau Stage</h5>
+
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		{{ include('professionnel/stage/_form.html.twig') }}
+
+		<a href="{{ path('stage_index') }}" class="btn btn-dark">Liste de stage</a>
+	</div>
+	
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello eleveController!{% endblock %}
+
+{% block body %}
+    <a href="{{ path('eleve_nouveau') }}" class="btn" >Creer Nouveau eleve</a>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-nowrap">Id</th>
+                <th class="text-nowrap">Photo</th>
+                <th class="text-nowrap">Nom</th>
+                <th class="text-nowrap">Prenom</th>
+                <th class="text-nowrap">Username</th>
+                <th class="text-nowrap">E-mail</th>
+                <th class="text-nowrap">Promotion</h>
+                <th class="text-nowrap">JetonRepas</th>
+                <th class="text-nowrap">role</th>
+                <th class="text-nowrap">Stage</th>
+                <th class="text-nowrap">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for eleve in eleves %}
+                <tr>
+                    <td>{{eleve.id}}</td>
+                    <td>
+                        {% if eleve.imageName | length >0 %}
+                        <img src="{{ vich_uploader_asset(eleve, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="{{ eleve.prenom }} {{ eleve.nom }}">
+                        {% else %}
+                        Pas de photo pour {{ eleve.prenom }} {{ eleve.nom }}
+                        {% endif %}
+                    </td>
+                    <td>{{ eleve.nom }}</td>
+                    <td>{{ eleve.prenom }}</td>
+                    <td>{{ eleve.username }}</td>
+                    <td>{{ eleve.email }}</td>
+                    <td>
+                        <a href="{{ path('promotion_affichage', {'id': eleve.promotion.id}) }}">
+                            {{ eleve.promotion.libelle }}
+                        </a>
+                        
+                    </td>
+                    <td>
+                        {% if eleve.membreJetons.nombreJeton > 0 %}
+                            {{ eleve.membreJetons.nombreJeton }}
+                        {% else %}
+                        Jetons épuisés
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% for role in eleve.roles %}
+                           {{ role }}<br>
+                        {% endfor %}
+                        
+                    </td>
+                    <td>
+                        {% if eleve.stages | length > 0 %}
+                            {% for stage in eleve.stages %}
+                                <li>{{ stage.dateDebut | date('Y')}} <br>{{ stage.entreprise.libelle }}</li><br>
+                            {% endfor %}
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('eleve_affichage', {'id': eleve.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('eleve_edition', {'id': eleve.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('eleve_nouveau') }}" class="btn" >Creer Nouveau eleve</a>
+{% endblock %}

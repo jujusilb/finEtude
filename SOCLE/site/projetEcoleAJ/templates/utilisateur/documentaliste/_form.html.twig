@@ -1,0 +1,55 @@
+{{ form_start(documentalisteForm) }}
+
+    <div class="row">
+        <!-- Première ligne : Nom et Prénom -->
+        <div class="col-sm-6">
+            <label for="documentaliste_Nom">Nom</label>
+            {{ form_widget(documentalisteForm.nom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <div class="col-sm-6">
+            <label for="documentaliste_prenom">Prénom</label>
+            {{ form_widget(documentalisteForm.prenom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Deuxième ligne : Mot de passe et Image -->
+        <div class="col-sm-6">
+            <label for="documentaliste_motDePasse">Mot de passe</label>
+            {{ form_widget(documentalisteForm.motDePasse, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+        <div class="col-sm-6">
+            <label for="documentaliste_image_file">Image</label>
+            {{ form_widget(documentalisteForm.imageFile, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Troisième ligne : Date d'embauche et Téléphone bureau -->
+        <div class="col-sm-6">
+            <label for="date_embauche">Date d'embauche</label>
+            <div class="row">
+                {{ form_widget(documentalisteForm.date_embauche.day, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+                {{ form_widget(documentalisteForm.date_embauche.month, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+                {{ form_widget(documentalisteForm.date_embauche.year, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <label for="documentaliste_poste">Téléphone bureau</label>
+            {{ form_widget(documentalisteForm.poste, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+    </div>
+    <div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <label for="documentaliste__form_pole">pôle</label>
+            {{ form_widget(documentalisteForm.pole, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+        </div>
+
+    </div>
+
+    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+
+{{ form_end(documentalisteForm) }}

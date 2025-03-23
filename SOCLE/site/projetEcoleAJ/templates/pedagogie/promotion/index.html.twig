@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de promotions{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libellé</th>
+                <th>Referent</th>
+                <th>liste d'eleve </th>
+                <th>Professeur et Matieres</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for promotion in promotions %}
+                <tr>
+                    <td>{{ promotion.id }}</td>
+                    <td>{{ promotion.libelle}}</td>
+                    <td>
+               
+                    <td>
+                        {% for eleve in promotion.eleves %}
+                            <li>
+                                <a href="{{ path('eleve_affichage', {'id': eleve.id}) }}">
+                                    {{eleve.prenom}} {{eleve.nom}}
+                                </a>                            
+                            </li>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <ul>
+                            {% for programme in promotion.programmes %}
+                                <li>
+                                    <a href="{{ path('professeur_affichage', {'id': programme.professeur.id}) }}">
+                                        {{ programme.professeur.prenom }} {{ programme.professeur.nom }}
+                                    </a>
+                                     - 
+                                    <a href="{{ path('matiere_affichage', {'id': programme.matiere.id}) }}">
+                                        {{programme.matiere.libelle }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <a href="{{ path('promotion_affichage', {'id': promotion.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('promotion_edition', {'id': promotion.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('promotion_nouveau') }}" class="btn" >Créer Nouvelle promotion</a>
+{% endblock %}

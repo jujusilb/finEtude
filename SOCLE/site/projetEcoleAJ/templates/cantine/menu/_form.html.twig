@@ -1,0 +1,206 @@
+{{ form_start(menuForm) }}
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-4">
+                <label for="menu_jaxEntree">Entree</label>
+                {{ form_widget(menuForm.ajaxEntree) }}
+                <div id="DivEntree"></div>
+            </div>
+           <div class="col-sm-4">
+                <label for="menu_ajaxPlat">Plat</label>
+                {{ form_widget(menuForm.ajaxPlat) }}
+                <div id="DivPlat"></div>
+            </div>
+            <div class="col-sm-4">
+                <label for="menu_ajaxFromage">Fromage</label>
+                {{ form_widget(menuForm.ajaxFromage) }}
+                <div id="DivFromage"></div>
+            </div>
+            <div class="col-sm-4">
+                <label for="menu_ajaxDessert">Dessert</label>
+                {{ form_widget(menuForm.ajaxDessert) }}
+                <div id="DivDessert"></div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+{{ form_end(menuForm) }}
+
+<script>
+        let divEntree=document.getElementById("DivEntree")
+        let divPlat=document.getElementById("DivPlat")
+        let divFromage=document.getElementById("DivFromage")
+        let divDessert=document.getElementById("DivDessert")
+        
+        let inputEntreeLibelle=document.getElementById("menu_ajaxEntree")
+        let inputEntreeId=document.getElementById("menu_entree_id")
+        let inputPlatLibelle=document.getElementById("menu_ajaxPlat")
+        let inputPlatId=document.getElementById("menu_plat_id")
+        let inputFromageLibelle=document.getElementById("menu_ajaxFromage")
+        let inputFromageId=document.getElementById("menu_fromage_id")
+        let inputDessertLibelle=document.getElementById("menu_ajaxDessert")
+        let inputDessertId=document.getElementById("menu_dessert_id")
+        
+        inputEntreeLibelle.addEventListener('input', actionEntree); 
+        inputPlatLibelle.addEventListener('input', actionPlat); 
+        inputFromageLibelle.addEventListener('input', actionFromage); 
+        inputDessertLibelle.addEventListener('input', actionDessert); 
+        
+        
+        
+        async function actionEntree(e){
+            divEntree.innerText="";
+            let value=e.target.value
+            if (value.length>=2){
+                let url =`/menu/entreeLibelle/${value}`
+                let response =await fetch(url)
+                let data =await response.json()
+                console.log(data)
+                for(let i=0;i<data.length;i++){
+                    let libelle=data[i].libelle
+                    let id=data[i].id
+                    let liste=document.querySelectorAll(".entreeName")
+                    let existe=false
+                    for (let j = 0; j < liste.length; j++) {
+                        if (liste[j].innerText === libelle) {
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if (!existe) {
+                        let names = document.createElement("div");
+                        divEntree.appendChild(names);
+                        console.log(liste)
+                        names.classList.add("entreeName");
+                        names.style.border = "1px solid black";
+                        names.style.padding = "15px";
+                        names.innerText = libelle;
+                        names.addEventListener("click", function() {
+                            inputEntreeLibelle.value = libelle;
+                            inputEntreeId.value=id;
+                            menu_entree_id.value=id
+                            divEntree.innerText = "";
+                        });
+                    }
+                }
+            }
+        }
+
+
+
+        async function actionPlat(e){
+            divPlat.innerText="";
+            let value=e.target.value
+            if (value.length>=2){
+                let url =`/menu/platLibelle/${value}`
+                let response =await fetch(url)
+                let data =await response.json()
+                console.log(data)
+                for(let i=0;i<data.length;i++){
+                    let libelle=data[i].libelle
+                    let id=data[i].id
+                    let liste=document.querySelectorAll(".platName")
+                    let existe=false
+                    for (let j = 0; j < liste.length; j++) {
+                        if (liste[j].innerText === libelle) {
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if (!existe) {
+                        let names = document.createElement("div");
+                        divPlat.appendChild(names);
+                        console.log(liste)
+                        names.classList.add("platName");
+                        names.style.border = "1px solid black";
+                        names.style.padding = "15px";
+                        names.innerText = libelle;
+                        names.addEventListener("click", function() {
+                            inputPlatLibelle.value = libelle;
+                            inputPlatId.value=id;
+                            menu_plat_id.value=id  
+                            divPlat.innerText = "";
+                        });
+                    }
+                }
+            }
+        }
+
+        async function actionFromage(e){
+            console.log("INFROMAGE")
+            divFromage.innerText="";
+            let value=e.target.value
+            if (value.length>=2){
+                let url =`/menu/fromageLibelle/${value}`
+                let response =await fetch(url)
+                let data =await response.json()
+                console.log(data)
+                for(let i=0;i<data.length;i++){
+                    let libelle=data[i].libelle
+                    let id=data[i].id
+                    let liste=document.querySelectorAll(".fromageName")
+                    let existe=false
+                    for (let j = 0; j < liste.length; j++) {
+                        if (liste[j].innerText === libelle) {
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if (!existe) {
+                        let names = document.createElement("div");
+                        divFromage.appendChild(names);
+                        console.log(liste)
+                        names.classList.add("fromageName");
+                        names.style.border = "1px solid black";
+                        names.style.padding = "15px";
+                        names.innerText = libelle;
+                        names.addEventListener("click", function() {
+                            inputFromageLibelle.value = libelle;
+                            inputFromageId.value=id;
+                            menu_fromage_id.value=id
+                            divFromage.innerText = "";
+                        });
+                    }
+                }
+            }
+        }
+
+
+        async function actionDessert(e){
+            divDessert.innerText="";
+            let value=e.target.value
+            if (value.length>=2){
+                let url =`/menu/dessertLibelle/${value}`
+                let response =await fetch(url)
+                let data =await response.json()
+                console.log(data)
+                for(let i=0;i<data.length;i++){
+                    let libelle=data[i].libelle
+                    let id=data[i].id
+                    let liste=document.querySelectorAll(".dessertName")
+                    let existe=false
+                    for (let j = 0; j < liste.length; j++) {
+                        if (liste[j].innerText === libelle) {
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if (!existe) {
+                        let names = document.createElement("div");
+                        divDessert.appendChild(names);
+                        console.log(liste)
+                        names.classList.add("dessertName");
+                        names.style.border = "1px solid black";
+                        names.style.padding = "15px";
+                        names.innerText = libelle;
+                        names.addEventListener("click", function() {
+                            inputDessertLibelle.value = libelle;
+                            inputDessertId.value=id; 
+                            menu_dessert_id.value=id  
+                            divDessert.innerText = "";
+                        })
+                    }
+                }
+            }
+        }
+</script>

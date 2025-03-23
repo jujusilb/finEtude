@@ -1,0 +1,57 @@
+{{ form_start(empruntForm) }}
+    <div class="form-group row">
+        <div class="col-sm-4">
+            <label for="emprunt_ouvrage">Ouvrage</label>
+            {{ form_widget(empruntForm.ajaxOuvrage, {'attr': {'style' : 'width : auto;'}}) }}
+            <div id="DivOuvrage"></div>
+        </div>
+    </div>
+    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+{{ form_end(empruntForm) }}
+
+<script>
+        let divOuvrage=document.getElementById("DivOuvrage")
+      
+        let inputOuvrageTitre=document.getElementById("emprunt_ajaxOuvrage")
+        let inputOuvrageId=document.getElementById("emprunt_ouvrage_id")
+        
+        inputOuvrageTitre.addEventListener('input', actionOuvrage); 
+    
+        async function actionOuvrage(e){
+            divOuvrage.innerHTML="";
+            let value=e.target.value
+            if (value.length>=2){
+                let url =`/emprunt/ouvrageTitre/${value}`
+                let response =await fetch(url)
+                let data =await response.json()
+                console.log(data)
+                for(let i=0;i<data.length;i++){
+                    let titre=data[i].titre
+                    let id=data[i].id
+                    let liste=document.querySelectorAll(".ouvrageName")
+                    let existe=false
+                    for (let j = 0; j < liste.length; j++) {
+                        if (liste[j].innerText === titre) {
+                            existe = true;
+                            break;
+                        }
+                    }
+                    if (!existe) {
+                        let names = document.createElement("div");
+                        divOuvrage.appendChild(names);
+                        console.log(liste)
+                        names.classList.add("ouvrageName");
+                        names.style.border = "1px solid black";
+                        names.style.padding = "15px";
+                        names.innerText = titre;
+                        names.addEventListener("click", function() {
+                            inputOuvrageTitre.value = titre;
+                            inputOuvrageId.value=id;
+                            console.log("inputOuvrageId", inputOuvrageId.value)
+                            divOuvrage.innerHTML = "";
+                        });
+                    }
+                }
+            }
+        }
+</script>

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+{% form_theme menuForm 'bootstrap_4_layout.html.twig'  %}
+{% block title %}Edit Menu
+{% endblock %}
+
+
+{% block body %}
+	<div class="container">
+		<h5>Edition Menu</h5>
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+
+		{{ include('cantine/menu/_form.html.twig', {'class="btn btn-primary"': 'Update'}) }}
+
+		<a href="{{ path('menu_index') }}" class="btn btn-secondary">Liste de</a>
+
+
+		{{ include('cantine/menu/_delete_form.html.twig') }}
+	</div>
+{% endblock %}

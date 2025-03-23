@@ -1,0 +1,108 @@
+    security:
+    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
+ password_hashers:
+        # Use your user class name here
+        App\Entity\Utilisateur\User:
+            algorithm: plaintext # disable hashing (only do this in tests!)
+
+    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+
+    
+    role_hierarchy:
+        ROLE_USER: []
+        ROLE_MEMBRE:            ROLE_USER
+        ROLE_ADULTE:            ROLE_MEMBRE
+        ROLE_PERSONNEL:         ROLE_ADULTE
+        ROLE_CUISINE:           ROLE_PERSONNEL
+        ROLE_DOCUMENTALISTE:    ROLE_PERSONNEL
+        ROLE_SECRETARIAT:       ROLE_PERSONNEL
+        ROLE_SURVEILLANT:       ROLE_PERSONNEL
+        ROLE_DIRECTION:         ROLE_SECRETARIAT
+        ROLE_PROFESSEUR:        ROLE_PERSONNEL
+        ROLE_REFERENT:          ROLE_PROFESSEUR
+        ROLE_PARENT:            ROLE_ADULTE
+        ROLE_ELEVE:             ROLE_MEMBRE
+        ROLE_ADMIN:             ROLE_MEMBRE
+        ROLE_ANGLAIS:           ROLE_PROFESSEUR
+        ROLE_MATHEMATIQUE:      ROLE_PROFESSEUR
+        ROLE_ANATOMIE:          ROLE_PROFESSEUR
+        ROLE_INFORMATIQUE:      ROLE_PROFESSEUR
+        ROLE_FRANCAIS:          ROLE_PROFESSEUR
+        ROLE_BIOLOGIE:          ROLE_PROFESSEUR
+        ROLE_PHYSIQUE:          ROLE_PROFESSEUR
+        ROLE_BUREAUTIQUE:       ROLE_PROFESSEUR
+        ROLE_SUPER_ADMIN:       [
+                                    ROLE_ALLOWED_TO_SWITCH, 
+                                    ROLE_ADMIN, 
+                                    ROLE_MEMBRE, 
+                                    ROLE_CUISINE,
+                                    ROLE_DOCUMENTALISTE,
+                                    ROLE_SURVEILLANT,
+                                    ROLE_SECRETARIAT,
+                                    ROLE_DIRECTION,
+                                    ROLE_PARENT,
+                                    ROLE_ELEVE,
+                                    ROLE_PROFESSEUR,
+                                    ROLE_REFERENT,
+                                    ROLE_ANGLAIS,
+                                    ROLE_MATHEMATIQUE,
+                                    ROLE_ANATOMIE,
+                                    ROLE_INFORMATIQUE,
+                                    ROLE_FRANCAIS,
+                                    ROLE_BIOLOGIE,
+                                    ROLE_PHYSIQUE,
+                                    ROLE_BUREAUTIQUE
+                                ]
+
+
+    providers:
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\Utilisateur\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            lazy: true
+            provider: app_user_provider
+            custom_authenticator: App\Security\MembreAuthenticator
+            logout:
+                path: app_logout
+                # where to redirect after logout
+                # target: app_any_route
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                path: /
+                # by default, the feature is enabled by checking a checkbox in the
+                # login form, uncomment the following line to always enable it.
+                #always_remember_me: true
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#the-firewall
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+
+when@test:
+    security:
+        password_hashers:
+            # By default, password hashers are resource intensive and take time. This is
+            # important to generate secure password hashes. In tests however, secure hashes
+            # are not important, waste resources and increase test times. The following
+            # reduces the work factor to the lowest possible values.
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
+                algorithm: auto
+                cost: 4 # Lowest possible value for bcrypt
+                time_cost: 3 # Lowest possible value for argon
+                memory_cost: 10 # Lowest possible value for argon

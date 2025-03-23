@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme documentalisteForm 'bootstrap_4_layout.html.twig'  %}
+
+{% block title %}New Documentaliste
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Creation d'un nouveau Documentaliste</h5>
+
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		{{ include('Utilisateur/documentaliste/_form.html.twig') }}
+
+		<a href="{{ path('documentaliste_index') }}" class="btn btn-dark">Liste de documentaliste</a>
+	</div>
+{% endblock %}

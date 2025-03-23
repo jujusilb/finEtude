@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Charte du Forum{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header">
+                <h1 class="card-title">Charte du Forum</h1>
+            </div>
+            <div class="card-body">
+                <p>Bienvenue sur le forum ! Cet espace est dédié aux échanges constructifs et respectueux autour de [thème principal du forum]. Afin de garantir une atmosphère agréable pour tous, nous vous prions de lire et de respecter les règles suivantes :</p>
+
+                <div class="mb-3">
+                    <h3>1. Respect et courtoisie</h3>
+                    <ul>
+                        <li><strong>Politesse</strong> : Utilisez un langage respectueux envers les autres membres, même en cas de désaccord.</li>
+                        <li><strong>Pas d'attaques personnelles</strong> : Les insultes, le harcèlement, les menaces et les propos diffamatoires sont strictement interdits.</li>
+                        <li><strong>Tolérance</strong> : Acceptez les différences d'opinions et les diversités culturelles.</li>
+                    </ul>
+                </div>
+
+                <div class="mb-3">
+                    <h3>2. Contenu des messages</h3>
+                    <ul>
+                        <li><strong>Pertinence</strong> : Publiez vos messages dans les sections appropriées du forum.</li>
+                        <li><strong>Clarté</strong> : Rédigez des messages clairs et compréhensibles. Évitez le langage SMS et les abréviations excessives.</li>
+                        <li><strong>Pas de spam</strong> : La publicité non sollicitée, les liens vers des sites commerciaux et les messages répétitifs sont interdits.</li>
+                        <li><strong>Droits d'auteur</strong> : Respectez les droits d'auteur en citant vos sources et en évitant le plagiat.</li>
+                        <li><strong>Contenu inapproprié</strong> : Les messages à caractère pornographique, violent, raciste, xénophobe ou illégal sont interdits.</li>
+                    </ul>
+                </div>
+
+                <div class="mb-3">
+                    <h3>3. Comportement des membres</h3>
+                    <ul>
+                        <li><strong>Modération</strong> : Respectez les décisions des modérateurs. Ils sont là pour assurer le bon fonctionnement du forum.</li>
+                        <li><strong>Signalement</strong> : Signalez aux modérateurs tout message ou comportement inapproprié.</li>
+                        <li><strong>Confidentialité</strong> : Ne divulguez pas d'informations personnelles sur les autres membres sans leur consentement.</li>
+                        <li><strong>Pseudonyme</strong> : Choisissez un pseudonyme approprié et évitez d'usurper l'identité d'autrui.</li>
+                    </ul>
+                </div>
+
+                <div class="mb-3">
+                    <h3>4. Sanctions</h3>
+                    <p>Le non-respect de cette charte pourra entraîner des avertissements, la suppression de messages, la suspension temporaire ou définitive du compte. Les modérateurs se réservent le droit de modifier ou de supprimer tout message ne respectant pas la charte.</p>
+                </div>
+
+                <div class="mb-3">
+                    <h3>5. Recommandations supplémentaires</h3>
+                    <ul>
+                        <li>Utilisez la fonction de recherche avant de poser une question, afin de vérifier si elle n'a pas déjà été traitée.</li>
+                        <li>Participez activement aux discussions et partagez vos connaissances.</li>
+                        <li>N'hésitez pas à contacter les modérateurs en cas de questions ou de problèmes.</li>
+                    </ul>
+                </div>
+
+                <p>En vous inscrivant et en participant à ce forum, vous acceptez de respecter cette charte. Nous vous souhaitons des échanges enrichissants et agréables !</p>
+            </div>
+            <div class="card-footer text-center">
+                
+                <p> J'accepte la charte </p>
+{{ form_start(form) }}
+    <div class="form-check">
+        <label class="form-check-label" for="charte_0">Oui</label>
+        {{ form_widget(form.charte[0]) }}
+        {{ form_widget(form.charte[1]) }}
+        <label class="form-check-label" for="charte_1">Non</label>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Soumettre</button>
+{{ form_end(form) }}
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <a href="{{ path('forum_nouveau') }}" class="btn btn-secondary">Créer Nouvel admin</a>
+        </div>
+    </div>
+{% endblock %}

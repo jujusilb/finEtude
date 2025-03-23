@@ -1,0 +1,10 @@
+pour trier dynamiquement quelque soit la colonne que l'on selectionne:
+
+
+#[Route('/tri/{th}', name:'tri', method:['GET', 'POST'])
+public function triTh($th):Response
+{
+return $this->createQueryBuilder('a')
+->orderBy('a.'.$th, 'ASC')
+->getQuery()
+->getResult();

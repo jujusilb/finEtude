@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme messageGeneralForm 'bootstrap_4_layout.html.twig'  %}
+
+{% block title %}New Secretariat
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Creation d'un nouveau Message</h5>
+
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		{{ include('communication/message_general/_form.html.twig') }}
+
+		<a href="{{ path('messageGeneral_index') }}" class="btn btn-dark">Liste de messageGeneral</a>
+	</div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Membre
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Membre</h5>
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		<table class="table">
+			<tbody>
+				<tr>
+					<th>Id</th>
+					<td>{{ membre.id }}</td>
+				</tr>
+				<tr>
+					<th>Photo</th>
+					<td>
+						<img src="{{ vich_uploader_asset(membre, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="...">
+					</td>
+				</tr>
+				<tr>
+					<th>Nom</th>
+					<td>{{ membre.nom }}</td>
+				</tr>
+				<tr>
+					<th>Prenom</th>
+					<td>{{ membre.prenom }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<a href="{{ path('membre_index') }}" class="btn btn-secondary">Liste de sieges</a>
+
+		<a href="{{ path('membre_edition', {'id': membre.id}) }}" class="btn btn-secondary">Modifier</a>
+
+		{{ include('utilisateur/membre/_delete_form.html.twig') }}
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+{% endblock %}

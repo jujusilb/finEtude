@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-nowrap">Id</th>
+                <th class="text-nowrap">Statutt</th>
+                <th class="text-nowrap">date de la demande</th>
+                <th class="text-nowrap">date de l'emprunt</th>
+                <th class="text-nowrap">Date de Restitution</th>                
+                <th class="text-nowrap">Membre</th>
+                <th class="text-nowrap">Ouvrage</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emprunt in emprunts %}
+                <tr>
+                    <td>{{emprunt.id}}</td>
+                    <td>{{emprunt.statut.libelle}}</td>                    
+                    <td>{{ emprunt.dateDemande | date('d/m/Y') }}</td>
+                    <td>
+                        {% if emprunt.dateEmprunt is not null %}
+                            {{ emprunt.dateEmprunt | date('d/m/Y') }}</td>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if emprunt.dateRetour is not null %}
+                            {{ emprunt.dateRetour | date('d/m/Y')}}
+                            {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('membre_affichage', {'id': emprunt.membre.id}) }}">
+                            {{ emprunt.membre.prenom }} {{ emprunt.membre.nom }}
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{{ path('ouvrage_affichage', {'id': emprunt.ouvrage.id}) }}">
+                            {{ emprunt.ouvrage.titre }}
+                                        
+                    </td>
+
+
+                    <td>
+                        <a href="{{ path('emprunt_affichage', {'id': emprunt.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('emprunt_edition', {'id': emprunt.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   
+{% endblock %}

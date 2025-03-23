@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}liste de professeurMatière{% endblock %}
+
+{% block body %}
+ <a href="{{ path('professeurMatiere_nouveau') }}" class="btn" >Creer Nouveau professeurMatière</a>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Professeur</th>
+                <th>Matiere</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for professeurMatiere in professeurMatieres %}
+        <tr>
+            <td>{{ professeurMatiere.getProfesseur().prenom }} {{ professeurMatiere.getProfesseur().nom }}</td>     {# Assuming 'nom' is a property of 'Professeur' #}
+            <td>{{ professeurMatiere.getMatiere().libelle }}</td>    {# Assuming 'libelle' is a property of 'Matiere' #}
+            <td>
+                {#<a href="{{ path('professeurMatiere_affichage', {'id': professeurMatiere.id}) }}" class="btn btn-secondary">lire</a>#}
+                {#  <a href="{{ path('professeurMatiere_edition', {'id': professeurMatiere.id}) }}" class="btn btn-secondary">editer</a>#}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="{{ path('professeurMatiere_nouveau') }}" class="btn">Creer Nouveau professeurMatière</a>
+        </tbody>
+    </table>
+   
+{% endblock %}

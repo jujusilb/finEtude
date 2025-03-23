@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{# Corrected form theme syntax #}
+{% form_theme promotionForm 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Edit promotion{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h5>Edition Promotion</h5>
+        <hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+        {# Corrected include syntax, passing class and label properly #}
+        {{ include('pedagogie/promotion/_form.html.twig', {'class': 'btn btn-primary', 'label': 'Update'}) }}
+
+        <a href="{{ path('promotion_index') }}" class="btn btn-secondary">Liste de promotions</a>
+
+        {{ include('pedagogie/promotion/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

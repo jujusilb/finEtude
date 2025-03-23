@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme salleForm 'bootstrap_4_layout.html.twig'  %}
+
+{% block title %}New Salle
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Creation d'un nouveau Salle</h5>
+
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		{{ include('etablissement/salle/_form.html.twig') }}
+
+		<a href="{{ path('salle_index') }}" class="btn btn-dark">Liste de salle</a>
+	</div>
+{% endblock %}

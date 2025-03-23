@@ -1,0 +1,629 @@
+delete from planning_repas;
+delete from commande;
+delete from message;
+delete from membre_jeton;
+delete from professeur_matiere;
+delete from ouvrage_categorie_ouvrage;
+delete from emprunt;
+
+delete from salle;
+delete from repas;
+delete from professeur;
+delete from personnel;
+delete from admin;
+delete from adulte;
+delete from promotion;
+delete from eleve;
+delete from membre;
+delete from ouvrage;
+delete from produit;
+delete from promotion;
+delete from forum;
+delete from sub_forum;
+delete from thread;
+delete from etage;
+delete from batiment;
+
+
+
+
+
+
+
+
+
+
+
+
+INSERT INTO `ouvrage` (`id`, `statut_ouvrage_id`, `titre`) VALUES
+(1, 4, 'Le journal d\'Anne Frank'),
+(2, 4, 'Rendez-vous avec Rama'),
+(3, 4, 'Un sac de billes'),
+(4, 4, 'Le petit chaperon rouge'),
+(5, 4, 'My First English Book'),
+(6, 4, 'Dune'),
+(7, 4, 'Cendrille'),
+(8, 3, 'Harry Potter à l\école des sorcier'),
+(9, 3, 'Harry Potter et la chambre des secrets'),
+(10, 5, 'Harry Potter et le prisonnier d\'Azkaban'),
+(11, 5, 'Harry Potter et la coupe de feu'),
+(12, 4, 'Harry Potter et l\'ordre du phoénix'),
+(13, 4, 'Harry Potter et le prince de sang-mélé'),
+(14, 4, 'Harry Potter et les reliques de la mort');
+
+
+
+
+
+INSERT INTO `membre` (`id`, `nom`, `prenom`, `image_name`, `updated_at`, `created_at`, `username`, `charte`) VALUES
+(1, 'DOE', 'John', 'mur-des-je-t-aime-67bc5d1055653852202728.png', '2025-02-24 12:50:40', '2025-02-24 12:50:40', 'jdoe', 0),
+(2, 'NAIT-KACI', 'Said', NULL, NULL, '2025-02-24 14:49:12', 'snait-kaci', 0),
+(3, 'LEVY', 'Gilles', 'frame-5-678d88cb23933995413371-679fdb8d44e80804634621-67bc7ac6d9f55652268721.gif', '2025-02-24 14:57:26', '2025-02-24 14:57:26', 'glevy', 0),
+(4, 'PALAKOT', 'Igor', 'frame-28-67917aac7da72472337639-67bc7b36bbc13069525408.gif', '2025-02-24 14:59:18', '2025-02-24 14:59:18', 'ipalafot', 0),
+(5, 'SCHAFF', 'Estelle', 'frame-5-678d88cb23933995413371-679e8c75d3d32405802047-67bc7beb29a6f483678653.gif', '2025-02-24 15:02:19', '2025-02-24 15:02:18', 'eschaff', 0),
+(6, 'VIALA', 'Vincent', NULL, NULL, '2025-02-24 15:06:30', 'vviala', 0),
+(7, 'SILBERSTEIN', 'Julien', 'frame-28-67917aac7da72472337639-67bc8fb5ed8ee238960026.gif', '2025-02-24 16:26:45', '2025-02-24 16:26:45', 'jsilberstein', 0),
+(8, 'DRECHE', 'Aristide', 'frame-5-678d88cb23933995413371-679fdb8d44e80804634621-67bc900dd16bc038547128.gif', '2025-02-24 16:28:13', '2025-02-24 16:28:13', 'adreche', 0),
+(9, 'NOEL', 'Marie-Laure', 'frame-28-67917aac7da72472337639-67bc905ada541110443282.gif', '2025-02-24 16:29:30', '2025-02-24 16:29:30', 'mlnoel', 0),
+(10, 'MARIE', 'Alexis', NULL, NULL, '2025-02-24 16:29:56', 'amarie', 0),
+(11, 'DUBOIS', 'Corentin', NULL, NULL, '2025-02-24 16:30:18', 'cdubois', 0),
+(12, 'MAZEAU', 'Matthias', NULL, NULL, '2025-02-24 16:30:47', 'mmazeau', 0),
+(13, 'CHABIRA', 'Malika', NULL, NULL, '2025-02-24 16:33:16', 'mchabira', 0),
+(14, 'BUREL', 'Damien', NULL, NULL, '2025-02-24 16:45:08', 'dburel', 0),
+(15, 'KHEIAR', 'Myriam', NULL, NULL, '2025-02-24 22:56:41', 'mkheiar', 0),
+(16, 'PERRIN', 'Clement', NULL, NULL, '2025-02-24 23:23:31', 'cperrin', 0),
+(17, 'TERENDIJ', 'Lucas', NULL, NULL, '2025-02-25 09:02:37', 'shadjdoudou', 0),
+(18, 'BLONDELEAU', 'Thomas', NULL, NULL, '2025-02-25 09:05:05', 'tblondeleau', 0),
+(19, 'BENYAHYA', 'Rachida', NULL, NULL, '2025-02-25 09:05:58', 'rbenyahya', 0),
+(20, 'SAKHRAOUI', 'Mabrouk', NULL, NULL, '2025-02-25 09:06:44', 'msakhraoui', 0),
+(21, 'THOMAS', 'Hadrien', NULL, NULL, '2025-02-25 09:07:37', 'hthomas', 0),
+(22, 'DUVEAU HOAURAU', 'Mickaël', NULL, NULL, '2025-02-25 09:15:27', 'mduveau hoaurau', 0),
+(23, 'JEANSON', 'Edouard', NULL, NULL, '2025-02-25 09:17:43', 'ejeanson', 0),
+(24, 'SORENTINO', 'Patrice', NULL, NULL, '2025-02-25 09:26:58', 'psorentino', 0),
+(25, 'PARTOUCHE', 'Elie', NULL, NULL, '2025-02-25 09:28:21', 'epartouche', 0),
+(26, 'BALESTAN', 'Quentin', NULL, NULL, '2025-02-25 09:29:29', 'qbalestan', 0),
+(27, 'GRANIER', 'Manon', NULL, NULL, '2025-02-25 09:35:39', 'mgranier', 0),
+(28, 'BELMONTE-CAUSSIEU', 'Manon', NULL, NULL, '2025-02-25 09:36:13', 'mbelmonte-caussieu', 0),
+(29, 'KAUFMAN', 'Manon', NULL, NULL, '2025-02-25 09:36:38', 'mkaufman', 0),
+(30, 'SERVAJEAN', 'Laure', NULL, NULL, '2025-02-25 09:37:03', 'lservajean', 0),
+(31, 'EDIMO', 'Diane', NULL, NULL, '2025-02-25 09:37:23', 'dedimo', 0),
+(32, 'CHAFFEY', 'Nathan', NULL, NULL, '2025-02-25 09:40:39', 'nchaffey', 0),
+(33, 'DROUART', 'Melvin', NULL, NULL, '2025-02-25 09:42:03', 'mdrouart', 0),
+(34, 'OUAHABI', 'SOFIAN', NULL, NULL, '2025-02-25 09:42:31', 'souahabi', 0),
+(35, 'DOUCOURE', 'ADJA', NULL, NULL, '2025-02-25 09:43:22', 'adoucoure', 0),
+(36, 'TECHER', 'Florian', NULL, NULL, '2025-02-25 09:44:30', 'ftecher', 0),
+(37, 'TURPIN', 'Brandon', NULL, NULL, '2025-02-25 09:46:35', 'bturpin', 0),
+(38, 'VILAIN', 'Simon', NULL, NULL, '2025-02-25 09:51:17', 'svilan', 0),
+(39, 'COURTOIS', 'James', NULL, NULL, '2025-02-25 09:52:19', 'jcourtois', 0),
+(40, 'AGBOVI', 'Rolande', NULL, NULL, '2025-02-25 10:08:42', 'ragbovi', 0),
+(41, 'CHARBONNEL', 'Louane', NULL, NULL, '2025-02-25 10:09:31', 'lcharbonnel', 0),
+(42, 'DEDINGER', 'Fallone', NULL, NULL, '2025-02-25 10:10:12', 'mcapelle', 0),
+(43, 'VERRIER', 'Laura', NULL, NULL, '2025-02-25 10:11:11', 'mverrier', 0),
+(44, 'ARIAPOUTRI', 'ADELINE', NULL, NULL, '2025-02-25 10:14:51', 'aariapoutri', 0),
+(45, 'ARZUR', 'Lola', NULL, NULL, '2025-02-25 10:15:50', 'larzur', 0),
+(46, 'CARIOU', 'Youn', NULL, NULL, '2025-02-25 10:16:32', 'ycariou', 0),
+(47, 'DESJARS', 'Anna', NULL, NULL, '2025-02-25 10:17:12', 'adesjars', 0),
+(48, 'GUEZOUL', 'Myriam', NULL, NULL, '2025-02-25 10:17:54', 'mguezoul', 0),
+(49, 'PERRUCHON', 'JORDANE', NULL, NULL, '2025-02-25 10:18:42', 'jperruchon', 0),
+(50, 'VARBEDJIAN', 'Thaïs', NULL, NULL, '2025-02-25 10:19:50', 'tvarbedjian', 0),
+(51, 'FAUCHARD', 'Corinne', NULL, NULL, '2025-02-25 10:20:44', 'cfauchard', 0),
+(52, 'LACOINTE', 'Christian', NULL, NULL, '2025-02-25 10:21:21', 'clacointe', 0),
+(53, 'LAPUJADE', 'Alice', NULL, NULL, '2025-02-25 10:21:56', 'alapujade', 0),
+(54, 'WALTER', 'Léa', NULL, NULL, '2025-02-25 10:24:57', 'lwalter', 0),
+(55, 'COMMEAU', 'Cédric', NULL, NULL, '2025-02-25 10:26:20', 'ccommeau', 0),
+(56, 'E2ZOUbI', 'Sanah', NULL, NULL, '2025-02-25 10:27:07', 'sezzoubi', 0),
+(57, 'GOMES', 'Olivier', NULL, NULL, '2025-02-25 10:28:15', 'ogomes', 0),
+(58, 'MAKAYA', 'Henri', NULL, NULL, '2025-02-25 10:29:03', 'hmakaya', 0),
+(59, 'TETEGAN', 'Martine', NULL, NULL, '2025-02-25 10:58:21', 'mtetegan', 0),
+(60, 'OZEE', 'Anne-Cécile', NULL, NULL, '2025-02-25 17:00:28', 'acozee', 0),
+(61, 'ROELS', 'Catherine', NULL, NULL, '2025-02-25 17:15:57', 'croels', 0),
+(62, 'DENDENIS', 'Zoubida', 'frame-5-678d88cb23933995413371-679e8c75d3d32405802047-67bdee52cf3b2385718472.gif', '2025-02-25 17:22:42', '2025-02-25 17:22:42', 'zdendenis', 0),
+(63, 'RAAD', 'Nora', NULL, '2025-02-25 17:26:31', '2025-02-25 17:26:31', 'nraad', 0),
+(64, 'DENDENIS', 'Issam', NULL, '2025-02-25 19:26:08', '2025-02-25 19:26:08', 'idendenis', 0),
+(65, 'BOZIN', 'Theodore', NULL, '2025-02-25 19:26:08', '2025-02-25 19:26:08', 'tbozin', 0),
+(66, 'SILBERSTEIN', 'Nicole', NULL, '2025-02-25 19:26:08', '2025-02-25 19:26:08', 'nsilberstein', 0),
+(67, 'GUYOT', 'Grégory', NULL, '2025-02-25 19:26:08', '2025-02-25 19:26:08', 'gguyot', 0),
+(68, 'SIMONNET', 'Laure', NULL, '2025-02-25 19:26:08', '2025-02-25 19:26:08', 'lsimonnet', 0),
+(69, 'STROMENGER', 'Anne-Catherine', NULL, '2025-02-25 19:26:08', '2025-02-25 19:26:08', 'acstromenger', 0);
+
+
+
+
+INSERT INTO `membre_jeton` (`id`, `membre_id`, `nombre_jeton`) VALUES
+(1, 1, 0),
+(2, 2, 25),
+(3, 3, 0),
+(4, 4, 0),
+(5, 5, 0),
+(6, 6, 0),
+(7, 7, 0),
+(8, 8, 10),
+(9, 9, 0),
+(10, 10, 0),
+(11, 11, 0),
+(12, 12, 0),
+(13, 13, 0),
+(14, 14, 0),
+(15, 15, 0),
+(16, 16, 0),
+(17, 17, 15),
+(18, 18, 0),
+(19, 19, 0),
+(20, 20, 0),
+(21, 21, 0),
+(22, 22, 0),
+(23, 23, 0),
+(24, 24, 0),
+(25, 25, 0),
+(26, 26, 0),
+(27, 27, 0),
+(28, 28, 0),
+(29, 29, 0),
+(30, 30, 0),
+(31, 31, 0),
+(32, 32, 0),
+(33, 33, 0),
+(34, 34, 0),
+(35, 35, 0),
+(36, 36, 0),
+(37, 37, 0),
+(38, 38, 0),
+(39, 39, 0),
+(40, 40, 0),
+(41, 41, 0),
+(42, 42, 0),
+(43, 43, 0),
+(44, 44, 0),
+(45, 45, 0),
+(46, 46, 0),
+(47, 47, 0),
+(48, 48, 0),
+(49, 49, 0),
+(50, 50, 0),
+(51, 51, 0),
+(52, 52, 0),
+(53, 53, 0),
+(54, 54, 0),
+(55, 55, 0),
+(56, 56, 0),
+(57, 57, 0),
+(58, 58, 0),
+(59, 59, 0),
+(60, 60, 0),
+(61, 61, 0),
+(62, 62, 0),
+(63, 63, 0),
+(64, 64, 0),
+(65, 65, 0),
+(66, 66, 0),
+(67, 67, 0);
+
+
+
+
+INSERT INTO `eleve` (id, promotion_id) VALUES
+(8, 5),
+(9, 5),
+(10, 5),
+(11, 4),
+(12, 4),
+(13, 4),
+(20, 6),
+(30, 7),
+(31, 11),
+(32, 6),
+(33, 10),
+(34, 9),
+(35, 7),
+(36, 9),
+(37, 9),
+(38, 3),
+(39, 1),
+(40, 6),
+(41, 6),
+(42, 7),
+(43, 8),
+(44, 8),
+(45, 8),
+(46, 8),
+(47, 9),
+(48, 9),
+(49, 9),
+(50, 9),
+(51, 9),
+(52, 9),
+(53, 9),
+(54, 10),
+(55, 10),
+(56, 10),
+(57, 11),
+(58, 11),
+(59, 11),
+(60, 11),
+(61, 11);
+
+
+
+
+INSERT INTO `adulte` (`id`) VALUES
+(2),
+(3),
+(4),
+(5),
+(6),
+(13),
+(14),
+(15),
+(16),
+(18),
+(19),
+(20),
+(21),
+(22),
+(23),
+(24),
+(25),
+(26),
+(59),
+(60),
+(61),
+(62),
+(63),
+(64),
+(65),
+(66),
+(67),
+(68),
+(69);
+
+INSERT INTO `admin` (`id`) VALUES
+(6);
+
+
+
+INSERT INTO `personnel` (`id`, `date_embauche`, `poste`) VALUES
+(2, '2021-02-10', '0146780100'),
+(3, '2025-02-10', '0146780100'),
+(4, '2025-04-08', '0146780100'),
+(5, '2023-03-12', '0146780100'),
+(6, '2025-10-16', '0146780100'),
+(13, '2025-03-10', '0146780100'),
+(14, '2026-09-15', '0146780100'),
+(15, '2028-10-14', '0146780100'),
+(16, '2027-10-17', '0146780100'),
+(18, '2027-10-14', '0146780100'),
+(18, '2029-08-16', '0146780100'),
+(19, '2029-09-18', '0146780100'),
+(20, '2028-09-15', '0146780100'),
+(21, '2025-09-16', '0146780100'),
+(22, '2027-09-17', '0146780100'),
+(23, '2029-08-16', '0146780100'),
+(24, '2025-10-16', '0146780100'),
+(25, '2025-10-16', '0146780100'),
+(26, '2025-10-16', '0146780100'),
+(59, '2025-10-16', '0146780100'),
+(60, '2025-10-16', '0146780100'),
+(61, '2025-10-16', '0146780100'),
+(62, '2023-06-13', '0146780100'),
+(63, '2025-04-03', '0146780100'),
+(64, '2026-08-12', '0146780100'),
+(65, '2021-09-12', '0146780100'),
+(66, '2024-07-16', '0146780100'),
+(67, '2023-05-02', '0146780100');
+(68, '2025-10-16', '0146780100'),
+(69, '2025-10-16', '0146780100'),
+
+
+
+
+INSERT INTO `salle` (`id`, `etage_id`, `libelle`, `promo_principale_id`) VALUES
+(1, 1, 'Pmt1', NULL),
+(2, 1, 'Pmt2', NULL),
+(3, 1, 'CRCD', NULL),
+(4, 1, 'DA1', NULL),
+(5, 1, 'DA2', NULL),
+(6, 1, 'Gymnase', NULL),
+(7, 2, 'DOTTE', NULL),
+(8, 2, 'GANTET', NULL),
+(9, 2, 'FOUCAULT', NULL),
+(10, 2, 'DOLTO', NULL),
+(11, 2, 'IMBERT', NULL);
+
+
+
+INSERT INTO `surveillant` (`id`) VALUES
+(63),
+(64);
+
+INSERT INTO `secretariat` (`id`) VALUES
+(15),
+(59);
+
+
+
+
+
+
+INSERT INTO `ouvrage_categorie_ouvrage` (`ouvrage_id`, `categorie_ouvrage_id`) VALUES
+(1, 4),
+(1, 6),
+(1, 8),
+(2, 5),
+(3, 4),
+(3, 6),
+(3, 8),
+(4, 11),
+(5, 1),
+(5, 2),
+(6, 5),
+(7, 4),
+(7, 11),
+(7, 18),
+(8,  9),
+(8, 11),
+(9, 9),
+(9, 11),
+(10, 9),
+(10, 11),
+(11, 9),
+(11, 11),
+(12, 9),
+(12, 11),
+(13, 9),
+(13, 11),
+(14, 9),
+(14, 11);
+
+INSERT INTO `produit` (`id`, `libelle`, `prix`, `description`, `stock`, `created_at`, `archive`, `date_event`, `type_id`) VALUES
+(2, 'Jetons Repas', 4, 'Sert à commander des repas', '100', '2025-02-27', 0, NULL, 1),
+(3, 'Boite à os', 150, 'Sert au étudient Kiné', '50', '2025-02-27', 0, NULL, 2),
+(4, 'Angleterre', 200, 'Séjour de 4jours', '10', '2025-02-27', 0, NULL, 4),
+(5, 'Tombola de noël', 2, 'Nombreux lot à gagner', '70', '2025-02-27', 0, NULL, 3),
+(6, 'blouse', 50, 'Habillement pour Kiné', '50', '2025-02-27', 0, NULL, 2),
+(7, 'Allemagne', 0, 'Séjour à Marbourg', '4', '2025-02-27', 0, NULL, 4),
+(8, 'Tombola Octobre Rose', 2, 'Nombreux lots à gagner !', '100', '2025-02-27', 0, NULL, 3);
+
+INSERT INTO `professeur` (`id`) VALUES
+(2),
+(3),
+(4),
+(5),
+(14),
+(19),
+(20),
+(21),
+(22),
+(23),
+(24),
+(25),
+(26);
+
+
+INSERT INTO `professeur_matiere` (`professeur_id`, `matiere_id`) VALUES
+(2, 4),
+(3, 13),
+(4, 13),
+(5, 2);
+
+INSERT INTO `planning_repas` (`id`, `repas_id`, `membre_id`, `date_achat`) VALUES
+(1, 1, 4, '2025-02-24'),
+(2, 5, 4, '2025-02-24'),
+(3, 3, 17, '2025-02-25'),
+(4, 1, 17, '2025-02-25'),
+(5, 4, 17, '2025-02-25');
+
+INSERT INTO `insertion` (`id`) VALUES
+(13);
+
+INSERT INTO `emprunt` (`id`, `ouvrage_id`, `statut_id`, `membre_id`, `date_demande`, `date_emprunt`, `date_retour`) VALUES
+(1, 7, 3, 15, '2025-02-15', '2025-02-17', '2025-02-20'),
+(2, 3, 3, 4, '2025-02-18', '2025-02-18', '2025-02-19');
+(3, 8, 3, 8, '2025-02-20', '2025-02-20', '2025-02-26'), 
+(4, 9, 3, 8, '2025-02-20', '2025-02-20', '2025-03-04'), 
+(5, 10, 2, 8, '2025-03-20', '2025-02-26', NULL),
+(6, 11, 2, 8, '2025-03-20', '2025-03-04', NULL), 
+(7, 12, 1, 8, '2025-02-20',  NULL, NULL),
+(8, 13, 1, 8, '2025-02-20',  NULL, NULL),
+(9, 14, 1, 8, '2025-02-20',  NULL, NULL);
+
+
+INSERT INTO `documentaliste` (`id`) VALUES
+(13);
+
+
+INSERT INTO `direction` (`id`) VALUES
+(16),
+(60),
+(62),
+(67),
+(68),
+(69);
+
+INSERT INTO `commande` (`id`, `membre_id`, `produit_id`, `quantity`, `prix_total`, `date_achat`) VALUES
+(1, 17, 2, 3, 12, '2025-02-28'),
+(2, 17, 2, 5, 20, '2025-02-28'),
+(3, 17, 3, 2, 300, '2025-02-28'),
+(4, 17, 6, 5, 250, '2025-02-28'),
+(5, 17, 4, 2, 400, '2025-02-28'),
+(6, 17, 2, 13, 52, '2025-02-28');
+
+
+
+
+INSERT INTO `message` (`id`, `thread_id`, `expediteur_id`, `destinataire_id`, `sujet`, `contenu`, `privatif`, `created_at`, `updated_at`, `requerant`) VALUES
+(1, NULL, NULL, 17, 'petite question', 'c\'est bien ici pour poser des question ?', 1, '2025-03-04 19:27:59', '2025-03-04 19:27:59', 'monsieur tout le monde'),
+(2, NULL, 17, 7, 'le bon endroit', 'dis moi Vincent, Monsieur tout le monde veut savoir si c\'est ici pour poser des question, je lui dis quoi ?', 1, '2025-03-04 19:30:52', '2025-03-04 19:31:55', NULL);
+
+
+
+
+
+INSERT INTO `categorie_forum` (`id`,`forum_id`, `libelle`, `description`) VALUES
+(1, 1, 'Pmt1', 'Discussions et informations spécifiques à la classe de PMT1.'),
+(2, 1, 'Pmt2', 'Discussions et informations spécifiques à la classe de PMT2.'),
+(3, 1, 'CRCD', 'Discussions et informations liées au CRCD (Centre de Ressources et de Compétences Documentaires).'),
+(4, 1, 'DA1', 'Discussions et informations spécifiques à la classe de DA1.'),
+(5, 1, 'DA2', 'Discussions et informations spécifiques à la classe de DA2.'),
+(6, 1, 'Pmk', 'Discussions et informations spécifiques à la classe de PMK.'),
+(7, 1, 'K1', 'Discussions et informations spécifiques à la classe de K1.'),
+(8, 1, 'K2', 'Discussions et informations spécifiques à la classe de K2.'),
+(9, 1, 'K3', 'Discussions et informations spécifiques à la classe de K3.'),
+(10, 1, 'K4', 'Discussions et informations spécifiques à la classe de K4.'),
+(11, 1, 'K5', 'Discussions et informations spécifiques à la classe de K5.'),
+(12, 2, 'Manuels scolaires', 'Discussions sur les manuels scolaires, les éditions, les achats et les ventes.'),
+(13, 2, 'Ressources en ligne', 'Partage de ressources en ligne, de sites web, de vidéos et de documents utiles pour les études.'),
+(14, 2, 'Outils pédagogiques', 'Présentation et utilisation d\'outils pédagogiques, de logiciels, d\'applications et de matériel pour faciliter l\'apprentissage.'),
+(15, 2, 'Méthodes d\'apprentissage', 'Discussions sur les méthodes d\'apprentissage, les techniques de révision, les stratégies pour réussir et les conseils pour s\'organiser.'),
+(16, 2, 'Actualités pédagogiques', 'Partage d\'articles, de vidéos et d\'informations sur les actualités pédagogiques, les réformes et les tendances dans l\'éducation.'),
+(17, 2, 'Atelier du vendredi Tertiaire', 'Discussions et informations sur l\'atelier du vendredi pour les étudiants du secteur tertiaire.'),
+(18, 2, 'Judo', 'Discussions sur les cours de judo, les techniques, les compétitions et les informations pratiques.'),
+(19, 2, 'Taiso', 'Discussions sur les cours de Taiso, les exercices, les bienfaits et les informations pratiques.'),
+(20, 2, 'Soirée massage', 'Discussions sur les soirées massage, les inscriptions, les techniques et les informations pratiques.'),
+(21, 3, 'Soutien scolaire', 'Offres et demandes de soutien scolaire, de cours particuliers et d\'aide aux devoirs.'),
+(22, 3, 'Orientation', 'Conseils et informations sur l\'orientation scolaire et professionnelle, les filières, les métiers et les études supérieures.'),
+(23, 3, 'Bourses et aides', 'Informations sur les bourses, les aides financières, les logements étudiants et les démarches administratives.'),
+(24, 3, 'Ateliers de révision', 'Organisation d\'ateliers de révision, de groupes de travail et de séances de préparation aux examens.'),
+(25, 3, 'Préparation aux concours', 'Préparation aux concours, aux examens et aux entretiens, conseils et informations sur les épreuves et les modalités.'),
+(26, 3, 'Retour de Stage', 'Partage des expériences de stage, des conseils et des informations sur les entreprises et les secteurs d\'activité.'),
+(27, 3, 'Idée d\'entreprise', 'Discussions sur les idées d\'entreprise, les projets de création, les études de marché et les démarches pour entreprendre.'),
+(28, 3, 'Petites annonces', 'Petites annonces pour les offres d\'emploi, les demandes de stage, les services, les objets à vendre ou à donner et les logements.'),
+(29, 4, 'Présentation des filières', 'Présentation des différentes filières de l\'établissement, des programmes, des débouchés et des témoignages d\'étudiants.'),
+(30, 4, 'Événements et conférences', 'Annonces et discussions sur les événements, les conférences, les forums et les salons organisés par l\'établissement.'),
+(31, 4, 'Visites d\'entreprises', 'Organisation de visites d\'entreprises, de rencontres avec des professionnels et de stages d\'observation.'),
+(32, 4, 'Témoignages d\'anciens élèves', 'Partage de témoignages d\'anciens élèves, de conseils et d\'informations sur les parcours professionnels et les études supérieures.'),
+(33, 4, 'Partenariats avec les entreprises', 'Discussions sur les partenariats avec les entreprises, les offres de stage, les contrats d\'alternance et les projets communs.'),
+(34, 4, 'Internat', 'Discussions et informations sur la vie à l\'internat, les règles, les activités et les services.'),
+(35, 4, 'Arrivée/départ', 'Annonces des arrivées et des départs des étudiants, des enseignants et du personnel administratif.'),
+(36, 4, 'Annonce travaux', 'Annonces et informations sur les travaux en cours ou à venir dans l\'établissement.'),
+(37, 5, 'Réunions pédagogiques', 'Discussions sur les réunions pédagogiques, les ordres du jour, les comptes rendus et les décisions.'),
+(38, 5, 'Formations pour enseignants', 'Informations sur les formations pour enseignants, les stages, les ateliers et les conférences.'),
+(39, 5, 'Échanges de pratiques', 'Partage de pratiques pédagogiques innovantes, de méthodes d\'enseignement et d\'outils pour améliorer la qualité de l\'enseignement.'),
+(40, 5, 'Outils numériques pour l\'enseignement', 'Présentation et utilisation d\'outils numériques pour l\'enseignement, de logiciels, d\'applications et de plateformes en ligne.'),
+(41, 5, 'Actualités de l\'enseignement', 'Partage d\'articles, de vidéos et d\'informations sur les actualités de l\'enseignement, les réformes et les tendances.'),
+(42, 5, 'Syndicat', 'Discussions sur les activités du syndicat, les revendications, les négociations et les informations pratiques.'),
+(43, 5, 'Apéro', 'Organisation d\'apéros entre collègues, choix des lieux, des dates et des thèmes.'),
+(44, 5, 'Projet', 'Discussions sur les projets en cours, les idées, les suggestions et les informations pratiques.'),
+(45, 5, 'DRH', 'Discussions sur les questions liées aux ressources humaines, aux carrières, aux formations et aux démarches administratives.');
+
+INSERT INTO `sub_forum` (`id`, `categorie_forum_id`, `libelle`, `description`) VALUES
+(1, 1, 'Emploi du temps', 'Discussions sur les emplois du temps, les changements d\'horaires et les questions liées à l\'organisation des cours.'),
+(2, 1, 'Supports de cours', 'Partage de supports de cours, de documents pédagogiques et de ressources utiles pour les étudiants.'),
+(3, 1, 'Devoirs et examens', 'Discussions sur les devoirs, les examens, les modalités d\'évaluation et les conseils pour réussir.'),
+(4, 1, 'Projets de groupe', 'Organisation des projets de groupe, répartition des tâches, coordination et partage des informations.'),
+(5, 2, 'Emploi du temps', 'Discussions sur les emplois du temps, les changements d\'horaires et les questions liées à l\'organisation des cours.'),
+(6, 2, 'Supports de cours', 'Partage de supports de cours, de documents pédagogiques et de ressources utiles pour les étudiants.'),
+(7, 2, 'Devoirs et examens', 'Discussions sur les devoirs, les examens, les modalités d\'évaluation et les conseils pour réussir.'),
+(8, 2, 'Projets de groupe', 'Organisation des projets de groupe, répartition des tâches, coordination et partage des informations.'),
+(9, 3, 'Emploi du temps', 'Discussions sur les emplois du temps, les changements d\'horaires et les questions liées à l\'organisation des cours.'),
+(10, 3, 'Supports de cours', 'Partage de supports de cours, de documents pédagogiques et de ressources utiles pour les étudiants.'),
+(11, 3, 'Devoirs et examens', 'Discussions sur les devoirs, les examens, les modalités d\'évaluation et les conseils pour réussir.'),
+(12, 3, 'Projets de groupe', 'Organisation des projets de groupe, répartition des tâches, coordination et partage des informations.'),
+(13, 4, 'Emploi du temps', 'Discussions sur les emplois du temps, les changements d\'horaires et les questions liées à l\'organisation des cours.'),
+(14, 4, 'Supports de cours', 'Partage de supports de cours, de documents pédagogiques et de ressources utiles pour les étudiants.'),
+(15, 4, 'Devoirs et examens', 'Discussions sur les devoirs, les examens, les modalités d\'évaluation et les conseils pour réussir.'),
+(16, 4, 'Projets de groupe', 'Organisation des projets de groupe, répartition des tâches, coordination et partage des informations.'),
+(17, 5, 'Emploi du temps', 'Discussions sur les emplois du temps, les changements d\'horaires et les questions liées à l\'organisation des cours.'),
+(18, 5, 'Supports de cours', 'Partage de supports de cours, de documents pédagogiques et de ressources utiles pour les étudiants.'),
+(19, 5, 'Devoirs et examens', 'Discussions sur les devoirs, les examens, les modalités d\'évaluation et les conseils pour réussir.'),
+(20, 5, 'Projets de groupe', 'Organisation des projets de groupe, répartition des tâches, coordination et partage des informations.'),
+(21, 6, 'Emploi du temps', 'Discussions sur les emplois du temps, les changements d\'horaires et les questions liées à l\'organisation des cours.'),
+(22, 6, 'Supports de cours', 'Partage de supports de cours, de documents pédagogiques et de ressources utiles pour les étudiants.'),
+(23, 6, 'Devoirs et examens', 'Discussions sur les devoirs, les examens, les modalités d\'évaluation et les conseils pour réussir.'),
+(24, 6, 'Projets de groupe', 'Organisation des projets de groupe, répartition des tâches, coordination et partage des informations.'),
+(25, 7, 'Emploi du temps', 'Discussions sur les emplois du temps, les changements d\'horaires et les questions liées à l\'organisation des cours.'),
+(26, 7, 'Supports de cours', 'Partage de supports de cours, de documents pédagogiques et de ressources utiles pour les étudiants.'),
+(27, 7, 'Devoirs et examens', 'Discussions sur les devoirs, les examens, les modalités d\'évaluation et les conseils pour réussir.'),
+(28, 7, 'Projets de groupe', 'Organisation des projets de groupe, répartition des tâches, coordination et partage des informations.'),
+(29, 8, 'Emploi du temps', 'Discussions sur les emplois du temps, les changements d\'horaires et les questions liées à l\'organisation des cours.'),
+(30, 8, 'Supports de cours', 'Partage de supports de cours, de documents pédagogiques et de ressources utiles pour les étudiants.'),
+(31, 8, 'Devoirs et examens', 'Discussions sur les devoirs, les examens, les modalités d\'évaluation et les conseils pour réussir.'),
+(32, 8, 'Projets de groupe', 'Organisation des projets de groupe, répartition des tâches, coordination et partage des informations.'),
+(33, 9, 'Emploi du temps', 'Discussions sur les emplois du temps, les changements d\'horaires et les questions liées à l\'organisation des cours.'),
+(34, 9, 'Supports de cours', 'Partage de supports de cours, de documents pédagogiques et de ressources utiles pour les étudiants.'),
+(35, 9, 'Devoirs et examens', 'Discussions sur les devoirs, les examens, les modalités d\'évaluation et les conseils pour réussir.'),
+(36, 9, 'Projets de groupe', 'Organisation des projets de groupe, répartition des tâches, coordination et partage des informations.'),
+(37, 10, 'Emploi du temps', 'Discussions sur les emplois du temps, les changements d\'horaires et les questions liées à l\'organisation des cours.'),
+(38, 10, 'Supports de cours', 'Partage de supports de cours, de documents pédagogiques et de ressources utiles pour les étudiants.'),
+(39, 10, 'Devoirs et examens', 'Discussions sur les devoirs, les examens, les modalités d\'évaluation et les conseils pour réussir.'),
+(40, 10, 'Projets de groupe', 'Organisation des projets de groupe, répartition des tâches, coordination et partage des informations.'),
+(41, 11, 'Emploi du temps', 'Discussions sur les emplois du temps, les changements d\'horaires et les questions liées à l\'organisation des cours.'),
+(42, 11, 'Supports de cours', 'Partage de supports de cours, de documents pédagogiques et de ressources utiles pour les étudiants.'),
+(43, 11, 'Devoirs et examens', 'Discussions sur les devoirs, les examens, les modalités d\'évaluation et les conseils pour réussir.'),
+(44, 11, 'Projets de groupe', 'Organisation des projets de groupe, répartition des tâches, coordination et partage des informations.'),
+(45, 12, 'Club de théâtre', 'Discussions sur les répétitions, les pièces de théâtre, les costumes et les événements liés au club de théâtre.'),
+(46, 12, 'Club de musique', 'Discussions sur les instruments, les partitions, les concerts et les activités du club de musique.'),
+(47, 12, 'Club de danse', 'Discussions sur les chorégraphies, les costumes, les spectacles et les événements du club de danse.'),
+(48, 12, 'Club d\'arts plastiques', 'Discussions sur les techniques, les matériaux, les expositions et les projets du club d\'arts plastiques.'),
+(49, 12, 'Club de cinéma', 'Discussions sur les films, les réalisateurs, les projections et les activités du club de cinéma.'),
+(50, 13, 'Entraînements', 'Discussions sur les horaires, les techniques et les conseils pour les entraînements de judo.'),
+(51, 13, 'Compétitions', 'Discussions sur les compétitions, les résultats et les informations pratiques pour les participants.'),
+(52, 13, 'Techniques de judo', 'Discussions sur les techniques de judo, les mouvements et les conseils pour progresser.'),
+(53, 13, 'Matériel de judo', 'Discussions sur les kimonos, les ceintures et les autres équipements nécessaires pour la pratique du judo.'),
+(54, 13, 'Actualités du judo', 'Partage d\'articles, de vidéos et d\'informations sur les événements et les actualités du monde du judo.'),
+(55, 14, 'Entraînements', 'Discussions sur les horaires, les techniques et les conseils pour les entraînements de Taiso.'),
+(56, 14, 'Techniques de Taiso', 'Discussions sur les techniques de Taiso, les mouvements et les conseils pour progresser.'),
+(57, 14, 'Matériel de Taiso', 'Discussions sur les vêtements, les tapis et les autres équipements nécessaires pour la pratique du Taiso.'),
+(58, 14, 'Bienfaits du Taiso', 'Discussions sur les bienfaits du Taiso pour la santé physique et mentale.'),
+(59, 14, 'Actualités du Taiso', 'Partage d\'articles, de vidéos et d\'informations sur les événements et les actualités du monde du Taiso.'),
+(60, 15, 'Techniques de massage', 'Discussions sur les différentes techniques de massage et les conseils pour les pratiquer.'),
+(61, 15, 'Matériel de massage', 'Discussions sur les huiles, les tables de massage et les autres équipements nécessaires pour les massages.'),
+(62, 15, 'Bienfaits du massage', 'Discussions sur les bienfaits du massage pour la relaxation, la détente et la santé.'),
+(63, 15, 'Organisation des soirées massage', 'Organisation des soirées massage, inscription et partage des informations pratiques.'),
+(64, 15, 'Actualités du massage', 'Partage d\'articles, de vidéos et d\'informations sur les événements et les actualités du monde du massage.'),
+(65, 16, 'Retours de stage par secteur', 'Partage des expériences de stage par secteur d\'activité.'),
+(66, 16, 'Conseils pour les entretiens de stage', 'Conseils et astuces pour réussir les entretiens de stage.'),
+(67, 16, 'Modèles de CV et de lettres de motivation', 'Partage de modèles de CV et de lettres de motivation pour les stages.'),
+(68, 16, 'Offres de stage', 'Publication des offres de stage disponibles.'),
+(69, 16, 'Questions administratives (conventions, etc.)', 'Questions et réponses sur les démarches administratives liées aux stages.'),
+(70, 17, 'Brainstorming', 'Espace pour partager des idées de création d\'entreprise.'),
+(71, 17, 'Études de marché', 'Discussions sur les études de marché et les analyses de la concurrence.'),
+(72, 17, 'Financement', 'Conseils et informations sur les différentes sources de financement pour les projets d\'entreprise.'),
+(73, 17, 'Aspects juridiques', 'Questions et réponses sur les aspects juridiques de la création d\'entreprise.'),
+(74, 17, 'Partage de ressources utiles', 'Partage de ressources utiles pour les entrepreneurs en herbe.'),
+(75, 18, 'Offres d\'emploi', 'Publication des offres d\'emploi disponibles.'),
+(76, 18, 'Demandes d\'emploi', 'Publication des demandes d\'emploi.'),
+(77, 18, 'Services proposés', 'Publication des services proposés par les membres.'),
+(78, 18, 'Objets à vendre/donner', 'Publication des objets à vendre ou à donner.'),
+(79, 18, 'Logements à louer/partager', 'Publication des offres et demandes de logements.'),
+(80, 19, 'Règlement intérieur', 'Discussions sur le règlement intérieur de l\'école et les questions liées à la vie quotidienne.'),
+(81, 19, 'Activités et événements', 'Annonces et discussions sur les activités et événements organisés par l\'école.'),
+(82, 19, 'Repas et menus', 'Discussions sur les repas servis à la cantine et les suggestions de menus.'),
+(83, 19, 'Ambiance et vie quotidienne', 'Discussions sur l\'ambiance générale de l\'école et les questions liées à la vie quotidienne.'),
+(84, 19, 'Suggestions d\'amélioration', 'Suggestions d\'amélioration pour l\'école et son fonctionnement.'),
+(85, 20, 'Annonces des nouveaux arrivants', 'Présentation des nouveaux arrivants et partage des informations pratiques.'),
+(86, 20, 'Pot de départ', 'Organisation des pots de départ et partage des souvenirs.'),
+(87, 20, 'Cadeaux et souvenirs', 'Partage des idées de cadeaux et de souvenirs pour les personnes qui quittent l\'école.'),
+(88, 20, 'Coordonnées des anciens élèves', 'Partage des coordonnées des anciens élèves pour garder le contact.'),
+(89, 20, 'Réseau des anciens élèves', 'Discussions sur le réseau des anciens élèves et les opportunités de carrière.'),
+(90, 21, 'Planning des travaux', 'Informations sur le planning des travaux en cours ou à venir.'),
+(91, 21, 'Impact sur la vie quotidienne', 'Discussions sur l\'impact des travaux sur la vie quotidienne des élèves et du personnel.'),
+(92, 21, 'Sécurité', 'Questions et réponses sur la sécurité pendant les travaux.'),
+(93, 21, 'Suggestions d\'amélioration', 'Suggestions d\'amélioration pour les travaux et leur organisation.'),
+(94, 21, 'Questions administratives', 'Questions et réponses sur les démarches administratives liées aux travaux.'),
+(95, 22, 'Actualités syndicales', 'Informations sur les actualités syndicales et les actions en cours.'),
+(96, 22, 'Droits et devoirs', 'Questions et réponses sur les droits et devoirs des employés.'),
+(97, 22, 'Négociations en cours', 'Informations sur les négociations en cours avec la direction.'),
+(98, 22, 'Questions administratives', 'Questions et réponses sur les démarches administratives liées au syndicat.'),
+(99, 22, 'Partage de ressources utiles', 'Partage de ressources utiles pour les employés et les représentants syndicaux.'),
+(100, 23, 'Organisation des apéros', 'Organisation des apéros entre collègues et partage des informations pratiques.'),
+(101, 23, 'Suggestions de lieux et de thèmes', 'Suggestions de lieux et de thèmes pour les apéros.'),
+(102, 23, 'Photos des apéros précédents', 'Partage des photos des apéros précédents.'),
+(103, 23, 'Covoiturage', 'Organisation du covoiturage entre collègues.'),
+(104, 23, 'Humour et détente', 'Partage de blagues, de vidéos et de moments de détente entre collègues.'),
+(105, 24, 'Présentation des projets', 'Présentation des projets en cours et à venir.'),
+(106, 24, 'Brainstorming', 'Espace pour partager des idées et des suggestions pour les projets.'),
+(107, 24, 'Suivi de l\'avancement', 'Suivi de l\'avancement des projets et partage des informations pratiques.'),
+(108, 24, 'Partage de ressources utiles', 'Partage de ressources utiles pour les projets.'),
+(109, 24, 'Questions administratives', 'Questions et réponses sur les démarches administratives liées aux projets.'),
+(110, 25, 'Annonces de la DRH', 'Publication des annonces de la DRH.'),
+(111, 25, 'Questions administratives', 'Questions et réponses sur les démarches administratives liées à la DRH.'),
+(112, 25, 'Conseils pour les entretiens', 'Conseils et astuces pour réussir les entretiens avec la DRH.'),
+(113, 25, 'Offres d\'emploi internes', 'Publication des offres d\'emploi internes.'),
+(114, 25, 'Partage de ressources utiles', 'Partage de ressources utiles pour les employés et la DRH.');
+
+
+
+
+
+
+

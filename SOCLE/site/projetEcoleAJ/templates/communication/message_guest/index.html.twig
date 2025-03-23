@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello messageGuestController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>auteur</th>
+                <th>Telephone</th>
+                <th>E-mail</th>
+                <th>Sujet</th>
+                <th>Contenu</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for messageGuest in messageGuests %}
+                <tr>
+                    <td>{{messageGuest.id}}</td>
+                    <td>{{ messageGuest.auteur }}</td>
+                    <td>{{ messageGuest.telephone }}</td>
+                    <td>{{ messageGuest.email }}</td>
+                    <td>{{ messageGuest.sujet }}</td>
+                    <td>{{ messageGuest.contenu }}</td>
+                    <td>
+                        <a href="{{ path('messageGuest_affichage', {'id': messageGuest.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('messageGuest_edition', {'id': messageGuest.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('messageGuest_nouveau') }}" class="btn" >Creer Nouveau messageGuest</a>
+{% endblock %}

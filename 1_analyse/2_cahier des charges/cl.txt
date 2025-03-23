@@ -1,0 +1,165 @@
+Mon Projet : Site d'école
+
+INTRODUTON
+
+- Pourquoi le Projet  (mettez en place un paragraphe qui explique pourquoi le sujet)
+-	 Vous faites le projet avec qui ? (presentez vous un peu ainsi que votre colleègue)
+-	Mettre en place le projet
+Ce site permettra aux élèves ainsi qu'à l'administration de se retrouver sur une plateforme commune.
+Tout utilisateur aura accès à une messagerie interne au site qui permettra une communication plus rapide.
+
+
+
+ 
+Les élèves pourront y trouver :
+•	Un espace pour s’inscrire
+o	À la cantine
+o	À différentes activités
+o	Leur emploi du temps de promotion
+o	Leurs cours et documents
+o	Leurs notes et/ou classements
+•	Un contact direct avec l’administration
+o	Pour régler différents :
+	Conflits
+	Problèmes administratifs
+o	Retrouver une plateforme pour paiements :
+	Cantine
+	Activités
+	Matériel emprunté
+o	Retrouver l’historique de leurs paiements
+•	Le centre de documentation
+o	Donner leur avis sur la cuisine
+o	Un forum de discussion pour :
+	S’organiser entre eux (BDE)
+	Discuter
+	S’entraider pour les cours
+Le personnel pourra y gérer :
+•	Y déposer les grandes annonces internes
+•	Alerter un élève donné d’un problème
+•	Tout ce qui a trait à l'administration :
+o	La comptabilité
+o	La gestion des documents :
+	Assurances
+	État civil
+o	Les activités mises en place :
+	Le sport
+	La visite de musées, etc.
+o	Les inscriptions
+o	Gérer les élèves
+o	Gérer les paiements
+o	Gérer le côté pédagogique :
+	Générer des emplois du temps dynamiquement
+	Gestion des salles
+	Gestion des horaires
+	Affectation des professeurs aux promotions
+La cuisine pourra :
+•	Gérer les inscriptions
+•	Recevoir les paiements
+•	Organiser des sondages :
+o	Donner des choix de nourriture
+•	Des menus :
+o	La liste de menus semaine après semaine
+•	Avoir les avis des élèves :
+o	Pour pouvoir améliorer le service
+Une base de données recensera :
+•	Pour emplois du temps dynamiques :
+o	Les matières
+o	Les salles
+o	Les promotions
+•	Les personnes selon leur profil :
+o	Ce qui leur permettra d'accéder à différentes parties du site :
+	Administratif
+	Professeurs
+	Élèves
+•	Le centre de documentation :
+o	La liste des livres et documents
+o	Le statut des livres et documents :
+	Disponible
+	Emprunté
+	Nouveauté
+Différentes pages seront disponibles :
+•	Connexion
+•	Profil :
+o	Page de modification des informations de l'utilisateur connecté
+•	Accueil :
+o	Les liens vers les différentes sections
+o	Les dernières actualités pédagogiques :
+	Absence de professeurs
+	Annonces d’examens
+	Cours mis en ligne
+o	Les grandes annonces
+o	Les menus de la cantine
+•	Annuaire :
+o	Services
+o	Promotions
+o	Personnel
+o	Élèves
+•	Matières :
+o	Les cours
+o	Les notes
+o	Les dates d’examens
+•	Forum :
+o	Accès au portail de discussion
+•	Emploi du temps :
+o	Emploi du temps de l’élève connecté
+o	Emploi du temps annuel de l’élève connecté
+o	Emploi du temps d’une promotion sélectionnée
+o	Emploi du temps annuel d’une promotion sélectionnée
+o	Emploi du temps d’un professeur
+•	Le centre de documentation :
+o	Les nouveautés
+o	Le catalogue des documents disponibles
+o	La réservation en ligne
+•	Messagerie
+•	Plan de l’établissement :
+o	Affiche les différentes salles et leurs affectations (matières, promotion, horaires)
+________________________________________
+Connexion
+Lorsque qu'un utilisateur se connecte sur l'application, il n'a accès qu'à la page d'accueil qui est expurgée de toute information concernant des élèves, il n'apparaît que les informations générales et/ou les dates d'examens. Pour son inscription, l'administration se chargera lors de son inscription/embauche dans l'établissement, de lui fournir un compte.
+Pour accéder au contenu du site, il cliquera sur "connexion". La page lui demandera alors son login et son mot de passe.
+________________________________________
+Catégories de profil
+•	Visiteur (absence de connexion) :
+Le visiteur est un utilisateur qui n'est pas authentifié, il n'a donc accès qu'à une infime partie du site, anonyme (c'est-à-dire les annonces générales, tels les menus de la cantine, les dates d'examens ou les projets d'activités globales).
+•	Élève :
+L’élève peut accéder à ses informations personnelles et changer son mot de passe. Pour les informations administratives, lorsque l'élève validera son formulaire, il ne sera pas directement envoyé en base de données mais envoyé à l'administration pour validation.
+Sa messagerie dans laquelle il recevra les messages de ses professeurs, de l'administration, mais aussi d'autres élèves. Il pourra également en envoyer lui aussi.
+L’élève a accès aux différents sondages de la cantine auxquels il ne peut que répondre. Il a également accès à la plateforme pédagogique dans laquelle il retrouvera les cours, les horaires d'examens et un lien direct avec ses professeurs.
+Répondre à des questionnaires en ligne qui pourront servir de devoirs maison (comme des champs de texte, des questions à choix multiples, etc.).
+Ses emplois du temps personnels (annuel et hebdomadaire), mais également celui d'un de ses professeurs pour savoir s'il est disponible ou à quelle heure le joindre.
+Participer sur la page de la cantine aux sondages et remplir des questionnaires de satisfaction ou de demande de plat que le service pourra ou non prendre en compte.
+Après signature de la charte de bonne conduite, accéder au forum de discussion et à une section réservée à sa promotion, pour échanger des conseils et des informations entre eux.
+Il pourra également dans les autres sections (à l'exception de celles réservées aux différents profils) poster des réponses et modifier ses propres posts. S'il veut supprimer un message, il ne sera dans l'immédiat que caché aux autres utilisateurs mais toujours visible (grisé) de lui et de l'administrateur.
+L’administrateur pourra ensuite décider de le supprimer définitivement, ce qui empêcherait de cacher des messages de harcèlement.
+•	Professeurs :
+Comme tout utilisateur, le professeur a accès à la page de son profil où il pourra modifier ses informations.
+Cependant, à la différence de l'élève, il n'aura pas besoin de l'accord de l'administration.
+Sur la plateforme pédagogique, il aura la possibilité de sélectionner une promotion pour y déposer des documents, annoncer les prochains cours ou contrôles, mais également déposer des exercices directement sur l'application via un formulaire qu'il pourra créer avec des outils disponibles sur l'application.
+Il pourra également participer aux sondages de la cantine, y réserver et payer ses repas.
+Sur le forum de discussion, il aura accès à la section réservée au personnel ainsi qu'à la section des promotions auxquelles il est affecté et à la section générale.
+Il pourra modifier et supprimer ses propres messages sans avoir l'aval de l'administrateur.
+Dans la section de la promotion à laquelle il est affecté, il pourra modifier les messages de ses élèves.
+Il aura accès à son profil d'utilisateur personnel, où il pourra modifier ses informations personnelles.
+•	Administratif :
+L’administratif pourra consulter les derniers paiements de chaque élève et pourra déposer des annonces sur la page d'accueil.
+•	Parent d'élèves :
+Le parent d'élève aura accès à toute la plateforme pédagogique de son enfant à l'exception des exercices où il ne pourra que voir les exercices finis de son enfant ainsi que leur correction.
+Il ne pourra pas répondre aux sondages de la cantine mais pourra voir les menus proposés.
+Il pourra payer des choses pour son enfant (tel que le prêt de matériel, les sorties, les repas, etc.).
+________________________________________
+Messagerie
+La messagerie est un espace sécurisé qui permet de transmettre des messages d'un utilisateur à l'autre sans accès à l'extérieur.
+Les utilisateurs inscrits sur l'application peuvent recevoir ou envoyer des messages.
+________________________________________
+Matières
+La page des matières permettra à l’élève de retrouver toutes les informations concernant une matière en particulier, comme les derniers cours, répondre à des exercices, voir des annonces en rapport (changement de salles imprévu, absence de professeur, date d’examen).
+Le professeur pourra y déposer les documents et créer des exercices à la disposition de ses élèves.
+________________________________________
+Annuaire
+L’annuaire est l’endroit où tout ce qui a trait à l’établissement est réuni.
+Il y est disponible la liste des services, des élèves classés selon leur promotion, des professeurs avec les promotions qui leur sont affectées, mais aussi la liste du personnel ainsi que leur contact et l’emplacement de leur bureau, afin de permettre à tout le monde, quel que soit son poste, de retrouver quelqu’un.
+________________________________________
+Centre de Documentation
+Le CDD permet non seulement à un élève de trouver des documents pour approfondir un cours ou préparer un exposé, mais également de trouver un bon livre pour ses moments de loisir en dehors de l’établissement. Toute personne de l’établissement peut emprunter des livres ou documents.
+
+

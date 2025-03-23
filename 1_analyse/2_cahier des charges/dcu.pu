@@ -1,0 +1,193 @@
+
+@startuml dcu
+/'acteurs'/
+actor élève
+actor visiteur
+actor professeurs
+actor referent
+actor secretariat
+actor cuisine
+actor parent
+actor admin
+actor membre
+actor personnel
+actor adulte
+actor documentaliste
+
+membre <|-- adulte 
+adulte <|-- personnel
+personnel <|-- professeur
+personnel <|-- secretariat
+personnel <|-- cuisine
+personnel <|-- documentaliste
+membre <|-- élève
+adulte <|-- parent
+adulte <|-- admin
+professeur <|-- referent
+
+/'usecase'/
+/'compte'/
+(Inscription)
+(Connexion)
+
+/'profil'/
+(Modifier infos perso)
+(Demander modification infos perso)
+(Accepter infos perso)
+(Supprimer compte)
+(Modifier mot de passe)
+(Changer photo de profil)
+
+/'emploi du temps'/
+(Consulter EDT)
+(Mettre en ligne EDT)
+(Modifier EDT)
+
+/'matières'/
+(Lister matière)
+(Donner exercice)
+(Donner cours)
+(Compléter exercice)
+(Lire cours)
+(Donner correction)
+(Annoncer examen)
+(Noter exercice)
+
+/'annuaire'/
+(Consulter annuaire)
+(Rechercher membre)
+(Rechercher service)
+
+/'Forum'/
+(Créer topic)
+(Créer section)
+(Envoyer message)
+(Modifier message)
+(Demander suppression message)
+(Lire demande de suppression)
+(Accepter demande de suppression)
+(Citer message)
+
+/'centre de documentation'/
+(Ajouter ouvrage)
+(Rechercher ouvrage)
+(Demander ajout ouvrage)
+(Demander emprunt ouvrage)
+(Enregistrer emprunt ouvrage)
+(Enregistrer retour ouvrage)
+(Donner avis ouvrage)
+
+/'messagerie'/
+(Lire message)
+(Rechercher messages)
+(Ecrire messages)
+(Supprimer messages)
+(Enregistrer contact)
+(Rechercher contact)
+(Supprimer contact)
+
+/'plan de l'etablissement'/
+(Consulter plan)
+(Rechercher services)
+
+/'cantine'/
+(Ajouter menu)
+(Consulter menu)
+(Rechercher menu)
+(Commander jeton)
+(S'inscrire au repas)
+(Gérer inscription)
+(Proposer sondages)
+(Répondre sondage)
+(Noter repas)
+
+/'secretariat'/
+(Publier annonce)
+(Consulter annonce)
+(vendre)
+(payer)
+(Consulter historique paiement)
+(Envoyer des documents)
+(Recevoir documents)
+(Gérer dossier élèves)
+
+/'accueil'/
+
+
+
+Admin - (Inscription)
+visiteur - (Connexion)
+
+adulte - (Modifier infos perso) 
+élève - (Demander modification infos perso)
+secretariat - (Accepter infos perso)
+admin - (Supprimer compte)
+membre - (Modifier mot de passe)
+adulte - (Changer photo de profil)
+
+membre - (Consulter EDT)
+secretariat - (Mettre en ligne EDT)
+
+professeur - (Donner exercice)
+professeur - (Donner cours)
+élève - (Compléter exercice)
+membre - (Lire cours)
+professeur - (Donner correction)
+professeur - (Annoncer examen)
+professeur - (Noter exercice)
+
+
+membre - (Consulter annuaire)
+membre - (Rechercher membre)
+membre - (Rechercher service)
+
+membre - (Créer topic)
+membre - (Créer section)
+membre - (Envoyer message)
+adulte - (Modifier message)
+élève - (Demander modification infos perso/suppression de post)
+secretariat - (Lire d'une Demander modification infos perso/suppression)
+admin - (Accepter infos perso/suppression de post)
+membre - (Citer message)
+
+documentaliste - (Ajouter ouvrage)
+membre - (Rechercher ouvrage)
+membre - (Demander ajout ouvrage)
+membre - (Demander emprunt ouvrage)
+documentaliste - (Enregistrer emprunt ouvrage)
+documentaliste - (Enregistrer retour ouvrage)
+membre - (Donner avis ouvrage)
+
+
+membre - (Lire message)
+membre - (Rechercher messages)
+membre - (Ecrire messages)
+membre - (Supprimer messages)
+membre - (Enregistrer contact)
+membre - (Rechercher contact)
+membre - (Supprimer contact)
+
+membre - (Consulter plan)
+membre - (Rechercher services)
+
+cuisine - (Ajouter menu)
+membre - (Consulter menu)
+(membre - Rechercher menu)
+membre - (Commander jeton)
+membre - (S'inscrire au repas)
+cuisine - (Gérer inscription)
+cuisine - (Proposer sondages)
+membre - (Répondre sondage)
+membre - (Noter repas)
+
+secretariat - (Publier annonce)
+membre - (Consulter annonce)
+secretariat - (vendre)
+membre - (payer)
+membre - (Consulter historique paiement)
+membre - (Envoyer document)
+secretaria - (Recevoir document)
+secretariat - (Gérer dossier élève)
+
+
+@enduml

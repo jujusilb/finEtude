@@ -1,0 +1,24 @@
+<style>
+ .footer {
+      position: relative;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%; /* 2/3 de la largeur */
+      background-color: #903c3c;c
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+    }
+  </style>
+<footer class="footer">
+    <div class="container">
+        Ce site à été pensé, conçu et designé par Aristide et Julien
+        <p>
+            <a href="{{ path('root_apropos') }}" class="text-white">À propos</a> | 
+            <a href="{{ path('root_contact') }}" class="text-white">Contact</a> | 
+            <a href="{{ path('root_legal') }}" class="text-white">Mentions légales</a>
+        </p>
+    </div>
+</footer>
+ 

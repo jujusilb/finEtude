@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+
+{% form_theme etageForm 'bootstrap_4_layout.html.twig'  %}
+
+{% block title %}New Etage
+{% endblock %}
+
+{% block body %}
+
+	<div class="container">
+
+		<h5>Creation d'un nouveau Etage</h5>
+
+		<hr style="width:100%; height:5px; background-color:#1B4F72 ">
+
+		{{ include('etablissement/etage/_form.html.twig') }}
+
+		<a href="{{ path('etage_index') }}" class="btn btn-dark">Liste de etage</a>
+	</div>
+{% endblock %}

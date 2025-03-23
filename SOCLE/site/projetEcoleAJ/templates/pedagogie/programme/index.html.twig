@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de programme{% endblock %}
+
+{% block body %}
+ <a href="{{ path('programme_nouveau') }}" class="btn" >Creer Nouveau programme</a>
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Promotion</th>
+                <th>Professeur</th>
+                <th>Matiere</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+{% for programme in programmes %}
+        <tr>
+            <td>
+                <a href="{{ path('promotion_affichage', {'id': programme.promotion.id}) }}">
+                    {{ programme.promotion.libelle }}
+                </a>
+            </td>    
+            <td>
+                <a href="{{ path('professeur_affichage', {'id': programme.professeur.id}) }}">
+                    {{ programme.professeur.prenom }} {{ programme.professeur.nom }}
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('matiere_affichage', {'id': programme.matiere.id}) }}">
+                    {{ programme.matiere.libelle }}
+                </a>
+            </td>
+            <td>
+                <a href="{{ path('programme_edition', {'professeur': programme.professeur.id, 'matiere': programme.matiere.id, 'promotion': programme.promotion.id}) }}" class="btn btn-secondary">editer</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="{{ path('programme_nouveau') }}" class="btn">Creer Nouveau programme</a>
+        </tbody>
+    </table>
+   
+{% endblock %}

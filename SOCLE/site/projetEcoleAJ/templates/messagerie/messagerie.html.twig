@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello messageController!{% endblock %}
+
+{% block body %}
+   <h1>Message Reçu</h1>
+   {{ include('messagerie/recu.html.twig') }}
+    <hr><hr>
+    <h1>Message envoyés</h1>
+   {{ include('messagerie/envois<html.twig') }}
+    <a href="{{ path('messagePrive_nouveau') }}" class="btn" >Creer Nouveau message</a>
+{% endblock %}
