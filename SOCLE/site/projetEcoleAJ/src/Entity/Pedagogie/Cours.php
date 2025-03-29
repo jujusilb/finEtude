@@ -5,6 +5,7 @@ namespace App\Entity\Pedagogie;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Utilisateur\Professeur;
 use App\Repository\Pedagogie\CoursRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -19,8 +20,7 @@ class Cours
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+
 
     #[ORM\Column]
     #[Assert\NotBlank(message: 'Ce champ ne peut pas être vide')]
@@ -53,9 +53,16 @@ class Cours
     #[ORM\ManyToMany(targetEntity: Promotion::class, inversedBy: 'cours')]
     private Collection $promotion;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
+
     public function __construct()
     {
         $this->promotion = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -63,17 +70,9 @@ class Cours
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
 
-    public function setDate(\DateTimeInterface $date): static
-    {
-        $this->date = $date;
 
-        return $this;
-    }
+
 
     public function getLibelle(): ?string
     {
@@ -159,6 +158,30 @@ class Cours
     public function removePromotion(Promotion $promotion): static
     {
         $this->promotion->removeElement($promotion);
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

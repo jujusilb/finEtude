@@ -1,0 +1,58 @@
+INSERT INTO `statut_emprunt` (`id`, `libelle`) VALUES
+INSERT INTO `pole` (`id`, `libelle`) VALUES
+INSERT INTO `matiere` (`id`, `libelle`) VALUES
+INSERT INTO `legume` (`id`, `libelle`) VALUES
+INSERT INTO `fromage` (`id`, `libelle`) VALUES
+INSERT INTO `entreprise` (`id`, `libelle`, `adresse`, `code_postal`, `ville`, `telephone`, `email`) VALUES
+INSERT INTO `forum` (`id`, `libelle`, `description`, `role`) VALUES
+INSERT INTO `entree` (`id`, `libelle`) VALUES
+INSERT INTO `dessert` (`id`, `libelle`) VALUES
+INSERT INTO `categorie_produit` (`id`, `libelle`) VALUES
+INSERT INTO `categorie_ouvrage` (`id`, `libelle`) VALUES
+INSERT INTO `batiment` (`id`, `libelle`) VALUES
+INSERT INTO `viande` (`id`, `libelle`) VALUES
+INSERT INTO `statut_ouvrage` (`id`, `libelle`) VALUES
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `discrimination`) VALUES
+INSERT INTO `membre` (`id`, `nom`, `prenom`, `image_name`, `updated_at`, `created_at`, `username`, `charte`, `civilite`) VALUES
+INSERT INTO `professionnel` (`id`, `entreprise_id`, `nom`, `prenom`, `email`, `telephone`, `profession`) VALUES
+INSERT INTO `promotion` (`id`, `pole_id`, `libelle`) VALUES
+INSERT INTO `etage` (`id`, `batiment_id`, `libelle`) VALUES
+INSERT INTO `plat` (`id`, `viande_id`, `legume_id`, `libelle`) VALUES
+INSERT INTO `menu` (`id`, `plat_id`, `fromage_id`, `dessert_id`, `entree_id`) VALUES
+INSERT INTO `repas` (`id`, `menu_id`, `prix`, `date`, `heure`) VALUES
+INSERT INTO `ouvrage` (`id`, `statut_ouvrage_id`, `titre`) VALUES
+INSERT INTO `adulte` (`id`) VALUES
+INSERT INTO `eleve` (`id`, `promotion_id`, pension) VALUES
+INSERT INTO `admin` (`id`) VALUES
+INSERT INTO `personnel` (`id`, `date_embauche`, `poste`) VALUES
+INSERT INTO `surveillant` (`id`) VALUES
+INSERT INTO `secretariat` (`id`) VALUES
+INSERT INTO `parent_eleve` (`id`) VALUES
+INSERT INTO `parent_eleve_eleve` (`parent_eleve_id`, `eleve_id`) VALUES
+INSERT INTO `professeur` (`id`) VALUES
+INSERT INTO `reservation_repas` (`id`, `repas_id`, `membre_id`, `date_achat`) VALUES
+INSERT INTO `insertion` (`id`) VALUES
+INSERT INTO `documentaliste` (`id`) VALUES
+INSERT INTO `cuisine` (`id`) VALUES
+INSERT INTO `direction` (`id`) VALUES
+INSERT INTO `categorie_forum` (`id`, `forum_id`, `libelle`, `description`) VALUES
+INSERT INTO `ouvrage_categorie_ouvrage` (`ouvrage_id`, `categorie_ouvrage_id`) VALUES
+INSERT INTO `produit` (`id`, `categorie_produit_id`, `libelle`, `prix`, `description`, `stock`, `created_at`, `archive`, `date_event`) VALUES
+INSERT INTO `salle` (`id`, `etage_id`, `promo_principale_id`, `libelle`) VALUES
+INSERT INTO `programme` (`professeur_id`, `matiere_id`, `promotion_id`) VALUES
+INSERT INTO `emprunt` (`id`, `ouvrage_id`, `statut_id`, `membre_id`, `date_emprunt`, `date_demande`, `date_retour`) VALUES
+INSERT INTO `sub_forum` (`id`, `categorie_forum_id`, `libelle`, `description`) VALUES
+INSERT INTO `thread` (`id`, `sub_forum_id`, `createur_id`, `libelle`, `description`, `created_at`) VALUES
+INSERT INTO `professeur_matiere` (`professeur_id`, `matiere_id`) VALUES
+INSERT INTO `commande` (`id`, `membre_id`, `produit_id`, `quantity`, `prix_total`, `date_achat`) VALUES
+INSERT INTO `message` (`id`, `sujet`, `contenu`, `created_at`, `updated_at`, `discrimination`) VALUES
+INSERT INTO `message_forum` (`id`, `expediteur_id`, `thread_id`) VALUES
+INSERT INTO `message_general` (`id`, `expediteur_id`) VALUES
+INSERT INTO `message_prive` (`id`, `expediteur_id`, `destinataire_id`) VALUES
+INSERT INTO `message_guest` (`id`, `auteur`, `email`, `telephone`) VALUES
+INSERT INTO `membre_jeton` (`id`, `membre_id`, `nombre_jeton`) VALUES
+INSERT INTO `note` (`id`, `eleve_id`, `professeur_id`, `matiere_id`, `exercice_id`, `note`, `created_at`, `updated_at`, `libelle`, `coefficient`) VALUES
+INSERT INTO `personnel_pole` (`personnel_id`, `pole_id`) VALUES
+INSERT INTO `cours` (`id`, `professeur_id`, `matiere_id`, `libelle`, `created_at`, `updated_at`) VALUES
+INSERT INTO `cours_promotion` (`cours_id`, `promotion_id`) VALUES
+

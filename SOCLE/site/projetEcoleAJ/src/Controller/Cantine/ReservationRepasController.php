@@ -4,6 +4,8 @@ namespace App\Controller\Cantine;
 
 use App\Entity\Cantine\Repas;
 use App\Entity\Utilisateur\Membre;
+use App\Repository\Boutique\MembreJetonRepository;
+use App\Entity\Utilisateur\Secretariat;
 use App\Entity\Cantine\ReservationRepas;
 use App\Repository\Cantine\ReservationRepasRepository;
 use App\Form\Cantine\ReservationRepasType;
@@ -20,12 +22,14 @@ class ReservationRepasController extends AbstractController
     #[Route('/index', name: 'index')]
     public function index(ReservationRepasRepository $reservationRepasRepo): Response
     {
-	
-        return $this->render('cantine/reservation_repas/index.html.twig', [
+        $user=$this->getUser();
+        if ($user instanceof Secretariat){
+            return $this->render('cantine/reservation_repas/index.html.twig', [
             'controller_name' => 'ReservationRepasController',
 		    'titre' => 'Reservation repas',
             'reservationRepass' => $reservationRepasRepo->findAll(),
         ]);
+        }else return $this->redirectToRoute('reservationRepas_mesReservations', [], Response::HTTP_SEE_OTHER);
     }
 
     
@@ -84,9 +88,15 @@ class ReservationRepasController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, ReservationRepas $reservationRepas): Response
+    public function delete(MembreJetonRepository $membreJetonRepo, Request $request, ReservationRepas $reservationRepas): Response
     {
         if ($this->isCsrfTokenValid('delete' . $reservationRepas->getId(), $request->getPayload()->getString('_token'))) {
+            $user=$this->getUser();
+            if ($reservationRepas->getMembre() == $user){
+                $mJ=$membreJetonRepo->findOneBy(['membre' => $user]);
+                $mJ->setNombreJeton($mJ->getNombreJeton()+1);
+            }
+
             $this->entityManager->remove($reservationRepas);
             $this->entityManager->flush();
         }

@@ -38,12 +38,10 @@ class CoursController extends AbstractController
              $cours=$coursRepo->getCoursByPromotionAndMatiere($user->getPromotion(), $matiere);
         }
        
-
         return $this->render('Pedagogie/Cours/matiere.html.twig', [
             'controller_name' => 'CoursController',
 		    'titre' => 'Cours',
             'courss' => $cours,
-        
         ]);
     }
     
@@ -55,10 +53,10 @@ class CoursController extends AbstractController
             $cours = new Cours();
             $form = $this->createForm(CoursType::class, $cours);
             $form->handleRequest($request);
-            if ($form->isSubmitted()) {
+            if ($form->isSubmitted()){
                 $prof=$this->getUser();
                 $cours->setProfesseur($prof);
-                $file = $form->get('file')->getData();   
+                $file = $form->get('file')->getData();
                 if ($file) {
                     $filename = uniqid() . '.' . $file->guessExtension();
                     try {
@@ -75,7 +73,6 @@ class CoursController extends AbstractController
             $this->entityManager->persist($cours);
             $this->entityManager->flush();
             return $this->redirectToRoute('cours_index', [], Response::HTTP_SEE_OTHER);
-        
             return $this->render('pedagogie/cours/new.html.twig', [
                 'cours' => $cours,
                 'titre' => 'Nouveau Cours',

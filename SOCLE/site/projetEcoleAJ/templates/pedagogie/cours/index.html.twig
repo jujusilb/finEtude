@@ -20,7 +20,7 @@
             {% for cours in courss %}
                 <tr>
                     <td>{{cours.id}}</td>
-                    <td>{{ cours.date | date('d/m/Y') }}</td>
+                    <td>{{ cours.createdAt | date('d/m/Y') }}</td>
                     <td>{{cours.libelle}}</td>
                     <td>
                         {% if cours.professeur | length > 0 %}
