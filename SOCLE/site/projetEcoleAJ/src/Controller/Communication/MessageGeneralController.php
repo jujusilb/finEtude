@@ -66,19 +66,19 @@
             $user=$this->getUser();
             if($user instanceof Secretariat){
                 $form = $this->createForm(messageGeneralType::class, $messageGeneral);
-            $form->handleRequest($request);
+                $form->handleRequest($request);
 
-            if ($form->isSubmitted() && $form->isValid()) {
-                $this->entityManager->flush();
-                $messageGeneral->setUpdatedAt(new DateTimeImmutable());
-                return $this->redirectToRoute('messageGeneral_index', [], Response::HTTP_SEE_OTHER);
-            }
+                if ($form->isSubmitted() && $form->isValid()) {
+                    $this->entityManager->flush();
+                    $messageGeneral->setUpdatedAt(new DateTimeImmutable());
+                    return $this->redirectToRoute('messageGeneral_index', [], Response::HTTP_SEE_OTHER);
+                }
 
-            return $this->render('communication/message_general/edit.html.twig', [
-                'messageGeneral' => $messageGeneral,
-                'titre' => 'Edition MessageGeneral',
-                'messageGeneralForm' => $form,
-            ]);
+                return $this->render('communication/message_general/edit.html.twig', [
+                    'messageGeneral' => $messageGeneral,
+                    'titre' => 'Edition MessageGeneral',
+                    'messageGeneralForm' => $form,
+                ]);
             }else return $this->redirectToRoute('root_accueil', [], Response::HTTP_SEE_OTHER);
             
         }

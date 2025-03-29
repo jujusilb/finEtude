@@ -4,6 +4,7 @@ namespace App\Outils;
 
 use Doctrine\ORM\src\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Attribute\Route;
 
 class CouteauSuisse{
     
@@ -48,7 +49,7 @@ class CouteauSuisse{
 
 
   
-    public function trier(string $table, string $field, EntityManagerInterface $entityManager): array
+    public function trieSqlr(string $table, string $field, EntityManagerInterface $entityManager): array
     {
         
         $queryBuilder = $entityManager->createQueryBuilder();
@@ -59,5 +60,8 @@ class CouteauSuisse{
     
         return $queryBuilder->getQuery()->getResult();
     }
+    #[Route('/trie/{table}/{field}', name: 'app_trie')]
+    public function trieFuction(string $table, string $field){
 
+    }
 }

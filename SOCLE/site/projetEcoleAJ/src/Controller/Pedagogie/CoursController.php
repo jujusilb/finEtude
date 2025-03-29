@@ -3,6 +3,8 @@
 namespace App\Controller\Pedagogie;;
 
 use App\Entity\Utilisateur\Membre;
+use App\Entity\Utilisateur\Eleve;
+use App\Entity\Utilisateur\Professeur;
 use App\Repository\Utilisateur\MembreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Pedagogie\Cours;
@@ -27,10 +29,15 @@ class CoursController extends AbstractController
             'courss' => $coursRepo->findAll(),
         ]);
     }
-    #[Route('/{matiere}/matiere', name: 'matiere', methods:['GET'])]
+
+    #[Route('/matiere/{matiere}', name: 'matiere', methods:['GET'])]
     public function listePromotion(CoursRepository $coursRepo, $matiere): Response
     {
-        $cours=$coursRepo->getCoursByPromotionAndMatiere($this->getUser()->getPromotion(), $matiere);
+        $user=$this->getUser();
+        if($user instanceof Eleve){
+             $cours=$coursRepo->getCoursByPromotionAndMatiere($user->getPromotion(), $matiere);
+        }
+       
 
         return $this->render('Pedagogie/Cours/matiere.html.twig', [
             'controller_name' => 'CoursController',
@@ -43,45 +50,41 @@ class CoursController extends AbstractController
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
     public function new (MembreRepository $membreRepo, Request $request): Response
     {
-        $cours = new Cours();
-        $form = $this->createForm(CoursType::class, $cours);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted()) {
-            $cours->setCreatedAt(new DateTimeImmutable());
-            $prof=$this->getUser();
-            $cours->setProfesseur($prof);
-            $file = $form->get('file')->getData();
-                        
-            if ($file) {
-                $filename = uniqid() . '.' . $file->guessExtension();
-
-                try {
-                    $file->move(
-                        $this->getParameter('uploads_directory'),
-                        $filename
-                    );
-
-                    $cours->setFichier($filename);
-                } catch (FileException $e) {
-                    $this->addFlash('error', 'Erreur lors du téléchargement du fichier.');
+       $user=$this->getUser();
+       if($user instanceof Professeur){
+            $cours = new Cours();
+            $form = $this->createForm(CoursType::class, $cours);
+            $form->handleRequest($request);
+            if ($form->isSubmitted()) {
+                $prof=$this->getUser();
+                $cours->setProfesseur($prof);
+                $file = $form->get('file')->getData();   
+                if ($file) {
+                    $filename = uniqid() . '.' . $file->guessExtension();
+                    try {
+                        $file->move(
+                            $this->getParameter('uploads_directory'),
+                            $filename
+                        );
+                        $cours->setFichier($filename);
+                    } catch (FileException $e) {
+                        $this->addFlash('error', 'Erreur lors du téléchargement du fichier.');
+                    }
                 }
             }
-           
             $this->entityManager->persist($cours);
             $this->entityManager->flush();
-
             return $this->redirectToRoute('cours_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('pedagogie/cours/new.html.twig', [
-            'cours' => $cours,
-            'titre' => 'Nouveau Cours',
-            'coursForm' => $form->createView(),
-        ]);
+        
+            return $this->render('pedagogie/cours/new.html.twig', [
+                'cours' => $cours,
+                'titre' => 'Nouveau Cours',
+                'coursForm' => $form->createView(),
+            ]);
+        } else return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Cours $cours): Response
     {
         return $this->render('pedagogie/cours/show.html.twig', [
@@ -129,7 +132,7 @@ class CoursController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Cours $cours): Response
     {
         if ($this->isCsrfTokenValid('delete' . $cours->getId(), $request->getPayload()->getString('_token'))) {

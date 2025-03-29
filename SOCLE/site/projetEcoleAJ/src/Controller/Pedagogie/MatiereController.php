@@ -52,7 +52,7 @@ class MatiereController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Matiere $matiere): Response
     {
         return $this->render('pedagogie/matiere/show.html.twig', [
@@ -80,7 +80,7 @@ class MatiereController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Matiere $matiere): Response
     {
         if ($this->isCsrfTokenValid('delete' . $matiere->getId(), $request->getPayload()->getString('_token'))) {

@@ -76,7 +76,7 @@ class ViandeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Viande $viande): Response
     {
         if ($this->isCsrfTokenValid('delete' . $viande->getId(), $request->getPayload()->getString('_token'))) {

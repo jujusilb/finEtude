@@ -73,7 +73,7 @@ class OuvrageController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Ouvrage $ouvrage): Response
     {
         return $this->render('CDI/ouvrage/show.html.twig', [
@@ -101,7 +101,7 @@ class OuvrageController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Ouvrage $ouvrage): Response
     {
         if ($this->isCsrfTokenValid('delete' . $ouvrage->getId(), $request->getPayload()->getString('_token'))) {

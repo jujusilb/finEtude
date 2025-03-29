@@ -86,7 +86,7 @@ class PromotionController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Promotion $promotion): Response
     {
         if ($this->isCsrfTokenValid('delete' . $promotion->getId(), $request->getPayload()->getString('_token'))) {

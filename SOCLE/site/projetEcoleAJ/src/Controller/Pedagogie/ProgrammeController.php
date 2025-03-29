@@ -75,7 +75,7 @@ class ProgrammeController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}show', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Programme $programme): Response
     {
         return $this->render('pedagogie/programme/show.html.twig', [

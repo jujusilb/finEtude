@@ -51,7 +51,7 @@ class ProfesseurMatiereController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(ProfesseurMatiere $professeurMatiere): Response
     {
         return $this->render('pedagogie/professeur_matiere/show.html.twig', [
@@ -77,7 +77,7 @@ class ProfesseurMatiereController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, ProfesseurMatiere $professeurMatiere): Response
     {
         if ($this->isCsrfTokenValid('delete' . $professeurMatiere->getId(), $request->request->get('_token'))) {

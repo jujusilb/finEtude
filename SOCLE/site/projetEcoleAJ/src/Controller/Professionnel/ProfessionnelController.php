@@ -47,7 +47,7 @@ class ProfessionnelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Professionnel $professionnel): Response
     {
         return $this->render('professionnel/professionnel/show.html.twig', [
@@ -75,7 +75,7 @@ class ProfessionnelController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Professionnel $professionnel): Response
     {
         if ($this->isCsrfTokenValid('delete' . $professionnel->getId(), $request->getPayload()->getString('_token'))) {

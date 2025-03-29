@@ -51,7 +51,7 @@ class ThreadController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Thread $thread): Response
     {
         return $this->render('forum/thread/show.html.twig', [
@@ -79,7 +79,7 @@ class ThreadController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Thread $thread): Response
     {
         if ($this->isCsrfTokenValid('delete' . $thread->getId(), $request->getPayload()->getString('_token'))) {

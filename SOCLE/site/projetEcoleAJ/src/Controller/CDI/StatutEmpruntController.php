@@ -48,7 +48,7 @@ class StatutEmpruntController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(StatutEmprunt $statutEmprunt): Response
     {
         return $this->render('CDI/statut_emprunt/show.html.twig', [
@@ -76,7 +76,7 @@ class StatutEmpruntController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, StatutEmprunt $statutEmprunt): Response
     {
         if ($this->isCsrfTokenValid('delete' . $statutEmprunt->getId(), $request->getPayload()->getString('_token'))) {

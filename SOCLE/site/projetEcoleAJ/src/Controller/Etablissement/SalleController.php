@@ -48,7 +48,7 @@ class SalleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Salle $salle): Response
     {
         return $this->render('etablissement/salle/show.html.twig', [
@@ -76,7 +76,7 @@ class SalleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Salle $salle): Response
     {
         if ($this->isCsrfTokenValid('delete' . $salle->getId(), $request->getPayload()->getString('_token'))) {

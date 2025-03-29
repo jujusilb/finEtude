@@ -77,7 +77,7 @@ class FromageController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Fromage $fromage): Response
     {
         if ($this->isCsrfTokenValid('delete' . $fromage->getId(), $request->getPayload()->getString('_token'))) {

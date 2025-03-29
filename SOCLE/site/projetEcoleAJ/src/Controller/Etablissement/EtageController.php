@@ -48,7 +48,7 @@ class EtageController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'affichage', methods: ['GET'])]
+    #[Route('/{id}/show', name: 'affichage', methods: ['GET'])]
     public function show(Etage $etage): Response
     {
         return $this->render('etablissement/etage/show.html.twig', [
@@ -76,7 +76,7 @@ class EtageController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'suppression', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
     public function delete(Request $request, Etage $etage): Response
     {
         if ($this->isCsrfTokenValid('delete' . $etage->getId(), $request->getPayload()->getString('_token'))) {
