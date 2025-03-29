@@ -18,11 +18,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class SurveillantController extends AbstractController
 {
 
-    private $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher){
-        $this -> passwordHasher=$passwordHasher;
-    }
 
     #[Route('/index', name: 'index')]
     public function index(SurveillantRepository $surveillantRepo): Response
@@ -35,7 +31,7 @@ class SurveillantController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $surveillant = new Surveillant();
         $form = $this->createForm(SurveillantType::class, $surveillant);
@@ -67,12 +63,12 @@ class SurveillantController extends AbstractController
                     $surveillant->setImageName('man.png');
                 }
             }
-            $entityManager->persist($surveillant);
+            $this->entityManager->persist($surveillant);
             $listeJeton=new MembreJeton();
             $listeJeton->setMembre($surveillant);
             $listeJeton->setNombreJeton(0);
-            $entityManager->persist($listeJeton);
-            $entityManager->flush();
+            $this->entityManager->persist($listeJeton);
+            $this->entityManager->flush();
             return $this->redirectToRoute('surveillant_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -93,7 +89,7 @@ class SurveillantController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Surveillant $surveillant, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Surveillant $surveillant): Response
     {
         $form = $this->createForm(SurveillantType::class, $surveillant);
         $form->handleRequest($request);
@@ -109,7 +105,7 @@ class SurveillantController extends AbstractController
             $email =$getter->getEmail($username);
             $surveillant->setUsername($username);
             $surveillant->setEmail($email);
-            $entityManager->flush();
+            $this->entityManager->flush();
             return $this->redirectToRoute('surveillant_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -121,11 +117,11 @@ class SurveillantController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Surveillant $surveillant, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Surveillant $surveillant): Response
     {
         if ($this->isCsrfTokenValid('delete' . $surveillant->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($surveillant);
-            $entityManager->flush();
+            $this->entityManager->remove($surveillant);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('surveillant_index', [], Response::HTTP_SEE_OTHER);

@@ -28,15 +28,15 @@ class ViandeController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $viande = new Viande();
         $form = $this->createForm(ViandeType::class, $viande);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($viande);
-            $entityManager->flush();
+            $this->entityManager->persist($viande);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('viande_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,13 +58,13 @@ class ViandeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Viande $viande, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Viande $viande): Response
     {
         $form = $this->createForm(viandeType::class, $viande);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('viande_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -77,11 +77,11 @@ class ViandeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Viande $viande, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Viande $viande): Response
     {
         if ($this->isCsrfTokenValid('delete' . $viande->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($viande);
-            $entityManager->flush();
+            $this->entityManager->remove($viande);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('viande_index', [], Response::HTTP_SEE_OTHER);

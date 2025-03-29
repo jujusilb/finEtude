@@ -5,9 +5,12 @@
     {% include 'tools/page/header.html.twig' %}
      {% if app.user %}
         {% for role in app.user.roles %}
-            {% if role == "ROLE_ELEVE"%}
+            
+            {% if role == "ROLE_DIRECTION" %}
+                {% include 'tools/navigation/nav-direction.html.twig' %}
+            {% elseif role == "ROLE_ELEVE" %}
                 {% include 'tools/navigation/nav-eleve.html.twig' %}
-            {% elseif role == "ROLE_ADMIN"%}
+            {% elseif role == "ROLE_ADMIN" %}
                 {% include 'tools/navigation/nav-admin.html.twig' %}
             {% elseif role == "ROLE_PROFESSEUR" %}
                 {% include 'tools/navigation/nav-professeur.html.twig' %}

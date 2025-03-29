@@ -30,7 +30,7 @@ class MessageForumController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $user= $this->getUser();
         if ($user instanceof Membre){
@@ -40,8 +40,8 @@ class MessageForumController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $messageForum->setExpediteur($user);
-                $entityManager->persist($messageForum);
-                $entityManager->flush();
+                $this->entityManager->persist($messageForum);
+                $this->entityManager->flush();
 
                 return $this->redirectToRoute('messageForum_index', [], Response::HTTP_SEE_OTHER);
             }
@@ -65,7 +65,7 @@ class MessageForumController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, MessageForum $messageForum, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, MessageForum $messageForum): Response
     {
         $user=$this->getUser();
         if($user instanceof Membre){
@@ -74,7 +74,7 @@ class MessageForumController extends AbstractController
     
             if ($form->isSubmitted() && $form->isValid()) {
                 $messageForum->setUpdatedAT(new DateTimeImmutable());
-                $entityManager->flush();
+                $this->entityManager->flush();
     
                 return $this->redirectToRoute('messageForum_index', [], Response::HTTP_SEE_OTHER);
             }
@@ -89,11 +89,11 @@ class MessageForumController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, MessageForum $messageForum, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, MessageForum $messageForum): Response
     {
         if ($this->isCsrfTokenValid('delete' . $messageForum->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($messageForum);
-            $entityManager->flush();
+            $this->entityManager->remove($messageForum);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('messageForum_index', [], Response::HTTP_SEE_OTHER);

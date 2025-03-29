@@ -27,7 +27,7 @@ class CategorieForumController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $categorieForum = new CategorieForum();
         $form = $this->createForm(CategorieForumType::class, $categorieForum);
@@ -36,8 +36,8 @@ class CategorieForumController extends AbstractController
        
         
         if ($form->isSubmitted() && $form->isValid()) {
-           $entityManager->persist($categorieForum);
-            $entityManager->flush();
+           $this->entityManager->persist($categorieForum);
+           $this->entityManager->flush();
 
             return $this->redirectToRoute('categorieForum_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -61,13 +61,13 @@ class CategorieForumController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, CategorieForum $categorieForum, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, CategorieForum $categorieForum): Response
     {
         $form = $this->createForm(CategorieForumType::class, $categorieForum);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('categorieForum_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -80,11 +80,11 @@ class CategorieForumController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, CategorieForum $categorieForum, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, CategorieForum $categorieForum): Response
     {
         if ($this->isCsrfTokenValid('delete' . $categorieForum->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($categorieForum);
-            $entityManager->flush();
+            $this->entityManager->remove($categorieForum);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('categorieForum_index', [], Response::HTTP_SEE_OTHER);

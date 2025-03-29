@@ -104,12 +104,12 @@
         <li>
             <a href="{{ path('insertion_index') }}">Insertion</a>
             <ul class="sub-menus">
-                <li><a href='{{path('entreprise_index')}}'>idée d'entreprises</a></li>
+                <li><a href='{{path('entreprise_liste')}}'>idée d'entreprises</a></li>
                 <li><a href='{{path('stage_index')}}'>Mes stages</a></li>
             </ul>
         </li>
         <li>
-            <a>Cours</a>
+            <a href="#">Cours</a>
             <ul class="sub-menus">
 				{% if app.user.promotion | length >0 %}
 						{% if app.user.promotion.programmes | length > 0 %}
@@ -127,7 +127,7 @@
             </ul>
         </li>
         <li>
-            <a>Exercices & Eval</a>
+            <a href="#">Exercices & Eval</a>
             <ul class="sub-menus">
 				{% if app.user.promotion | length >0 %}
 						{% if app.user.promotion.programmes | length > 0 %}
@@ -154,7 +154,7 @@
         <li>
             <a href="{{path('cuisine_index')}}">Cantine</a>
             <ul class="sub-menus">
-                <a href='{{path('repas_listeRepas')}}'>liste des repas</a></li>
+                <li><a href='{{path('repas_listeRepas')}}'>Liste des repas</a></li>
                 <li><a href='{{path('reservationRepas_mesReservations')}}'>Mes repas</a></li>
             </ul>
         <li><a href='{{path('forum_index')}}'>Forum</a></li>
@@ -162,7 +162,7 @@
 			<a href="#">Boutique</a>
 			<ul class="sub-menus">
 				<li><a href="{{path('boutique_liste')}}">liste des Produit</a></li>
-				<li><a href="{{path('commande_mesCommande')}}">mes Achats</a></li><li><a href="{{path('produit_index')}}">Index des Produits</a></li>
+				<li><a href="{{path('commande_mesCommande')}}">mes Achats</a></li>
 			</ul>
 		</li>
 		<li>

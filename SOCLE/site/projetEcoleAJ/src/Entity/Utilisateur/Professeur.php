@@ -4,6 +4,7 @@ namespace App\Entity\Utilisateur;
 
 use App\Entity\Pedagogie\Cours;
 use App\Entity\Pedagogie\Exercice;
+use App\Entity\Pedagogie\Note;
 use App\Entity\Pedagogie\Promotion;
 use App\Entity\Pedagogie\ProfesseurMatiere;
 use App\Entity\Pedagogie\Programme;
@@ -44,6 +45,12 @@ class Professeur extends Personnel{
     #[ORM\OneToMany(targetEntity: Exercice::class, mappedBy: 'professeur')]
     private Collection $exercices;
 
+    /**
+     * @var Collection<int, Note>
+     */
+    #[ORM\OneToMany(mappedBy: 'relation', targetEntity: Note::class)]
+    private Collection $notes;
+
    
 
     
@@ -56,6 +63,7 @@ class Professeur extends Personnel{
         $this->programme = new ArrayCollection();
         $this->Cours = new ArrayCollection();
         $this->exercices = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
     /**
@@ -172,6 +180,36 @@ class Professeur extends Personnel{
             // set the owning side to null (unless already changed)
             if ($exercice->getProfesseur() === $this) {
                 $exercice->setProfesseur(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): static
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes->add($note);
+            $note->setRelation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): static
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getRelation() === $this) {
+                $note->setRelation(null);
             }
         }
 

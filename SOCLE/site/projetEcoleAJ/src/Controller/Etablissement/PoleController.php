@@ -28,15 +28,15 @@ class PoleController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $pole = new Pole();
         $form = $this->createForm(PoleType::class, $pole);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($pole);
-            $entityManager->flush();
+            $this->entityManager->persist($pole);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('pole_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,13 +58,13 @@ class PoleController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Pole $pole, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Pole $pole): Response
     {
         $form = $this->createForm(poleType::class, $pole);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('pole_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -77,11 +77,11 @@ class PoleController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Pole $pole, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Pole $pole): Response
     {
         if ($this->isCsrfTokenValid('delete' . $pole->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($pole);
-            $entityManager->flush();
+            $this->entityManager->remove($pole);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('pole_index', [], Response::HTTP_SEE_OTHER);

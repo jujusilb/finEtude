@@ -19,19 +19,10 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class EleveController extends AbstractController
 {
 
-    private $passwordHasher;
-    Private $entityManager;
-    
-    public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager){
-        $this -> passwordHasher=$passwordHasher;
-        $this -> entityManager=$entityManager;
-    }
-
     #[Route('/index', name: 'index')]
     public function index(EleveRepository $eleveRepo): Response
     {
-	    
-        return $this->render('utilisateur/eleve/index.html.twig', [
+	    return $this->render('utilisateur/eleve/index.html.twig', [
             'controller_name' => 'EleveController',
 		    'titre' => 'Eleve',
             'eleves' => $eleveRepo->findAll(),
@@ -39,7 +30,7 @@ class EleveController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $eleve = new Eleve();
         $form = $this->createForm(EleveType::class, $eleve);
@@ -64,12 +55,12 @@ class EleveController extends AbstractController
                     $eleve->setImageName('man.png');
                 }
             }
-            $entityManager->persist($eleve);
+            $this->entityManager->persist($eleve);
             $listeJeton=new MembreJeton();
             $listeJeton->setMembre($eleve);
             $listeJeton->setNombreJeton(0);
-            $entityManager->persist($listeJeton);
-            $entityManager->flush();
+            $this->entityManager->persist($listeJeton);
+            $this->entityManager->flush();
             return $this->redirectToRoute('eleve_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -96,7 +87,7 @@ class EleveController extends AbstractController
 
     
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, eleve $eleve, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, eleve $eleve): Response
     {
         $form = $this->createForm(EleveType::class, $eleve);
         $form->handleRequest($request);
@@ -111,7 +102,7 @@ class EleveController extends AbstractController
                 $rolePromotion = 'ROLE_' . strtoupper($promotion->getLibelle());
                 $eleve->setRoles(array_merge($eleve->getRoles(), [$rolePromotion]));
             }
-            $entityManager->flush();
+            $this->entityManager->flush();
             return $this->redirectToRoute('eleve_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -123,11 +114,11 @@ class EleveController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Eleve $eleve, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Eleve $eleve): Response
     {
         if ($this->isCsrfTokenValid('delete' . $eleve->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($eleve);
-            $entityManager->flush();
+            $this->entityManager->remove($eleve);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('eleve_index', [], Response::HTTP_SEE_OTHER);

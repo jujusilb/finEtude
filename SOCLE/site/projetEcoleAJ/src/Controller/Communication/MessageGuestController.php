@@ -31,15 +31,15 @@ class MessageGuestController extends AbstractController
 
    
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $messageGuest = new MessageGuest();
         $form = $this->createForm(MessageGuestType::class, $messageGuest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($messageGuest);
-            $entityManager->flush();
+            $this->entityManager->persist($messageGuest);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('messageGuest_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -65,7 +65,7 @@ class MessageGuestController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, MessageGuest $messageGuest, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, MessageGuest $messageGuest): Response
     {
         $user=$this->getUser();
         if ($user instanceof Secretariat){
@@ -73,7 +73,7 @@ class MessageGuestController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager->flush();
+                $this->entityManager->flush();
 
                 return $this->redirectToRoute('messageGuest_index', [], Response::HTTP_SEE_OTHER);
             }
@@ -88,11 +88,11 @@ class MessageGuestController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, MessageGuest $messageGuest, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, MessageGuest $messageGuest): Response
     {
         if ($this->isCsrfTokenValid('delete' . $messageGuest->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($messageGuest);
-            $entityManager->flush();
+            $this->entityManager->remove($messageGuest);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('messageGuest_index', [], Response::HTTP_SEE_OTHER);

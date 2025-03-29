@@ -2,8 +2,11 @@
 
 namespace App\Outils;
 
-class CouteauSuisse{
+use Doctrine\ORM\src\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 
+class CouteauSuisse{
+    
     public static function debug($array, $titre="demandé"){
         ?>
         <style>
@@ -44,5 +47,17 @@ class CouteauSuisse{
     }
 
 
-   
+  
+    public function trier(string $table, string $field, EntityManagerInterface $entityManager): array
+    {
+        
+        $queryBuilder = $entityManager->createQueryBuilder();
+        $queryBuilder
+        ->select('entity')
+        ->from('App\Entity\\' . $table, 'entity')
+        ->orderBy('entity.' . $field, 'ASC');
+    
+        return $queryBuilder->getQuery()->getResult();
+    }
+
 }

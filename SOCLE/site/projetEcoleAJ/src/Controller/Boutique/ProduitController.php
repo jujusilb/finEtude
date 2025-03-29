@@ -29,7 +29,7 @@ class ProduitController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $produit = new Produit();
         $form = $this->createForm(ProduitType::class, $produit);
@@ -37,8 +37,8 @@ class ProduitController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()) {
             $produit->setCreatedAt(new DateTimeImmutable());
-            $entityManager->persist($produit);
-            $entityManager->flush();
+            $this->entityManager->persist($produit);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('produit_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -60,13 +60,13 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Produit $produit): Response
     {
         $form = $this->createForm(produitType::class, $produit);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('produit_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -79,11 +79,11 @@ class ProduitController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Produit $produit): Response
     {
         if ($this->isCsrfTokenValid('delete' . $produit->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($produit);
-            $entityManager->flush();
+            $this->entityManager->remove($produit);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('produit_index', [], Response::HTTP_SEE_OTHER);

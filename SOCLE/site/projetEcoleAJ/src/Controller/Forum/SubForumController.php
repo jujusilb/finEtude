@@ -26,7 +26,7 @@ class SubForumController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $subForum = new SubForum();
         $form = $this->createForm(SubForumType::class, $subForum);
@@ -35,8 +35,8 @@ class SubForumController extends AbstractController
         
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($subForum);
-            $entityManager->flush();
+            $this->entityManager->persist($subForum);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('subForum_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,13 +58,13 @@ class SubForumController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, SubForum $subForum, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, SubForum $subForum): Response
     {
         $form = $this->createForm(SubForumType::class, $subForum);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('subForum_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -77,11 +77,11 @@ class SubForumController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, SubForum $subForum, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, SubForum $subForum): Response
     {
         if ($this->isCsrfTokenValid('delete' . $subForum->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($subForum);
-            $entityManager->flush();
+            $this->entityManager->remove($subForum);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('subForum_index', [], Response::HTTP_SEE_OTHER);

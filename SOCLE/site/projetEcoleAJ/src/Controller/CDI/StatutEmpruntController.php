@@ -28,15 +28,15 @@ class StatutEmpruntController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $statutEmprunt = new StatutEmprunt();
         $form = $this->createForm(StatutEmpruntType::class, $statutEmprunt);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($statutEmprunt);
-            $entityManager->flush();
+            $this->entityManager->persist($statutEmprunt);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('statutEmprunt_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,13 +58,13 @@ class StatutEmpruntController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, StatutEmprunt $statutEmprunt, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, StatutEmprunt $statutEmprunt): Response
     {
         $form = $this->createForm(statutEmpruntType::class, $statutEmprunt);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('statutEmprunt_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -77,11 +77,11 @@ class StatutEmpruntController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, StatutEmprunt $statutEmprunt, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, StatutEmprunt $statutEmprunt): Response
     {
         if ($this->isCsrfTokenValid('delete' . $statutEmprunt->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($statutEmprunt);
-            $entityManager->flush();
+            $this->entityManager->remove($statutEmprunt);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('statutEmprunt_index', [], Response::HTTP_SEE_OTHER);

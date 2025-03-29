@@ -28,15 +28,15 @@ class BatimentController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $batiment = new Batiment();
         $form = $this->createForm(BatimentType::class, $batiment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($batiment);
-            $entityManager->flush();
+            $this->entityManager->persist($batiment);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('batiment_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,13 +58,13 @@ class BatimentController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Batiment $batiment, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Batiment $batiment): Response
     {
         $form = $this->createForm(batimentType::class, $batiment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('batiment_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -77,11 +77,11 @@ class BatimentController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Batiment $batiment, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Batiment $batiment): Response
     {
         if ($this->isCsrfTokenValid('delete' . $batiment->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($batiment);
-            $entityManager->flush();
+            $this->entityManager->remove($batiment);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('batiment_index', [], Response::HTTP_SEE_OTHER);

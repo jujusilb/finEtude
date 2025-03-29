@@ -16,10 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/messagePrive', name: 'messagePrive_')]
 class MessagePriveController extends AbstractController
 {
-    private $entityManager;
-    function __construct(EntityManagerInterface $entityManager){
-        $this->entityManager =$entityManager;
-    }
+
     #[Route('/index', name: 'index')]
     public function index(MessagePriveRepository $messagePriveRepo): Response
     {

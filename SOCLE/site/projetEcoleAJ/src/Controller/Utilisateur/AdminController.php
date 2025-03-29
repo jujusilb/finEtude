@@ -20,11 +20,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class AdminController extends AbstractController
 {
 
-        private $passwordHasher;
-
-        public function __construct(UserPasswordHasherInterface $passwordHasher){
-            $this -> passwordHasher=$passwordHasher;
-        }
 
 
     #[Route('/index', name: 'index')]
@@ -38,7 +33,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
 
 
@@ -64,12 +59,12 @@ class AdminController extends AbstractController
                     $admin->setImageName('man.png');
                 }
             }
-            $entityManager->persist($admin);
+            $this->entityManager->persist($admin);
             $listeJeton=new MembreJeton();
             $listeJeton->setMembre($admin);
             $listeJeton->setNombreJeton(0);
-            $entityManager->persist($listeJeton);
-            $entityManager->flush();
+            $this->entityManager->persist($listeJeton);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('admin_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -90,7 +85,7 @@ class AdminController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, admin $admin, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, admin $admin): Response
     {
         $form = $this->createForm(AdminType::class, $admin);
         $form->handleRequest($request);
@@ -98,7 +93,8 @@ class AdminController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $tmpPass=$form->get('motDePasse')->getData();
             $hashTmpPass=$this->passwordHasher->hashPassword($admin, $tmpPass);
-            $admin->setPassword($hashTmpPass);$entityManager->flush();
+            $admin->setPassword($hashTmpPass);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('admin_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -111,11 +107,11 @@ class AdminController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Admin $admin, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Admin $admin): Response
     {
         if ($this->isCsrfTokenValid('delete' . $admin->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($admin);
-            $entityManager->flush();
+            $this->entityManager->remove($admin);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('admin_index', [], Response::HTTP_SEE_OTHER);

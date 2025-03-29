@@ -56,7 +56,7 @@ class ForumController extends AbstractController
     
 
     #[Route('/charte', name: 'charte')]
-    public function charte(EntityManagerInterface $entityManager, MembreRepository $membreRepo, Request $request, ForumRepository $forumRepo,  MembreRepository $userRepo): Response
+    public function charte(MembreRepository $membreRepo, Request $request, ForumRepository $forumRepo,  MembreRepository $userRepo): Response
     {
         $reponse="let's decide";
         $user=$this->getUser();
@@ -84,8 +84,8 @@ class ForumController extends AbstractController
                     if ($form->isSubmitted() && $form->isValid()) {
                         if ($user) {
                             $user->setCharte($form->get('charte')->getData()); 
-                            $entityManager->persist($user);
-                            $entityManager->flush();
+                            $this->entityManager->persist($user);
+                            $this->entityManager->flush();
                         }
                         if ($charte===true) {
                             return $this->redirectToRoute('forum_index');
@@ -115,7 +115,7 @@ class ForumController extends AbstractController
     
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $forum = new Forum();
         $form = $this->createForm(ForumType::class, $forum);
@@ -124,8 +124,8 @@ class ForumController extends AbstractController
        
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($forum);
-            $entityManager->flush();
+            $this->entityManager->persist($forum);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('forum_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -149,13 +149,13 @@ class ForumController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Forum $forum, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Forum $forum): Response
     {
         $form = $this->createForm(ForumType::class, $forum);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('forum_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -168,11 +168,11 @@ class ForumController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Forum $forum, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Forum $forum): Response
     {
         if ($this->isCsrfTokenValid('delete' . $forum->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($forum);
-            $entityManager->flush();
+            $this->entityManager->remove($forum);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('forum_index', [], Response::HTTP_SEE_OTHER);

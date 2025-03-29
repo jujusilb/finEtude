@@ -7,6 +7,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Etage</th>
                 <th>libelle</th>
                 <th>Promotion résidente</th>
                 <th>Action</th>
@@ -16,6 +17,7 @@
             {% for salle in salles %}
                 <tr>
                     <td>{{salle.id}}</td>
+                    <td>{{ salle.etage.libelle }}</td>
                     <td>{{ salle.libelle }}</td>
                     <td>
                         {% if salle.promoPrincipale | length > 0 %}

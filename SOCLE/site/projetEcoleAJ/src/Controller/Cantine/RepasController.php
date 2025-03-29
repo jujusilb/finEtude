@@ -38,15 +38,15 @@ class RepasController extends AbstractController
     }
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $repas = new Repas();
         $form = $this->createForm(RepasType::class, $repas);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($repas);
-            $entityManager->flush();
+            $this->entityManager->persist($repas);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('repas_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -68,13 +68,13 @@ class RepasController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Repas $repas, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Repas $repas): Response
     {
         $form = $this->createForm(repasType::class, $repas);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('repas_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -87,11 +87,11 @@ class RepasController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Repas $repas, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Repas $repas): Response
     {
         if ($this->isCsrfTokenValid('delete' . $repas->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($repas);
-            $entityManager->flush();
+            $this->entityManager->remove($repas);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('repas_index', [], Response::HTTP_SEE_OTHER);

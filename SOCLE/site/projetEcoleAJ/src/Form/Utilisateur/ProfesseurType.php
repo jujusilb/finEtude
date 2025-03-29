@@ -8,6 +8,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use App\Entity\Etablissement\Pole;
+use App\Entity\Pedagogie\Matiere;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -53,7 +54,7 @@ class ProfesseurType extends AbstractType
                 'required'   => true,
                 'disabled' => false,
             ])
-            ->add('pole', EntityType::class,[
+            ->add('poles', EntityType::class,[
                 'class'=>Pole::class,
                 'choice_label'=>'libelle',
                 'expanded'=>true,
@@ -88,7 +89,14 @@ class ProfesseurType extends AbstractType
                     'placeholder' => '0123456789'
                 ]
             ]) 
-
+            ->add('matieres', EntityType::class, [
+                'label'=>'Matiere enseignée(s)',
+                'class' => Matiere::class,
+                'choice_label' => 'libelle',
+                'expanded' => false,
+                'multiple' => true,
+                'mapped' => false,
+            ])
             ->add('imageFile', VichImageType::class, [
                 'required'=>false
             ])

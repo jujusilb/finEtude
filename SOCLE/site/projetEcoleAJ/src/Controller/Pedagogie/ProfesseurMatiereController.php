@@ -31,15 +31,15 @@ class ProfesseurMatiereController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request): Response
     {
         $professeurMatiere = new ProfesseurMatiere();
         $form = $this->createForm(ProfesseurMatiereType::class, $professeurMatiere);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($professeurMatiere);
-            $entityManager->flush();
+            $this->entityManager->persist($professeurMatiere);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('professeurMatiere_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -60,13 +60,13 @@ class ProfesseurMatiereController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ProfesseurMatiere $professeurMatiere, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, ProfesseurMatiere $professeurMatiere): Response
     {
         $form = $this->createForm(ProfesseurMatiereType::class, $professeurMatiere);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('professeurMatiere_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -78,11 +78,11 @@ class ProfesseurMatiereController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, ProfesseurMatiere $professeurMatiere, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, ProfesseurMatiere $professeurMatiere): Response
     {
         if ($this->isCsrfTokenValid('delete' . $professeurMatiere->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($professeurMatiere);
-            $entityManager->flush();
+            $this->entityManager->remove($professeurMatiere);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('professeurMatiere_index', [], Response::HTTP_SEE_OTHER);

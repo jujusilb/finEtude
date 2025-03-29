@@ -124,15 +124,15 @@ class DefaultController extends AbstractController
 
 
     #[Route('/contact', name: 'root_contact')]
-    public function contact(EntityManagerInterface $entityManager, Request $request){
+    public function contact(Request $request){
         $messageGuest = new MessageGuest();
         $form = $this->createForm(MessageGuestType::class, $messageGuest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $messageGuest->setCreatedAt(new \DateTimeImmutable());
-            $entityManager->persist($messageGuest);
-            $entityManager->flush();
+            $this->entityManager->persist($messageGuest);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('root_accueil', [], Response::HTTP_SEE_OTHER);
         }

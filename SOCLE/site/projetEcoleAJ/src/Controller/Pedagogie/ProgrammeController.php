@@ -20,12 +20,6 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/programme', name: 'programme_')]
 class ProgrammeController extends AbstractController
 {
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager){
-        $this -> entityManager =$entityManager;
-    }
-    
     #[Route('/index', name: 'index')]
     public function index(ProgrammeRepository $programmeRepo,
                         PromotionRepository $promotionRepo,
@@ -46,7 +40,6 @@ class ProgrammeController extends AbstractController
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
     public function new(ProgrammeRepository $programmeRepo, Request $request): Response
     {
-        $entityManager=$this->entityManager;
         $programme = new Programme();
         $form = $this->createForm(ProgrammeType::class, $programme);
         $form->handleRequest($request);
@@ -69,8 +62,8 @@ class ProgrammeController extends AbstractController
             }
             $programme->setMatiere($profMat->getMatiere());
             $programme->setPromotion($form->get('promotion')->getData());
-            $entityManager->persist($programme);
-            $entityManager->flush();
+            $this->entityManager->persist($programme);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('programme_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -98,8 +91,7 @@ class ProgrammeController extends AbstractController
         int $matiere,
         int $promotion,
         Request $request,
-        ProgrammeRepository $programmeRepository,
-        EntityManagerInterface $entityManager
+        ProgrammeRepository $programmeRepository
     ): Response {
         $programme = $programmeRepository->findOneBy([
             'professeur' => $professeur,
@@ -115,7 +107,7 @@ class ProgrammeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('programme_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -135,7 +127,6 @@ class ProgrammeController extends AbstractController
         Request $request,
         ProgrammeRepository $programmeRepo,
     ): Response {
-        $entityManager =$this->entityManager;
         $programme = $programmeRepo->findOneBy([
             'professeur' => $professeur,
             'matiere' => $matiere,
@@ -148,8 +139,8 @@ class ProgrammeController extends AbstractController
     
         $csrfTokenId = 'delete' . $professeur . $matiere . $promotion; // Créer un token CSRF unique
         if ($this->isCsrfTokenValid($csrfTokenId, $request->request->get('_token'))) {
-            $entityManager->remove($programme);
-            $entityManager->flush();
+            $this->entityManager->remove($programme);
+            $this->entityManager->flush();
         }
     
         return $this->redirectToRoute('programme_index', [], Response::HTTP_SEE_OTHER);

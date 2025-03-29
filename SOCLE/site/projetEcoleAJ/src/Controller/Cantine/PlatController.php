@@ -36,7 +36,7 @@ class PlatController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $plat = new Plat();
         $form = $this->createForm(PlatType::class, $plat);
@@ -47,8 +47,8 @@ class PlatController extends AbstractController
             $legume=$plat->getLegume()->getLibelle();
             $libelle= $viande.' '.$legume;
             $plat->setLibelle($libelle);
-            $entityManager->persist($plat);
-            $entityManager->flush();
+            $this->entityManager->persist($plat);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('plat_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -71,7 +71,7 @@ class PlatController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Plat $plat, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Plat $plat): Response
     {
         $form = $this->createForm(platType::class, $plat);
         $form->handleRequest($request);
@@ -84,7 +84,7 @@ class PlatController extends AbstractController
                 $plat->setLibelle($libelle);
             }
             
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('plat_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -97,11 +97,11 @@ class PlatController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Plat $plat, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Plat $plat): Response
     {
         if ($this->isCsrfTokenValid('delete' . $plat->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($plat);
-            $entityManager->flush();
+            $this->entityManager->remove($plat);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('plat_index', [], Response::HTTP_SEE_OTHER);

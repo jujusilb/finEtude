@@ -18,11 +18,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class InsertionController extends AbstractController
 {
 
-    private $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher){
-        $this -> passwordHasher=$passwordHasher;
-    }
 
     #[Route('/index', name: 'index')]
     public function index(InsertionRepository $insertionRepo): Response
@@ -36,7 +32,7 @@ class InsertionController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $insertion = new Insertion();
         $form = $this->createForm(InsertionType::class, $insertion);
@@ -60,12 +56,12 @@ class InsertionController extends AbstractController
                     $insertion->setImageName('man.png');
                 }
             }
-            $entityManager->persist($insertion);
+            $this->entityManager->persist($insertion);
             $listeJeton=new MembreJeton();
             $listeJeton->setMembre($insertion);
             $listeJeton->setNombreJeton(0);
-            $entityManager->persist($listeJeton);
-            $entityManager->flush();
+            $this->entityManager->persist($listeJeton);
+            $this->entityManager->flush();
             return $this->redirectToRoute('insertion_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -86,7 +82,7 @@ class InsertionController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, insertion $insertion, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, insertion $insertion): Response
     {
         $form = $this->createForm(InsertionType::class, $insertion);
         $form->handleRequest($request);
@@ -97,7 +93,7 @@ class InsertionController extends AbstractController
             $insertion->setPassword($hashTmpPass);
             $insertion->setRoles(["ROLE_INSERTION"]);
             
-            $entityManager->flush();
+            $this->entityManager->flush();
             return $this->redirectToRoute('insertion_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -109,11 +105,11 @@ class InsertionController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Insertion $insertion, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Insertion $insertion): Response
     {
         if ($this->isCsrfTokenValid('delete' . $insertion->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($insertion);
-            $entityManager->flush();
+            $this->entityManager->remove($insertion);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('insertion_index', [], Response::HTTP_SEE_OTHER);

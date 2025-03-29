@@ -27,15 +27,15 @@ class StageController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $stage = new Stage();
         $form = $this->createForm(StageType::class, $stage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($stage);
-            $entityManager->flush();
+            $this->entityManager->persist($stage);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('stage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -57,13 +57,13 @@ class StageController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Stage $stage, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Stage $stage): Response
     {
         $form = $this->createForm(stageType::class, $stage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('stage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -76,11 +76,11 @@ class StageController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Stage $stage, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Stage $stage): Response
     {
         if ($this->isCsrfTokenValid('delete' . $stage->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($stage);
-            $entityManager->flush();
+            $this->entityManager->remove($stage);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('stage_index', [], Response::HTTP_SEE_OTHER);

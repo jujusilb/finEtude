@@ -111,17 +111,23 @@
 		<li>
 		    <a class='dropdown-arrow' href='#'>Repas</a>
            	<ul class='sub-menus'>
-                <li><a href='{{path('reservationRepas_index')}}'>Reservation Repas</a></li>
-                <li><a href='{{path('reservationRepas_mesReservations')}}'>Mes Repas</a></li>
-				<li><a href='{{path('repas_index')}}'>Repas</a></li>
-                <li><a href='{{path('repas_listeRepas')}}'>liste repas</a></li>
-            </ul>
+                <li><a href='{{path('reservationRepas_index')}}'>Réservations</a></li>
+                <li><a href='{{path('reservationRepas_mesReservations')}}'>Mes réservations</a></li>
+				<li><a href='{{path('repas_listeRepas')}}'>Liste des repas</a></li>
+				<li><a href='{{path('repas_index')}}'>Index des repas</a></li>
+        	</ul>
         </li>
         <li>
 		    <a class='dropdown-arrow' href='#'>Menus</a>
 			<ul class="sub-menus">
-				<li><a href='{{ path('menu_index') }}'>liste des Menu</a></li>
-				<li><a href="{{path('menu_nouveau')}}">Création de menus</a></li>
+				<li><a href='{{ path('entree_index') }}'>Entrée</a></li>
+				<li><a href='{{ path('viande_index') }}'>Viande</a></li>
+				<li><a href='{{ path('legume_index') }}'>Légume</a></li>
+				<li><a href='{{ path('plat_index') }}'>Plat</a></li>
+				<li><a href='{{ path('fromage_index') }}'>Fromage</a></li>
+				<li><a href='{{ path('dessert_index') }}'>Dessert</a></li>
+				<li><a href='{{ path('menu_index') }}'>Liste des Menu</a></li>
+				<li><a href="{{ path('menu_nouveau')}}">Création de menus</a></li>
 			</ul>
 		</li>
         <li><a href='{{path('forum_index')}}'>Forum</a></li>
@@ -136,7 +142,7 @@
 			<a href="#">{{ app.user.username }}</a>
 			<ul class='sub-menus'>	
 				<li><a href="{{ path('membre_affichage', {'id': app.user.id }) }}">Mon Profil</a></li>
-				<li><a href='{{path('messagePrive_messagerie')}}'>Messagerie</a></li>
+				<li><a href='{{ path('messagePrive_messagerie')}}'>Messagerie</a></li>
 				<li><a href="{{ path('app_logout') }}">Se déconnecter</a></li> 
 			</ul>
 		</li>

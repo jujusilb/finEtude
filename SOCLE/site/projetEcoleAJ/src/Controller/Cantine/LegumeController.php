@@ -27,15 +27,15 @@ class LegumeController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $legume = new Legume();
         $form = $this->createForm(LegumeType::class, $legume);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($legume);
-            $entityManager->flush();
+            $this->entityManager->persist($legume);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('legume_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -57,13 +57,13 @@ class LegumeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Legume $legume, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Legume $legume): Response
     {
         $form = $this->createForm(legumeType::class, $legume);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('legume_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -76,11 +76,11 @@ class LegumeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Legume $legume, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Legume $legume): Response
     {
         if ($this->isCsrfTokenValid('delete' . $legume->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($legume);
-            $entityManager->flush();
+            $this->entityManager->remove($legume);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('legume_index', [], Response::HTTP_SEE_OTHER);

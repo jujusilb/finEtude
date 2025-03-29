@@ -28,15 +28,15 @@ class CommandeController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $commande = new Commande();
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($commande);
-            $entityManager->flush();
+            $this->entityManager->persist($commande);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('commande_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,13 +58,13 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Commande $commande): Response
     {
         $form = $this->createForm(commandeType::class, $commande);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('commande_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -77,11 +77,11 @@ class CommandeController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Commande $commande): Response
     {
         if ($this->isCsrfTokenValid('delete' . $commande->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($commande);
-            $entityManager->flush();
+            $this->entityManager->remove($commande);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('commande_index', [], Response::HTTP_SEE_OTHER);

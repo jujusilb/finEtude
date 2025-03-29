@@ -47,6 +47,17 @@ class Exercice
     #[ORM\Column(length: 255)]
     private ?string $contenu = null;
 
+    /**
+     * @var Collection<int, Note>
+     */
+    #[ORM\OneToMany(mappedBy: 'exercice', targetEntity: Note::class)]
+    private Collection $notes;
+
+    public function __construct()
+    {
+        $this->notes = new ArrayCollection();
+    }
+
     public function getId(): ?int{
         return $this->id;
     }
@@ -115,6 +126,36 @@ class Exercice
     public function setContenu(string $contenu): static
     {
         $this->contenu = $contenu;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): static
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes->add($note);
+            $note->setExercice($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): static
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getExercice() === $this) {
+                $note->setExercice(null);
+            }
+        }
 
         return $this;
     }

@@ -28,15 +28,15 @@ class CategorieOuvrageController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $categorieOuvrage = new CategorieOuvrage();
         $form = $this->createForm(CategorieOuvrageType::class, $categorieOuvrage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($categorieOuvrage);
-            $entityManager->flush();
+            $this->entityManager->persist($categorieOuvrage);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('categorieOuvrage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,13 +58,13 @@ class CategorieOuvrageController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, CategorieOuvrage $categorieOuvrage, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, CategorieOuvrage $categorieOuvrage): Response
     {
         $form = $this->createForm(categorieOuvrageType::class, $categorieOuvrage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('categorieOuvrage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -77,11 +77,11 @@ class CategorieOuvrageController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, CategorieOuvrage $categorieOuvrage, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, CategorieOuvrage $categorieOuvrage): Response
     {
         if ($this->isCsrfTokenValid('delete' . $categorieOuvrage->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($categorieOuvrage);
-            $entityManager->flush();
+            $this->entityManager->remove($categorieOuvrage);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('categorieOuvrage_index', [], Response::HTTP_SEE_OTHER);

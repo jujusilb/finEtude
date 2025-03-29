@@ -28,15 +28,15 @@ class StatutOuvrageController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $statutOuvrage = new StatutOuvrage();
         $form = $this->createForm(StatutOuvrageType::class, $statutOuvrage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($statutOuvrage);
-            $entityManager->flush();
+            $this->entityManager->persist($statutOuvrage);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('statutOuvrage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,13 +58,13 @@ class StatutOuvrageController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, StatutOuvrage $statutOuvrage, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, StatutOuvrage $statutOuvrage): Response
     {
         $form = $this->createForm(statutOuvrageType::class, $statutOuvrage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('statutOuvrage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -77,11 +77,11 @@ class StatutOuvrageController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, StatutOuvrage $statutOuvrage, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, StatutOuvrage $statutOuvrage): Response
     {
         if ($this->isCsrfTokenValid('delete' . $statutOuvrage->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($statutOuvrage);
-            $entityManager->flush();
+            $this->entityManager->remove($statutOuvrage);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('statutOuvrage_index', [], Response::HTTP_SEE_OTHER);

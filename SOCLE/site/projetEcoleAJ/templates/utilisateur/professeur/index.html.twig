@@ -13,7 +13,7 @@
                 <th class="text-nowrap">Username</th>
                 <th class="text-nowrap">E-mail</th>
                 <th class="text-nowrap">Jeton-reoas</th>
-                <th class="text-nowrap">role</th>
+                <th class="text-nowrap">Pole</th>
                 <th class="text-nowrap">Date d'Embauche</th>
                 <th class="text-nowrap">Poste</th>
                 <th class="text-nowrap">Matieres</th>
@@ -24,19 +24,19 @@
         <tbody>
             {% for professeur in professeurs %}
                 <tr>
-                    <td>{{professeur.id}}</td>
-                    <td>
+                    <td class="text-nowrap">{{professeur.id}}</td>
+                    <td class="text-nowrap">
                         {% if professeur.imageName | length >0 %}
                         <img src="{{ vich_uploader_asset(professeur, 'imageFile') }}" class="col-md-6 float-md-end mb-3 ms-md-3" style="width: 100px; height: 100px; object-fit: cover;" alt="{{ professeur.prenom }} {{ professeur.nom }}">
                         {% else %}
                         Pas de photo pour {{ professeur.prenom }} {{ professeur.nom }}
                         {% endif %}
                     </td>
-                    <td>{{ professeur.nom }}</td>
-                    <td>{{ professeur.prenom }}</td>
-                    <td>{{ professeur.username }}</td>
-                    <td>{{ professeur.email }}</td>
-                    <td>
+                    <td class="text-nowrap">{{ professeur.nom }}</td>
+                    <td class="text-nowrap">{{ professeur.prenom }}</td>
+                    <td class="text-nowrap">{{ professeur.username }}</td>
+                    <td class="text-nowrap">{{ professeur.email }}</td>
+                    <td class="text-nowrap">
                         {#{{dump (professeur)}}#}
                         {% if professeur.membreJetons.nombreJeton > 0 %}
                             {{ professeur.membreJetons.nombreJeton }}
@@ -44,39 +44,40 @@
                         Jetons épuisés
                         {% endif %}
                     </td>
-                    <td>
-                        {% for role in professeur.roles %}
-                            <li>{{ role }}</li>
-                        {% endfor %}
-                    </td>
-                    <td>{{ professeur.dateEmbauche | date('d/m/Y') }}</td>
-                    <td>{{ professeur.poste}}</td>
-                    <td>
-                    {% if professeur.ProfesseurMatiere | length > 0 %}
-                        <ul>
-                            {% for professeurMatiere in professeur.ProfesseurMatiere %}
-                               <li>
-                                    
-                                        {{ professeurMatiere.matiere.libelle }}
-                                    </a>
-                                </li>
+                    <td class="text-nowrap">
+                        {% if professeur.poles | length > 0%}
+                            {% for poles in professeur.poles %}
+                                <li>{{ poles.libelle }}</li>
                             {% endfor %}
-                        </ul>
-                    {% else %}
-                        Aucune matiere 
-                    {% endif %}
-                    
+                        {% endif %}
                     </td>
-                    <td>
-                     {% if professeur.programme | length > 0 %}
-                         {% for prog in professeur.programme %}
-                            <li>{{ prog.promotion.libelle }}</li>
-                        {% endfor %}
-                    {% else %}
-                    Aucune Promotion
-                    {% endif %}
+                    <td class="text-nowrap">{{ professeur.dateEmbauche | date('d/m/Y') }}</td>
+                    <td class="text-nowrap">{{ professeur.poste}}</td>
+                    <td class="text-nowrap">
+                        {% if professeur.ProfesseurMatiere | length > 0 %}
+                            <ul>
+                                {% for professeurMatiere in professeur.ProfesseurMatiere %}
+                                <li>
+                                        
+                                            {{ professeurMatiere.matiere.libelle }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            Aucune matiere 
+                        {% endif %}
                     </td>
-                    <td>
+                    <td class="text-nowrap">
+                        {% if professeur.programme | length > 0 %}
+                            {% for prog in professeur.programme %}
+                                <li>{{ prog.promotion.libelle }}</li>
+                            {% endfor %}
+                        {% else %}
+                        Aucune Promotion
+                        {% endif %}
+                    </td>
+                    <td class="text-nowrap">
                         <a href="{{ path('professeur_affichage', {'id': professeur.id}) }}" class="btn btn-secondary">lire</a>
                         <a href="{{ path('professeur_edition', {'id': professeur.id}) }}" class="btn btn-secondary">editer</a>
                     </td>

@@ -27,15 +27,15 @@ class ProfessionnelController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $professionnel = new Professionnel();
         $form = $this->createForm(ProfessionnelType::class, $professionnel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($professionnel);
-            $entityManager->flush();
+            $this->entityManager->persist($professionnel);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('professionnel_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -57,13 +57,13 @@ class ProfessionnelController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Professionnel $professionnel, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Professionnel $professionnel): Response
     {
         $form = $this->createForm(professionnelType::class, $professionnel);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('professionnel_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -76,11 +76,11 @@ class ProfessionnelController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Professionnel $professionnel, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Professionnel $professionnel): Response
     {
         if ($this->isCsrfTokenValid('delete' . $professionnel->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($professionnel);
-            $entityManager->flush();
+            $this->entityManager->remove($professionnel);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('professionnel_index', [], Response::HTTP_SEE_OTHER);

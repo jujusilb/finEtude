@@ -27,7 +27,7 @@
         }
         
         #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-        public function new (Request $request, EntityManagerInterface $entityManager): Response
+        public function new (Request $request): Response
         {
             $user=$this->getUser();
             if ($user instanceof Secretariat){
@@ -37,8 +37,8 @@
         
                 if ($form->isSubmitted() && $form->isValid()) {
                     $messageGeneral->setExpediteur($user);
-                    $entityManager->persist($messageGeneral);
-                    $entityManager->flush();
+                    $this->entityManager->persist($messageGeneral);
+                    $this->entityManager->flush();
                     return $this->redirectToRoute('messageGeneral_index', [], Response::HTTP_SEE_OTHER);
                 }
         
@@ -61,7 +61,7 @@
         }
 
         #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-        public function edit(Request $request, MessageGeneral $messageGeneral, EntityManagerInterface $entityManager): Response
+        public function edit(Request $request, MessageGeneral $messageGeneral): Response
         {
             $user=$this->getUser();
             if($user instanceof Secretariat){
@@ -69,7 +69,7 @@
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager->flush();
+                $this->entityManager->flush();
                 $messageGeneral->setUpdatedAt(new DateTimeImmutable());
                 return $this->redirectToRoute('messageGeneral_index', [], Response::HTTP_SEE_OTHER);
             }
@@ -84,11 +84,11 @@
         }
 
         #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-        public function delete(Request $request, MessageGeneral $messageGeneral, EntityManagerInterface $entityManager): Response
+        public function delete(Request $request, MessageGeneral $messageGeneral): Response
         {
             if ($this->isCsrfTokenValid('delete' . $messageGeneral->getId(), $request->getPayload()->getString('_token'))) {
-                $entityManager->remove($messageGeneral);
-                $entityManager->flush();
+                $this->entityManager->remove($messageGeneral);
+                $this->entityManager->flush();
             }
 
             return $this->redirectToRoute('messageGeneral_index', [], Response::HTTP_SEE_OTHER);

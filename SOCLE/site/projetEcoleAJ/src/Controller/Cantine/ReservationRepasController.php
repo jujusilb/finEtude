@@ -30,7 +30,7 @@ class ReservationRepasController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $reservationRepas = new ReservationRepas();
         $form = $this->createForm(ReservationRepasType::class, $reservationRepas);
@@ -40,8 +40,8 @@ class ReservationRepasController extends AbstractController
             $user=$this->getUser();
             $reservationRepas->setMembre($user);
 
-            $entityManager->persist($reservationRepas);
-            $entityManager->flush();
+            $this->entityManager->persist($reservationRepas);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('reservationRepas_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -63,7 +63,7 @@ class ReservationRepasController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ReservationRepas $reservationRepas, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, ReservationRepas $reservationRepas): Response
     {
         $form = $this->createForm(reservationRepasType::class, $reservationRepas);
         $form->handleRequest($request);
@@ -71,7 +71,7 @@ class ReservationRepasController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user=$this->getUser();
             $reservationRepas->setMembre($user);
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('reservationRepas_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -84,11 +84,11 @@ class ReservationRepasController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, ReservationRepas $reservationRepas, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, ReservationRepas $reservationRepas): Response
     {
         if ($this->isCsrfTokenValid('delete' . $reservationRepas->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($reservationRepas);
-            $entityManager->flush();
+            $this->entityManager->remove($reservationRepas);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('reservationRepas_index', [], Response::HTTP_SEE_OTHER);
@@ -110,7 +110,7 @@ class ReservationRepasController extends AbstractController
     }
 
     #[Route('/{repas}/achat', name: 'achat', methods: ['GET'])]
-    public function achat (Repas $repas, ReservationRepasRepository $reservationRepasRepo, EntityManagerInterface $entityManager): Response
+    public function achat (Repas $repas, ReservationRepasRepository $reservationRepasRepo): Response
     {
 
         $user = $this->getUser();
@@ -128,8 +128,8 @@ class ReservationRepasController extends AbstractController
                 $reservationRepas->setRepas($repas);
                 $reservationRepas->setMembre($user);
                 $reservationRepas->setDateAchat(new \DateTime());
-                $entityManager ->persist($reservationRepas);
-                $entityManager->flush();
+                $this->entityManager ->persist($reservationRepas);
+                $this->entityManager->flush();
                 return $this->redirectToRoute('repas_listeRepas');  // Redirection ou message de succès
             } else {
                 return $this->redirectToRoute('repas_listeRepas');
@@ -152,10 +152,10 @@ class ReservationRepasController extends AbstractController
                 $jeton=$user->getJetonRepas();
                 $jeton--;
                 $user->setJetonRepas($jeton);
-                $entityManager->persist($user);
+                $this->entityManager->persist($user);
             }
-            $entityManager->persist($reservationRepas);
-            $entityManager->flush();
+            $this->entityManager->persist($reservationRepas);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('reservationRepas_index', [], Response::HTTP_SEE_OTHER);
         

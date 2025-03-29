@@ -18,11 +18,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class CuisineController extends AbstractController
 {
 
-    private $passwordHasher;
-
-    public function __construct(UserPasswordHasherInterface $passwordHasher){
-        $this -> passwordHasher=$passwordHasher;
-    }
 
     #[Route('/index', name: 'index')]
     public function index(cuisineRepository $cuisineRepo): Response
@@ -35,7 +30,7 @@ class CuisineController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $cuisine = new Cuisine();
         $form = $this->createForm(CuisineType::class, $cuisine);
@@ -62,12 +57,12 @@ class CuisineController extends AbstractController
                     $cuisine->setImageName('man.png');
                 }
             }
-            $entityManager->persist($cuisine);
+            $this->entityManager->persist($cuisine);
             $listeJeton=new MembreJeton();
             $listeJeton->setMembre($cuisine);
             $listeJeton->setNombreJeton(0);
-            $entityManager->persist($listeJeton);
-            $entityManager->flush();
+            $this->entityManager->persist($listeJeton);
+            $this->entityManager->flush();
             
 
             return $this->redirectToRoute('cuisine_index', [], Response::HTTP_SEE_OTHER);
@@ -90,7 +85,7 @@ class CuisineController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Cuisine $cuisine, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Cuisine $cuisine): Response
     {
         $form = $this->createForm(CuisineType::class, $cuisine);
         $form->handleRequest($request);
@@ -99,7 +94,7 @@ class CuisineController extends AbstractController
             $tmpPass=$form->get('motDePasse')->getData();
             $hashTmpPass=$this->passwordHasher->hashPassword($cuisine, $tmpPass);
             $cuisine->setPassword($hashTmpPass);
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('cuisine_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -112,11 +107,11 @@ class CuisineController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Cuisine $cuisine, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Cuisine $cuisine): Response
     {
         if ($this->isCsrfTokenValid('delete' . $cuisine->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($cuisine);
-            $entityManager->flush();
+            $this->entityManager->remove($cuisine);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('cuisine_index', [], Response::HTTP_SEE_OTHER);

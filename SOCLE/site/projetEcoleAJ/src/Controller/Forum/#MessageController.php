@@ -27,7 +27,7 @@ class MessageController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $message = new Message();
         $form = $this->createForm(MessageType::class, $message);
@@ -38,8 +38,8 @@ class MessageController extends AbstractController
             $message->setExpediteur($user);
             $message->setCreatedAt(new \DateTimeImmutable());
             $message->setUpdatedAt(new \DateTimeImmutable());
-            $entityManager->persist($message);
-            $entityManager->flush();
+            $this->entityManager->persist($message);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -61,7 +61,7 @@ class MessageController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Message $message, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Message $message): Response
     {
         $form = $this->createForm(messageType::class, $message);
         $form->handleRequest($request);
@@ -70,7 +70,7 @@ class MessageController extends AbstractController
             $user=$this->getUser();
             $message->setExpediteur($user);
             $message->setUpdatedAt(new \DateTimeImmutable());
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -83,11 +83,11 @@ class MessageController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Message $message, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Message $message): Response
     {
         if ($this->isCsrfTokenValid('delete' . $message->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($message);
-            $entityManager->flush();
+            $this->entityManager->remove($message);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('message_index', [], Response::HTTP_SEE_OTHER);

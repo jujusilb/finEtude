@@ -27,15 +27,15 @@ class EntreeController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $entree = new Entree();
         $form = $this->createForm(EntreeType::class, $entree);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($entree);
-            $entityManager->flush();
+            $this->entityManager->persist($entree);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('entree_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -57,13 +57,13 @@ class EntreeController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Entree $entree, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Entree $entree): Response
     {
         $form = $this->createForm(entreeType::class, $entree);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('entree_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -76,11 +76,11 @@ class EntreeController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Entree $entree, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Entree $entree): Response
     {
         if ($this->isCsrfTokenValid('delete' . $entree->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($entree);
-            $entityManager->flush();
+            $this->entityManager->remove($entree);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('entree_index', [], Response::HTTP_SEE_OTHER);

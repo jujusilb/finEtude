@@ -41,7 +41,7 @@ class CoursController extends AbstractController
     }
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (MembreRepository $membreRepo, Request $request, EntityManagerInterface $entityManager): Response
+    public function new (MembreRepository $membreRepo, Request $request): Response
     {
         $cours = new Cours();
         $form = $this->createForm(CoursType::class, $cours);
@@ -68,8 +68,8 @@ class CoursController extends AbstractController
                 }
             }
            
-            $entityManager->persist($cours);
-            $entityManager->flush();
+            $this->entityManager->persist($cours);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('cours_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -91,7 +91,7 @@ class CoursController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Cours $cours, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Cours $cours): Response
     {
         $form = $this->createForm(coursType::class, $cours);
         $form->handleRequest($request);
@@ -117,7 +117,7 @@ class CoursController extends AbstractController
             }
            
            
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('cours_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -130,11 +130,11 @@ class CoursController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Cours $cours, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Cours $cours): Response
     {
         if ($this->isCsrfTokenValid('delete' . $cours->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($cours);
-            $entityManager->flush();
+            $this->entityManager->remove($cours);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('cours_index', [], Response::HTTP_SEE_OTHER);

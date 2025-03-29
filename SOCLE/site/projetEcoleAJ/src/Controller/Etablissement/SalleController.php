@@ -28,15 +28,15 @@ class SalleController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $salle = new Salle();
         $form = $this->createForm(SalleType::class, $salle);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($salle);
-            $entityManager->flush();
+            $this->entityManager->persist($salle);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('salle_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,13 +58,13 @@ class SalleController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Salle $salle, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Salle $salle): Response
     {
         $form = $this->createForm(salleType::class, $salle);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('salle_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -77,11 +77,11 @@ class SalleController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Salle $salle, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Salle $salle): Response
     {
         if ($this->isCsrfTokenValid('delete' . $salle->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($salle);
-            $entityManager->flush();
+            $this->entityManager->remove($salle);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('salle_index', [], Response::HTTP_SEE_OTHER);

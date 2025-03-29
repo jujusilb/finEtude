@@ -28,7 +28,7 @@ class ThreadController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $thread = new Thread();
         $form = $this->createForm(ThreadType::class, $thread);
@@ -38,8 +38,8 @@ class ThreadController extends AbstractController
             $user=$this->getUser();
             $thread->setCreateur($user);
             $thread->setCreatedAt(new DateTimeImmutable());
-            $entityManager->persist($thread);
-            $entityManager->flush();
+            $this->entityManager->persist($thread);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('thread_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -61,13 +61,13 @@ class ThreadController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Thread $thread, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Thread $thread): Response
     {
         $form = $this->createForm(ThreadType::class, $thread);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('thread_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -80,11 +80,11 @@ class ThreadController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Thread $thread, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Thread $thread): Response
     {
         if ($this->isCsrfTokenValid('delete' . $thread->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($thread);
-            $entityManager->flush();
+            $this->entityManager->remove($thread);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('thread_index', [], Response::HTTP_SEE_OTHER);

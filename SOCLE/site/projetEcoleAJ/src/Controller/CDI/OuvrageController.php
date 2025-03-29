@@ -53,15 +53,15 @@ class OuvrageController extends AbstractController
     }
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $ouvrage = new Ouvrage();
         $form = $this->createForm(OuvrageType::class, $ouvrage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($ouvrage);
-            $entityManager->flush();
+            $this->entityManager->persist($ouvrage);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('ouvrage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -83,13 +83,13 @@ class OuvrageController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Ouvrage $ouvrage, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Ouvrage $ouvrage): Response
     {
         $form = $this->createForm(ouvrageType::class, $ouvrage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('ouvrage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -102,11 +102,11 @@ class OuvrageController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Ouvrage $ouvrage, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Ouvrage $ouvrage): Response
     {
         if ($this->isCsrfTokenValid('delete' . $ouvrage->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($ouvrage);
-            $entityManager->flush();
+            $this->entityManager->remove($ouvrage);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('ouvrage_index', [], Response::HTTP_SEE_OTHER);

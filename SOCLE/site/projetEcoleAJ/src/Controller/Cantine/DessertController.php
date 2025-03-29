@@ -29,15 +29,15 @@ class DessertController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $dessert = new Dessert();
         $form = $this->createForm(DessertType::class, $dessert);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($dessert);
-            $entityManager->flush();
+            $this->entityManager->persist($dessert);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('dessert_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -59,13 +59,13 @@ class DessertController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Dessert $dessert, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Dessert $dessert): Response
     {
         $form = $this->createForm(dessertType::class, $dessert);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('dessert_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -78,11 +78,11 @@ class DessertController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Dessert $dessert, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Dessert $dessert): Response
     {
         if ($this->isCsrfTokenValid('delete' . $dessert->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($dessert);
-            $entityManager->flush();
+            $this->entityManager->remove($dessert);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('dessert_index', [], Response::HTTP_SEE_OTHER);

@@ -28,15 +28,15 @@ class EtageController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $etage = new Etage();
         $form = $this->createForm(EtageType::class, $etage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($etage);
-            $entityManager->flush();
+            $this->entityManager->persist($etage);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('etage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -58,13 +58,13 @@ class EtageController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Etage $etage, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Etage $etage): Response
     {
         $form = $this->createForm(etageType::class, $etage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('etage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -77,11 +77,11 @@ class EtageController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Etage $etage, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Etage $etage): Response
     {
         if ($this->isCsrfTokenValid('delete' . $etage->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($etage);
-            $entityManager->flush();
+            $this->entityManager->remove($etage);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('etage_index', [], Response::HTTP_SEE_OTHER);

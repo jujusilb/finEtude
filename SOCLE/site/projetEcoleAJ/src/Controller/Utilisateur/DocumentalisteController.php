@@ -18,11 +18,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class DocumentalisteController extends AbstractController
 {
 
-    private $passwordHasher;
-
-    public function __construct(UserPasswordHasherInterface $passwordHasher){
-        $this -> passwordHasher=$passwordHasher;
-    }
 
     #[Route('/index', name: 'index')]
     public function index(DocumentalisteRepository $documentalisteRepo): Response
@@ -35,7 +30,7 @@ class DocumentalisteController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
 
 
@@ -65,12 +60,12 @@ class DocumentalisteController extends AbstractController
                     $documentaliste->setImageName('man.png');
                 }
             }
-            $entityManager->persist($documentaliste);
+            $this->entityManager->persist($documentaliste);
             $listeJeton=new MembreJeton();
             $listeJeton->setMembre($documentaliste);
             $listeJeton->setNombreJeton(0);
-            $entityManager->persist($listeJeton);
-            $entityManager->flush();
+            $this->entityManager->persist($listeJeton);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('documentaliste_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -92,7 +87,7 @@ class DocumentalisteController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Documentaliste $documentaliste, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Documentaliste $documentaliste): Response
     {
         $form = $this->createForm(DocumentalisteType::class, $documentaliste);
         $form->handleRequest($request);
@@ -101,7 +96,7 @@ class DocumentalisteController extends AbstractController
             $tmpPass=$form->get('motDePasse')->getData();
             $hashTmpPass=$this->passwordHasher->hashPassword($documentaliste, $tmpPass);
             $documentaliste->setPassword($hashTmpPass);
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('documentaliste_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -114,11 +109,11 @@ class DocumentalisteController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Documentaliste $documentaliste, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Documentaliste $documentaliste): Response
     {
         if ($this->isCsrfTokenValid('delete' . $documentaliste->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($documentaliste);
-            $entityManager->flush();
+            $this->entityManager->remove($documentaliste);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('documentaliste_index', [], Response::HTTP_SEE_OTHER);

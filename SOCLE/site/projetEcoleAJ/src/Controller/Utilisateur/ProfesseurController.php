@@ -4,10 +4,13 @@ namespace App\Controller\Utilisateur;
 
 use App\Outils\CouteauSuisse;
 use App\Entity\Utilisateur\Professeur;
+use App\Entity\Pedagogie\ProfesseurMatiere;
 use App\Form\Utilisateur\ProfesseurType;
 use App\Repository\Pedagogie\MatiereRepository;
+use App\Repository\Pedagogie\ProfesseurMatiereRepository;
 use App\Repository\Utilisateur\ProfesseurRepository;
 use App\Entity\Boutique\MembreJeton;
+use App\Tests\WebTest\Pedagogie\ProfesseurMatiereRouteTest;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,11 +22,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ProfesseurController extends AbstractController
 {
 
-    private $passwordHasher;
-
-    public function __construct(UserPasswordHasherInterface $passwordHasher){
-        $this -> passwordHasher=$passwordHasher;
-    }
 
     #[Route('/index', name: 'index')]
     public function index(MatiereRepository $matiereRepo, ProfesseurRepository $professeurRepo): Response
@@ -40,7 +38,7 @@ class ProfesseurController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (ProfesseurMatiereRepository $profMatRepo, Request $request): Response
     {
         $professeur = new Professeur();
         $form = $this->createForm(ProfesseurType::class, $professeur);
@@ -56,7 +54,21 @@ class ProfesseurController extends AbstractController
             
             $hashTmpPass=$this->passwordHasher->hashPassword($professeur, $tmpPass);
             $professeur->setPassword($hashTmpPass);
-            
+            $matieres = $form->get('matieres')->getData();
+            foreach ($matieres as $matiere) {
+                // Vérifier si l'association existe déjà
+                $existingProfesseurMatiere =$profMatRepo->findOneBy([
+                    'professeur' => $professeur,
+                    'matiere' => $matiere,
+                ]);
+
+                if (!$existingProfesseurMatiere) {
+                    $professeurMatiere = new ProfesseurMatiere();
+                    $professeurMatiere->setProfesseur($professeur);
+                    $professeurMatiere->setMatiere($matiere);
+                    $this->entityManager->persist($professeurMatiere);
+                }
+            }
             $getter =new CouteauSuisse();
             $username= $getter->getUsername($form->get('prenom')->getData(), $form->get('nom')->getData());
             $email =$getter->getEmail($username);
@@ -69,12 +81,12 @@ class ProfesseurController extends AbstractController
                     $professeur->setImageName('man.png');
                 }
             }
-            $entityManager->persist($professeur);
+            $this->entityManager->persist($professeur);
             $listeJeton=new MembreJeton();
             $listeJeton->setMembre($professeur);
             $listeJeton->setNombreJeton(0);
-            $entityManager->persist($listeJeton);
-            $entityManager->flush();
+            $this->entityManager->persist($listeJeton);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('professeur_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -96,11 +108,33 @@ class ProfesseurController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Professeur $professeur, EntityManagerInterface $entityManager): Response
+    public function edit(ProfesseurMatiereRepository $profMatRepo, Request $request, Professeur $professeur): Response
     {
         $form = $this->createForm(ProfesseurType::class, $professeur);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $tabYet=$profMatRepo->findby(['professeur'=>$professeur]);
+            $matieres = $form->get('matieres')->getData();
+            foreach ($tabYet as $relationYet) {
+                $matiereInExisting = $relationYet->getMatiere();
+                if (!in_array($matiereInExisting, $matieres->toArray())) {
+                    $this->entityManager->remove($relationYet);
+                }
+            }
+    
+            foreach ($matieres as $matiere) {
+                $professeurMatiereYet = $profMatRepo->findOneBy([
+                    'professeur' => $professeur,
+                    'matiere' => $matiere,
+                ]);
+    
+                if (!$professeurMatiereYet) {
+                    $professeurMatiere = new ProfesseurMatiere();
+                    $professeurMatiere->setProfesseur($professeur);
+                    $professeurMatiere->setMatiere($matiere);
+                    $this->entityManager->persist($professeurMatiere);
+                }
+            }
             $professeur->setRoles(["ROLE_PROFESSEUR"]);
             $tmpPass=trim($form->get('motDePasse')->getData());
             $hashTmpPass=$this->passwordHasher->hashPassword($professeur, $tmpPass);
@@ -114,8 +148,8 @@ class ProfesseurController extends AbstractController
             $professeur->setEmail($email);
             
 
-            $entityManager->persist($professeur);
-            $entityManager->flush();
+            $this->entityManager->persist($professeur);
+            $this->entityManager->flush();
     
             return $this->redirectToRoute('professeur_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -129,11 +163,11 @@ class ProfesseurController extends AbstractController
     }
 
     #[Route('/{id}/dlete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Professeur $professeur, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Professeur $professeur): Response
     {
         if ($this->isCsrfTokenValid('delete' . $professeur->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($professeur);
-            $entityManager->flush();
+            $this->entityManager->remove($professeur);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('professeur_index', [], Response::HTTP_SEE_OTHER);

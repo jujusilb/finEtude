@@ -24,13 +24,6 @@ use Symfony\Component\Routing\Attribute\Route;
 final class BoutiqueController extends AbstractController
 {
 
-    private $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
     #[Route('/index', name: 'index')]
     public function index(): Response
     {
@@ -66,8 +59,8 @@ final class BoutiqueController extends AbstractController
     public function AchatProduit(Request $request, $idProduit){
 
         $user = $this->getUser();
-        $entityManager = $this->entityManager;
-        $produit = $entityManager->getRepository(Produit::class)->find($idProduit);
+        
+        $produit = $this->entityManager->getRepository(Produit::class)->find($idProduit);
         $quantity = $request->get('quantity');
         if (!$produit) {
             throw $this->createNotFoundException('Produit non trouvé');
@@ -85,7 +78,7 @@ final class BoutiqueController extends AbstractController
         $commande->setPrixTotal($prixTotal);
         $commande->setDateAchat(new \DateTime());
         $produit->setStock($produit->getstock() - $quantity);
-        $entityManager->persist($commande);
+        $this->entityManager->persist($commande);
         //dd('user', $user, 'quantity', $quantity, 'produit', $produit, 'type', $produit->getCategorieProduit()->getLibelle());
         if ($produit->getCategorieProduit()->getLibelle() === 'Jeton') {
             $this->updateMembreJeton($user, $quantity);
@@ -98,15 +91,14 @@ final class BoutiqueController extends AbstractController
             }
         }
     
-        $entityManager->flush();
+        $this->entityManager->flush();
         return $this->redirectToRoute('boutique_liste');
     }
 
  
     private function updateMembreJeton($user, $quantity)
     {
-        $entityManager = $this->entityManager;
-        $record=$entityManager->getRepository(MembreJeton::class)->findOneBy(['membre'=>$user]);
+        $record=$this->entityManager->getRepository(MembreJeton::class)->findOneBy(['membre'=>$user]);
         if (!$record){
             $record=new MembreJeton();
             $record->setMembre($user);
@@ -116,17 +108,14 @@ final class BoutiqueController extends AbstractController
             $jeton=$record->getNombreJeton();
             $record->setNombreJeton($jeton+$quantity);
         }
-        $entityManager->persist($record);
-        $entityManager->flush();
+        $this->entityManager->persist($record);
+        $this->entityManager->flush();
     }
     
    
     private function addMembreToEvent($user, $produit)
     {
-        $entityManager = $this->entityManager;
-    
-        // Vérifier si l'utilisateur est déjà inscrit à cet événement
-        $membreEventExistant = $entityManager->getRepository(MembreEvent::class)->findOneBy([
+        $membreEventExistant = $this->entityManager->getRepository(MembreEvent::class)->findOneBy([
             'membre' => $user,
             'produit' => $produit,
         ]);
@@ -142,8 +131,8 @@ final class BoutiqueController extends AbstractController
         $membreEvent->setMembre($user);
         $membreEvent->setProduit($produit);
         $membreEvent->setCreatedAt(new DateTimeImmutable());
-        $entityManager->persist($membreEvent);
-        $entityManager->flush();
+        $this->entityManager->persist($membreEvent);
+        $this->entityManager->flush();
     
         // Ou, si vous ne voulez pas lancer d'exception :
         // return true;

@@ -1,56 +1,59 @@
 {{ form_start(professeurForm) }}
+    {{ form_errors(professeurForm) }}
+
+    {{ form_widget(professeurForm.civilite) }}
 
     <div class="row">
-        <!-- Première ligne : Nom et Prénom -->
         <div class="col-sm-6">
             <label for="professeur_Nom">Nom</label>
-            {{ form_widget(professeurForm.nom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+            {{ form_widget(professeurForm.nom, {'attr': {'style' :'width:auto;'}}) }}
+            {{ form_errors(professeurForm.nom) }}
         </div>
         <div class="col-sm-6">
             <label for="professeur_prenom">Prénom</label>
             {{ form_widget(professeurForm.prenom, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+            {{ form_errors(professeurForm.prenom) }}
         </div>
     </div>
 
     <div class="row">
-        <!-- Deuxième ligne : Mot de passe et Image -->
         <div class="col-sm-6">
             <label for="professeur_motDePasse">Mot de passe</label>
-            {{ form_widget(professeurForm.motDePasse, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+            {{ form_widget(professeurForm.motDePasse, {'attr': {'style' :'width:auto;', 'class': 'form-select', 'type': 'password'}}) }}
+            {{ form_errors(professeurForm.motDePasse) }}
         </div>
         <div class="col-sm-6">
             <label for="professeur_image_file">Image</label>
             {{ form_widget(professeurForm.imageFile, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+            {{ form_errors(professeurForm.imageFile) }}
         </div>
     </div>
 
     <div class="row">
-        <!-- Troisième ligne : Date d'embauche et Téléphone bureau -->
         <div class="col-sm-6">
             <label for="date_embauche">Date d'embauche</label>
-            <div class="row">
+            <div class="d-flex">
                 {{ form_widget(professeurForm.date_embauche.day, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
                 {{ form_widget(professeurForm.date_embauche.month, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
                 {{ form_widget(professeurForm.date_embauche.year, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
             </div>
+            {{ form_errors(professeurForm.date_embauche) }}
         </div>
         <div class="col-sm-6">
             <label for="professeur_poste">Téléphone bureau</label>
             {{ form_widget(professeurForm.poste, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+            {{ form_errors(professeurForm.poste) }}
         </div>
     </div>
-    <div>
 
-    </div>
     <div class="row">
         <div class="col-sm-12">
-            <label for="professeur__form_pole">pôle</label>
-            {{ form_widget(professeurForm.pole, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+            <label for="professeur__form_pole">Pôle</label>
+            {{ form_widget(professeurForm.poles, {'attr': {'style' :'width:auto;', 'class': 'form-select'}}) }}
+            {{ form_errors(professeurForm.poles) }}
         </div>
-        <!-- Quatrième ligne : Jeton repas -->
-        
     </div>
 
-    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button> <br><br>
+    <button class="btn btn-primary">{{ button_label|default('Enregistrez') }}</button>
 
 {{ form_end(professeurForm) }}

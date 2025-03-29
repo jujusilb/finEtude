@@ -36,7 +36,7 @@ class MenuController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $menu = new Menu();
         $form = $this->createForm(MenuType::class, $menu);
@@ -44,27 +44,27 @@ class MenuController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entreeId = $form->get('entree_id')->getData(); // This will give you the ID (a string)
-            $entree = $entityManager->getRepository(Entree::class)->find($entreeId); // Fetch the actual Entree object by ID
+            $entree = $this->entityManager->getRepository(Entree::class)->find($entreeId); // Fetch the actual Entree object by ID
             if ($entree instanceof Entree){
                 $menu->setEntree($entree);
             }
             $platId = $form->get('plat_id')->getData(); // This will give you the ID (a string)
-            $plat = $entityManager->getRepository(Plat::class)->find($platId); // Fetch the actual Entree object by ID
+            $plat = $this->entityManager->getRepository(Plat::class)->find($platId); // Fetch the actual Entree object by ID
             if ($plat instanceof Plat){
                 $menu->setPlat($plat);
             }
             $fromageId = $form->get('fromage_id')->getData(); // This will give you the ID (a string)
-            $fromage = $entityManager->getRepository(Fromage::class)->find($fromageId); // Fetch the actual Entree object by ID
+            $fromage = $this->entityManager->getRepository(Fromage::class)->find($fromageId); // Fetch the actual Entree object by ID
             if ($fromage instanceof Fromage){
                  $menu->setFromage($fromage);
             }
             $dessertId = $form->get('dessert_id')->getData(); // This will give you the ID (a string)
-            $dessert = $entityManager->getRepository(Dessert::class)->find($dessertId); // Fetch the actual Entree object by ID
+            $dessert = $this->entityManager->getRepository(Dessert::class)->find($dessertId); // Fetch the actual Entree object by ID
             if ($dessert instanceof Dessert){
                 $menu->setDessert($dessert);
             }
-            $entityManager->persist($menu);
-            $entityManager->flush();
+            $this->entityManager->persist($menu);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('menu_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -86,13 +86,13 @@ class MenuController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Menu $menu, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Menu $menu): Response
     {
         $form = $this->createForm(menuType::class, $menu);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('menu_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -105,11 +105,11 @@ class MenuController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Menu $menu, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Menu $menu): Response
     {
         if ($this->isCsrfTokenValid('delete' . $menu->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($menu);
-            $entityManager->flush();
+            $this->entityManager->remove($menu);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('menu_index', [], Response::HTTP_SEE_OTHER);

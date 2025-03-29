@@ -27,7 +27,8 @@
                     <td>{{ reservationRepas.repas.date | date('d/m/Y') }} {{ reservationRepas.repas.heure}}</td>
                     <td>
                         <a href="{{ path('reservationRepas_affichage', {'id': reservationRepas.id}) }}" class="btn btn-secondary">lire</a>
-                        <a href="{{ path('reservationRepas_edition', {'id': reservationRepas.id}) }}" class="btn btn-secondary">editer</a>
+                        {#<a href="{{ path('reservationRepas_edition', {'id': reservationRepas.id}) }}" class="btn btn-secondary">editer</a>#}
+                    {{ include('cantine/reservation_repas/_delete_form.html.twig') }}
                     </td>
                 </tr>
             {% endfor %}

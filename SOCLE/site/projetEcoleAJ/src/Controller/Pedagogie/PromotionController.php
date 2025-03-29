@@ -22,7 +22,6 @@ class PromotionController extends AbstractController
 {
     #[Route('/index', name: 'index')]
     public function index(
-        EntityManagerInterface $entityManager, 
         PromotionRepository $promotionRepo, 
         EleveRepository $eleveRepo,
         ProgrammeRepository $programmeRepo): Response
@@ -37,7 +36,7 @@ class PromotionController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request): Response
     {
         $promotion = new Promotion();
         $form = $this->createForm(PromotionType::class, $promotion);
@@ -45,8 +44,8 @@ class PromotionController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($promotion);
-            $entityManager->flush();
+            $this->entityManager->persist($promotion);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('promotion_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -69,13 +68,13 @@ class PromotionController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Promotion $promotion, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Promotion $promotion): Response
     {
         $form = $this->createForm(PromotionType::class, $promotion);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('promotion_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -88,11 +87,11 @@ class PromotionController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Promotion $promotion, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Promotion $promotion): Response
     {
         if ($this->isCsrfTokenValid('delete' . $promotion->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($promotion);
-            $entityManager->flush();
+            $this->entityManager->remove($promotion);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('promotion_index', [], Response::HTTP_SEE_OTHER);

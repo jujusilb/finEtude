@@ -44,12 +44,12 @@ class Personnel extends Adulte{
      * @var Collection<int, Pole>
      */
     #[ORM\ManyToMany(targetEntity: Pole::class, inversedBy: 'personnels')]
-    private Collection $pole;
+    private Collection $poles;
 
     public function __construct()
     {
         parent::__construct();
-        $this->pole = new ArrayCollection();
+        $this->poles = new ArrayCollection();
     }
 
     public function getDateEmbauche(): ?\DateTimeInterface
@@ -75,23 +75,23 @@ class Personnel extends Adulte{
     /**
      * @return Collection<int, Pole>
      */
-    public function getPole(): Collection
+    public function getPoles(): Collection
     {
-        return $this->pole;
+        return $this->poles;
     }
 
-    public function addPole(Pole $pole): static
+    public function addPoles(Pole $pole): static
     {
-        if (!$this->pole->contains($pole)) {
-            $this->pole->add($pole);
+        if (!$this->poles->contains($pole)) {
+            $this->poles->add($pole);
         }
 
         return $this;
     }
 
-    public function removePole(Pole $pole): static
+    public function removePoles(Pole $pole): static
     {
-        $this->pole->removeElement($pole);
+        $this->poles->removeElement($pole);
 
         return $this;
     }

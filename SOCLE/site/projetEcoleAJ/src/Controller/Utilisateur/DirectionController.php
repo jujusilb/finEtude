@@ -18,11 +18,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class DirectionController extends AbstractController
 {
 
-    private $passwordHasher;
-
-    public function __construct(UserPasswordHasherInterface $passwordHasher){
-        $this -> passwordHasher=$passwordHasher;
-    }
+  
 
     #[Route('/index', name: 'index')]
     public function index(directionRepository $directionRepo): Response
@@ -35,7 +31,7 @@ class DirectionController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $direction = new Direction();
         $form = $this->createForm(DirectionType::class, $direction);
@@ -62,12 +58,12 @@ class DirectionController extends AbstractController
                     $direction->setImageName('man.png');
                 }
             }
-            $entityManager->persist($direction);
+            $this->entityManager->persist($direction);
             $listeJeton=new MembreJeton();
             $listeJeton->setMembre($direction);
             $listeJeton->setNombreJeton(0);
-            $entityManager->persist($listeJeton);
-            $entityManager->flush();
+            $this->entityManager->persist($listeJeton);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('direction_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -89,7 +85,7 @@ class DirectionController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Direction $direction, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Direction $direction): Response
     {
         $form = $this->createForm(DirectionType::class, $direction);
         $form->handleRequest($request);
@@ -97,7 +93,8 @@ class DirectionController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $tmpPass=$form->get('motDePasse')->getData();
             $hashTmpPass=$this->passwordHasher->hashPassword($direction, $tmpPass);
-            $direction->setPassword($hashTmpPass);$entityManager->flush();
+            $direction->setPassword($hashTmpPass);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('direction_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -110,11 +107,11 @@ class DirectionController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Direction $direction, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Direction $direction): Response
     {
         if ($this->isCsrfTokenValid('delete' . $direction->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($direction);
-            $entityManager->flush();
+            $this->entityManager->remove($direction);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('direction_index', [], Response::HTTP_SEE_OTHER);

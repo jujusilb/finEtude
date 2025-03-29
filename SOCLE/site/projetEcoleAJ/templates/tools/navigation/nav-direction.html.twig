@@ -102,25 +102,35 @@
     <ul>
         <li><a href="{{ path('root_accueil') }}">Accueil</a></li>
         <li>
+			<a href="#">Etablisement</a></a>
+			<ul class="sub-menus">
+				<li><a href="{{path('batiment_index')}}">Batiment</a></li>
+				<li><a href="{{path('etage_index')}}">Etage</a></li>
+				<li><a href="{{path('salle_index')}}">Salle</a></li>
+			</ul>
+		</li>
+		<li>
             <a href="{{ path('insertion_index') }}">Insertion</a>
-            <ul class="sub-menu">
-                <li><a href='{{path('entreprise_index')}}'>liste des entreprise</a></li>
-                <li><a href='{{path('stage_index')}}'>liste des stages</a></li>
-                <li><a href="{{path('professionnel_index')}}>Liste des contacts</a></li>
+            <ul class="sub-menus">
+                <li><a href='{{ path('entreprise_index')}}'>Liste des entreprise</a></li>
+                <li><a href='{{ path('stage_index')}}'>Liste des stages</a></li>
+                <li><a href='{{ path('professionnel_index')}}'>Liste des contacts</a></li>
             </ul>
+		</li>
         <li>
             <a class='dropdown-arrow' href='{{path('documentaliste_index')}}'>CDI</a>
             <ul class='sub-menus'>
-                <li><a href='{{path('ouvrage_catalogue')}}'>Catalogue des Ouvrages</a></li>
-                <li><a href='{{path('emprunts_index')}}'>Mes Emprunts</a></li>
+                <li><a href='{{ path('ouvrage_catalogue')}}'>Catalogue</a></li>
+                <li><a href='{{ path('emprunt_index')}}'>Mes Emprunts</a></li>
             </ul>
         </li>
         <li>
             <a href="{{path('cuisine_index')}}">Cantine</a>
-            <ul class="sub-menu">
-                <a href='{{path('repas_listeRepas')}}'>liste des repas</a></li>
+            <ul class="sub-menus">
+                <li><a href='{{path('repas_listeRepas')}}'>liste des repas</a></li>
                 <li><a href='{{path('reservationRepas_mesReservations')}}'>Mes repas</a></li>
             </ul>
+		</li>
         <li><a href='{{path('forum_index')}}'>Forum</a></li>
 		<li>
 			<a href="#">Boutique</a>

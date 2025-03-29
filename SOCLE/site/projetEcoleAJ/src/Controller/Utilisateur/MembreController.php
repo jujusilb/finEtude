@@ -19,11 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[Route('/membre', name: 'membre_')]
 class MembreController extends AbstractController
 {
-    private $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher){
-        $this -> passwordHasher=$passwordHasher;
-    }
 
     #[Route('/index', name: 'index')]
     public function index(MembreRepository $membreRepo): Response
@@ -36,7 +32,7 @@ class MembreController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $membre = new Membre();
         $form = $this->createForm(MembreType::class, $membre);
@@ -60,12 +56,12 @@ class MembreController extends AbstractController
                 }
             }
             $membre->setCreatedAt(new \DateTimeImmutable()); // Set the createdAt field before persisting
-            $entityManager->persist($membre);
+            $this->entityManager->persist($membre);
             $listeJeton=new MembreJeton();
             $listeJeton->setMembre($membre);
             $listeJeton->setNombreJeton(0);
-            $entityManager->persist($listeJeton);
-            $entityManager->flush();
+            $this->entityManager->persist($listeJeton);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('membre_index', [
                 'titre' => 'Nouveau Membre'
@@ -89,7 +85,7 @@ class MembreController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Membre $membre, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Membre $membre): Response
     {
         $form = $this->createForm(MembreType::class, $membre);
         $form->handleRequest($request);
@@ -99,7 +95,7 @@ class MembreController extends AbstractController
             $hashTmpPass=$this->passwordHasher->hashPassword($membre, $tmpPass);
             $membre->setPassword($hashTmpPass);
             
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('membre_index', 
             ['titre' => 'Edition Membre'],
@@ -114,11 +110,11 @@ class MembreController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Membre $membre, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Membre $membre): Response
     {
         if ($this->isCsrfTokenValid('delete' . $membre->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($membre);
-            $entityManager->flush();
+            $this->entityManager->remove($membre);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('membre_index', [], Response::HTTP_SEE_OTHER);

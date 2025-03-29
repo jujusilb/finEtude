@@ -29,15 +29,15 @@ class FromageController extends AbstractController
 
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $fromage = new Fromage();
         $form = $this->createForm(FromageType::class, $fromage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($fromage);
-            $entityManager->flush();
+            $this->entityManager->persist($fromage);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('fromage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -59,13 +59,13 @@ class FromageController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Fromage $fromage, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Fromage $fromage): Response
     {
         $form = $this->createForm(fromageType::class, $fromage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('fromage_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -78,11 +78,11 @@ class FromageController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Fromage $fromage, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Fromage $fromage): Response
     {
         if ($this->isCsrfTokenValid('delete' . $fromage->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($fromage);
-            $entityManager->flush();
+            $this->entityManager->remove($fromage);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('fromage_index', [], Response::HTTP_SEE_OTHER);

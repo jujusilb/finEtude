@@ -1,4 +1,5 @@
 delete from message_prive;
+delete from note;
 delete from message_general;
 delete from message_guest;
 delete from message_forum;
@@ -76,7 +77,6 @@ INSERT INTO `matiere` (`id`, `libelle`) VALUES
 (13, 'Neurologie'),
 (14, 'Pharmacologie');
 
-
 INSERT INTO `legume` (`id`, `libelle`) VALUES
 (1, 'pates'),
 (2, 'Endives'),
@@ -88,6 +88,7 @@ INSERT INTO `legume` (`id`, `libelle`) VALUES
 (8, 'Pommes dauphine'),
 (9, 'Ebly'),
 (10, 'riz');
+
 
 
 INSERT INTO `fromage` (`id`, `libelle`) VALUES
@@ -106,17 +107,19 @@ INSERT INTO `fromage` (`id`, `libelle`) VALUES
 
 
 
-INSERT INTO `entreprise`(`id`, `libelle`, `adresse`, `code_postal`, `ville`, `telephone`, `email`) VALUES
+
+INSERT INTO `entreprise` (`id`, `libelle`, `adresse`, `code_postal`, `ville`, `telephone`, `email`) VALUES
 (1, 'CNAM', '50 avenue du professeur lemiere', '75019', 'paris', '0123456789', 'contact@ameli.fr'),
-(2, 'Ubisoft', '20 avenue du parc', '94200','vincennes', '0123456789', 'contact@ubisoft.com'),
+(2, 'Ubisoft', '20 avenue du parc', '94200', 'vincennes', '0123456789', 'contact@ubisoft.com'),
 (3, 'Google France', '25 rue LaFayette', '75009', 'Paris', '0123456789', 'contact@google.fr'),
 (4, 'pier et vacances', '3 rue des cocotiers', '75001', 'Paris', '0123456789', 'contact@pieretvacance.com'),
 (5, 'C&A', '4 avenue du linge', '75010', 'Paris', '0123456789', 'contact@ca.com'),
-(6, 'H&M',  '12 boulevard Gerard Demanche', '75016', 'Paris', '0123456789', 'contact@hm.com'),
+(6, 'H&M', '12 boulevard Gerard Demanche', '75016', 'Paris', '0123456789', 'contact@hm.com'),
 (7, 'RATP', '1 quai de la rapée', '75012', 'Paris', '0123456789', 'contact@ratp.fr'),
-(8, 'SNCF', '3 boulevard Georgio', '75008', 'Paris', '0123456789','contact@sncf.com'),
-(9, 'DGSI', '1 rue nelaton', '75015', 'Paris',  '0123456789', 'contact@dgsi.interieur.gouv.fr'),
-(10, 'Auchan', 'esplanade de la defense', '92000', 'Nanterre',  '0123456789', 'contact@auchan.fr');
+(8, 'SNCF', '3 boulevard Georgio', '75008', 'Paris', '0123456789', 'contact@sncf.com'),
+(9, 'DGSI', '1 rue nelaton', '75015', 'Paris', '0123456789', 'contact@dgsi.interieur.gouv.fr'),
+(10, 'Auchan', 'esplanade de la defense', '92000', 'Nanterre', '0123456789', 'contact@auchan.fr');
+
 
 
 
@@ -142,7 +145,6 @@ INSERT INTO `entree` (`id`, `libelle`) VALUES
 (8, 'Foie gras'),
 (9, 'Terrine de campagne');
 
-
 INSERT INTO `dessert` (`id`, `libelle`) VALUES
 (1, 'Profiterolles'),
 (2, 'Banana split'),
@@ -162,7 +164,6 @@ INSERT INTO `categorie_produit` (`id`, `libelle`) VALUES
 (2, 'Objet'),
 (3, 'Tombola'),
 (4, 'Event');
-
 
 INSERT INTO `categorie_ouvrage` (`id`, `libelle`) VALUES
 (1, 'Pedagogie'),
@@ -185,6 +186,7 @@ INSERT INTO `categorie_ouvrage` (`id`, `libelle`) VALUES
 (18, 'Romance');
 
 
+
 INSERT INTO `batiment` (`id`, `libelle`) VALUES
 (1, 'Guinot');
 
@@ -200,6 +202,7 @@ INSERT INTO `viande` (`id`, `libelle`) VALUES
 (8, 'Canard laqué'),
 (9, 'Brochette'),
 (10, 'Croque monsieur');
+
 
 
 INSERT INTO `statut_ouvrage` (`id`, `libelle`) VALUES
@@ -239,13 +242,12 @@ INSERT INTO `statut_ouvrage` (`id`, `libelle`) VALUES
 
 
 
-
 INSERT INTO `user` (`id`, `email`, `roles`, `password`, `discrimination`) VALUES
 (1, 'jdoe@guinot.asso.fr', '[]', 'mdp', 'membre'),
-(2, 'snait-kaci@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$hWOHdy31AE8m3NspmWIuFuwoWC8SUZUl/IFL4X3YdIigeAQikoqKG', 'professeur'),
-(3, 'glevy@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$v/oOrnAkbsPiAvEsxwY5UO3XTubhJ1JDCz1CwX6ec4nqTr.FCwHHi', 'professeur'),
-(4, 'ipalafot@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$9cMUaegw7PltGQad/zyChelB6S.WqLLhCR9JvyHqJhyNLOze/guH6', 'professeur'),
-(5, 'eschaff@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$OHAXt55IlEfKimdyA8IBfeYcSI.UHiVWOHZglOk5jKF2mG9QjE/9S', 'professeur'),
+(2, 'snait-kaci@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$iVeHiKfv3HjP..OypLwVq.FykAKEm7KHtclRT1.ojPnJPwv/qPkPi', 'professeur'),
+(3, 'glevy@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$ARpexx1ZkMWoQIC3H/MMpu/dTHGRHjAYQ/1LfFmzouQMKIaSOTTki', 'professeur'),
+(4, 'ipalakot@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$RYgfJkanNBvCy9zdlSuueO1j8pfFQKs6roOKntr4HfClKikFIq9fm', 'professeur'),
+(5, 'eschaff@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$BnXJzTitpXU4QJqKFM9me.r4RMFugeNtDH3mAEz1hfRfv1J1uNtnq', 'professeur'),
 (6, 'vviala@guinot.asso.fr', '[\"ROLE_ADMIN\"]', '$2y$13$dx2ZPEIMNBIl/w6cvfpo/u3.R02MsmbNl.TXNc/1LhRP4JPh1d802', 'admin'),
 (7, 'jsilberstein@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$B9MJme0lH0PQ9xokAxayQODuNfJScRJOPxm1nIomfuTA616nYDswa', 'eleve'),
 (8, 'adreche@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$nu2js7hKqe2jxPpX93.CYubyN42nfP0nxOcaQ12d2d4PG79VOpxpK', 'eleve'),
@@ -254,19 +256,19 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `discrimination`) VALUES
 (11, 'cdubois@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$oL3bx12snVgqPWRBJWVcSO9cCMV14CeO0zu3NYWd7XwKRGR.dd0Hm', 'eleve'),
 (12, 'mmazeau@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$rCNs07AUE1apy0IBVVz/wemmyqEzHg4Dr.lRKORS3ipVS./715MQO', 'eleve'),
 (13, 'mchabira@guinot.asso.fr', '[\"ROLE_INSERTION\"]', '$2y$13$E4URidk9v24tMaR2nRxNgOUvwPma/eyw.zA3y/8sFuYAf.zDP0o7S', 'insertion'),
-(14, 'dburel@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$fHcMtwTfQOn12wtujFUxk.4LmjtytrROfJICmxjuRgq6PYuurQ/ni', 'professeur'),
+(14, 'dburel@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$m8EMGr7XfZk6v.qKpdLmOeipXjzmGnsqNJb9DSzgUzY3S1ZkuGUxe', 'professeur'),
 (15, 'mkheiar@guinot.asso.fr', '[\"ROLE_SECRETARIAT\"]', '$2y$13$84u90djRyiemsfmNI6zhY.MNvymItMlZVifcLgjK6a8nuPjM1adt.', 'secretariat'),
 (16, 'cperrin@guinot.asso.fr', '[\"ROLE_DIRECTION\"]', '$2y$13$qJufwh7mYId6BvtxIqiYAOD0JkLJCXfbYY5MtKePiz7wesTWcqsP6', 'direction'),
 (17, 'lterendij@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$SM7RfYB27EnKZWJ360Od4.QzbCSQwDJty3uNGClMmzZDnw4PFgSxO', 'eleve'),
-(18, 'tblondeleau@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$shhfZOfzOEZ6tUX7JHTBKOwmKh1Ro270qNytNYOrlKNFnlZaTmrky', 'professeur'),
-(19, 'rbenyahya@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$T7nVN5AGcGH5w1nbWUCRIe/Csgd5rYwK2QEXvQuCLS/AcPeBkrIa.', 'professeur'),
-(20, 'msakhraoui@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$eRf8IfVnK18pVH7z1jLs9./qgUN79OJVq616kE9Hc5eZmBlJjm6Ee', 'professeur'),
-(21, 'hthomas@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$9Grk6W2/onisg.FU37ghPuMt8cQrCXnIO/OzRS4rhenw9usdaepNS', 'professeur'),
-(22, 'mduveau-hoaurau@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$C8FKQyP8gJq4oTgbnhfXsec53gpMs.V3a7G/bUG62lB6ZWVfM2z96', 'professeur'),
-(23, 'ejeanson@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$RUlNguxqvhiCLRkwB6seneABRMdgJzH7ahIu6bJYOUtIcOVHnM73u', 'professeur'),
-(24, 'psorentino@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$qPLNXRdZsZidZOgX/QslQ.tW4tBwaEC0sM80bSgsLeVRKZ.Q8zt7u', 'professeur'),
-(25, 'epartouche@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$tbKqv8VTtm8ci0jezPsWLO5bLSA73LrGowsIEcfc6AXICjaqKtoj.', 'professeur'),
-(26, 'qbalestan@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$WA.F5seGQLjkG.m//L4bme2rHxC4ZyqX9VA8dNpvY/CldbK.BUAyK', 'professeur'),
+(18, 'tblondeleau@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$RNPcptc7Nt4O123hf1CyBux5V90rS9o0xvmqgFik5OFptpHWpHvn.', 'professeur'),
+(19, 'rbenyahya@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$NvyXv49L3rodmwJRRozpNe.X/dYG5s8wy5Mi7R5PJQgAR1RjBkaYy', 'professeur'),
+(20, 'msakhraoui@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$NS6lWvrD77fYcRe5SLnDmuC14BNC9Ri./qny97FJfT.C/yRlSW1e.', 'professeur'),
+(21, 'hthomas@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$EVKiqy7JU.MH8kntPwVlFekccqmBEU7KTtFiulC7TJy.4C2dhVB.C', 'professeur'),
+(22, 'mduveau hoaurau@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$klQ4IkAo5PeVd..bnEnBF.di7mCTZQ8suvOL7Re/RLE202o.miZNa', 'professeur'),
+(23, 'ejeanson@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$8.RD8yRKuS7yjWL3dPJ9QOKwW8p3i/qe40pn04KaKnoAA/wY6XBYe', 'professeur'),
+(24, 'psorentino@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$crl9N4Q2mBTLzoJesGTXduggfxfiBNcweEekBIgtYaBH9Fuck5Vze', 'professeur'),
+(25, 'epartouche@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$bn41Bh.J2T5QDf4/is4nzu4JeICDEkHonHuJV0iylAaKTGrh/aFGW', 'professeur'),
+(26, 'qbalestan@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$wlea1k0uQmma1N9mmHP8..WvM2Er2tXX9SsJBHeAQm91Z9ug.UkaG', 'professeur'),
 (27, 'mgranier@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$MkRl3jIYC/Yf7HKRClxeJeNIr21KpYF69dSJ2fQ14kOhpBQc9YhBC', 'eleve'),
 (28, 'mbelmonte-caussieu@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$xcORWCv8t0pKh1YD/ZnWgOcgNU6Zs7Zc8a1tCmVPxXbslq2uemQL.', 'eleve'),
 (29, 'mkaufman@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$6JM9KVzD/XIajlvRLxfzm.bD6r3ZaP9Fbx36MEYr31jZq1TuLZ3S.', 'eleve'),
@@ -313,14 +315,14 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `discrimination`) VALUES
 (70, 'nriou@guinot.asso.fr', '[\"ROLE_PARENT\"]', '$2y$13$b8Bfg/3uWBb98PrQ/KgVTeZWYTn2ZiKESjlOMvoFTwcCfvk8FlrSO', 'parentEleve'),
 (71, 'dcany@guinot.asso.fr', '[\"ROLE_SECRETARIAT\"]', '$2y$13$.nxvwKT2ry2UiOnvRgoDvODiEyN1OlkQs/R.jz.wVJjZ0t3a.yfGK', 'secretariat'),
 (72, 'lfevrier@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$3iH5O0unQdUZvdkYsCdoA.QnToL6oHbVZMMgpNbLBYIsfOg61xe6a', 'eleve'),
-(73, 'everdino@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$ZFisP.PH7f/XZ8JV.TZexOrfz/yq5GKOsFGpo/8hz/Jr9PVx3CIgi', 'eleve');
-
+(73, 'everdino@guinot.asso.fr', '[\"ROLE_ELEVE\"]', '$2y$13$ZFisP.PH7f/XZ8JV.TZexOrfz/yq5GKOsFGpo/8hz/Jr9PVx3CIgi', 'eleve'),
+(74, 'cmallet@guinot.asso.fr', '[\"ROLE_PROFESSEUR\"]', '$2y$13$ry/D/kE/mx1u1SNag/mq8.iczrlFAp77.ZXp..7cWWCDVOB2XFKGS', 'professeur');
 
 INSERT INTO `membre` (`id`, `nom`, `prenom`, `image_name`, `updated_at`, `created_at`, `username`, `charte`, `civilite`) VALUES
 (1, 'DOE', 'John', 'mur-des-je-t-aime-67bc5d1055653852202728.png', '2025-02-24 12:50:40', '2025-02-24 12:50:40', 'jdoe', 0, 'Monsieur'),
 (2, 'NAIT-KACI', 'Said', 'man.png', '2025-02-24 14:49:12', '2025-02-24 14:49:12', 'snait-kaci', 0, 'Monsieur'),
 (3, 'LEVY', 'Gilles', 'man.png', '2025-02-24 14:57:26', '2025-02-24 14:57:26', 'glevy', 0, 'Monsieur'),
-(4, 'PALAKOT', 'Igor', 'man.png', '2025-02-24 14:59:18', '2025-02-24 14:59:18', 'ipalafot', 0, 'Monsieur'),
+(4, 'PALAKOT', 'Igor', 'man.png', '2025-02-24 14:59:18', '2025-02-24 14:59:18', 'ipalakot', 0, 'Monsieur'),
 (5, 'SCHAFF', 'Estelle', 'woman.png', '2025-02-24 15:02:18', '2025-02-24 15:02:19', 'eschaff', 0, 'Madame'),
 (6, 'VIALA', 'Vincent', 'man.png', '2025-02-24 15:06:30', '2025-02-24 15:06:30', 'vviala', 0, 'Madame'),
 (7, 'SILBERSTEIN', 'Julien', 'man.png', '2025-02-24 16:26:45', '2025-02-24 16:26:45', 'jsilberstein', 0, 'Monsieur'),
@@ -389,8 +391,8 @@ INSERT INTO `membre` (`id`, `nom`, `prenom`, `image_name`, `updated_at`, `create
 (70, 'RIOU', 'Nicole', 'woman.png', '2025-02-25 19:26:08', '2025-02-25 19:26:08', 'nriou', 0, 'Madame'),
 (71, 'CANY', 'Delphine', 'woman.png', '2025-02-25 19:26:08', '2025-02-25 19:26:08', 'dcany', 0, 'Madame'),
 (72, 'FEVRIER', 'Leika', 'woman.png', NULL, '2025-03-16 18:57:20', 'lfevrier', 0, 'Madame'),
-(73, 'VERDINO', 'Ernesto', 'man.png', NULL, '2025-03-16 18:59:23', 'everdino', 0, 'Monsieur');
-
+(73, 'VERDINO', 'Ernesto', 'man.png', NULL, '2025-03-16 18:59:23', 'everdino', 0, 'Monsieur'),
+(74, 'MALLET', 'Clothilde', 'woman.png', NULL, '2025-03-26 20:45:26', 'cmallet', 0, 'Madame');
 
 
 
@@ -432,18 +434,19 @@ INSERT INTO `professionnel` (`id`, `entreprise_id`, `nom`, `prenom`, `email`, `t
 
 
 
-INSERT INTO `promotion` (`id`, `libelle`, `pole_id`) VALUES
-(1, 'Pmt1', 4),
-(2, 'Pmt2', 4),
-(3, 'CRCD', 4),
-(4, 'DA1', 4),
-(5, 'DA2', 4),
-(6, 'PmK', 3),
-(7, 'K1', 3),
-(8, 'K2', 3),
-(9, 'K3', 3),
-(10, 'K4', 3),
-(11, 'K5', 3);
+INSERT INTO `promotion` (`id`, `pole_id`, `libelle`) VALUES
+(1, 4, 'Pmt1'),
+(2, 4, 'Pmt2'),
+(3, 4, 'CRCD'),
+(4, 4, 'DA1'),
+(5, 4, 'DA2'),
+(6, 3, 'PmK'),
+(7, 3, 'K1'),
+(8, 3, 'K2'),
+(9, 3, 'K3'),
+(10, 3, 'K4'),
+(11, 3, 'K5');
+
 
 
 
@@ -504,6 +507,8 @@ INSERT INTO `repas` (`id`, `menu_id`, `prix`, `date`, `heure`) VALUES
 
 
 
+
+
 INSERT INTO `ouvrage` (`id`, `statut_ouvrage_id`, `titre`) VALUES
 (1, 4, 'Le journal d\'Anne Frank'),
 (2, 4, 'Rendez-vous avec Rama'),
@@ -512,14 +517,13 @@ INSERT INTO `ouvrage` (`id`, `statut_ouvrage_id`, `titre`) VALUES
 (5, 4, 'My First English Book'),
 (6, 4, 'Dune'),
 (7, 4, 'Cendrille'),
-(8, 3, 'Harry Potter à l\école des sorcier'),
+(8, 3, 'Harry Potter à lécole des sorcier'),
 (9, 3, 'Harry Potter et la chambre des secrets'),
 (10, 5, 'Harry Potter et le prisonnier d\'Azkaban'),
 (11, 5, 'Harry Potter et la coupe de feu'),
 (12, 4, 'Harry Potter et l\'ordre du phoénix'),
 (13, 4, 'Harry Potter et le prince de sang-mélé'),
 (14, 4, 'Harry Potter et les reliques de la mort');
-
 
 
 INSERT INTO `adulte` (`id`) VALUES
@@ -553,56 +557,57 @@ INSERT INTO `adulte` (`id`) VALUES
 (68),
 (69),
 (70),
-(71);
+(71),
+(74);
 
 
 
-INSERT INTO `eleve` (`id`, `promotion_id`) VALUES
-(7, 5),
-(8, 5),
-(9, 5),
-(10, 4),
-(11, 4),
-(12, 4),
-(17, 6),
-(27, 6),
-(32, 6),
-(38, 3),
-(39, 1),
-(40, 6),
-(41, 6),
-(29, 7),
-(35, 7),
-(42, 7),
-(43, 8),
-(44, 8),
-(45, 8),
-(46, 8),
-(31, 9),
-(34, 9),
-(36, 9),
-(37, 9),
-(47, 9),
-(48, 9),
-(49, 9),
-(50, 9),
-(51, 9),
-(52, 9),
-(53, 9),
-(30, 10),
-(33, 10),
-(54, 10),
-(55, 10),
-(56, 10),
-(28, 11),
-(57, 11),
-(58, 11),
-(72, 2),
-(73, 2);
+INSERT INTO `eleve` (`id`, `promotion_id`, pension) VALUES
+(7, 5, 'Interne'),
+(8, 5, 'Interne'),
+(9, 5, 'Interne'),
+(10, 4, 'Externe'),
+(11, 4, 'Interne'),
+(12, 4, 'Interne'),
+(17, 6, 'Interne'),
+(27, 6, 'Interne'),
+(28, 11, 'Interne'),
+(29, 7, 'Interne'),
+(30, 10, 'Interne'),
+(31, 9, 'Interne'),
+(32, 6, 'Interne'),
+(33, 10, 'Interne'),
+(34, 9, 'Interne'),
+(35, 7, 'Externe'),
+(36, 9, 'Interne'),
+(37, 9, 'Interne'),
+(38, 3, 'Externe'),
+(39, 1, 'Interne'),
+(40, 6, 'Interne'),
+(41, 6, 'Interne'),
+(42, 7, 'Interne'),
+(43, 8, 'Interne'),
+(44, 8, 'Interne'),
+(45, 8, 'Interne'),
+(46, 8, 'Externe'),
+(47, 9, 'Interne'),
+(48, 9, 'Interne'),
+(49, 9, 'Interne'),
+(50, 9, 'Externe'),
+(51, 9, 'Interne'),
+(52, 9, 'Interne'),
+(53, 9, 'Externe'),
+(54, 10, 'Interne'),
+(55, 10, 'Interne'),
+(56, 10, 'Interne'),
+(57, 11, 'Interne'),
+(58, 11, 'Interne'),
+(72, 2, 'Interne'),
+(73, 2, 'Interne');
+
 
 INSERT INTO `admin` (`id`) VALUES
 (6);
-
 	
 
 
@@ -640,12 +645,14 @@ INSERT INTO `personnel` (`id`, `date_embauche`, `poste`) VALUES
 (67, '2023-05-02', '0146780100'),
 (68, '2025-10-16', '0146780100'),
 (69, '2025-10-16', '0146780100'),
-(71, '2025-10-16', '0146780100');
+(71, '2025-10-16', '0146780100'),
+(74, '2026-08-13', '0146780100');
 
 
 INSERT INTO `surveillant` (`id`) VALUES
 (63),
 (64);
+
 
 INSERT INTO `secretariat` (`id`) VALUES
 (15),
@@ -657,6 +664,7 @@ INSERT INTO `secretariat` (`id`) VALUES
 INSERT INTO `parent_eleve` (`id`) VALUES
 (66),
 (70);
+
 
 
 INSERT INTO `parent_eleve_eleve` (`parent_eleve_id`, `eleve_id`) VALUES
@@ -677,7 +685,8 @@ INSERT INTO `professeur` (`id`) VALUES
 (23),
 (24),
 (25),
-(26);
+(26),
+(74);
 
 
 
@@ -691,11 +700,13 @@ INSERT INTO `reservation_repas` (`id`, `repas_id`, `membre_id`, `date_achat`) VA
 (4, 1, 17, '2025-02-25'),
 (5, 4, 17, '2025-02-25');
 
+
 INSERT INTO `insertion` (`id`) VALUES
 (13);
 
 INSERT INTO `documentaliste` (`id`) VALUES
 (61);
+
 
 INSERT INTO `cuisine` (`id`) VALUES
 (65);
@@ -710,7 +721,7 @@ INSERT INTO `direction` (`id`) VALUES
 
 
 
-INSERT INTO `categorie_forum` (`id`,`forum_id`, `libelle`, `description`) VALUES
+INSERT INTO `categorie_forum` (`id`, `forum_id`, `libelle`, `description`) VALUES
 (1, 1, 'Pmt1', 'Discussions et informations spécifiques à la classe de PMT1.'),
 (2, 1, 'Pmt2', 'Discussions et informations spécifiques à la classe de PMT2.'),
 (3, 1, 'CRCD', 'Discussions et informations liées au CRCD (Centre de Ressources et de Compétences Documentaires).'),
@@ -776,7 +787,7 @@ INSERT INTO `ouvrage_categorie_ouvrage` (`ouvrage_id`, `categorie_ouvrage_id`) V
 (7, 4),
 (7, 11),
 (7, 18),
-(8,  9),
+(8, 9),
 (8, 11),
 (9, 9),
 (9, 11),
@@ -791,31 +802,32 @@ INSERT INTO `ouvrage_categorie_ouvrage` (`ouvrage_id`, `categorie_ouvrage_id`) V
 (14, 9),
 (14, 11);
 
-INSERT INTO `produit` (`id`, `libelle`, `prix`, `description`, `stock`, `created_at`, `archive`, `date_event`, `categorie_produit_id`) VALUES
-(2, 'Jetons Repas', 4, 'Sert à commander des repas', '100', '2025-02-27', 0, NULL, 1),
-(3, 'Boite à os', 150, 'Sert au étudient Kiné', '50', '2025-02-27', 0, NULL, 2),
-(4, 'Angleterre', 200, 'Séjour de 4jours', '10', '2025-02-27', 0, NULL, 4),
-(5, 'Tombola de noël', 2, 'Nombreux lot à gagner', '70', '2025-02-27', 0, NULL, 3),
-(6, 'blouse', 50, 'Habillement pour Kiné', '50', '2025-02-27', 0, NULL, 2),
-(7, 'Allemagne', 0, 'Séjour à Marbourg', '4', '2025-02-27', 0, NULL, 4),
-(8, 'Tombola Octobre Rose', 2, 'Nombreux lots à gagner !', '100', '2025-02-27', 0, NULL, 3);
+
+INSERT INTO `produit` (`id`, `categorie_produit_id`, `libelle`, `prix`, `description`, `stock`, `created_at`, `archive`, `date_event`) VALUES
+(2, 1, 'Jetons Repas', 4, 'Sert à commander des repas', '100', '2025-02-27', 0, NULL),
+(3, 2, 'Boite à os', 150, 'Sert au étudient Kiné', '50', '2025-02-27', 0, NULL),
+(4, 4, 'Angleterre', 200, 'Séjour de 4jours', '10', '2025-02-27', 0, NULL),
+(5, 3, 'Tombola de noël', 2, 'Nombreux lot à gagner', '70', '2025-02-27', 0, NULL),
+(6, 2, 'blouse', 50, 'Habillement pour Kiné', '50', '2025-02-27', 0, NULL),
+(7, 4, 'Allemagne', 0, 'Séjour à Marbourg', '4', '2025-02-27', 0, NULL),
+(8, 3, 'Tombola Octobre Rose', 2, 'Nombreux lots à gagner !', '100', '2025-02-27', 0, NULL);
 
 
 
 
-INSERT INTO `salle` (`id`, `etage_id`, `libelle`, `promo_principale_id`) VALUES
-(1, 1, 'Pmt1', NULL),
-(2, 1, 'Pmt2', NULL),
-(3, 1, 'CRCD', NULL),
-(4, 1, 'DA1', NULL),
-(5, 1, 'DA2', NULL),
-(6, 1, 'Gymnase', NULL),
-(7, 2, 'DOTTE', NULL),
-(8, 2, 'GANTET', NULL),
-(9, 2, 'FOUCAULT', NULL),
-(10, 2, 'DOLTO', NULL),
-(11, 2, 'IMBERT', NULL),
-(12, 3, 'Polyvalente', NULL);
+INSERT INTO `salle` (`id`, `etage_id`, `promo_principale_id`, `libelle`) VALUES
+(1, 1, NULL, 'Pmt1'),
+(2, 1, NULL, 'Pmt2'),
+(3, 1, NULL, 'CRCD'),
+(4, 1, NULL, 'DA1'),
+(5, 1, NULL, 'DA2'),
+(6, 1, NULL, 'Gymnase'),
+(7, 2, NULL, 'DOTTE'),
+(8, 2, NULL, 'GANTET'),
+(9, 2, NULL, 'FOUCAULT'),
+(10, 2, NULL, 'DOLTO'),
+(11, 2, NULL, 'IMBERT'),
+(12, 3, NULL, 'Polyvalente');
 
 
 INSERT INTO `programme` (`professeur_id`, `matiere_id`, `promotion_id`) VALUES
@@ -836,7 +848,6 @@ INSERT INTO `programme` (`professeur_id`, `matiere_id`, `promotion_id`) VALUES
 (5, 4, 2),
 (5, 4, 6);
 
-
 INSERT INTO `emprunt` (`id`, `ouvrage_id`, `statut_id`, `membre_id`, `date_emprunt`, `date_demande`, `date_retour`) VALUES
 (1, 7, 3, 15, '2025-02-17', '2025-02-15', '2025-02-20'),
 (2, 3, 3, 4, '2025-02-18', '2025-02-18', '2025-02-19'),
@@ -847,6 +858,7 @@ INSERT INTO `emprunt` (`id`, `ouvrage_id`, `statut_id`, `membre_id`, `date_empru
 (7, 12, 1, 8, NULL, '2025-02-20', NULL),
 (8, 13, 1, 8, NULL, '2025-02-20', NULL),
 (9, 14, 1, 8, NULL, '2025-02-20', NULL);
+
 
 
 
@@ -967,8 +979,8 @@ INSERT INTO `sub_forum` (`id`, `categorie_forum_id`, `libelle`, `description`) V
 (114, 25, 'Partage de ressources utiles', 'Partage de ressources utiles pour les employés et la DRH.');
 
 
-INSERT INTO `thread`(`id`, `sub_forum_id`, `createur_id`, `libelle`, `description`, `created_at`)VALUES
-(1, 1, 7, 'Fil de discussion test', 'On essaie de tester', '2025-03-23'); 
+INSERT INTO `thread` (`id`, `sub_forum_id`, `createur_id`, `libelle`, `description`, `created_at`) VALUES
+(1, 1, 7, 'Fil de discussion test', 'On essaie de tester', '2025-03-23 00:00:00');
 
 
 
@@ -986,6 +998,8 @@ INSERT INTO `professeur_matiere` (`professeur_id`, `matiere_id`) VALUES
 (25, 13);
 
 
+
+
 INSERT INTO `commande` (`id`, `membre_id`, `produit_id`, `quantity`, `prix_total`, `date_achat`) VALUES
 (1, 17, 2, 3, 12, '2025-02-28'),
 (2, 17, 2, 5, 20, '2025-02-28'),
@@ -993,6 +1007,8 @@ INSERT INTO `commande` (`id`, `membre_id`, `produit_id`, `quantity`, `prix_total
 (4, 17, 6, 5, 250, '2025-02-28'),
 (5, 17, 4, 2, 400, '2025-02-28'),
 (6, 17, 2, 13, 52, '2025-02-28');
+
+
 
 
 
@@ -1005,19 +1021,23 @@ INSERT INTO `message` (`id`, `sujet`, `contenu`, `created_at`, `updated_at`, `di
 (5, 'Test envoyes', 'j\'envois un message', '2025-03-23', NULL, 'messagePrive'),
 (6, 'Test recus', 'je recois un message', '2025-03-23', NULL, 'messagePrive');
 
-INSERT INTO `message_forum`(id, `expediteur_id`, `thread_id`) VALUES
+INSERT INTO `message_forum` (`id`, `expediteur_id`, `thread_id`) VALUES
 (3, 59, 1);
 
-INSERT INTO `message_general`(id, `expediteur_id`) VALUES
+
+INSERT INTO `message_general` (`id`, `expediteur_id`) VALUES
 (1, 59);
 
-INSERT INTO `message_prive`(id, `expediteur_id`, `destinataire_id`) VALUES
+
+INSERT INTO `message_prive` (`id`, `expediteur_id`, `destinataire_id`) VALUES
 (4, 7, 8),
 (5, 7, 8),
 (6, 8, 7);
 
-INSERT INTO `message_guest`(id, `auteur`, `email`, `telephone`) VALUES
+
+INSERT INTO `message_guest` (`id`, `auteur`, `email`, `telephone`) VALUES
 (2, 'julien', 'jujusilb@gmail.com', '0123456789');
+
 
 INSERT INTO `membre_jeton` (`id`, `membre_id`, `nombre_jeton`) VALUES
 (1, 1, 0),
@@ -1092,4 +1112,45 @@ INSERT INTO `membre_jeton` (`id`, `membre_id`, `nombre_jeton`) VALUES
 (70, 70, 0),
 (71, 71, 0),
 (72, 72, 0),
-(73, 73, 0);
+(73, 73, 0),
+(74, 74, 0);
+
+
+
+INSERT INTO `note` (`id`, `eleve_id`, `professeur_id`, `matiere_id`, `exercice_id`, `note`, `created_at`, `updated_at`, `libelle`, `coefficient`) VALUES
+(1, 41, 18, 7, NULL, 10, '2025-03-24 22:11:30', NULL, 'test', 2),
+(2, 7, 4, 9, NULL, 15, '2025-03-24 22:11:30', NULL, 'test2', 5),
+(3, 35, 3, 5, NULL, 3, '2025-03-24 22:11:30', NULL, 'test3', 1),
+(4, 50, 5, 5, NULL, 16, '2025-03-24 22:11:30', NULL, 'test4', 1),
+(5, 55, 14, 7, NULL, 1, '2025-03-24 22:11:30', NULL, 'test5', 3),
+(6, 9, 18, 6, NULL, 5, '2025-03-24 22:11:30', NULL, 'test6', 1),
+(7, 29, 19, 5, NULL, 10, '2025-03-24 22:11:30', NULL, 'test7', 3),
+(8, 35, 21, 5, NULL, 9, '2025-03-24 22:11:30', NULL, 'test8', 4),
+(9, 30, 18, 6, NULL, 11, '2025-03-24 22:11:30', NULL, 'test9', 1),
+(10, 45, 20, 1, NULL, 12, '2025-03-24 22:11:30', NULL, 'test10', 1),
+(11, 51, 19, 4, NULL, 7, '2025-03-24 22:12:30', NULL, 'test11', 2),
+(12, 56, 14, 5, NULL, 13, '2025-03-24 09:11:30', NULL, 'test12', 4);
+
+
+
+INSERT INTO `personnel_pole` (`personnel_id`, `pole_id`) VALUES
+(2, 3),
+(2, 4),
+(3, 4),
+(4, 4),
+(5, 3),
+(5, 4),
+(14, 4),
+(18, 3),
+(19, 4),
+(20, 2),
+(20, 3),
+(20, 4),
+(21, 3),
+(22, 3),
+(23, 3),
+(24, 3),
+(25, 3),
+(26, 3),
+(74, 3);
+

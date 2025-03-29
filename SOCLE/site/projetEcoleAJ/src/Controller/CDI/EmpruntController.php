@@ -40,7 +40,7 @@ class EmpruntController extends AbstractController
     }
 
     #[Route('/{id}/demande', name: 'demande', methods: ['GET', 'POST'])]
-    public function new (Ouvrage $ouvrage, StatutEmpruntRepository $statutEmpruntRepo, MembreRepository $membreRepo, Request $request, EntityManagerInterface $entityManager, OuvrageRepository $ouvrageRepo): Response
+    public function new (Ouvrage $ouvrage, StatutEmpruntRepository $statutEmpruntRepo, MembreRepository $membreRepo, Request $request, OuvrageRepository $ouvrageRepo): Response
     {
         $emprunt = new Emprunt();
         $user=$this->getUser();
@@ -51,20 +51,20 @@ class EmpruntController extends AbstractController
             $statutEmprunt=$statutEmpruntRepo->getStatutEmprunt("Emprunt demandé");
         $emprunt->setStatut($statutEmprunt);
             
-            $membre=$entityManager->getRepository(Membre::class)->find($userId);
+            $membre=$this->entityManager->getRepository(Membre::class)->find($userId);
             if ($membre instanceof Membre){
                 $emprunt->setMembre($membre);
             }
             if ($ouvrage instanceof Ouvrage){
                 $emprunt->setOuvrage($ouvrage);
             }
-            $statutOuvrage=$entityManager->getRepository(StatutOuvrage::class)->find(4);
+            $statutOuvrage=$this->entityManager->getRepository(StatutOuvrage::class)->find(4);
             if ($statutOuvrage instanceof StatutOuvrage){
                 $ouvrage->setStatutOuvrage($statutOuvrage);
             }
-            $entityManager->persist($emprunt);
-            $entityManager->persist($ouvrage);
-            $entityManager->flush();
+            $this->entityManager->persist($emprunt);
+            $this->entityManager->persist($ouvrage);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('ouvrage_catalogue');
     }
@@ -79,13 +79,13 @@ class EmpruntController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Emprunt $emprunt, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Emprunt $emprunt): Response
     {
         $form = $this->createForm(empruntType::class, $emprunt);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -98,11 +98,11 @@ class EmpruntController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Emprunt $emprunt, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Emprunt $emprunt): Response
     {
         if ($this->isCsrfTokenValid('delete' . $emprunt->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($emprunt);
-            $entityManager->flush();
+            $this->entityManager->remove($emprunt);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
@@ -141,7 +141,7 @@ class EmpruntController extends AbstractController
 /*
 
 #[Route('/{id}/demande', name: 'demande', methods: ['GET', 'POST'])]
-    public function new (Ouvrage $Ouvrage, StatutEmpruntRepository $statutEmpruntRepo, MembreRepository $membreRepo, Request $request, EntityManagerInterface $entityManager, OuvrageRepository $ouvrageRepo): Response
+    public function new (Ouvrage $Ouvrage, StatutEmpruntRepository $statutEmpruntRepo, MembreRepository $membreRepo, Request $request, OuvrageRepository $ouvrageRepo): Response
     {
         $emprunt = new Emprunt();
         $form = $this->createForm(EmpruntType::class, $emprunt);
@@ -157,19 +157,19 @@ class EmpruntController extends AbstractController
             $statutEmprunt=$statutEmpruntRepo->getStatutEmprunt("Emprunt demandé");
             $emprunt->setStatut($statutEmprunt);
             $ouvrageId = $form->get('ouvrage_id')->getData(); // This will give you the ID (a string)
-            $membre=$entityManager->getRepository(Membre::class)->find($userId);
+            $membre=$this->entityManager->getRepository(Membre::class)->find($userId);
             if ($membre instanceof Membre){
                 $emprunt->setMembre($membre);
             }
-            $ouvrage = $entityManager->getRepository(Ouvrage::class)->find($ouvrageId); // Fetch the actual Entree object by ID
+            $ouvrage = $this->entityManager->getRepository(Ouvrage::class)->find($ouvrageId); // Fetch the actual Entree object by ID
             if ($ouvrage instanceof Ouvrage){
                 $emprunt->setOuvrage($ouvrage);
             }
             $ouvrage->setStatut("Emprunt demandé");
-            $entityManager->persist($emprunt);
-            $entityManager->persist($ouvrage);
+            $this->entityManager->persist($emprunt);
+            $this->entityManager->persist($ouvrage);
             
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
         }

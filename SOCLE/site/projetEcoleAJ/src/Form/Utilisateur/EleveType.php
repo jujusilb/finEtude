@@ -62,7 +62,18 @@ class EleveType extends AbstractType
                 'required' => $options['validation_groups'] !== ['edition'],
                 'disabled'=> false, 
             ])
-
+            ->add('pension', ChoiceType::class, [
+                'label'=>'Interne ou Externe',
+                'choices'=>[
+                    'Interne'=>'Interne',
+                    'Extene'=>'Externe'
+                ],
+                'attr'=>[
+                    'aria-label'=>'Intene ou Externe'
+                ],
+                'required'=>true,
+                'expanded'=>true
+            ])
             ->add('imageFile', VichImageType::class)
             ->add('promotion', EntityType::class, [
                 'attr' => [

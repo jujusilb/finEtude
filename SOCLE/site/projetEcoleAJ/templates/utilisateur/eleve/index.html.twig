@@ -15,7 +15,7 @@
                 <th class="text-nowrap">E-mail</th>
                 <th class="text-nowrap">Promotion</h>
                 <th class="text-nowrap">JetonRepas</th>
-                <th class="text-nowrap">role</th>
+                <th class="text-nowrap">Pension</th>
                 <th class="text-nowrap">Stage</th>
                 <th class="text-nowrap">Action</th>
             </tr>
@@ -48,12 +48,7 @@
                         Jetons épuisés
                         {% endif %}
                     </td>
-                    <td>
-                        {% for role in eleve.roles %}
-                           {{ role }}<br>
-                        {% endfor %}
-                        
-                    </td>
+                    <td>{{eleve.pension }}</td>
                     <td>
                         {% if eleve.stages | length > 0 %}
                             {% for stage in eleve.stages %}

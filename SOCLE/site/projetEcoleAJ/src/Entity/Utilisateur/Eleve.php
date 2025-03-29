@@ -2,6 +2,7 @@
 
 namespace App\Entity\Utilisateur;
 
+use App\Entity\Pedagogie\Note;
 use App\Entity\Pedagogie\Promotion;
 use App\Entity\Professionnel\Stage;
 use App\Entity\Utilisateur\Membre;
@@ -33,6 +34,15 @@ class Eleve extends Membre
     #[ORM\OneToMany(targetEntity: Stage::class, mappedBy: 'stagiaire')]
     private Collection $stages;
 
+    /**
+     * @var Collection<int, Note>
+     */
+    #[ORM\OneToMany(mappedBy: 'eleve', targetEntity: Note::class)]
+    private Collection $notes;
+
+    #[ORM\Column(length: 50)]
+    private ?string $pension = null;
+
 
 
     
@@ -42,6 +52,7 @@ class Eleve extends Membre
         parent::__construct();
         $this->parentEleves = new ArrayCollection();
         $this->stages = new ArrayCollection();
+        $this->notes = new ArrayCollection();
     }
 
 
@@ -107,6 +118,48 @@ class Eleve extends Membre
                 $stages->setStagiaire(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Note>
+     */
+    public function getNotes(): Collection
+    {
+        return $this->notes;
+    }
+
+    public function addNote(Note $note): static
+    {
+        if (!$this->notes->contains($note)) {
+            $this->notes->add($note);
+            $note->setEleve($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNote(Note $note): static
+    {
+        if ($this->notes->removeElement($note)) {
+            // set the owning side to null (unless already changed)
+            if ($note->getEleve() === $this) {
+                $note->setEleve(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPension(): ?string
+    {
+        return $this->pension;
+    }
+
+    public function setPension(string $pension): static
+    {
+        $this->pension = $pension;
 
         return $this;
     }

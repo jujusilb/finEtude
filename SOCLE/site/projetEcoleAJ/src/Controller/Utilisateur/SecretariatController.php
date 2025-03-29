@@ -18,11 +18,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class SecretariatController extends AbstractController
 {
 
-    private $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher){
-        $this -> passwordHasher=$passwordHasher;
-    }
 
     #[Route('/index', name: 'index')]
     public function index(SecretariatRepository $secretariatRepo): Response
@@ -36,7 +32,7 @@ class SecretariatController extends AbstractController
     }    
     
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $secretariat = new Secretariat();
         $form = $this->createForm(SecretariatType::class, $secretariat);
@@ -66,12 +62,12 @@ class SecretariatController extends AbstractController
                     $secretariat->setImageName('man.png');
                 }
             }
-            $entityManager->persist($secretariat);
+            $this->entityManager->persist($secretariat);
             $listeJeton=new MembreJeton();
             $listeJeton->setMembre($secretariat);
             $listeJeton->setNombreJeton(0);
-            $entityManager->persist($listeJeton);
-            $entityManager->flush();
+            $this->entityManager->persist($listeJeton);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('secretariat_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -93,7 +89,7 @@ class SecretariatController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Secretariat $secretariat, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Secretariat $secretariat): Response
     {
         $form = $this->createForm(SecretariatType::class, $secretariat);
         $form->handleRequest($request);
@@ -110,7 +106,7 @@ class SecretariatController extends AbstractController
             $secretariat->setUsername($username);
             $secretariat->setEmail($email);
 
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('secretariat_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -123,11 +119,11 @@ class SecretariatController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Secretariat $secretariat, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Secretariat $secretariat): Response
     {
         if ($this->isCsrfTokenValid('delete' . $secretariat->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($secretariat);
-            $entityManager->flush();
+            $this->entityManager->remove($secretariat);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('secretariat_index', [], Response::HTTP_SEE_OTHER);

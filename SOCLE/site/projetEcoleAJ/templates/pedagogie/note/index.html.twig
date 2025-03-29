@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date</th>
+                <th>Libelle</th>
+                <th>Note</th>
+                <th>Eleve</th>
+                <th>Professeur</th>
+                <th>Matiere</th>
+                <th>Coefficient</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for note in notes %}
+                <tr>
+                    <td>{{note.id}}</td>
+                    <td>{{ note.createdAt |date('d/m/Y') }}</td>
+                    <td>{{ note.libelle }}</td>
+                    <td>{{ note.Note }}</td>
+                    <td>{{ note.eleve.prenom }} {{ note.eleve.nom }}</td>
+                    <td>{{ note.professeur.prenom }} {{ note.professeur.nom }}</td>
+                    <td>{{ note.matiere.libelle }}</td>
+                    <td>{{ note.coefficient }}</td>
+                    <td>
+                        <a href="{{ path('note_affichage', {'id': note.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('note_edition', {'id': note.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('note_nouveau') }}" class="btn" >Creer Nouvel admin</a>
+{% endblock %}

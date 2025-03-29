@@ -22,12 +22,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class ParentEleveController extends AbstractController
 {
 
-    private $passwordHasher;
-
-    public function __construct(UserPasswordHasherInterface $passwordHasher){
-        $this -> passwordHasher=$passwordHasher;
-    }
-
     #[Route('/index', name: 'index')]
     public function index(EleveRepository $eleveRepo, ParentEleveRepository $parentEleveRepo): Response
     {
@@ -40,7 +34,7 @@ class ParentEleveController extends AbstractController
         ]);
     }
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $parentEleve = new ParentEleve();
         $form = $this->createForm(ParentEleveType::class, $parentEleve);
@@ -68,12 +62,12 @@ class ParentEleveController extends AbstractController
                     $parentEleve->setImageName('man.png');
                 }
             }
-            $entityManager->persist($parentEleve);
+            $this->entityManager->persist($parentEleve);
             $listeJeton=new MembreJeton();
             $listeJeton->setMembre($parentEleve);
             $listeJeton->setNombreJeton(0);
-            $entityManager->persist($listeJeton);
-            $entityManager->flush();
+            $this->entityManager->persist($listeJeton);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('parentEleve_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -95,7 +89,7 @@ class ParentEleveController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, ParentEleve $parentEleve, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, ParentEleve $parentEleve): Response
     {
         $form = $this->createForm(ParentEleveType::class, $parentEleve);
         $form->handleRequest($request);
@@ -105,7 +99,7 @@ class ParentEleveController extends AbstractController
             $hashTmpPass=$this->passwordHasher->hashPassword($parentEleve, $tmpPass);
             $parentEleve->setPassword($hashTmpPass);
             
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('parentEleve_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -118,11 +112,11 @@ class ParentEleveController extends AbstractController
     }
 
     #[Route('/{id}/delete', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, ParentEleve $parentEleve, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, ParentEleve $parentEleve): Response
     {
         if ($this->isCsrfTokenValid('delete' . $parentEleve->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($parentEleve);
-            $entityManager->flush();
+            $this->entityManager->remove($parentEleve);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('parentEleve_index', [], Response::HTTP_SEE_OTHER);

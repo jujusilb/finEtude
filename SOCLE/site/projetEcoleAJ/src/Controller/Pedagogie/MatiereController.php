@@ -32,15 +32,15 @@ class MatiereController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
-    public function new (Request $request, EntityManagerInterface $entityManager): Response
+    public function new (Request $request): Response
     {
         $matiere = new Matiere();
         $form = $this->createForm(MatiereType::class, $matiere);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($matiere);
-            $entityManager->flush();
+            $this->entityManager->persist($matiere);
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('matiere_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -62,13 +62,13 @@ class MatiereController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Matiere $matiere, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Matiere $matiere): Response
     {
         $form = $this->createForm(matiereType::class, $matiere);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->entityManager->flush();
 
             return $this->redirectToRoute('matiere_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -81,11 +81,11 @@ class MatiereController extends AbstractController
     }
 
     #[Route('/{id}', name: 'suppression', methods: ['POST'])]
-    public function delete(Request $request, Matiere $matiere, EntityManagerInterface $entityManager): Response
+    public function delete(Request $request, Matiere $matiere): Response
     {
         if ($this->isCsrfTokenValid('delete' . $matiere->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($matiere);
-            $entityManager->flush();
+            $this->entityManager->remove($matiere);
+            $this->entityManager->flush();
         }
 
         return $this->redirectToRoute('matiere_index', [], Response::HTTP_SEE_OTHER);

@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\Utilisateur\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -17,14 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 #[Route('/user', name: 'user_')]
 final class UserController extends AbstractController
 {
-    private $passwordHasher;
-    private $entityManager;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $entityManager)
-    {
-        $this->passwordHasher = $passwordHasher;
-        $this->entityManager = $entityManager;
-    }
 
     #[Route('/index', name: 'index')]
     public function index(): Response
