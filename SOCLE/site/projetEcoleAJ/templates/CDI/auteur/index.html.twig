@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ouvrageController!{% endblock %}
+
+{% block body %}
+    <table class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Prenom Nom</th>
+                <th>ouvrages</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for auteur in auteurs %}
+                <tr>
+                    <td>{{ auteur.id }}</td>
+                    <td>{{ auteur.prenom }} {{ auteur.nom }}</td>
+                    <td>
+                        {% if auteur.ouvrages | length > 0 %}
+                            {% for ouvrage in auteur.ouvrages %}
+                                {{ ouvrage.titre }}<br>
+                            {% endfor %}
+                        {% else %}
+                            Aucun ouvrage connu
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('auteur_affichage', {'id': auteur.id}) }}" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('auteur_edition', {'id': auteur.id}) }}" class="btn btn-secondary">editer</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('auteur_nouveau') }}" class="btn" >Creer Nouveau ouvrage</a>
+{% endblock %}

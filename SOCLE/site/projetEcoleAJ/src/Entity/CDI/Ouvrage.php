@@ -43,10 +43,17 @@ class Ouvrage
     #[ORM\JoinColumn(nullable: false)]
     private ?StatutOuvrage $statutOuvrage = null;
 
+    /**
+     * @var Collection<int, Auteur>
+     */
+    #[ORM\ManyToMany(targetEntity: Auteur::class, inversedBy: 'ouvrages')]
+    private Collection $auteur;
+
     public function __construct()
     {
         $this->emprunts = new ArrayCollection();
         $this->categorieOuvrages = new ArrayCollection();
+        $this->auteur = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -127,6 +134,30 @@ class Ouvrage
     public function setStatutOuvrage(?StatutOuvrage $statutOuvrage): static
     {
         $this->statutOuvrage = $statutOuvrage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Auteur>
+     */
+    public function getAuteur(): Collection
+    {
+        return $this->auteur;
+    }
+
+    public function addAuteur(Auteur $auteur): static
+    {
+        if (!$this->auteur->contains($auteur)) {
+            $this->auteur->add($auteur);
+        }
+
+        return $this;
+    }
+
+    public function removeAuteur(Auteur $auteur): static
+    {
+        $this->auteur->removeElement($auteur);
 
         return $this;
     }

@@ -107,10 +107,25 @@
                 <a href='{{path('repas_listeRepas')}}'>liste des repas</a></li>
                 <li><a href='{{path('reservationRepas_mesReservations')}}'>Mes repas</a></li>
             </ul>
-        <li><a href='{{path('ouvrage_catalogue')}}'>Catalogue</a></li>
-        <li><a href='{{path('emprunt_index')}}'>Gestion des Emprunts</a></li>
-        <li><a href='{{path('forum_index')}}'>Forum</a></li>
-				<li>
+		</li>
+        <li>
+			<a href="#">Gestion des Documents</a>
+            <ul class="sub-menus">
+				<li><a href='{{path('ouvrage_index')}}'>index</a></li>
+				<li><a href='{{path('ouvrage_catalogue')}}'>Catalogue</a></li>
+				<li><a href='{{path('categorieOuvrage_index')}}'>catégorie</a></li>
+				<li><a href='{{path('auteur_index')}}'>liste d'auteur</a></li>
+			</ul>
+		</li>
+		<li>
+			<a href=''>Gestion des Emprunts</a>
+			<ul class="sub-menus">
+        		<li><a href='{{path('emprunt_index')}}'>liste des emprunts</a></li>
+				<li><a href='{{path('emprunt_mesEmprunts')}}'>mes emprunts</a></li>
+			</ul>
+		</li>	
+		<li><a href='{{path('forum_index')}}'>Forum</a></li>
+		<li>
 			<a href="#">Boutique</a>
 			<ul class="sub-menus">
 				<li><a href="{{path('boutique_liste')}}">liste des Produit</a></li>

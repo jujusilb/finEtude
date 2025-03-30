@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ouvrageController!{% endblock %}
+{% block title %}Hello auteurController!{% endblock %}
 
 {% block body %}
-    {% for statutLibelle, ouvrages in groupedByStatut %}
+    {% for statutLibelle, auteurs in groupedByStatut %}
         <h3>{{ statutLibelle }}</h3>
         <table class="table table-striped table-bordered table-hover">
             <thead>
@@ -20,20 +20,20 @@
                 </tr>
             </thead>
             <tbody>
-                {% for ouvrage in ouvrages %}
+                {% for auteur in auteurs %}
                 
                     <tr>
-                        <td>{{ouvrage.id}}</td>
-                        <td>{{ ouvrage.titre }}</td>
+                        <td>{{auteur.id}}</td>
+                        <td>{{ auteur.titre }}</td>
                         
-                        <td>{% for categorieOuvrage in ouvrage.categorieOuvrages %}
-                        <li>{{categorieOuvrage.libelle }}</li>
+                        <td>{% for categorieAuteur in auteur.categorieAuteurs %}
+                        {{categorieAuteur.libelle }}
                         {% endfor %}</td>
                         <td>
-                        {% if ouvrage.statutOuvrage.id != 3 %}
-                            {{ouvrage.statutOuvrage.libelle }}
+                        {% if auteur.statutAuteur.id != 3 %}
+                            {{auteur.statutAuteur.libelle }}
                         {% else %}
-                            <a href="{{ path('emprunt_demande', {'id': ouvrage.id}) }}" class="btn btn-secondary">Demander emprunt</a>
+                            <a href="{{ path('emprunt_demande', {'id': auteur.id}) }}" class="btn btn-secondary">Demander emprunt</a>
                         {% endif %}
                         </td>
 
@@ -42,5 +42,5 @@
             </tbody>
         </table>
     {% endfor %}
-    <a href="{{ path('ouvrage_nouveau') }}" class="btn" >Creer Nouveau ouvrage</a>
+    <a href="{{ path('auteur_nouveau') }}" class="btn" >Creer Nouveau auteur</a>
 {% endblock %}

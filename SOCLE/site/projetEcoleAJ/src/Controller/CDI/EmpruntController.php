@@ -4,6 +4,7 @@ namespace App\Controller\CDI;
 
 use App\Entity\CDI\Emprunt;
 
+use App\Entity\Utilisateur\Documentaliste;
 use App\Entity\CDI\Ouvrage;
 use App\Entity\CDI\StatutOuvrage;
 use App\Entity\Utilisateur\Membre;
@@ -101,11 +102,19 @@ class EmpruntController extends AbstractController
     public function delete(Request $request, Emprunt $emprunt): Response
     {
         if ($this->isCsrfTokenValid('delete' . $emprunt->getId(), $request->getPayload()->getString('_token'))) {
+            $statutOuvrage= $this->entityManager->getRepository(StatutOuvrage::class)->find(3);
+            $ouvrage=$emprunt->getOuvrage();
+            $ouvrage->setStatutOuvrage($statutOuvrage);
+            $this->entityManager->persist($ouvrage);
             $this->entityManager->remove($emprunt);
+            
             $this->entityManager->flush();
         }
-
-        return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
+        $user=$this->getUser();
+        if ($user instanceof Documentaliste){
+            return $this->redirectToRoute('emprunt_index', [], Response::HTTP_SEE_OTHER);
+        } else return $this->redirectToRoute('emprunt_mesEmpunt', [], Response::HTTP_SEE_OTHER);
+        
     }
 
     #[Route('/ouvrageTitre/{titre}', name: 'getOuvrageTitre', methods: ['GET'])]

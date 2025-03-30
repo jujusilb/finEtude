@@ -6,6 +6,7 @@ use App\Entity\CDI\Ouvrage;
 use App\Repository\CDI\OuvrageRepository;
 use App\Form\CDI\OuvrageType;
 use App\Repository\CDI\CategorieOuvrageRepository;
+use App\Entity\CDI\StatutOuvrage;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,6 +61,8 @@ class OuvrageController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $statutOuvrage =$this->entityManager->getRepository(StatutOuvrage::class)->findOneBy(['id'=>1]);
+            $ouvrage->setStatutOuvrage($statutOuvrage);
             $this->entityManager->persist($ouvrage);
             $this->entityManager->flush();
 

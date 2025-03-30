@@ -7,11 +7,11 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>date de la demande</th>
-                <th>date de l'emprunt</th>
+                <th>Date de la demande</th>
+                <th>Date de l'emprunt</th>
+                <th>Date de retour</th>
                 <th>Ouvrage</th>
                 <th>Statutt</th>
-                <th>Action</th>
                 
             </tr>
         </thead>
@@ -22,17 +22,28 @@
                     <tr>
                     <td>{{emprunt.id}}</td>
                     <td>{{ emprunt.dateDemande | date('d/m/Y') }}</td>
-                    <td>{{ emprunt.dateEmprunt | date('d/m/Y') }}</td>
+                    <td>
+                        {% if emprunt.dateEmprunt is not null %}
+                            {{ emprunt.dateEmprunt | date('d/m/Y')}}
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if emprunt.dateRetour is not null %}
+                            {{ emprunt.dateRetour | date('d/m/Y')}}
+                        {% endif %}
+                    </td>
                     <td>
                         <a href="{{ path('ouvrage_affichage', {'id': emprunt.ouvrage.id}) }}">
                             {{ emprunt.ouvrage.titre }}
                         </a>         
                     </td>
-                    <td>{{emprunt.statut.libelle}}</td>
                     <td>
-                        <a href="{{ path('emprunt_affichage', {'id': emprunt.id}) }}" class="btn btn-secondary">lire</a>
-                        <a href="{{ path('emprunt_edition', {'id': emprunt.id}) }}" class="btn btn-secondary">editer</a>
+                        {% if emprunt.statut.id == 1 %}
+                        		{{ include('CDI/emprunt/_delete_form.html.twig') }}
+                        {{emprunt.statut.libelle}}
+                        {% endif %}
                     </td>
+                    
                 </tr>
             {% endfor %}
         </tbody>
