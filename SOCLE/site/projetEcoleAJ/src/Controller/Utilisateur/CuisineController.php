@@ -9,7 +9,7 @@ use App\Repository\Utilisateur\CuisineRepository;
 use App\Entity\Boutique\MembreJeton;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -18,8 +18,18 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class CuisineController extends AbstractController
 {
 
+    protected $passwordHasher;
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ){
+        $this->entityManager = $entityManager;
+        $this->passwordHasher=$passwordHasher;
+    }
 
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(cuisineRepository $cuisineRepo): Response
     {
         return $this->render('utilisateur/cuisine/index.html.twig', [

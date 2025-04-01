@@ -31,7 +31,7 @@ class Professeur extends Personnel{
      * @var Collection<int, Programme>
      */
     #[ORM\OneToMany(targetEntity: Programme::class, mappedBy: 'professeur')]
-    private Collection $programme;
+    private Collection $programmes;
 
     /**
      * @var Collection<int, Cours>
@@ -60,7 +60,7 @@ class Professeur extends Personnel{
         parent::__construct();
         //$this->createdAt = new \DateTimeImmutable();  // Initialise la date de création
         $this->professeurMatiere = new ArrayCollection();
-        $this->programme = new ArrayCollection();
+        $this->programmes = new ArrayCollection();
         $this->Cours = new ArrayCollection();
         $this->exercices = new ArrayCollection();
         $this->notes = new ArrayCollection();
@@ -99,24 +99,24 @@ class Professeur extends Personnel{
     /**
      * @return Collection<int, Programme>
      */
-    public function getProgramme(): Collection
+    public function getProgrammes(): Collection
     {
-        return $this->programme;
+        return $this->programmes;
     }
 
-    public function addProgramme(Programme $programme): static
+    public function addProgrammes(Programme $programme): static
     {
-        if (!$this->programme->contains($programme)) {
-            $this->programme->add($programme);
+        if (!$this->programmes->contains($programme)) {
+            $this->programmes->add($programme);
             $programme->setProfesseur($this);
         }
 
         return $this;
     }
 
-    public function removeProgramme(Programme $programme): static
+    public function removeProgrammes(Programme $programme): static
     {
-        if ($this->programme->removeElement($programme)) {
+        if ($this->programmes->removeElement($programme)) {
             // set the owning side to null (unless already changed)
             if ($programme->getProfesseur() === $this) {
                 $programme->setProfesseur(null);

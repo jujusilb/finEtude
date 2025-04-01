@@ -34,10 +34,10 @@ use App\Repository\Utilisateur\SurveillantRepository;
 use App\Repository\Cantine\ViandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query\Expr\From;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -124,15 +124,15 @@ class DefaultController extends AbstractController
 
 
     #[Route('/contact', name: 'root_contact')]
-    public function contact(Request $request){
+    public function contact(EntityManagerInterface $entityManager, Request $request){
         $messageGuest = new MessageGuest();
         $form = $this->createForm(MessageGuestType::class, $messageGuest);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $messageGuest->setCreatedAt(new \DateTimeImmutable());
-            $this->entityManager->persist($messageGuest);
-            $this->entityManager->flush();
+            $entityManager->persist($messageGuest);
+            $entityManager->flush();
 
             return $this->redirectToRoute('root_accueil', [], Response::HTTP_SEE_OTHER);
         }

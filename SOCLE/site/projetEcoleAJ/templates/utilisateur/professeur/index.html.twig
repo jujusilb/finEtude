@@ -8,16 +8,11 @@
             <tr>
                 <th class="text-nowrap">Id</th>
                 <th class="text-nowrap">photo</th>
-                <th class="text-nowrap">Nom</th>
-                <th class="text-nowrap">Prenom</th>
-                <th class="text-nowrap">Username</th>
+                <th class="text-nowrap">Identité</th>
                 <th class="text-nowrap">E-mail</th>
-                <th class="text-nowrap">Jeton-reoas</th>
                 <th class="text-nowrap">Pole</th>
-                <th class="text-nowrap">Date d'Embauche</th>
                 <th class="text-nowrap">Poste</th>
-                <th class="text-nowrap">Matieres</th>
-                <th class="text-nowrap">Promotion</th>
+                <th class="text-nowrap">Enseigne</th>
                 <th class="text-nowrap">Action</th>
             </tr>
         </thead>
@@ -32,18 +27,8 @@
                         Pas de photo pour {{ professeur.prenom }} {{ professeur.nom }}
                         {% endif %}
                     </td>
-                    <td class="text-nowrap">{{ professeur.nom }}</td>
-                    <td class="text-nowrap">{{ professeur.prenom }}</td>
-                    <td class="text-nowrap">{{ professeur.username }}</td>
+                    <td class="text-nowrap">{{ professeur.prenom }} {{ professeur.nom }}</td>
                     <td class="text-nowrap">{{ professeur.email }}</td>
-                    <td class="text-nowrap">
-                        {#{{dump (professeur)}}#}
-                        {% if professeur.membreJetons.nombreJeton > 0 %}
-                            {{ professeur.membreJetons.nombreJeton }}
-                        {% else %}
-                        Jetons épuisés
-                        {% endif %}
-                    </td>
                     <td class="text-nowrap">
                         {% if professeur.poles | length > 0%}
                             {% for poles in professeur.poles %}
@@ -51,30 +36,17 @@
                             {% endfor %}
                         {% endif %}
                     </td>
-                    <td class="text-nowrap">{{ professeur.dateEmbauche | date('d/m/Y') }}</td>
                     <td class="text-nowrap">{{ professeur.poste}}</td>
                     <td class="text-nowrap">
-                        {% if professeur.ProfesseurMatiere | length > 0 %}
-                            <ul>
-                                {% for professeurMatiere in professeur.ProfesseurMatiere %}
-                                <li>
-                                        
-                                            {{ professeurMatiere.matiere.libelle }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            Aucune matiere 
-                        {% endif %}
-                    </td>
-                    <td class="text-nowrap">
-                        {% if professeur.programme | length > 0 %}
-                            {% for prog in professeur.programme %}
-                                <li>{{ prog.promotion.libelle }}</li>
+                        {% if matierePromotionsParProfesseur[professeur.id] is defined %}
+                            {% for matiere, promotions in matierePromotionsParProfesseur[professeur.id] %}
+                                {{ matiere }}
+                                <ul>
+                                    {% for promotion in promotions %}
+                                        <li>{{ promotion }}</li>
+                                    {% endfor %}
+                                </ul>
                             {% endfor %}
-                        {% else %}
-                        Aucune Promotion
                         {% endif %}
                     </td>
                     <td class="text-nowrap">

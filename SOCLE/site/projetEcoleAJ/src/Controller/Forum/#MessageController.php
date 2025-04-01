@@ -7,7 +7,7 @@ use App\Entity\Communication\Message;
 use App\Repository\Communication\MessageRepository;
 use App\Form\Communication\MessageType;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -15,7 +15,16 @@ use Doctrine\ORM\EntityManagerInterface;
 #[Route('/message', name: 'message_')]
 class MessageController extends AbstractController
 {
-    #[Route('/index', name: 'index')]
+    
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+    
+    #[Route('/', name: 'index')]
     public function index(MessageRepository $messageRepo): Response
     {
         return $this->render('forum/message/index.html.twig', [

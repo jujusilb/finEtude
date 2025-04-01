@@ -14,7 +14,7 @@ use App\Form\CDI\EmpruntType;
 use App\Repository\Utilisateur\MembreRepository;
 use App\Repository\CDI\OuvrageRepository;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,6 +24,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class EmpruntController extends AbstractController
 {
     
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/index', name: 'index')]
     public function index(
         EmpruntRepository $empruntRepo, 

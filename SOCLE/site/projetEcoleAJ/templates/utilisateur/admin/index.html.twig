@@ -8,15 +8,9 @@
             <tr>
                 <th>Id</th>
                 <th>photo</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Username</th>
+                <th>Identité</th>
                 <th>E-mail</th>
-                <th>password</th>
-                <th>JetonRepas</th>
-                <th>role</th>
-                <th>Admin</th>
-
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -30,24 +24,8 @@
                             Pas de photo pour {{ admin.prenom }} {{ admin.nom }}
                         {% endif %}
                     </td>
-                    <td>{{ admin.nom }}</td>
-                    <td>{{ admin.prenom }}</td>
-                    <td>{{ admin.username }}</th>
+                    <td>{{ admin.prenom }} {{ admin.nom }}</td>
                     <td>{{ admin.email }}</td>
-                    <td>{{ admin.password }}</td>
-                    <td>
-                        {% if admin.membreJetons.nombreJeton > 0 %}
-                            {{admin.membreJetons.nombreJeton }}
-                        {% else %}
-                        Jetons épuisés
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% for role in admin.roles %}
-                            <li>{{ role }}</li>
-                        {% endfor %}
-                    </td>
-
                     <td>
                         <a href="{{ path('admin_affichage', {'id': admin.id}) }}" class="btn btn-secondary">lire</a>
                         <a href="{{ path('admin_edition', {'id': admin.id}) }}" class="btn btn-secondary">editer</a>

@@ -8,13 +8,8 @@
             <tr>
                 <th class="text-nowrap">Id</th>
                 <th class="text-nowrap">photo</th>
-                <th class="text-nowrap">Nom</th>
-                <th class="text-nowrap">Prenom</th>
-                <th class="text-nowrap">Username</th>
+                <th class="text-nowrap">Identité</th>
                 <th class="text-nowrap">E-mail</th>
-                <th class="text-nowrap">password</th>
-                <th class="text-nowrap">JetonRepas</th>
-                <th class="text-nowrap">role</th>
                 <th class="text-nowrap">Eleve</th>
                 <th class="text-nowrap">Action</td>
             </tr>
@@ -30,24 +25,8 @@
                         Pas de photo pour {{ parentEleve.prenom }} {{ parentEleve.nom }}
                         {% endif %}
                     </td>
-                    <td>{{ parentEleve.nom }}</td>
-                    <td>{{ parentEleve.prenom }}</td>
-                    <td>{{ parentEleve.username }}</td>
+                    <td>{{ parentEleve.prenom }} {{ parentEleve.nom }}</td>
                     <td>{{ parentEleve.email }}</td>
-                    <td>{{ parentEleve.password }}</td>
-                    </td>
-                    <td>
-                        {% if parentEleve.membreJetons.nombreJeton > 0 %}
-                            {{ parentEleve.membreJetons.nombreJeton }}
-                        {% else %}
-                        Jetons épuisés
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% for role in parentEleve.roles %}
-                            <li>{{ role }}</li>
-                        {% endfor %}
-                    </td>
                     <td>
                         {% for eleve in parentEleve.eleves %}
                            <li>{{ eleve.prenom }} {{eleve.nom}}</li>

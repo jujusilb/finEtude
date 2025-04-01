@@ -4,7 +4,7 @@ namespace App\Controller\Utilisateur;
 
 use App\Repository\Utilisateur\UserRepository;
 use App\Form\Utilisateur\Pass\UserPassType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,13 +12,24 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\Utilisateur\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/user', name: 'user_')]
 final class UserController extends AbstractController
 {
+    protected $passwordHasher;
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ){
+        $this->entityManager = $entityManager;
+        $this->passwordHasher=$passwordHasher;
+    }
+    
 
-
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(): Response
     {
         return $this->render('utilisateur/user/index.html.twig', [

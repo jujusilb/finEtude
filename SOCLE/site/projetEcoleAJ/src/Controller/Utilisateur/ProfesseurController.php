@@ -12,7 +12,7 @@ use App\Repository\Utilisateur\ProfesseurRepository;
 use App\Entity\Boutique\MembreJeton;
 use App\Tests\WebTest\Pedagogie\ProfesseurMatiereRouteTest;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -21,17 +21,43 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[Route('/professeur', name: 'professeur_')]
 class ProfesseurController extends AbstractController
 {
+    protected $passwordHasher;
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ){
+        $this->entityManager = $entityManager;
+        $this->passwordHasher=$passwordHasher;
+    }
+    
 
-
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(MatiereRepository $matiereRepo, ProfesseurRepository $professeurRepo): Response
     {
-	
+        $professeurs = $professeurRepo->findAll();
+        $matieres = $matiereRepo->findAll();
+        $matierePromotionsParProfesseur = [];
+        foreach ($professeurs as $professeur) {
+            $matiere_promotions = [];
+            foreach ($professeur->getProgrammes() as $programme) {
+                $matiereLibelle = $programme->getMatiere()->getLibelle();
+                $promotionLibelle = $programme->getPromotion()->getLibelle();
+                if (!array_key_exists($matiereLibelle, $matiere_promotions)) {
+                    $matiere_promotions[$matiereLibelle] = [];
+                }
+                $matiere_promotions[$matiereLibelle][] = $promotionLibelle;
+            }
+            $matierePromotionsParProfesseur[$professeur->getId()] = $matiere_promotions;
+        }
+    
         return $this->render('utilisateur/professeur/index.html.twig', [
             'controller_name' => 'ProfesseurController',
-		    'titre' => 'Professeur',
-            'professeurs' => $professeurRepo->findAll(),
-            'matieres' => $matiereRepo->findAll(),
+            'titre' => 'Professeur',
+            'professeurs' => $professeurs,
+            'matieres' => $matieres,
+            'matierePromotionsParProfesseur' => $matierePromotionsParProfesseur,
         ]);
     }
 

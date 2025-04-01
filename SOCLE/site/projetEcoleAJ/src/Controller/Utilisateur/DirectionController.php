@@ -8,7 +8,7 @@ use App\Repository\Utilisateur\DirectionRepository;
 use App\Form\Utilisateur\DirectionType;
 use App\Entity\Boutique\MembreJeton;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,15 +18,39 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class DirectionController extends AbstractController
 {
 
-  
+    protected $passwordHasher;
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ){
+        $this->entityManager = $entityManager;
+        $this->passwordHasher=$passwordHasher;
+    }
 
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(directionRepository $directionRepo): Response
     {
+        $directions=$directionRepo->findAll();
+        $lineTitre="Id;Photo;Nom;Prenom;Username;E-mail;Nombre de Jeton;Date d'embauche;Poste\n";
+        $contenu=$lineTitre;
+        foreach($directions as $line){
+            $contenu.=$line->getId().";";
+            $contenu.=$line->getImageName().";";
+            $contenu.=$line->getNom().";";
+            $contenu.=$line->getPrenom().";";
+            $contenu.=$line->getUsername().";";
+            $contenu.=$line->getEmail().";";
+            $contenu.=$line->getMembreJetons()->getNombreJeton().";";
+            $contenu.=$line->getDateEmbauche()->format('d/m/Y').";";
+            $contenu.=$line->getPoste()."\n";
+        }
+        file_put_contents("testFichierDirection.csv", $contenu);
         return $this->render('utilisateur/direction/index.html.twig', [
             'controller_name' => 'directionController',
             'titre' => 'Direction',
-            'directions' => $directionRepo->findAll(),
+            'directions' => $directions,
         ]);
     }
 

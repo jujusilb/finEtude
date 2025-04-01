@@ -8,14 +8,10 @@
             <tr>
                 <th class="text-nowrap">Id</th>
                 <th class="text-nowrap">photo</th>
-                <th class="text-nowrap">Nom</th>
-                <th class="text-nowrap">Prenom</th>
-                <th class="text-nowrap">Username</th>
+                <th class="text-nowrap">Identité</th>
                 <th class="text-nowrap">E-mail</th>
-                <th class="text-nowrap">JetonRepas</th>
-                <th class="text-nowrap">role</th>
-                <th class="text-nowrap">Date d'Embauche</th>
                 <th class="text-nowrap">Poste</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -29,23 +25,9 @@
                         Pas de photo pour {{ surveillant.prenom }} {{ surveillant.nom }}
                         {% endif %}
                     </td>
-                    <td>{{ surveillant.nom }}</td>
-                    <td>{{ surveillant.prenom }}</td>
-                    <td>{{ surveillant.username}}
+                    <td>{{ surveillant.prenom }} {{ surveillant.nom }}</td>
                     <td>{{ surveillant.email }}</td>
-                    </td>
-                    <td>{% if surveillant.membreJetons | length > 0 %}
-                            {{surveillant.membreJetons.nombreJeton }}
-                        {% endif %}
-                    <td>
-                    <td>
-                        {% for role in surveillant.roles %}
-                            <li>{{ role }}</li>
-                        {% endfor %}
-                    </td>
-                    <td>{{ surveillant.dateEmbauche | date('d/m/Y') }}</td>
-                    <td>{{ surveillant.poste}}</td>
-                    
+                    <td>{{ surveillant.poste }}</td>
                     <td>
                         <a href="{{ path('surveillant_affichage', {'id': surveillant.id}) }}" class="btn btn-secondary">lire</a>
                         <a href="{{ path('surveillant_edition', {'id': surveillant.id}) }}" class="btn btn-secondary">editer</a>

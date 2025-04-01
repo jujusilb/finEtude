@@ -9,13 +9,22 @@ use App\Repository\Forum\SubForumRepository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/categorieForum', name: 'categorieForum_')]
 class CategorieForumController extends AbstractController
 {
+    
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+    
     #[Route('/index', name: 'index')]
     public function index(CategorieForumRepository $categorieForumRepo): Response
     {

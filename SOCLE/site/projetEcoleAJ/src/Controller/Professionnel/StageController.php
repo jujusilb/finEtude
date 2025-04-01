@@ -6,7 +6,7 @@ use App\Entity\Professionnel\Stage;
 use App\Repository\Professionnel\StageRepository;
 use App\Form\Professionnel\StageType;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,7 +15,16 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/stage', name: 'stage_')]
 class StageController extends AbstractController
 {
-    #[Route('/index', name: 'index')]
+    
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+    
+    #[Route('/', name: 'index')]
     public function index(StageRepository $stageRepo): Response
     {
 	

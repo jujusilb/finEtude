@@ -8,7 +8,7 @@ use App\Repository\Pedagogie\MatiereRepository;
 use App\Repository\Utilisateur\ProfesseurRepository;
 use App\Repository\Pedagogie\ProfesseurMatiereRepository;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,7 +16,16 @@ use Doctrine\ORM\EntityManagerInterface;
 #[Route('/professeurmatiere', name: 'professeurMatiere_')]
 class ProfesseurMatiereController extends AbstractController
 {
-    #[Route('/index', name: 'index')]
+    
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+    
+    #[Route('/', name: 'index')]
     public function index(ProfesseurMatiereRepository $professeurMatiereRepo,
                         ProfesseurRepository $professeurRepo,
                         MatiereRepository $matiereRepo): Response

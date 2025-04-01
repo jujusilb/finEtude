@@ -8,13 +8,8 @@
             <tr>
                 <th class="text-nowrap">Id</th>
                 <th class="text-nowrap">photo</th>
-                <th class="text-nowrap">Nom</th>
-                <th class="text-nowrap">Prenom</th>
-                <th class="text-nowrap">Username</th>
+                <th class="text-nowrap">Identité</th>
                 <th class="text-nowrap">E-mail</th>
-                <th class="text-nowrap">JetonRepas</th>
-                <th class="text-nowrap">role</th>
-                <th class="text-nowrap">Date d'Embauche</th>
                 <th class="text-nowrap">Poste</th>
                 <th class="text-nowrap">Action</th>
             </tr>
@@ -30,26 +25,9 @@
                         Pas de photo pour {{ insertion.prenom }} {{ insertion.nom }}
                         {% endif %}
                     </td>
-                    <td>{{ insertion.nom }}</td>
-                    <td>{{ insertion.prenom }}</td>
-                    <td>{{ insertion.username }}</td>
+                    <td>{{ insertion.prenom }} {{ insertion.nom }}</td>
                     <td>{{ insertion.email }}</td>
-                    </td>
-                    <td>
-                        {% if insertion.membreJetons.nombreJeton > 0 %}
-                            {{ insertion.membreJetons.nombreJeton }}
-                        {% else %}
-                        Jetons épuisés
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% for role in insertion.roles %}
-                            <li>{{ role }}</li>
-                        {% endfor %}
-                    </td>
-                    <td>{{ insertion.dateEmbauche | date('d/m/Y') }}</td>
                     <td>{{ insertion.poste}}</td>
-                    
                     <td>
                         <a href="{{ path('insertion_affichage', {'id': insertion.id}) }}" class="btn btn-secondary">lire</a>
                         <a href="{{ path('insertion_edition', {'id': insertion.id}) }}" class="btn btn-secondary">editer</a>

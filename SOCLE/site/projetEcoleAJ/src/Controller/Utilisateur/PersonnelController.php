@@ -5,14 +5,16 @@ namespace App\Controller\Utilisateur;
 use App\Entity\Utilisateur\Personnel;
 use App\Repository\Utilisateur\PersonnelRepository;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/personnel', name: 'personnel_')]
 class PersonnelController extends AbstractController
 {
-    #[Route('/index', name: 'index')]
+
+
+    #[Route('/', name: 'index')]
     public function index(PersonnelRepository $personnelRepo): Response
     {
 	

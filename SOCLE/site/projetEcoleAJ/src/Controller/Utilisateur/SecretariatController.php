@@ -7,19 +7,30 @@ use App\Entity\Utilisateur\Secretariat;
 use App\Repository\Utilisateur\SecretariatRepository;
 use App\Form\Utilisateur\SecretariatType;
 use App\Entity\Boutique\MembreJeton;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 #[Route('/secretariat', name: 'secretariat_')]
 class SecretariatController extends AbstractController
 {
 
+    protected $passwordHasher;
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ){
+        $this->entityManager = $entityManager;
+        $this->passwordHasher=$passwordHasher;
+    }
+    
 
-
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(SecretariatRepository $secretariatRepo): Response
     {
 	

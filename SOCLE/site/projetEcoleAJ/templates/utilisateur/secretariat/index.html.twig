@@ -8,13 +8,8 @@
             <tr>
                 <th class="text-nowrap">Id</th>
                 <th class="text-nowrap">photo</th>
-                <th class="text-nowrap">Nom</th>
-                <th class="text-nowrap">Prenom</th>
-                <th class="text-nowrap">Username</th>
+                <th class="text-nowrap">Identité</th>
                 <th class="text-nowrap">E-mail</th>
-                <th class="text-nowrap">JetonRepas</th>
-                <th class="text-nowrap">role</th>
-                <th class="text-nowrap">Date d'Embauche</th>
                 <th class="text-nowrap">Poste</th>
                 <th class="text-nowrap">Action</th> 
             </tr>
@@ -30,24 +25,8 @@
                         Pas de photo pour {{ secretariat.prenom }} {{ secretariat.nom }}
                         {% endif %}
                     </td>
-                    <td>{{ secretariat.nom }}</td>
-                    <td>{{ secretariat.prenom }}</td>
-                    <td>{{ secretariat.username }}</td>
+                    <td>{{ secretariat.prenom }} {{ secretariat.nom }}</td>
                     <td>{{ secretariat.email }}</td>
-                    <td>
-                        {#{{dump (professeur)}}#}
-                        {% if secretariat.membreJetons.nombreJeton > 0 %}
-                            {{ secretariat.membreJetons.nombreJeton }}
-                        {% else %}
-                        Jetons épuisés
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% for role in secretariat.roles %}
-                            <li>{{ role }}</li>
-                        {% endfor %}
-                    </td>
-                    <td>{{ secretariat.dateEmbauche | date('d/m/Y') }}</td>
                     <td>{{ secretariat.poste}}</td>
                     
                     <td>

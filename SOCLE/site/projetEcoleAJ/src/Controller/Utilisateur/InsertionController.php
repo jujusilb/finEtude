@@ -8,7 +8,7 @@ use App\Repository\Utilisateur\InsertionRepository;
 use App\Form\Utilisateur\InsertionType;
 use App\Entity\Boutique\MembreJeton;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -18,9 +18,18 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class InsertionController extends AbstractController
 {
 
+    protected $passwordHasher;
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ){
+        $this->entityManager = $entityManager;
+        $this->passwordHasher=$passwordHasher;
+    }
 
-
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(InsertionRepository $insertionRepo): Response
     {
 	

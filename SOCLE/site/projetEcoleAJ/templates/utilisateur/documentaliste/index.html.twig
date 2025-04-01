@@ -8,13 +8,8 @@
             <tr>
                 <th class="text-nowrap">Id</th>
                 <th class="text-nowrap">photo</th>
-                <th class="text-nowrap">Nom</th>
-                <th class="text-nowrap">Prenom</th>
-                <th class="text-nowrap">Usernaùe</th>
+                <th class="text-nowrap">Identité</th>
                 <th class="text-nowrap">E-mail</th>
-                <th class="text-nowrap">JetonRepas</th>
-                <th class="text-nowrap">role</th>
-                <th class="text-nowrap">Date d'Embauche</th>
                 <th class="text-nowrap">Poste</th>
                 <th class="text-nowrap">Action</th>
             </tr>
@@ -30,23 +25,8 @@
                         Pas de photo pour {{ documentaliste.prenom }} {{ documentaliste.nom }}
                         {% endif %}
                     </td>
-                    <td>{{ documentaliste.nom }}</td>
-                    <td>{{ documentaliste.prenom }}</td>
-                    <td>{{ documentaliste.username }}</td>
+                    <td>{{ documentaliste.prenom }} {{ documentaliste.nom }}</td>
                     <td>{{ documentaliste.email }}</td>
-                    <td>
-                        {% if documentaliste.membreJetons.nombreJeton > 0 %}
-                            {{documentaliste.membreJetons.nombreJeton }}
-                        {% else %}
-                        Jetons épuisés
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% for role in documentaliste.roles %}
-                            <li>{{ role }}</li>
-                        {% endfor %}
-                    </td>
-                    <td>{{ documentaliste.dateEmbauche | date('d/m/Y') }}</td>
                     <td>{{ documentaliste.poste}}</td>
                     <td>
                         <a href="{{ path('documentaliste_affichage', {'id': documentaliste.id}) }}" class="btn btn-secondary">lire</a>

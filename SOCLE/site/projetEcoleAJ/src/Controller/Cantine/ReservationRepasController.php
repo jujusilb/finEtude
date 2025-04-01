@@ -10,7 +10,7 @@ use App\Entity\Cantine\ReservationRepas;
 use App\Repository\Cantine\ReservationRepasRepository;
 use App\Form\Cantine\ReservationRepasType;
 use DateTimeImmutable;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,6 +19,15 @@ use Doctrine\ORM\EntityManagerInterface;
 #[Route('/reservationRepas', name: 'reservationRepas_')]
 class ReservationRepasController extends AbstractController
 {
+    
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+
     #[Route('/index', name: 'index')]
     public function index(ReservationRepasRepository $reservationRepasRepo): Response
     {

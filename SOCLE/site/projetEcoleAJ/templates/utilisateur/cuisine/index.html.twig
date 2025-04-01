@@ -8,13 +8,8 @@
             <tr>
                 <th class="text-nowrap">Id</th>
                 <th class="text-nowrap">photo</th>
-                <th class="text-nowrap">Nom</th>
-                <th class="text-nowrap">Prenom</th>
-                <th class="text-nowrap">Username</th>
+                <th class="text-nowrap">Identitré</th>
                 <th class="text-nowrap">E-mail</th>
-                <th class="text-nowrap">JetonRepas</th>
-                <th class="text-nowrap">role</th>
-                <th class="text-nowrap">Date d'Embauche</th>
                 <th class="text-nowrap">Poste</th>
                 <th class="text-nowrap">Action</td>
             </tr>
@@ -30,23 +25,8 @@
                         Pas de photo pour {{ cuisine.prenom }} {{ cuisine.nom }}
                         {% endif %}
                     </td>
-                    <td>{{ cuisine.nom }}</td>
-                    <td>{{ cuisine.prenom }}</td>
-                    <td>{{ cuisine.username }}</td>
+                    <td>{{ cuisine.prenom }} {{ cuisine.nom }}</td>
                     <td>{{ cuisine.email }}</td>
-                    <td>
-                        {% if cuisine.membreJetons.nombreJeton > 0 %}
-                            {{ cuisine.membreJetons.nombreJeton }}
-                        {% else %}
-                        Jetons épuisés
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% for role in cuisine.roles %}
-                            <li>{{ role }}</li>
-                        {% endfor %}
-                    </td>
-                    <td>{{ cuisine.dateEmbauche | date('d/m/Y') }}</td>
                     <td>{{ cuisine.poste}}</td>
                     <td>
                         <a href="{{ path('cuisine_affichage', {'id': cuisine.id}) }}" class="btn btn-secondary">lire</a>

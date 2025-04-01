@@ -10,7 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Pedagogie\Cours;
 use App\Repository\Pedagogie\CoursRepository;
 use App\Form\Pedagogie\CoursType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -19,7 +19,16 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/cours', name: 'cours_')]
 class CoursController extends AbstractController
 {
-    #[Route('/index', name: 'index')]
+    
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+    
+    #[Route('/', name: 'index')]
     public function index(CoursRepository $coursRepo): Response
     {
 	
@@ -69,10 +78,12 @@ class CoursController extends AbstractController
                         $this->addFlash('error', 'Erreur lors du téléchargement du fichier.');
                     }
                 }
-            }
-            $this->entityManager->persist($cours);
+                            $this->entityManager->persist($cours);
             $this->entityManager->flush();
             return $this->redirectToRoute('cours_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+           
             return $this->render('pedagogie/cours/new.html.twig', [
                 'cours' => $cours,
                 'titre' => 'Nouveau Cours',

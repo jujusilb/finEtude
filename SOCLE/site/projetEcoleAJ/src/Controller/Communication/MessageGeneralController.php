@@ -8,7 +8,7 @@
     use App\Form\Communication\MessageGeneralType;
     use DateTimeImmutable;
     use Doctrine\ORM\EntityManagerInterface;
-    use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+    ;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Routing\Attribute\Route;
@@ -16,6 +16,15 @@
     #[Route('/messageGeneral', name: 'messageGeneral_')]
     class MessageGeneralController extends AbstractController
     {
+        
+        protected $entityManager;
+    
+        function __construct(
+            EntityManagerInterface $entityManager,
+        ){
+            $this->entityManager = $entityManager;
+        }
+
         #[Route('/index', name: 'index')]
         public function index(MessageGeneralRepository $messageGeneralRepo): Response
         {

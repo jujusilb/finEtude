@@ -6,7 +6,7 @@ use App\Entity\Utilisateur\Adulte;
 
 use App\Repository\Utilisateur\AdulteRepository;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 

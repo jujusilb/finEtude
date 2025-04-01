@@ -9,7 +9,7 @@ use App\Entity\Boutique\MembreJeton;
 use App\Outils\CouteauSuisse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -20,8 +20,18 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class MembreController extends AbstractController
 {
 
+    protected $passwordHasher;
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+        UserPasswordHasherInterface $passwordHasher
+    ){
+        $this->entityManager = $entityManager;
+        $this->passwordHasher=$passwordHasher;
+    }
 
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(MembreRepository $membreRepo): Response
     {
         return $this->render('utilisateur/membre/index.html.twig', [

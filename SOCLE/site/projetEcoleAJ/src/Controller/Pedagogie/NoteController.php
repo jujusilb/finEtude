@@ -8,7 +8,7 @@ use App\Form\Pedagogie\NoteType;
 use App\Entity\Utilisateur\Professeur;
 use App\Repository\Pedagogie\MatiereRepository;
 use DateTimeImmutable;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,7 +18,15 @@ use Symfony\Component\Routing\Attribute\Route;
 class NoteController extends AbstractController
 {
 
-    #[Route('/index', name: 'index')]
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+
+    #[Route('/', name: 'index')]
     public function index(MatiereRepository $matiereRepo, NoteRepository $noteRepo) : Response
     {
 

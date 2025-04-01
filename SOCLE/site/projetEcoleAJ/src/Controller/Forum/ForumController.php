@@ -12,7 +12,7 @@ use App\Repository\Utilisateur\MembreRepository;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -20,8 +20,15 @@ use Symfony\Component\Routing\Attribute\Route;
 class ForumController extends AbstractController
 {
     
+    protected $entityManager;
     
-    #[Route('/index', name: 'index')]
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+    
+    #[Route('/', name: 'index')]
     public function index(forumRepository $forumRepo)
     {
         $user=$this->getUser();

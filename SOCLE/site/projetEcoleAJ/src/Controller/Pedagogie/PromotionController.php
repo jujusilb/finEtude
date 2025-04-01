@@ -12,7 +12,7 @@ use App\Repository\Utilisateur\EleveRepository;
 use App\Entity\Pedagogie\Matiere;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -20,7 +20,15 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/promotion', name: 'promotion_')]
 class PromotionController extends AbstractController
 {
-    #[Route('/index', name: 'index')]
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+    
+    #[Route('/', name: 'index')]
     public function index(
         PromotionRepository $promotionRepo, 
         EleveRepository $eleveRepo,

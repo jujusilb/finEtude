@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Controller\CDI;
-
+;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\CDI\Ouvrage;
 use App\Repository\CDI\OuvrageRepository;
 use App\Form\CDI\OuvrageType;
 use App\Repository\CDI\CategorieOuvrageRepository;
 use App\Entity\CDI\StatutOuvrage;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,7 +15,16 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/ouvrage', name: 'ouvrage_')]
 class OuvrageController extends AbstractController
 {
-    #[Route('/index', name: 'index')]
+    
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+    
+    #[Route('/', name: 'index')]
     public function index(CategorieOuvrageRepository $categorieOuvrageRepo, OuvrageRepository $ouvrageRepo): Response
     {
 	
