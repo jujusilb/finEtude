@@ -25,7 +25,7 @@
             $this->entityManager = $entityManager;
         }
 
-        #[Route('/index', name: 'index')]
+        #[Route('/', name: 'index')]
         public function index(MessageGeneralRepository $messageGeneralRepo): Response
         {
             return $this->render('communication/message_general/index.html.twig', [

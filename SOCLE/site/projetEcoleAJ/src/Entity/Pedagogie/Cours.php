@@ -51,7 +51,7 @@ class Cours
      * @var Collection<int, Promotion>
      */
     #[ORM\ManyToMany(targetEntity: Promotion::class, inversedBy: 'cours')]
-    private Collection $promotion;
+    private Collection $promotions;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
@@ -61,7 +61,7 @@ class Cours
 
     public function __construct()
     {
-        $this->promotion = new ArrayCollection();
+        $this->promotions = new ArrayCollection();
         $this->createdAt = new DateTimeImmutable();
     }
 
@@ -141,23 +141,20 @@ class Cours
     /**
      * @return Collection<int, Promotion>
      */
-    public function getPromotion(): Collection
-    {
-        return $this->promotion;
+    public function getPromotions(): Collection {
+        return $this->promotions;
     }
 
-    public function addPromotion(Promotion $promotion): static
-    {
-        if (!$this->promotion->contains($promotion)) {
-            $this->promotion->add($promotion);
+    public function addPromotion(Promotion $promotion): static {
+        if (!$this->promotions->contains($promotion)) {
+            $this->promotions->add($promotion);
         }
-
         return $this;
     }
 
     public function removePromotion(Promotion $promotion): static
     {
-        $this->promotion->removeElement($promotion);
+        $this->promotions->removeElement($promotion);
 
         return $this;
     }

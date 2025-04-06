@@ -1169,7 +1169,6 @@ INSERT INTO `professeur_matiere` (`professeur_id`, `matiere_id`) VALUES
 (14, 12),
 (18, 6),
 (19, 11),
-(20, 1),
 (25, 13);
 
 
@@ -1330,21 +1329,23 @@ INSERT INTO `personnel_pole` (`personnel_id`, `pole_id`) VALUES
 (74, 3);
 
 INSERT INTO `cours` (`id`, `professeur_id`, `matiere_id`, `libelle`, `fichier`, `created_at`, `updated_at`) VALUES
-(1, 2, 3, 'cours1', '111.pdf', '2025-03-20', NULL),
-(2, 2, 3, 'cours1', '112.pdf', '2025-03-20', NULL),
-(3, 3, 5, 'cours1', '113.pdf', '2025-03-21', NULL),
-(4, 3, 5, 'cours1', '121.pdf', '2025-03-21', NULL),
-(5, 5, 4, 'cours1', '122.pdf', '2025-03-22', NULL),
-(6, 5, 4, 'cours1', '123.pdf', '2025-03-22', NULL),
-(7, 5, 4, 'cours1', '131.pdf', '2025-03-23', NULL),
-(8, 14, 7, 'cours1', '132.pdf', '2025-03-23', NULL),
-(9, 14, 7, 'cours1', '133.pdf', '2025-03-24', NULL),
-(10, 18, 7, 'cours1', '211.pdf', '2025-03-24', NULL),
-(11, 18, 7, 'cours1', '212.pdf', '2025-03-25', NULL),
-(12, 18, 6, 'cours1', '213.pdf', '2025-03-25', NULL),
-(13, 19, 4, 'cours1', '221.pdf', '2025-03-26', NULL),
-(14, 20, 1, 'cours1', '222.pdf', '2025-03-26', NULL),
-(15, 20, 1, 'cours1', '223.pdf', '2025-03-27', NULL);
+(1, 2, 3, 'cours01', '111.pdf', '2025-03-20', NULL),
+(2, 2, 3, 'cours02', '112.pdf', '2025-03-20', NULL),
+(3, 3, 5, 'cours03', '113.pdf', '2025-03-21', NULL),
+(4, 3, 5, 'cours04', '121.pdf', '2025-03-21', NULL),
+(5, 5, 4, 'cours05', '122.pdf', '2025-03-22', NULL),
+(6, 5, 4, 'cours06', '123.pdf', '2025-03-22', NULL),
+(7, 5, 4, 'cours07', '131.pdf', '2025-03-23', NULL),
+(8, 14, 7, 'cours08', '132.pdf', '2025-03-23', NULL),
+(9, 14, 7, 'cours09', '133.pdf', '2025-03-24', NULL),
+(10, 18, 7, 'cours10', '211.pdf', '2025-03-24', NULL),
+(11, 18, 7, 'cours11', '212.pdf', '2025-03-25', NULL),
+(12, 18, 6, 'cours12', '213.pdf', '2025-03-25', NULL),
+(13, 19, 4, 'cours13', '221.pdf', '2025-03-26', NULL),
+(14, 20, 1, 'cours14', '222.pdf', '2025-03-26', NULL),
+(15, 20, 1, 'cours15', '223.pdf', '2025-03-27', NULL),
+(16, 3, 5, 'cours16', '223.pdf', '2025-03-28', NULL),
+(17, 3, 5,'cours17', '223.pdf', '2025-03-30', NULL);
 
 INSERT INTO `cours_promotion` (`cours_id`, `promotion_id`) VALUES
 (1, 7),
@@ -1367,5 +1368,8 @@ INSERT INTO `cours_promotion` (`cours_id`, `promotion_id`) VALUES
 (13, 3),
 (14, 6),
 (14, 7),
-(15, 2);
+(15, 2),
+(16, 4),
+(16, 5),
+(17, 4);
 

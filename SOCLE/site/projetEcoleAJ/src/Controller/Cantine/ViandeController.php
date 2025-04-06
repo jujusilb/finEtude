@@ -24,7 +24,7 @@ class ViandeController extends AbstractController
         $this->entityManager = $entityManager;
     }
     
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(ViandeRepository $viandeRepo): Response
     {
 	

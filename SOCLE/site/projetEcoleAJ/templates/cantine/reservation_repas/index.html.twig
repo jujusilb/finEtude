@@ -19,9 +19,11 @@
                     <td>{{reservationRepas.id}}</td>
                     <td>{{ reservationRepas.dateAchat | date('d/m/Y') }}</td>
                     <td>
-                        <a href="{{path('membre_affichage', {'id': reservationRepas.membre.id})}}">
-                            {{ reservationRepas.membre.prenom}} {{ reservationRepas.membre.nom}}
-                        </a>
+                        {% if  reservationRepas.membre | length > 0%}
+                            <a href="{{path('membre_affichage', {'id': reservationRepas.membre.id})}}">
+                                {{ reservationRepas.membre.prenom}} {{ reservationRepas.membre.nom}}
+                            </a>
+                        {% endif %}
                     </td>
                     <td>
                         <a href="{{path('repas_affichage', {'id':reservationRepas.repas.id})}}">

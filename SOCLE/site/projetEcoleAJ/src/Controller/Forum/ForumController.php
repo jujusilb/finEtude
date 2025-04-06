@@ -15,21 +15,19 @@ use Symfony\Component\HttpFoundation\Request;
 ;use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 #[Route('/forum', name: 'forum_')]
 class ForumController extends AbstractController
 {
     
     protected $entityManager;
-    
-    function __construct(
-        EntityManagerInterface $entityManager,
-    ){
+    function __construct(EntityManagerInterface $entityManager){
         $this->entityManager = $entityManager;
     }
     
     #[Route('/', name: 'index')]
-    public function index(forumRepository $forumRepo)
+    public function index(forumRepository $forumRepo, AuthorizationCheckerInterface $authChecker)
     {
         $user=$this->getUser();
         if ($user instanceof Membre){
@@ -40,12 +38,11 @@ class ForumController extends AbstractController
                 $userRoles = $user->getRoles();
                 $allForums = $forumRepo->findAll();
                 $accessibleForums = [];
-
                 foreach ($allForums as $forum) {
                     $forumRoles = $forum->getRole();
-                    foreach($userRoles as $key){
-                        if (array_intersect($userRoles, $forumRoles)) {
-                            $accessibleForums[] = $forum;
+                    foreach($userRoles as $role){
+                        if ($authChecker->isGranted($role)) {
+                            array_push($accessibleForums, $forum);
                             break;
                         }
                     }

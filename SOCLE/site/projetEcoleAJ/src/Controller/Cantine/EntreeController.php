@@ -23,7 +23,7 @@ class EntreeController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(EntreeRepository $entreeRepo): Response
     {
 	

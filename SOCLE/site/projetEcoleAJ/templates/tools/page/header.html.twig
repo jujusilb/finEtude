@@ -12,5 +12,13 @@
 }
 </style>
 <div class="header">
-<div class="text">{{ titre }}</div>
+<nav class="row">
+        {% if app.user %}
+            <a href="" class="btn"> {{ app.user.membreJetons.nombreJeton }} </a>
+            <li> boutique </li>
+            <li> Messagerie </li>
+            <li> Username </li>
+        {% endif %}
+        <li>Se connecter </li>
+    </nav>
 </div>

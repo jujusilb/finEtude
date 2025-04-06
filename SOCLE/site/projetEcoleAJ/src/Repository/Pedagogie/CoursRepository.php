@@ -19,14 +19,12 @@ class CoursRepository extends ServiceEntityRepository
   /**
  * @return Cours[] Returns an array of Cours objects
  */
-public function getCoursByPromotionAndMatiere($promotionId, $matiereId): array
+public function CoursPromo($promotionId): array
 {
     return $this->createQueryBuilder('cours')
-        ->join('cours.promotion', 'promotion')
+        ->join('cours.promotions', 'promotion')
         ->where('promotion.id = :promotionId')
-        ->andWhere('cours.matiere = :matiereId')
         ->setParameter('promotionId', $promotionId)
-        ->setParameter('matiereId', $matiereId)
         ->orderBy('cours.id', 'ASC')
         ->getQuery()
         ->getResult();

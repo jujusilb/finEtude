@@ -2,7 +2,8 @@ when@dev:
     web_profiler:
         toolbar: true
         intercept_redirects: false
-
+    webpack_encore:
+        output_path: '%kernel.project_dir%/public/build'
     framework:
         profiler:
             only_exceptions: false

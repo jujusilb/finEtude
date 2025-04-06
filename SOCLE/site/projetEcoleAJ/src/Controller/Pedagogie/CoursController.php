@@ -4,7 +4,9 @@ namespace App\Controller\Pedagogie;;
 
 use App\Entity\Utilisateur\Membre;
 use App\Entity\Utilisateur\Eleve;
+use App\Entity\Pedagogie\Matiere;
 use App\Entity\Utilisateur\Professeur;
+use App\Entity\Pedagogie\Promotion;
 use App\Repository\Utilisateur\MembreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Pedagogie\Cours;
@@ -39,21 +41,6 @@ class CoursController extends AbstractController
         ]);
     }
 
-    #[Route('/matiere/{matiere}', name: 'matiere', methods:['GET'])]
-    public function listePromotion(CoursRepository $coursRepo, $matiere): Response
-    {
-        $user=$this->getUser();
-        if($user instanceof Eleve){
-             $cours=$coursRepo->getCoursByPromotionAndMatiere($user->getPromotion(), $matiere);
-        }
-       
-        return $this->render('Pedagogie/Cours/matiere.html.twig', [
-            'controller_name' => 'CoursController',
-		    'titre' => 'Cours',
-            'courss' => $cours,
-        ]);
-    }
-    
     #[Route('/nouveau', name: 'nouveau', methods: ['GET', 'POST'])]
     public function new (MembreRepository $membreRepo, Request $request): Response
     {
@@ -99,6 +86,54 @@ class CoursController extends AbstractController
             'cours' => $cours,
             'titre' => 'Affichage Cours',
             ]);
+    }
+
+
+    #[Route('/{matiere}/matPromo', name: 'matPromo', methods:['GET'])]
+    public function listePromotion(CoursRepository $coursRepo, $matiere): Response
+    {
+        $user=$this->getUser();
+        if($user instanceof Eleve){
+            $mat=$this->entityManager->getRepository(Matiere::class)->find($matiere);
+            $cours=[];
+            $promotionId=$user->getPromotion()->getId();
+            $tabCoursPromos=$coursRepo->coursPromo($promotionId);
+            //dd($tabCoursPromos);
+            foreach($tabCoursPromos as $tabCoursPromo){
+                if($tabCoursPromo->getMatiere() == $mat){
+                    array_push($cours, $tabCoursPromo);
+                }
+            }
+        return $this->render('Pedagogie/Cours/coursEleve.html.twig', [
+            'controller_name' => 'CoursController',
+		    'titre' => 'Cours',
+            'courss' => $cours,
+        ]);
+
+        } else return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
+    }
+    
+
+
+    #[Route('/{promotion}/prof', name: 'promoProf', methods: ['GET', 'POST'])]
+    public function coursByProf(CoursRepository  $coursRepo, Promotion $promotion): Response
+    {
+    $user=$this->getUser();
+        if ($user instanceof Professeur){
+            $cours=[];
+            $coursByProfs=$coursRepo->findBy(['professeur'=>$user]);
+            
+            foreach($coursByProfs as $coursByProf){
+                $tabPromo = $coursByProf->getPromotions()->toArray();
+                if(in_array($promotion, $tabPromo)){
+                    array_push($cours, $coursByProf);
+                }
+            }
+            return $this->render('pedagogie/cours/coursProf.html.twig', [
+                'courss' => $cours,
+                'titre' => 'Affichage Cours',
+                ]);
+        }else return $this->redirectToRoute('app_login', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/edit', name: 'edition', methods: ['GET', 'POST'])]

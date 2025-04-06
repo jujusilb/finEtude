@@ -1,0 +1,31 @@
+couleur menu
+actualité forum
+menu du jour
+couleur bouton primaire
+achat (recherche)
+noùmbre de jeton
+liste des menus (reservation) afficher le nombre de personne plutôt que la liste
+plutôt des card que des tableau
+
+lorsque l'on reserve ou achete, notification de confirmation
+notification de delai (emprunt)
+par default emprunt demandé déjà ouvert
+verifier fleche sur le menu
+detail sur les aliments (alergene)
+
+si il n'ya rien de plus, supprimer le bouton detail
+
+verifier "index"
+
+verifier faute d'orthographe
+
+
+page de connexion
+code couleur demandé/disponible
+
+zone de Recherche dans les ouvrages
+
+liste d'attente
+
+auteur dans ouvrage
+

@@ -25,7 +25,7 @@ class CategorieForumController extends AbstractController
         $this->entityManager = $entityManager;
     }
     
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(CategorieForumRepository $categorieForumRepo): Response
     {
         return $this->render('forum/categorie_forum/index.html.twig', [

@@ -26,7 +26,7 @@ class DessertController extends AbstractController
     }
 
 
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(DessertRepository $dessertRepo): Response
     {
 	

@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/RemplirExo', name: 'RemplirExo_')]
 class RemplirExoController extends AbstractController
 {
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(RemplirExoRepository $remplirExoRepo): Response
     {
 	

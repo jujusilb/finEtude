@@ -32,7 +32,7 @@ class MenuController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
-    #[Route('/index', name: 'index')]
+    #[Route('/', name: 'index')]
     public function index(MenuRepository $menuRepo): Response
     {
 	

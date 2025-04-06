@@ -24,7 +24,15 @@ use Symfony\Component\Routing\Attribute\Route;
 final class BoutiqueController extends AbstractController
 {
 
-    #[Route('/index', name: 'index')]
+    protected $entityManager;
+    
+    function __construct(
+        EntityManagerInterface $entityManager,
+    ){
+        $this->entityManager = $entityManager;
+    }
+
+    #[Route('/', name: 'index')]
     public function index(): Response
     {
         return $this->render('boutique/boutique/index.html.twig', [

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des cours!{% endblock %}
+
+{% block body %}
+ <h1>{{ titre }}</h1>
+        <div class="row">
+            {% for cours in courss %}
+                <div class="col-sm">
+                    <div class="card w-70 rounded-pill" 
+                        <h6 class="text-center">
+                            {{ cours.createdAt | date('d/m/Y') }}<br>
+                            {% for promo in cours.promotions %}
+                                {{ promo.libelle}}
+                            {% endfor %}
+                        </h6>   
+                        <h5>{{cours.libelle}}</h5>
+                        <h4>
+                            <embed data="{{asset('uploads/'~cours.fichier)}}" type="application/pdf" width="40px" height="60px">
+                                <p>    
+                                    Your browser does not support PDF viewing. <a href="{{asset('uploads/'~cours.fichier)}}">Download the PDF</a>.
+                                </p>
+                            </embed >
+                        </h4>
+                        <a href="{{ path('cours_affichage', {'id': cours.id}) }}" style="z-index:0;" class="btn btn-secondary">lire</a>
+                        <a href="{{ path('cours_edition', {'id': cours.id}) }}" class="btn btn-secondary">editer</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    <a href="{{ path('cours_nouveau') }}" class="btn" >Creer Nouveau Cours</a>
+
+{% endblock %}

@@ -1,15 +1,52 @@
 vich_uploader:
     db_driver: orm
-
-
     mappings:
-        membre:
-            uri_prefix: /_images/membre
-            upload_destination: '%kernel.project_dir%/public/_images/membre'
-            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
-
-    
     #    products:
     #        uri_prefix: /images/products
     #        upload_destination: '%kernel.project_dir%/public/images/products'
     #        namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        admin:
+            uri_prefix: /_images/utilisateur/admin
+            upload_destination: '%kernel.project_dir%/public/utilisateur/admin'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        cuisine:
+            uri_prefix: /_images/utilisateur/cuisine
+            upload_destination: '%kernel.project_dir%/public/utilisateur/cuisine'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        direction:
+            uri_prefix: /_images/utilisateur/direction
+            upload_destination: '%kernel.project_dir%/public/utilisateur/direction'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        documentaliste:
+            uri_prefix: /_images/utilisateur/documentaliste
+            upload_destination: '%kernel.project_dir%/public/utilisateur/documentaliste'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        eleve:
+            uri_prefix: /_images/utilisateur/eleve
+            upload_destination: '%kernel.project_dir%/public/utilisateur/eleve'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        insertion:
+            uri_prefix: /_images/utilisateur/insertion
+            upload_destination: '%kernel.project_dir%/public/utilisateur/insertion'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        membre:
+            uri_prefix: /_images/utilisateur/membre
+            upload_destination: '%kernel.project_dir%/public/utilisateur/membre'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        parentEleve:
+            uri_prefix: /_images/utilisateur/parentEleve
+            upload_destination: '%kernel.project_dir%/public/utilisateur/parentEleve'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        professeur:
+            uri_prefix: /_images/utilisateur/professeur
+            upload_destination: '%kernel.project_dir%/public/utilisateur/professeur'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        secretariat:
+            uri_prefix: /_images/utilisateur/secretariat
+            upload_destination: '%kernel.project_dir%/public/utilisateur/secretariat'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+        surveillant:
+            uri_prefix: /_images/utilisateur/surveillant
+            upload_destination: '%kernel.project_dir%/public/utilisateur/surveillant'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            

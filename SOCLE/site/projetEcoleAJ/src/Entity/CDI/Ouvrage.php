@@ -47,13 +47,13 @@ class Ouvrage
      * @var Collection<int, Auteur>
      */
     #[ORM\ManyToMany(targetEntity: Auteur::class, inversedBy: 'ouvrages')]
-    private Collection $auteur;
+    private Collection $auteurs;
 
     public function __construct()
     {
         $this->emprunts = new ArrayCollection();
         $this->categorieOuvrages = new ArrayCollection();
-        $this->auteur = new ArrayCollection();
+        $this->auteurs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -141,15 +141,15 @@ class Ouvrage
     /**
      * @return Collection<int, Auteur>
      */
-    public function getAuteur(): Collection
+    public function getAuteurs(): Collection
     {
-        return $this->auteur;
+        return $this->auteurs;
     }
 
     public function addAuteur(Auteur $auteur): static
     {
-        if (!$this->auteur->contains($auteur)) {
-            $this->auteur->add($auteur);
+        if (!$this->auteurs->contains($auteur)) {
+            $this->auteurs->add($auteur);
         }
 
         return $this;
@@ -157,7 +157,7 @@ class Ouvrage
 
     public function removeAuteur(Auteur $auteur): static
     {
-        $this->auteur->removeElement($auteur);
+        $this->auteurs->removeElement($auteur);
 
         return $this;
     }
